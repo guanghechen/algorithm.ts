@@ -21,7 +21,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/knuth-shuffle"
+        src="https://img.shields.io/node/v/@algorithm.ts/knuth-shuffle"
       />
     </a>
     <a href="https://github.com/guanghechen/algorithm.ts/actions/workflows/ci.yml">
@@ -54,7 +54,7 @@ Typescript.
 
 Package                               | Description
 :------------------------------------:|:--------------------------
-[@guanghechen/knuth-shuffle][]        | A typescript implementation of the Knuth-Shuffle algorithm.
+[@algorithm.ts/knuth-shuffle][]        | A typescript implementation of the Knuth-Shuffle algorithm.
 
 
 ## License
@@ -63,4 +63,4 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 
 
 [homepage]: https://github.com/guanghechen/algorithm.ts
-[@guanghechen/knuth-shuffle]: ./packages/knuth-shuffle
+[@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle

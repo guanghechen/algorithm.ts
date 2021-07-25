@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/knuth-shuffle#readme">@guanghechen/knuth-shuffle</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/knuth-shuffle#readme">@algorithm.ts/knuth-shuffle</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@guanghechen/knuth-shuffle">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/knuth-shuffle">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@guanghechen/knuth-shuffle.svg"
+        src="https://img.shields.io/npm/v/@algorithm.ts/knuth-shuffle.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/knuth-shuffle">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/knuth-shuffle">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@guanghechen/knuth-shuffle.svg"
+        src="https://img.shields.io/npm/dm/@algorithm.ts/knuth-shuffle.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@guanghechen/knuth-shuffle">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/knuth-shuffle">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@guanghechen/knuth-shuffle.svg"
+        src="https://img.shields.io/npm/l/@algorithm.ts/knuth-shuffle.svg"
       />
     </a>
     <a href="#install">
@@ -30,7 +30,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@guanghechen/knuth-shuffle"
+        src="https://img.shields.io/node/v/@algorithm.ts/knuth-shuffle"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -63,13 +63,13 @@ If you are interested in this algorithm, you can check [here][knuth-shuffle].
 * npm
 
   ```bash
-  npm install --save @guanghechen/knuth-shuffle
+  npm install --save @algorithm.ts/knuth-shuffle
   ```
 
 * yarn
 
   ```bash
-  yarn add @guanghechen/knuth-shuffle
+  yarn add @algorithm.ts/knuth-shuffle
   ```
 
 ## Usage
@@ -77,7 +77,7 @@ If you are interested in this algorithm, you can check [here][knuth-shuffle].
 * Shuffle nums.
 
   ```typescript
-  import knuthShuffle from '@guanghechen/knuth-shuffle'
+  import knuthShuffle from '@algorithm.ts/knuth-shuffle'
 
   knuthShuffle([1, 2, 3, 4, 5])
   ```
@@ -85,7 +85,7 @@ If you are interested in this algorithm, you can check [here][knuth-shuffle].
 * Shuffle complex data nodes.
 
   ```typescript
-  import knuthShuffle from '@guanghechen/knuth-shuffle'
+  import knuthShuffle from '@algorithm.ts/knuth-shuffle'
 
   interface Node {
     name: string
@@ -93,7 +93,11 @@ If you are interested in this algorithm, you can check [here][knuth-shuffle].
     age: number
   }
 
-  const nodes: Node[] = [/*... omit ...*/]
+  const nodes: Node[] = [
+    { name: 'alice', email: 'alice@gmail.com', age: 40 },
+    /*... omit ...*/
+    { name: 'bob', email: 'lob@gmail.com', age: 40 },
+  ]
   knuthShuffle(nodes)
   ```
 
