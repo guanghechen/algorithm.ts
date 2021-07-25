@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.0.1"></a>
+## 1.0.1 (2021-07-25)
+
+### Changed
+
+- ♿ improve(knuth-shuffle): add default export [[f098256](https://github.com/guanghechen/algorithm.ts/commit/f09825685e381e2196031dda7bf0257700848306)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[c00749b](https://github.com/guanghechen/algorithm.ts/commit/c00749bc24ff7293ac46136758dd265a62d2366d)]
+- 📝 docs: add CHANGELOG [[c946120](https://github.com/guanghechen/algorithm.ts/commit/c946120cc8620ec19de1456730f17b1d7f97341b)]
+
+
 <a name="1.0.0"></a>
 ## 1.0.0 (2021-07-25)
 
