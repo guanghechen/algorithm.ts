@@ -10,7 +10,7 @@
       "message": ":bookmark:  release: publish %s",
       "push": false,
       "private": false,
-      "forcePublish": true
+      "forcePublish": false
     },
     "version": {
       "allowBranch": "main",
