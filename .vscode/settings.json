@@ -3,8 +3,10 @@
     "Parens",
     "gitmoji",
     "guanghechen",
+    "nums",
     "pinst",
-    "postpublish"
+    "postpublish",
+    "prebuild"
   ],
   "files.associations": {
     ".prettierrc": "yaml"

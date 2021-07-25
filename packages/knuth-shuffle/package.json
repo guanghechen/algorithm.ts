@@ -1,0 +1,51 @@
+{
+  "name": "@guanghechen/knuth-shuffle",
+  "version": "0.0.0",
+  "description": "Knuth shuffle",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/algorithm.ts.git",
+    "directory": "packages/knuth-shuffle"
+  },
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/main/packages/knuth-shuffle#readme",
+  "keywords": [
+    "algorithm",
+    "shuffle",
+    "knuth shuffle"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
+  },
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "dayjs": "^1.10.5",
+    "fs-extra": "^10.0.0"
+  },
+  "devDependencies": {
+    "@guanghechen/rollup-config": "^1.8.0"
+  }
+}

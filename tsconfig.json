@@ -5,6 +5,7 @@
     "module": "CommonJS",
     "sourceMap": true,
     "paths": {
+      "@guanghechen/knuth-shuffle": ["packages/knuth-shuffle"],
       "jest.setup": ["jest.setup.ts"]
     }
   },
