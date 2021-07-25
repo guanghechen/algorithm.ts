@@ -13,3 +13,5 @@ export function knuthShuffle<T extends unknown = unknown>(nodes: T[]): void {
     nodes[j] = x
   }
 }
+
+export default knuthShuffle
