@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.settings.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "CommonJS",
+    "sourceMap": true,
+    "paths": {
+      "jest.setup": ["jest.setup.ts"]
+    }
+  },
+  "exclude": ["**/__test__/fixtures"]
+}

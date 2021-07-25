@@ -1,0 +1,40 @@
+{
+  "root": true,
+  "extends": ["@guanghechen", "prettier"],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "overrides": [
+    {
+      "files": ["**/*.js"],
+      "parser": "@babel/eslint-parser",
+      "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "requireConfigFile": false,
+        "allowImportExportEverywhere": true
+      }
+    },
+    {
+      "files": ["**/*.ts"],
+      "extends": ["@guanghechen", "@guanghechen/ts", "prettier"]
+    },
+    {
+      "files": ["**/__test__/*.spec.ts", "jest.setup.ts"],
+      "extends": [
+        "@guanghechen",
+        "@guanghechen/ts",
+        "plugin:jest/recommended",
+        "prettier"
+      ],
+      "rules": {
+        "import/no-extraneous-dependencies": 0,
+        "jest/expect-expect": 0
+      }
+    }
+  ]
+}

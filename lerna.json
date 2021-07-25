@@ -1,0 +1,20 @@
+{
+  "version": "0.0.0",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "graphType": "all",
+      "verifyAccess": false,
+      "ignoreChanges": ["*.md", "**/__test__/**/*"],
+      "message": ":bookmark:  release: publish %s",
+      "push": false,
+      "private": false,
+      "forcePublish": true
+    },
+    "version": {
+      "allowBranch": "main",
+      "forcePublish": true
+    }
+  }
+}

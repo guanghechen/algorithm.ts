@@ -1,0 +1,13 @@
+{
+  "cSpell.words": [
+    "Parens",
+    "gitmoji",
+    "guanghechen",
+    "pinst",
+    "postpublish"
+  ],
+  "files.associations": {
+    ".prettierrc": "yaml"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
