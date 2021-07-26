@@ -52,9 +52,11 @@ Typescript.
 
 ## Overview
 
-Package                               | Description
-:------------------------------------:|:--------------------------
-[@algorithm.ts/knuth-shuffle][]        | A typescript implementation of the Knuth-Shuffle algorithm.
+Package                         | Description
+:------------------------------:|:--------------------------
+[@algorithm.ts/dlx][]           | A typescript implementation of the **DLX** algorithm.
+[@algorithm.ts/knuth-shuffle][] | A typescript implementation of the Knuth-Shuffle algorithm.
+[@algorithm.ts/sudoku][]        | To solve Sudoku problems and generate Sudoku problems with unique solution.
 
 
 ## License
@@ -63,4 +65,6 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 
 
 [homepage]: https://github.com/guanghechen/algorithm.ts
+[@algorithm.ts/dlx]: ./packages/dlx
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
+[@algorithm.ts/sudoku]: ./packages/sudoku
