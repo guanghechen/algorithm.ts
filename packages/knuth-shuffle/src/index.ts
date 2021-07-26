@@ -13,13 +13,22 @@ export function knuthShuffle<T extends unknown = unknown>(
 
   const N = end - start
   for (let n = N - 1, i: number, j = end - 1, x: T; n > 0; --n, --j) {
-    i = ((Math.random() * n) >> 0) + start
+    i = randomInt(n) + start
     x = nodes[i]
     // eslint-disable-next-line no-param-reassign
     nodes[i] = nodes[j]
     // eslint-disable-next-line no-param-reassign
     nodes[j] = x
   }
+}
+
+/**
+ * Create a random integer in the range of [0, n)
+ * @param n
+ */
+export function randomInt(n: number): number {
+  const x = (Math.random() * n) >> 0
+  return x === n ? n - 1 : x
 }
 
 export default knuthShuffle

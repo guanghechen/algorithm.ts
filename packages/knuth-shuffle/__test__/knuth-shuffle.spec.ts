@@ -1,4 +1,4 @@
-import { knuthShuffle } from '../src'
+import { knuthShuffle, randomInt } from '../src'
 
 describe('knuth-shuffle', function () {
   const ebs = 2
@@ -56,4 +56,17 @@ describe('knuth-shuffle', function () {
     for (let i = 0; i < 50; ++i) diff = nums[i] === i ? 0 : 1
     expect(diff).toBeGreaterThan(0)
   })
+})
+
+test('randomInt', function () {
+  const size = 1e2
+  const nums: number[] = new Array(size)
+
+  for (let i = 0; i < size; ++i) {
+    nums[i] = randomInt(size)
+  }
+
+  expect(nums.some(x => x !== nums[0])).toBe(true)
+  expect(nums.every(x => x >= 0 && x < size)).toBe(true)
+  expect(nums.every(x => Math.floor(x) === x)).toBe(true)
 })
