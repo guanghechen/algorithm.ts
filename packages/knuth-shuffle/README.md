@@ -101,6 +101,15 @@ If you are interested in this algorithm, you can check [here][knuth-shuffle].
   knuthShuffle(nodes)
   ```
 
+* Shuffle a contiguous range of the original array.
+
+  ```typescript
+  import knuthShuffle from '@algorithm.ts/knuth-shuffle'
+
+  // shuffle { a[2], a[3], a[4], a[5], a[6] }
+  knuthShuffle([1, 2, 3, 4, 5, 6, 7, 8, 9], 2, 7)
+  ```
+
 ## Related
 
 * [洗牌问题和 knuth-shuffle 算法][knuth-shuffle]
