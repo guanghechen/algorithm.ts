@@ -23,8 +23,8 @@
     </a>
     <a href="#install">
       <img
-        alt="Module Formats: cjs"
-        src="https://img.shields.io/badge/module_formats-cjs-green.svg"
+        alt="Module Formats: cjs, esm"
+        src="https://img.shields.io/badge/module_formats-cjs%2C%20esm-green.svg"
       />
     </a>
     <a href="https://github.com/nodejs/node">
