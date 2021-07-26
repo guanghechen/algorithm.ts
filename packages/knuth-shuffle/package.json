@@ -39,13 +39,5 @@
     "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
-  },
-  "dependencies": {
-    "chalk": "^4.1.1",
-    "dayjs": "^1.10.5",
-    "fs-extra": "^10.0.0"
-  },
-  "devDependencies": {
-    "@guanghechen/rollup-config": "^1.8.0"
   }
 }
