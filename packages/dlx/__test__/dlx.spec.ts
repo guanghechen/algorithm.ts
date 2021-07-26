@@ -1,6 +1,5 @@
-import { createDLX } from '../src'
-import multipleSudoku3x3 from './fixtures/sudoku3x3/multiple.json'
-import uniqueSudoku3x3 from './fixtures/sudoku3x3/unique.json'
+import multipleSudoku3x3 from './fixtures/sudoku9x9/multiple.json'
+import uniqueSudoku3x3 from './fixtures/sudoku9x9/unique.json'
 import { solveSudoku } from './sudoku3x3'
 
 describe('dlx', function () {
