@@ -21,7 +21,6 @@ export function createSudokuBoard(SUDOKU_SIZE: number): SudokuBoard {
 export function fillSudokuBoard(
   board: SudokuBoard,
   v: number,
-
   SUDOKU_SIZE: number = board.length,
 ): void {
   for (let r = 0; r < SUDOKU_SIZE; ++r) {
@@ -101,4 +100,28 @@ export function checkSudokuSolution(
     }
   }
   return true
+}
+
+/**
+ * segmentCodeMap 是一个映射表，用于快速计算某个格子所在行在其所在列上的第几个子
+ * 方阵中（或者所在列在其所在行上的第几个子方阵中）
+ *
+ * segmentCodeMap is a mapping table for quickly located the sub-matrix of a grid.
+ *
+ * For example:
+ *
+ *    In a 9x9 sudoku board, a grid (x, y) at the sub-matrix
+ *    `(Math.floor(x / 3), Math.floor(y / 3))`. If use segmentNo to represent the
+ *    position, it is `(segmentNo[x], segmentNo[y])`
+ *
+ * @param SUDOKU_SIZE
+ */
+export function createSegmentCodeMap(SUDOKU_SIZE_SQRT: number): number[] {
+  const SUDOKU_SIZE = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT
+  const segmentCodeMap: number[] = new Array(SUDOKU_SIZE)
+  for (let i = 0, s = 0, j; i < SUDOKU_SIZE; i = j, ++s) {
+    j = i + SUDOKU_SIZE_SQRT
+    segmentCodeMap.fill(s, i, j)
+  }
+  return segmentCodeMap
 }

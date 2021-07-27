@@ -1,7 +1,12 @@
 import knuthShuffle, { randomInt } from '@algorithm.ts/knuth-shuffle'
 import { SudokuSolver } from './solver'
 import type { SudokuBoard, SudokuGameData } from './types'
-import { copySudokuBoard, createSudokuBoard, fillSudokuBoard } from './util'
+import {
+  copySudokuBoard,
+  createSegmentCodeMap,
+  createSudokuBoard,
+  fillSudokuBoard,
+} from './util'
 
 export interface SudokuCreatorOptions {
   /**
@@ -20,8 +25,8 @@ export class SudokuCreator {
   public readonly SUDOKU_SIZE: number
   public readonly SUDOKU_SIZE_SQUARE: number
   protected readonly solver: SudokuSolver
+  protected readonly segmentCodeMap: ReadonlyArray<number>
   protected readonly gridCodes: number[]
-  protected readonly segmentCodeMap: number[]
   protected readonly candidates: number[]
   protected readonly visitedNums: boolean[]
   protected readonly tmpBoard: SudokuBoard
@@ -39,6 +44,7 @@ export class SudokuCreator {
     this.SUDOKU_SIZE = SUDOKU_SIZE
     this.SUDOKU_SIZE_SQUARE = SUDOKU_SIZE_SQUARE
     this.difficulty = this.resolveDifficulty(difficulty)
+    this.segmentCodeMap = createSegmentCodeMap(SUDOKU_SIZE_SQRT)
 
     const gridCodes: number[] = new Array(SUDOKU_SIZE_SQUARE)
     this.gridCodes = gridCodes
@@ -47,13 +53,6 @@ export class SudokuCreator {
       for (let c = 0; c < SUDOKU_SIZE; ++c, ++i) {
         gridCodes[i] = u | c
       }
-    }
-
-    const segmentCodeMap: number[] = new Array(SUDOKU_SIZE)
-    this.segmentCodeMap = segmentCodeMap
-    for (let i = 0, s = 0, j; i < SUDOKU_SIZE; i = j, ++s) {
-      j = i + SUDOKU_SIZE_SQRT
-      segmentCodeMap.fill(s, i, j)
     }
 
     this.candidates = new Array(SUDOKU_SIZE)

@@ -1,5 +1,6 @@
 import type { DLX } from '@algorithm.ts/dlx'
 import { createDLX } from '@algorithm.ts/dlx'
+import { createSegmentCodeMap } from './util'
 
 /**
  * Sudoku constraints.
@@ -31,7 +32,7 @@ export class SudokuSolver {
   public readonly SUDOKU_SIZE_SQUARE: number
   public readonly DL_TOTAL_COLUMNS: number
   protected readonly constraints: number[] = new Array<number>(4)
-  protected readonly segmentCodeMap: number[]
+  protected readonly segmentCodeMap: ReadonlyArray<number>
   protected readonly dlx: DLX
 
   constructor(options: SudokuSolverOptions) {
@@ -50,13 +51,7 @@ export class SudokuSolver {
     this.SUDOKU_SIZE = SUDOKU_SIZE
     this.SUDOKU_SIZE_SQUARE = SUDOKU_SIZE_SQUARE
     this.DL_TOTAL_COLUMNS = DL_TOTAL_COLUMNS
-
-    const segmentCodeMap: number[] = new Array(SUDOKU_SIZE)
-    this.segmentCodeMap = segmentCodeMap
-    for (let i = 0, s = 0, j; i < SUDOKU_SIZE; i = j, ++s) {
-      j = i + SUDOKU_SIZE_SQRT
-      segmentCodeMap.fill(s, i, j)
-    }
+    this.segmentCodeMap = createSegmentCodeMap(SUDOKU_SIZE_SQRT)
   }
 
   /**

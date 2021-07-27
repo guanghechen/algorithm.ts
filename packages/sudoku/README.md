@@ -95,6 +95,16 @@ If you are interested in this algorithm, you can check [here][sudoku].
 
 * `SudokuCreator`: Create a Sudoku data (puzzle and solution) with only unique solution.
 
+* Utility functions
+
+  Function                | Description
+  :----------------------:|:--------------------------------:
+  `createSudokuBoard`     | Create a sudoku board (two-dimensional array).
+  `fillSudokuBoard`       | Fill the sudoku board with the given value.
+  `copySudokuBoard`       | Copy sudoku board from `src` to `dst`.
+  `checkSudokuSolution`   | Check if the solution of the given Sudoku game is a valid solution.
+  `createSegmentCodeMap`  | Create a segmentCodeMap, which is a mapping table for quickly located the sub-matrix of a grid
+
 ## Examples
 
 ### Solve a sudoku puzzle
