@@ -6,7 +6,7 @@ export type SudokuBoard = number[][]
 /**
  * A sudoku game data.
  */
-export interface SudokuGameData {
+export interface SudokuData {
   /**
    * Sudoku puzzle.
    */

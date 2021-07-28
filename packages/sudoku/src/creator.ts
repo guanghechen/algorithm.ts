@@ -1,6 +1,6 @@
 import knuthShuffle, { randomInt } from '@algorithm.ts/knuth-shuffle'
 import { SudokuSolver } from './solver'
-import type { SudokuBoard, SudokuGameData } from './types'
+import type { SudokuBoard, SudokuData } from './types'
 import {
   copySudokuBoard,
   createSegmentCodeMap,
@@ -65,7 +65,7 @@ export class SudokuCreator {
    * @param _difficulty
    * @returns
    */
-  public createSudoku(_difficulty?: number): SudokuGameData {
+  public createSudoku(_difficulty?: number): SudokuData {
     if (_difficulty != null) {
       this.difficulty = this.resolveDifficulty(_difficulty)
     }
