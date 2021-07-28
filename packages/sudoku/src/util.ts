@@ -63,38 +63,36 @@ export function checkSudokuSolution(
 ): boolean {
   const SUDOKU_SIZE: number = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT
   const nums: number[] = new Array(SUDOKU_SIZE)
+  let target = 0
 
   // Check rows
-  for (let r = 0; r < SUDOKU_SIZE; ++r) {
-    nums.fill(0)
+  for (let r = 0; r < SUDOKU_SIZE; ++r, ++target) {
     for (let c = 0; c < SUDOKU_SIZE; ++c) {
       const w = solution[r][c]
-      if (w === -1 || nums[w]) return false
-      nums[w] = 1
+      if (w === -1 || nums[w] === target) return false
+      nums[w] = target
     }
   }
 
   // Check columns
-  for (let c = 0; c < SUDOKU_SIZE; ++c) {
-    nums.fill(0)
+  for (let c = 0; c < SUDOKU_SIZE; ++c, ++target) {
     for (let r = 0; r < SUDOKU_SIZE; ++r) {
       const w = solution[r][c]
-      if (w === -1 || nums[w]) return false
-      nums[w] = 1
+      if (w === -1 || nums[w] === target) return false
+      nums[w] = target
     }
   }
 
   // Check sub-child matrix
   for (let x = 0; x < SUDOKU_SIZE_SQRT; ++x) {
-    for (let y = 0; y < SUDOKU_SIZE_SQRT; ++y) {
-      nums.fill(0)
+    for (let y = 0; y < SUDOKU_SIZE_SQRT; ++y, ++target) {
       for (let a = 0; a < SUDOKU_SIZE_SQRT; ++a) {
         const r = x * SUDOKU_SIZE_SQRT + a
         for (let b = 0; b < SUDOKU_SIZE_SQRT; ++b) {
           const c = y * SUDOKU_SIZE_SQRT + b
           const w = solution[r][c]
-          if (w === -1 || nums[w]) return false
-          nums[w] = 1
+          if (w === -1 || nums[w] === target) return false
+          nums[w] = target
         }
       }
     }

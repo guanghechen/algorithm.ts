@@ -59,7 +59,7 @@ describe('16x16', function () {
 
   test('create puzzle', function () {
     const solution: SudokuBoard = createSudokuBoard(SUDOKU_SIZE)
-    for (let difficulty = 0; difficulty <= 1; difficulty += 0.1) {
+    for (let difficulty = 0; difficulty <= 0.4; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
       expect(solver.solve(puzzle, solution)).toBe(true)
 
