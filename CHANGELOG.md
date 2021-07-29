@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="1.0.2"></a>
+## 1.0.2 (2021-07-28)
+
+### Added
+
+- ✨ feat(sudoku): exports new utility func &#x27;createSegmentCodeMap&#x27; [[2322eef](https://github.com/guanghechen/algorithm.ts/commit/2322eef8f24195969eb2537737a3e46916fcc176)]
+
+### Changed
+
+- ⚡ improve(sudoku): improve performance on &#x27;checkSudokuSolution&#x27; [[e2350a0](https://github.com/guanghechen/algorithm.ts/commit/e2350a0f73af60b835cc746af2fa1cc79e0636ad)]
+- 🎨 rename(sudoku): rename type &#x27;SudokuGameData&#x27; to &#x27;SudokuData&#x27; [[6ef309d](https://github.com/guanghechen/algorithm.ts/commit/6ef309d0b385428a0e2dade70a3dd421f0ce928e)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[df45e2c](https://github.com/guanghechen/algorithm.ts/commit/df45e2c9e79fef6b5e7be115f2fa29765b543b3f)]
+
+
 <a name="1.0.1"></a>
 ## 1.0.1 (2021-07-26)
 
