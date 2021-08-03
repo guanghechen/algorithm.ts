@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.0.3"></a>
+## 1.0.3 (2021-08-03)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/priority-queue&#x27; [[6994a46](https://github.com/guanghechen/algorithm.ts/commit/6994a466586a7dc160fbb9037bbfb9ac75b624a8)]
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies [[f9b7325](https://github.com/guanghechen/algorithm.ts/commit/f9b732541b2988a257c548757eb65360f7c006cd)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[f5f6d0c](https://github.com/guanghechen/algorithm.ts/commit/f5f6d0ce52709bd36464ff85b92dbf5d44b36293)]
+
+
 <a name="1.0.2"></a>
 ## 1.0.2 (2021-07-28)
 
