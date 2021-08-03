@@ -6,6 +6,11 @@
  */
 export interface PriorityQueue<T> {
   /**
+   * Init priority queue with initial elements.
+   * @param elements
+   */
+  init(elements: ReadonlyArray<T>): void
+  /**
    * Drop a element into the priority queue.
    */
   enqueue(val: T): void
@@ -44,6 +49,27 @@ export function createPriorityQueue<T>(
   const _tree: T[] = [null as unknown as T]
   let _size = 0
 
+  return {
+    init,
+    enqueue,
+    dequeue,
+    top,
+    collect,
+    size: () => _size,
+    isEmpty: () => _size < 1,
+  }
+
+  /**
+   * Build Priority Queue in O(N) time complexity.
+   * @param elements
+   * @returns
+   */
+  function init(elements: ReadonlyArray<T>): void {
+    _size = Math.max(0, elements.length)
+    for (let i = 0; i < _size; ++i) _tree[i + 1] = elements[i]
+    for (let q = _size; q > 1; q -= 2) _down(q >> 1)
+  }
+
   function enqueue(val: T): void {
     // eslint-disable-next-line no-plusplus
     _tree[++_size] = val
@@ -70,20 +96,19 @@ export function createPriorityQueue<T>(
   }
 
   function _down(index: number): void {
-    for (let i = index; i <= _size; ) {
-      const lft = i << 1
+    for (let p = index; p <= _size; ) {
+      const lft = p << 1
       const rht = lft | 1
       if (lft > _size) break
 
-      let q = lft
-      if (rht <= _size && cmp(_tree[rht], _tree[q]) > 0) q += 1
+      const q = rht <= _size && cmp(_tree[rht], _tree[lft]) > 0 ? rht : lft
+      const tmp = _tree[q]
 
-      const x = _tree[q]
-      if (cmp(_tree[i], x) >= 0) break
+      if (cmp(_tree[p], tmp) >= 0) break
 
-      _tree[q] = _tree[i]
-      _tree[i] = x
-      i = q
+      _tree[q] = _tree[p]
+      _tree[p] = tmp
+      p = q
     }
   }
 
@@ -97,14 +122,5 @@ export function createPriorityQueue<T>(
       _tree[i] = x
       i = q
     }
-  }
-
-  return {
-    enqueue,
-    dequeue,
-    top,
-    collect,
-    size: () => _size,
-    isEmpty: () => _size < 1,
   }
 }
