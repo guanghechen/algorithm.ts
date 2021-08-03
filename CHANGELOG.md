@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.0.4"></a>
+## 1.0.4 (2021-08-03)
+
+### Added
+
+- ✨ feat(priority-queue): support build Priority Queue with O(N) complexity [[a1d2455](https://github.com/guanghechen/algorithm.ts/commit/a1d245558bb501a359c6f2203753a6bf8e94f670)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[f8004d4](https://github.com/guanghechen/algorithm.ts/commit/f8004d461728c3ba944193e8c4f310d7f0b8a9a8)]
+
+
 <a name="1.0.3"></a>
 ## 1.0.3 (2021-08-03)
 
