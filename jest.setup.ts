@@ -33,3 +33,5 @@ export const unlinkSync = (
     for (const p of filepath) if (fs.existsSync(p)) fs.unlinkSync(p)
   }
 }
+
+export const randomInt = (max: number): number => Math.ceil(Math.random() * max)

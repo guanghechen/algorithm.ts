@@ -30,6 +30,6 @@
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es2015"
+    "target": "esnext"
   }
 }
