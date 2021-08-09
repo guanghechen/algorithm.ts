@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.0.5"></a>
+## 1.0.5 (2021-08-09)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/binary-index-tree&#x27; [[1440439](https://github.com/guanghechen/algorithm.ts/commit/1440439500f9c4a9a831361e5dfe051e28a41533)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[ec51481](https://github.com/guanghechen/algorithm.ts/commit/ec514815af1449d0008e14d40f93a4b98ffe4993)]
+- 📝 docs: update CHANGELOG [[32f54c1](https://github.com/guanghechen/algorithm.ts/commit/32f54c15479a9849225df2b6b38b5989fdae49bb)]
+
+
 <a name="1.0.4"></a>
 ## 1.0.4 (2021-08-03)
 
