@@ -32,7 +32,8 @@
     "package.json",
     "CHANGELOG.md",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "README-zh.md"
   ],
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",

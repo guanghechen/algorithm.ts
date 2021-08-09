@@ -27,7 +27,7 @@
     <a href="https://github.com/guanghechen/algorithm.ts/actions/workflows/ci.yml">
       <img
         alt="CI Workflow"
-        src="https://github.com/guanghechen/algorithm.ts/workflows/Build/badge.svg?branch=main"
+        src="https://github.com/guanghechen/algorithm.ts/actions/workflows/ci.yml/badge.svg"
       />
     </a>
     <a href="https://github.com/facebook/jest">

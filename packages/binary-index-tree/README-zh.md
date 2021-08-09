@@ -50,29 +50,22 @@
 <br/>
 
 
-[中文文档](./README-zh.md)
+**树状数组** 的 Typescript 实现。
 
-A typescript implementation of the **Binary Index Tree**.
+树状数组是一个树形的数组结构，用于高效地维护前缀和。通常有两种操作方式：
 
-The Binary Index Tree is a tree-shaped array structure used to efficiently
-maintain the prefix sum. There are usually two modes of operation:
+1. 单点更新，区间查询： 修改数列中某个元素的数值，以及求解某个位置开始的前缀和；
+   求解任意区间 $[L, R]$ 的和可以拆成求解区间 $[1,R]$ 的和与区间 $[1,L-1]$ 的和
+   之差，即转换成求解两个前缀和的问题。
 
-1. Single point update, interval query. Modify the value of an element in the
-   number sequence, and solve the prefix sum at a certain position. Solve the
-   sum of any interval $[L, R]$ can be divided into the sum of interval $[1,R]$
-   and the sum of interval $[1, L-1]$, then perform a subtraction operation.
+2. 区间更新，单点查询： 给数列中前 $x$ 个元素的值同时加上某个值，以及求解数列中
+   任意位置上的元素当前值。同样地，如果要给任意区间 $[L, R]$ 加上一个共同的值 $x$，
+   可以先给 $[1,R]$ 中的元素同时加上 $x$，再给 $[1,L-1]$ 中的元素同时加上 $-x$。
 
-2. Interval update, single-point query. Add a value to the value of the first
-   $x$ elements in the sequence, and solve the current value of the element at
-   any position in the sequence. Similarly, if you want to add a common value $x$
-   to any interval $[L, R]$, you can first add $x$ to all elements in [1,R], and
-   then add $-x$ to all elements in [1,L-1]. 
+上述操作全是在 $O(\log N)$ 的均摊复杂度下完成。
 
-The above operations are all done under the amortized complexity of $O(\log N)$.
-
-The problem that the Binary Index Tree can solve is a subset of the Segment
-Tree. Its advantage is that the complexity constant is smaller, and the
-implementation is simpler and easier to understand.
+树状数组能解决的问题是线段树的子集，但是其相比于线段树拥有更小的复杂度常数，以及
+更简单的实现且更易理解。
 
 
 ## Install
@@ -91,7 +84,7 @@ implementation is simpler and easier to understand.
 
 ## Usage
 
-### Single-point update And interval query
+### 单点更新，区间查询
 
 * Solve numbers:
 
@@ -151,7 +144,7 @@ implementation is simpler and easier to understand.
   bit.query(/* any integer between [4, 10] */) // => 17n
   ```
 
-### Interval update and single-point query
+### 区间更新，单点查询
 
 * Solve numbers:
 
