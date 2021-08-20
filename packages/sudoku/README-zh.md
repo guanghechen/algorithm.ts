@@ -278,8 +278,9 @@
 
 ## Related
 
-* [洗牌问题和 dlx 算法][dlx]
-* [洗牌问题和 knuth-shuffle 算法][knuth-shuffle]
+* [洗牌问题和 dlx 算法 | 光和尘][dlx]
+* [洗牌问题和 knuth-shuffle 算法 | 光和尘][knuth-shuffle]
+* [当你想来一把数独 | 光和尘](https://me.guanghechen.com/post/game/sudoku/)
 
 
 [homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/sudoku#readme
