@@ -1,5 +1,23 @@
 # Changelog
 
+<a name="1.0.6"></a>
+## 1.0.6 (2021-08-20)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/findset&#x27; [[0a23268](https://github.com/guanghechen/algorithm.ts/commit/0a23268f328e9bf729aa44a4ad3a3ca5e79a2f0a)]
+
+### Changed
+
+- ⬆️ chore: upgrade dev dependencies [[25ed124](https://github.com/guanghechen/algorithm.ts/commit/25ed1244442267a194b0c5ef923415ef147c2ffb)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[bbd6fae](https://github.com/guanghechen/algorithm.ts/commit/bbd6fae97a5f1726c4e066d9fba579a9663e9873)]
+- 📝 docs: update README [[0dfbb8d](https://github.com/guanghechen/algorithm.ts/commit/0dfbb8d6c30d33a9b226fd2ea1703c9111e60ff2)]
+- 📝 docs: update CHANGELOG [[07fea47](https://github.com/guanghechen/algorithm.ts/commit/07fea47b50eec6cdf810570b11b5e059327281d8)]
+
+
 <a name="1.0.5"></a>
 ## 1.0.5 (2021-08-09)
 
