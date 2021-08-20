@@ -8,6 +8,9 @@
     "jest": true,
     "node": true
   },
+  "rules": {
+    "import/no-named-as-default": 0
+  },
   "overrides": [
     {
       "files": ["**/*.js"],
@@ -21,7 +24,10 @@
     },
     {
       "files": ["**/*.ts"],
-      "extends": ["@guanghechen", "@guanghechen/ts", "prettier"]
+      "extends": ["@guanghechen", "@guanghechen/ts", "prettier"],
+      "rules": {
+        "import/no-named-as-default": 0
+      }
     },
     {
       "files": ["**/__test__/*.spec.ts", "jest.setup.ts"],
