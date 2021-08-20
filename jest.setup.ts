@@ -34,4 +34,22 @@ export const unlinkSync = (
   }
 }
 
+/**
+ * Create a sequence of integers in the range [start, end).
+ * @param start
+ * @param end
+ * @returns
+ */
+export function range(start: number, end: number): number[] {
+  const _size = end - start
+  const nums: number[] = new Array(_size)
+  for (let i = 0; i < end; ++i) nums[i] = start + i
+  return nums
+}
+
+/**
+ * Create a random integer.
+ * @param max
+ * @returns
+ */
 export const randomInt = (max: number): number => Math.ceil(Math.random() * max)

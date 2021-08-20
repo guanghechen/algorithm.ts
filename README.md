@@ -54,11 +54,12 @@ Typescript.
 
 Package                             | Description
 :----------------------------------:|:--------------------------
-[@algorithm.ts/binary-index-tree][] | A typescript implementation of the Binary Index Tree.
-[@algorithm.ts/dlx][]               | A typescript implementation of the DLX algorithm.
-[@algorithm.ts/knuth-shuffle][]     | A typescript implementation of the Knuth-Shuffle algorithm.
-[@algorithm.ts/priority-queue][]    | A typescript implementation of the Priority Queue (heap).
-[@algorithm.ts/sudoku][]            | To solve Sudoku problems and generate Sudoku problems with unique solution.
+[@algorithm.ts/binary-index-tree][] | Binary Index Tree.
+[@algorithm.ts/dlx][]               | DLX algorithm.
+[@algorithm.ts/findset][]           | Find set.
+[@algorithm.ts/knuth-shuffle][]     | Knuth-Shuffle algorithm.
+[@algorithm.ts/priority-queue][]    | Priority Queue (heap).
+[@algorithm.ts/sudoku][]            | A collection of utilities to generate / solve Sudoku problems.
 
 
 ## License
@@ -69,6 +70,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [homepage]: https://github.com/guanghechen/algorithm.ts
 [@algorithm.ts/binary-index-tree]: ./packages/binary-index-tree
 [@algorithm.ts/dlx]: ./packages/dlx
+[@algorithm.ts/findset]: ./packages/findset
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
 [@algorithm.ts/priority-queue]: ./packages/priority-queue
 [@algorithm.ts/sudoku]: ./packages/sudoku
