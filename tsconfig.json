@@ -6,6 +6,7 @@
     "sourceMap": true,
     "paths": {
       "@algorithm.ts/binary-index-tree": ["packages/binary-index-tree/src"],
+      "@algorithm.ts/circular-queue": ["packages/circular-queue/src"],
       "@algorithm.ts/dlx": ["packages/dlx/src"],
       "@algorithm.ts/findset": ["packages/findset/src"],
       "@algorithm.ts/knuth-shuffle": ["packages/knuth-shuffle/src"],
