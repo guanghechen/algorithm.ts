@@ -66,6 +66,7 @@ export function createPriorityQueue<T>(
    */
   function init(elements: ReadonlyArray<T>): void {
     _size = Math.max(0, elements.length)
+    if (_tree.length <= _size) _tree.length = _size + 1
     for (let i = 0; i < _size; ++i) _tree[i + 1] = elements[i]
     for (let q = _size; q > 1; q -= 2) _down(q >> 1)
   }
