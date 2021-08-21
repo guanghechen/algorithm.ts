@@ -19,18 +19,19 @@ export interface HeuristicFindSet extends FindSet {
 
 /**
  * Create a heuristic find set.
- * @param MAX_N
  * @returns
  */
-export function createHeuristicFindSet(MAX_N: number): HeuristicFindSet {
-  const parent: number[] = new Array(MAX_N + 1)
-  const count: number[] = new Array(MAX_N + 1)
+export function createHeuristicFindSet(): HeuristicFindSet {
+  const parent: number[] = []
+  const count: number[] = []
 
-  let _size: number = MAX_N
+  let _size = 0
   return { init, root, merge, size }
 
   function init(N: number): void {
     _size = N
+    if (parent.length <= _size) parent.length = _size + 1
+    if (count.length <= _size) count.length = _size + 1
     for (let i = 1; i <= _size; ++i) {
       parent[i] = i
       count[i] = 1

@@ -92,7 +92,7 @@
   import { createBinaryIndexTree1 } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  const bit = createBinaryIndexTree1<number>(MAX_N, 0)
+  const bit = createBinaryIndexTree1<number>(0)
   bit.init(MAX_N)
 
   // Add 10 on the 2th element.
@@ -120,9 +120,9 @@
   import { createBinaryIndexTree1 } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  // Please note that the second parameter is `0n`, which represents the zero
+  // Please note that the first parameter is `0n`, which represents the zero
   // element of bigint, and 0 is passed-in in the above example.
-  const bit = createBinaryIndexTree1<number>(MAX_N, 0n) 
+  const bit = createBinaryIndexTree1<number>(0n) 
   bit.init(MAX_N)
 
   // Add 10n on the 2th element.
@@ -152,7 +152,7 @@
   import { createBinaryIndexTree2 } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  const bit = createBinaryIndexTree2<number>(MAX_N, 0)
+  const bit = createBinaryIndexTree2<number>(0)
   bit.init(MAX_N)
 
   // Add 10 on the first two elements.
@@ -180,9 +180,9 @@
   import { createBinaryIndexTree2 } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  // Please note that the second parameter is `0n`, which represents the zero
+  // Please note that the first parameter is `0n`, which represents the zero
   // element of bigint, and 0 is passed-in in the above example.
-  const bit = createBinaryIndexTree2<number>(MAX_N, 0n)
+  const bit = createBinaryIndexTree2<number>(0n)
   bit.init(MAX_N)
 
   // Add 10 on the first two elements.

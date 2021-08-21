@@ -11,11 +11,10 @@ import { lowbit } from './util'
  * @returns
  */
 export function createBinaryIndexTree1<T extends number | bigint>(
-  MAX_N: number,
   ZERO: T,
 ): BinaryIndexTree<T> {
-  let _size = MAX_N
-  const _nodes: T[] = new Array(MAX_N + 1).fill(ZERO)
+  let _size = 0
+  const _nodes: T[] = [ZERO]
 
   /**
    * Initialize the BinarySearchTree.
@@ -23,6 +22,7 @@ export function createBinaryIndexTree1<T extends number | bigint>(
    */
   function init(N: number): void {
     _size = N
+    if (_nodes.length <= _size) _nodes.length = _size + 1
     _nodes.fill(ZERO, 1, _size + 1)
   }
 

@@ -3,7 +3,7 @@ import { createFindSet, createHeuristicFindSet } from '../src'
 
 describe('createFindSet', function () {
   const MAX_N = 1000
-  const findset = createFindSet(MAX_N)
+  const findset = createFindSet()
 
   test('basic', function () {
     findset.init(MAX_N)
@@ -41,7 +41,7 @@ describe('createFindSet', function () {
 
 describe('createHeuristicFindSet', function () {
   const MAX_N = 1000
-  const findset = createHeuristicFindSet(MAX_N)
+  const findset = createHeuristicFindSet()
 
   test('basic', function () {
     findset.init(MAX_N)

@@ -5,7 +5,7 @@ describe('tree1', function () {
   const MAX_N = 1000
 
   test('number', function () {
-    const bit = createBinaryIndexTree1<number>(MAX_N, 0)
+    const bit = createBinaryIndexTree1<number>(0)
     bit.init(MAX_N)
 
     const A: number[] = new Array(MAX_N)
@@ -36,7 +36,7 @@ describe('tree1', function () {
   })
 
   test('bigint', function () {
-    const bit = createBinaryIndexTree1<bigint>(MAX_N, 0n)
+    const bit = createBinaryIndexTree1<bigint>(0n)
     bit.init(MAX_N)
 
     const A: Array<bigint> = new Array(MAX_N)
@@ -71,7 +71,7 @@ describe('tree2', function () {
   const MAX_N = 1000
 
   test('number', function () {
-    const bit = createBinaryIndexTree2<number>(MAX_N, 0)
+    const bit = createBinaryIndexTree2<number>(0)
     bit.init(MAX_N)
 
     // Initialize
@@ -107,7 +107,7 @@ describe('tree2', function () {
   })
 
   test('bigint', function () {
-    const bit = createBinaryIndexTree2<bigint>(MAX_N, 0n)
+    const bit = createBinaryIndexTree2<bigint>(0n)
     bit.init(MAX_N)
 
     // Initialize

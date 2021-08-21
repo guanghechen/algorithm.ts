@@ -82,7 +82,7 @@ amortized constant time complexity:
   ```typescript
   import { createFindSet } from '@algorithm.ts/findset'
 
-  const findset = createFindSet(1000)
+  const findset = createFindSet()
 
   // Initialize the findset with 1000 node.
   findset.init(1000)
@@ -107,7 +107,7 @@ amortized constant time complexity:
   ```typescript
   import { createHeuristicFindSet } from '@algorithm.ts/findset'
 
-  const findset = createHeuristicFindSet(1000)
+  const findset = createHeuristicFindSet()
 
   // Initialize the findset with 1000 node.
   findset.init(1000)

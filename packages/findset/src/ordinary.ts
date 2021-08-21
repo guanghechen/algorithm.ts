@@ -34,16 +34,16 @@ export interface FindSet {
 
 /**
  * Create a find set.
- * @param MAX_N
  * @returns
  */
-export function createFindSet(MAX_N: number): FindSet {
-  const parent: number[] = new Array(MAX_N + 1)
-  let _size: number = MAX_N
+export function createFindSet(): FindSet {
+  const parent: number[] = []
+  let _size = 0
   return { init, root, merge }
 
   function init(N: number): void {
     _size = N
+    if (parent.length <= _size) parent.length = _size + 1
     for (let i = 1; i <= N; ++i) parent[i] = i
   }
 
