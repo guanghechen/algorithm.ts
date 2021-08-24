@@ -10,7 +10,7 @@ export const testRootDior = path.resolve()
  * @returns
  */
 export const locateFixtures = (...p: string[]): string =>
-  path.join(testRootDior, '__test__/fixtures', ...p)
+  path.resolve(testRootDior, '__test__/fixtures', ...p)
 
 /**
  * Load fixture filepath.
@@ -53,3 +53,33 @@ export function range(start: number, end: number): number[] {
  * @returns
  */
 export const randomInt = (max: number): number => Math.ceil(Math.random() * max)
+
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+export function createReader(content: string) {
+  const integerRegex = /-?\d+/g
+  const lines: string[] = content.split(/\n/g)
+  return { readIntegersOfLine }
+
+  /**
+   * Read integers.
+   */
+  function readIntegersOfLine(): number[] {
+    const line = nextNonBlankLine()!
+    const m = line.match(integerRegex)
+    if (m == null) return []
+    return m.map(x => Number(x))
+  }
+
+  /**
+   * Get a blank line.
+   * @returns
+   */
+  function nextNonBlankLine(): string | undefined {
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const line = lines.shift()
+      if (line === undefined) return undefined
+      if (/\S/.test(line)) return line
+    }
+  }
+}

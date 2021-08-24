@@ -1,0 +1,47 @@
+{
+  "name": "@algorithm.ts/isap",
+  "version": "1.0.7",
+  "description": "The ISAP algorithm implemented in typescript",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/algorithm.ts.git",
+    "directory": "packages/isap"
+  },
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/main/packages/isap#readme",
+  "keywords": [
+    "algorithm",
+    "ISAP",
+    "network flow",
+    "网络流"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
+  },
+  "dependencies": {
+    "@algorithm.ts/circular-queue": "^1.0.7"
+  }
+}
