@@ -13,7 +13,7 @@ describe('codeforces', function () {
 
         const source = 0
         const target: number = n + m + 1
-        isap.init(source, target, n + m + 2, n + m * 3)
+        isap.init(source, target, n + m + 2)
 
         const nodes: number[] = io.readIntegersOfLine()
         for (let i = 0; i < n; ++i) {

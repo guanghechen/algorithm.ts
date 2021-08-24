@@ -53,9 +53,8 @@ export interface Isap {
    * @param source  the source node
    * @param target  the target node
    * @param n       the number of nodes
-   * @param m       the number of edges
    */
-  init(source: number, target: number, n: number, m: number): void
+  init(source: number, target: number, n: number): void
 
   /**
    * Add an edge into the residual network.

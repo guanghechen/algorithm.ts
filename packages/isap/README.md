@@ -85,8 +85,7 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
     const source = 0
     const target: number = n + m + 1
     const totalNodes: number = n + m + 2
-    const totalEdges: number = n + m * 3
-    isap.init(source, target, totalNodes, totalEdges)
+    isap.init(source, target, totalNodes)
 
     const nodes: number[] = io.readIntegersOfLine()
     for (let i = 0; i < n; ++i) {

@@ -6,7 +6,6 @@ export function createMcmf(): Mcmf {
   let _source: number // The source point in a network flow
   let _target: number // The sink in a network flow
   let _n: number // The number of nodes in a network flow
-  let _m: number // The number of edges in a network flow (not including the reverse edges).
   let _mincost: number
   let _maxflow: number
   let _edgeTot: number
@@ -18,11 +17,10 @@ export function createMcmf(): Mcmf {
   const _Q: CircularQueue<number> = createCircularQueue()
   return { init, addEdge, minCostMaxFlow, solve }
 
-  function init(source: number, target: number, n: number, m: number): void {
+  function init(source: number, target: number, n: number): void {
     _source = source
     _target = target
     _n = n
-    _m = _m << 1
     _mincost = 0
     _maxflow = 0
 
@@ -34,7 +32,6 @@ export function createMcmf(): Mcmf {
     }
     if (_dist.length < _n) _dist.length = _n
     if (_path.length < _n) _path.length = _n
-    if (_edges.length < _m) _edges.length = _m
     if (_G.length < _n) _G.length = _n
 
     _edgeTot = 0

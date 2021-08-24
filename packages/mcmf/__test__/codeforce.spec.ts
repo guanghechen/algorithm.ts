@@ -13,7 +13,7 @@ describe('codeforces', function () {
 
         const source = 0
         const target: number = n + m + 1
-        mcmf.init(source, target, n + m + 2, n + m * 3)
+        mcmf.init(source, target, n + m + 2)
 
         const nodes: number[] = io.readIntegersOfLine()
         for (let i = 0; i < n; ++i) {
@@ -91,7 +91,7 @@ describe('codeforces', function () {
 
         const source = 0
         const target: number = N * 2 + 1
-        mcmf.init(source, target, N * 2 + 2, N * N + 2 * N)
+        mcmf.init(source, target, N * 2 + 2)
 
         for (let i = 0; i < N; ++i) {
           mcmf.addEdge(source, i + 1, 2, 0)
