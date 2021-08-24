@@ -55,8 +55,11 @@ Typescript.
 Package                             | Description
 :----------------------------------:|:--------------------------
 [@algorithm.ts/binary-index-tree][] | Binary Index Tree.
+[@algorithm.ts/circular-queue][]    | Circular queue.
+[@algorithm.ts/dinic][]             | Dinic algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/dlx][]               | DLX algorithm.
 [@algorithm.ts/findset][]           | Find set.
+[@algorithm.ts/isap][]              | ISAP algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/knuth-shuffle][]     | Knuth-Shuffle algorithm.
 [@algorithm.ts/priority-queue][]    | Priority Queue (heap).
 [@algorithm.ts/sudoku][]            | A collection of utilities to generate / solve Sudoku problems.
@@ -69,8 +72,11 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 
 [homepage]: https://github.com/guanghechen/algorithm.ts
 [@algorithm.ts/binary-index-tree]: ./packages/binary-index-tree
+[@algorithm.ts/circular-queue]: ./packages/circular-queue
+[@algorithm.ts/dinic]: ./packages/dinic
 [@algorithm.ts/dlx]: ./packages/dlx
 [@algorithm.ts/findset]: ./packages/findset
+[@algorithm.ts/isap]: ./packages/isap
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
 [@algorithm.ts/priority-queue]: ./packages/priority-queue
 [@algorithm.ts/sudoku]: ./packages/sudoku

@@ -16,6 +16,7 @@
     "algorithm",
     "ISAP",
     "network flow",
+    "max flow",
     "网络流"
   ],
   "main": "lib/cjs/index.js",
