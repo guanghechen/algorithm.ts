@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/priority-queue",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Priority queue.",
   "author": {
     "name": "guanghechen",

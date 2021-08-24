@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/knuth-shuffle",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Knuth shuffle",
   "author": {
     "name": "guanghechen",
