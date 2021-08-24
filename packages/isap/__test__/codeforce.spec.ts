@@ -30,7 +30,7 @@ describe('codeforces', function () {
           isap.addEdge(x, u, Number.MAX_SAFE_INTEGER)
           isap.addEdge(x, v, Number.MAX_SAFE_INTEGER)
         }
-        answer -= isap.maxflow()
+        answer -= isap.maxFlow()
         return answer
       }
 

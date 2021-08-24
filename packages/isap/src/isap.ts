@@ -3,122 +3,123 @@ import { createCircularQueue } from '@algorithm.ts/circular-queue'
 import type { Isap, IsapContext, IsapEdge } from './types'
 
 export function createIsap(): Isap {
-  let source: number // The source point in a network flow
-  let target: number // The sink in a network flow
-  let n: number // The number of nodes in a network flow
-  let m: number // The number of edges in a network flow (not including the reverse edges).
-  let answer: number
-  let edgeTot: number
-  const cur: number[] = [] // The next edge number to be considered of the edges starting from the i-th node.
-  const cnt: number[] = [] // Counting the points with specified distance.
-  const dist: number[] = [] // The distance from the target node to the i-th node.
-  const path: number[] = [] // An edge in an augmented path.
-  const edges: IsapEdge[] = []
-  const G: number[][] = []
-  const Q: CircularQueue<number> = createCircularQueue()
-  return { init, addEdge, maxflow, solve }
+  let _source: number // The source point in a network flow
+  let _target: number // The sink in a network flow
+  let _n: number // The number of nodes in a network flow
+  let _m: number // The number of edges in a network flow (not including the reverse edges).
+  let _answer: number
+  let _edgeTot: number
+  const _cur: number[] = [] // The next edge number to be considered of the edges starting from the i-th node.
+  const _cnt: number[] = [] // Counting the points with specified distance.
+  const _dist: number[] = [] // The distance from the target node to the i-th node.
+  const _path: number[] = [] // An edge in an augmented path.
+  const _edges: IsapEdge[] = []
+  const _G: number[][] = []
+  const _Q: CircularQueue<number> = createCircularQueue()
+  return { init, addEdge, maxFlow, solve }
 
-  function init(
-    _source: number,
-    _target: number,
-    _n: number,
-    _m: number,
-  ): void {
-    source = _source
-    target = _target
-    n = _n
-    m = m << 1
-    answer = 0
+  function init(source: number, target: number, n: number, m: number): void {
+    _source = source
+    _target = target
+    _n = n
+    _m = _m << 1
+    _answer = 0
 
     // Resize arrays.
-    if (cur.length < n) cur.length = n
-    if (cnt.length < n) cnt.length = n
-    if (dist.length < n) dist.length = n
-    if (path.length < n) path.length = n
-    if (edges.length < m) edges.length = m
-    if (G.length < n) G.length = n
+    if (_cur.length < _n) _cur.length = _n
+    if (_cnt.length < _n) _cnt.length = _n
+    if (_dist.length < _n) _dist.length = _n
+    if (_path.length < _n) _path.length = _n
+    if (_edges.length < _m) _edges.length = _m
+    if (_G.length < _n) _G.length = _n
 
-    edgeTot = 0
-    Q.init(n + 1)
-    for (let i = 0; i < n; ++i) G[i] = []
+    _edgeTot = 0
+    _Q.init(_n + 1)
+    for (let i = 0; i < _n; ++i) _G[i] = []
   }
 
   function addEdge(from: number, to: number, cap: number): void {
-    G[from].push(edgeTot)
+    _G[from].push(_edgeTot)
     // eslint-disable-next-line no-plusplus
-    edges[edgeTot++] = { from, to, cap, flow: 0 }
+    _edges[_edgeTot++] = { from, to, cap, flow: 0 }
 
-    G[to].push(edgeTot)
+    _G[to].push(_edgeTot)
     // eslint-disable-next-line no-plusplus
-    edges[edgeTot++] = { from: to, to: from, cap: 0, flow: 0 }
+    _edges[_edgeTot++] = { from: to, to: from, cap: 0, flow: 0 }
   }
 
-  function maxflow(): number {
+  function maxFlow(): number {
     bfs()
 
     // Initialize.
-    cur.fill(0, 0, n)
-    cnt.fill(0, 0, n)
+    _cur.fill(0, 0, _n)
+    _cnt.fill(0, 0, _n)
 
-    for (let o = 0; o < n; ++o) {
-      if (dist[o] < n) cnt[dist[o]] += 1
+    for (let o = 0; o < _n; ++o) {
+      if (_dist[o] < _n) _cnt[_dist[o]] += 1
     }
 
-    for (let o = source; dist[o] < n; ) {
-      if (o === target) {
-        answer += augment()
-        o = source
+    for (let o = _source; _dist[o] < _n; ) {
+      if (o === _target) {
+        _answer += augment()
+        o = _source
       }
 
       let blocked = true
-      const g = G[o]
-      for (let i = cur[o], g = G[o]; i < g.length; ++i) {
-        const e = edges[g[i]]
-        if (e.cap > e.flow && dist[o] === dist[e.to] + 1) {
+      const g = _G[o]
+      for (let i = _cur[o], g = _G[o]; i < g.length; ++i) {
+        const e = _edges[g[i]]
+        if (e.cap > e.flow && _dist[o] === _dist[e.to] + 1) {
           blocked = false
-          cur[o] = i
-          path[e.to] = g[i]
+          _cur[o] = i
+          _path[e.to] = g[i]
           o = e.to
           break
         }
       }
 
       if (blocked) {
-        let d = n - 1
+        let d = _n - 1
         for (const x of g) {
-          const e = edges[x]
-          if (e.cap > e.flow && d > dist[e.to]) d = dist[e.to]
+          const e = _edges[x]
+          if (e.cap > e.flow && d > _dist[e.to]) d = _dist[e.to]
         }
 
         // eslint-disable-next-line no-plusplus
-        if (--cnt[dist[o]] === 0) break
-        cnt[(dist[o] = d + 1)] += 1
+        if (--_cnt[_dist[o]] === 0) break
+        _cnt[(_dist[o] = d + 1)] += 1
 
-        cur[o] = 0
-        if (o !== source) o = edges[path[o]].from
+        _cur[o] = 0
+        if (o !== _source) o = _edges[_path[o]].from
       }
     }
-    return answer
+    return _answer
   }
 
   function solve(fn: (context: IsapContext) => void): void {
-    const context: IsapContext = { edgeTot, cnt, dist, edges, G }
+    const context: IsapContext = {
+      edgeTot: _edgeTot,
+      cnt: _cnt,
+      dist: _dist,
+      edges: _edges,
+      G: _G,
+    }
     fn(context)
   }
 
   function bfs(): void {
     // Initialize the dist array.
-    dist.fill(-1, 0, n)
+    _dist.fill(-1, 0, _n)
 
-    Q.enqueue(target)
-    dist[target] = 0
-    while (Q.size() > 0) {
-      const o = Q.dequeue()!
-      for (const i of G[o]) {
-        const e = edges[i]
-        if (dist[e.to] === -1 && e.cap > e.flow) {
-          dist[e.to] = dist[o] + 1
-          Q.enqueue(e.to)
+    _Q.enqueue(_target)
+    _dist[_target] = 0
+    while (_Q.size() > 0) {
+      const o = _Q.dequeue()!
+      for (const i of _G[o]) {
+        const e = _edges[i]
+        if (_dist[e.to] === -1 && e.cap === 0) {
+          _dist[e.to] = _dist[o] + 1
+          _Q.enqueue(e.to)
         }
       }
     }
@@ -126,17 +127,17 @@ export function createIsap(): Isap {
 
   function augment(): number {
     let mif = Number.MAX_SAFE_INTEGER
-    for (let o = target; o !== source; ) {
-      const e = edges[path[o]]
+    for (let o = _target; o !== _source; ) {
+      const e = _edges[_path[o]]
       const remainCap = e.cap - e.flow
       if (mif > remainCap) mif = remainCap
       o = e.from
     }
-    for (let o = target; o !== source; ) {
-      const x = path[o]
-      edges[x].flow += mif
-      edges[x ^ 1].flow -= mif
-      o = edges[x].from
+    for (let o = _target; o !== _source; ) {
+      const x = _path[o]
+      _edges[x].flow += mif
+      _edges[x ^ 1].flow -= mif
+      o = _edges[x].from
     }
     return mif
   }

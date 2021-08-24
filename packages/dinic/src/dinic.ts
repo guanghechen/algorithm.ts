@@ -3,97 +3,97 @@ import { createCircularQueue } from '@algorithm.ts/circular-queue'
 import type { Dinic, DinicContext, DinicEdge } from './types'
 
 export function createDinic(): Dinic {
-  let source: number // The source point in a network flow
-  let target: number // The sink in a network flow
-  let n: number // The number of nodes in a network flow
-  let m: number // The number of edges in a network flow (not including the reverse edges).
-  let answer: number
-  let edgeTot: number
-  const cur: number[] = [] // The next edge number to be considered of the edges starting from the i-th node.
-  const dist: number[] = [] // The distance from the source node to the i-th node.
-  const edges: DinicEdge[] = []
-  const G: number[][] = []
-  const Q: CircularQueue<number> = createCircularQueue()
-  return { init, addEdge, maxflow, solve }
+  let _source: number // The source point in a network flow
+  let _target: number // The sink in a network flow
+  let _n: number // The number of nodes in a network flow
+  let _m: number // The number of edges in a network flow (not including the reverse edges).
+  let _maxflow: number
+  let _edgeTot: number
+  const _cur: number[] = [] // The next edge number to be considered of the edges starting from the i-th node.
+  const _dist: number[] = [] // The distance from the source node to the i-th node.
+  const _edges: DinicEdge[] = []
+  const _G: number[][] = []
+  const _Q: CircularQueue<number> = createCircularQueue()
+  return { init, addEdge, maxFlow, solve }
 
-  function init(
-    _source: number,
-    _target: number,
-    _n: number,
-    _m: number,
-  ): void {
-    source = _source
-    target = _target
-    n = _n
-    m = m << 1
-    answer = 0
+  function init(source: number, target: number, n: number, m: number): void {
+    _source = source
+    _target = target
+    _n = n
+    _m = _m << 1
+    _maxflow = 0
 
     // Resize arrays.
-    if (cur.length < n) cur.length = n
-    if (dist.length < n) dist.length = n
-    if (edges.length < m) edges.length = m
-    if (G.length < n) G.length = n
+    if (_cur.length < _n) _cur.length = _n
+    if (_dist.length < _n) _dist.length = _n
+    if (_edges.length < _m) _edges.length = _m
+    if (_G.length < _n) _G.length = _n
 
-    edgeTot = 0
-    Q.init(n + 1)
-    for (let i = 0; i < n; ++i) G[i] = []
+    _edgeTot = 0
+    _Q.init(_n + 1)
+    for (let i = 0; i < _n; ++i) _G[i] = []
   }
 
   function addEdge(from: number, to: number, cap: number): void {
-    G[from].push(edgeTot)
+    _G[from].push(_edgeTot)
     // eslint-disable-next-line no-plusplus
-    edges[edgeTot++] = { from, to, cap, flow: 0 }
+    _edges[_edgeTot++] = { from, to, cap, flow: 0 }
 
-    G[to].push(edgeTot)
+    _G[to].push(_edgeTot)
     // eslint-disable-next-line no-plusplus
-    edges[edgeTot++] = { from: to, to: from, cap: 0, flow: 0 }
+    _edges[_edgeTot++] = { from: to, to: from, cap: 0, flow: 0 }
   }
 
-  function maxflow(): number {
+  function maxFlow(): number {
     while (bfs()) {
-      cur.fill(0, 0, n)
-      answer += dfs(source, Number.MAX_SAFE_INTEGER)
+      _cur.fill(0, 0, _n)
+      _maxflow += dfs(_source, Number.MAX_SAFE_INTEGER)
     }
-    return answer
+    return _maxflow
   }
 
   function solve(fn: (context: DinicContext) => void): void {
-    const context: DinicContext = { edgeTot, dist, edges, G }
+    const context: DinicContext = {
+      edgeTot: _edgeTot,
+      dist: _dist,
+      edges: _edges,
+      G: _G,
+    }
     fn(context)
   }
 
   function bfs(): boolean {
     // Initialize the dist array.
-    dist.fill(-1, 0, n)
+    _dist.fill(-1, 0, _n)
 
-    Q.enqueue(source)
-    dist[source] = 0
-    while (Q.size() > 0) {
-      const o = Q.dequeue()!
-      for (const i of G[o]) {
-        const e = edges[i]
-        if (dist[e.to] === -1 && e.cap > e.flow) {
-          dist[e.to] = dist[o] + 1
-          Q.enqueue(e.to)
+    _Q.enqueue(_source)
+    _dist[_source] = 0
+    while (_Q.size() > 0) {
+      const o = _Q.dequeue()!
+      for (const i of _G[o]) {
+        const e = _edges[i]
+        if (_dist[e.to] === -1 && e.cap > e.flow) {
+          _dist[e.to] = _dist[o] + 1
+          _Q.enqueue(e.to)
         }
       }
     }
 
-    return dist[target] !== -1
+    return _dist[_target] !== -1
   }
 
   function dfs(o: number, minFlow: number): number {
-    if (o === target || minFlow === 0) return minFlow
+    if (o === _target || minFlow === 0) return minFlow
 
     let flow = 0
-    for (let g = G[o]; cur[o] < g.length; ++cur[o]) {
-      const x = g[cur[o]]
-      const e = edges[x]
-      if (dist[e.to] === dist[o] + 1) {
+    for (let g = _G[o]; _cur[o] < g.length; ++_cur[o]) {
+      const x = g[_cur[o]]
+      const e = _edges[x]
+      if (_dist[e.to] === _dist[o] + 1) {
         const f = dfs(e.to, Math.min(minFlow, e.cap - e.flow))
         if (f <= 0) continue
         e.flow += f
-        edges[x ^ 1].flow -= f
+        _edges[x ^ 1].flow -= f
         flow += f
         // eslint-disable-next-line no-param-reassign
         minFlow -= f

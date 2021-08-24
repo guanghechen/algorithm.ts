@@ -30,7 +30,7 @@ describe('codeforces', function () {
           dinic.addEdge(x, u, Number.MAX_SAFE_INTEGER)
           dinic.addEdge(x, v, Number.MAX_SAFE_INTEGER)
         }
-        answer -= dinic.maxflow()
+        answer -= dinic.maxFlow()
         return answer
       }
 

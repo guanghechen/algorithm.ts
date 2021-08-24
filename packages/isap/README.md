@@ -103,7 +103,7 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
       isap.addEdge(x, u, Number.MAX_SAFE_INTEGER)
       isap.addEdge(x, v, Number.MAX_SAFE_INTEGER)
     }
-    answer -= isap.maxflow()
+    answer -= isap.maxFlow()
     return answer
   }
   ```

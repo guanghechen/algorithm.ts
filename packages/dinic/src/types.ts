@@ -61,7 +61,7 @@ export interface Dinic {
   /**
    * Calculate the max flow of the residual network.
    */
-  maxflow(): number
+  maxFlow(): number
 
   /**
    * A hook to support access to dinic internal variables: it accepts a callback

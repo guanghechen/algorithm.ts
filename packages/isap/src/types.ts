@@ -68,7 +68,7 @@ export interface Isap {
   /**
    * Calculate the max flow of the residual network.
    */
-  maxflow(): number
+  maxFlow(): number
 
   /**
    * A hook to support access to isap internal variables: it accepts a callback
