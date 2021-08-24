@@ -61,6 +61,7 @@ Package                             | Description
 [@algorithm.ts/findset][]           | Find set.
 [@algorithm.ts/isap][]              | ISAP algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/knuth-shuffle][]     | Knuth-Shuffle algorithm.
+[@algorithm.ts/mcmf][]              | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.
 [@algorithm.ts/priority-queue][]    | Priority Queue (heap).
 [@algorithm.ts/sudoku][]            | A collection of utilities to generate / solve Sudoku problems.
 
@@ -78,5 +79,6 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/findset]: ./packages/findset
 [@algorithm.ts/isap]: ./packages/isap
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
+[@algorithm.ts/mcmf]: ./packages/mcmf
 [@algorithm.ts/priority-queue]: ./packages/priority-queue
 [@algorithm.ts/sudoku]: ./packages/sudoku
