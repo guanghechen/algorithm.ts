@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/isap#readme">@algorithm.ts/isap</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/dinic#readme">@algorithm.ts/dinic</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@algorithm.ts/isap">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/dinic">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@algorithm.ts/isap.svg"
+        src="https://img.shields.io/npm/v/@algorithm.ts/dinic.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@algorithm.ts/isap">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/dinic">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@algorithm.ts/isap.svg"
+        src="https://img.shields.io/npm/dm/@algorithm.ts/dinic.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@algorithm.ts/isap">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/dinic">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@algorithm.ts/isap.svg"
+        src="https://img.shields.io/npm/l/@algorithm.ts/dinic.svg"
       />
     </a>
     <a href="#install">
@@ -30,7 +30,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@algorithm.ts/isap"
+        src="https://img.shields.io/node/v/@algorithm.ts/dinic"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -50,9 +50,9 @@
 <br/>
 
 
-A typescript implementation of the **ISAP (Improved SAP)** algorithm.
+A typescript implementation of the **Dinic** algorithm.
 
-The **ISAP** algorithm is an algorithm for solving network flow problems.
+The **Dinic** algorithm is an algorithm for solving network flow problems.
 
 
 ## Install
@@ -60,13 +60,13 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 * npm
 
   ```bash
-  npm install --save @algorithm.ts/isap
+  npm install --save @algorithm.ts/dinic
   ```
 
 * yarn
 
   ```bash
-  yarn add @algorithm.ts/isap
+  yarn add @algorithm.ts/dinic
   ```
 
 ## Usage
@@ -74,9 +74,9 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 * Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
 
   ```typescript
-  import { createIsap } from '@algorithm.ts/isap'
+  import { createDinic } from '@algorithm.ts/dinic'
 
-  const isap = createIsap()
+  const dinic = createDinic()
 
   // The implementation of `io` is omitted.
   function solve(io: any): number {
@@ -86,12 +86,12 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
     const target: number = n + m + 1
     const totalNodes: number = n + m + 2
     const totalEdges: number = n + m * 3
-    isap.init(source, target, totalNodes, totalEdges)
+    dinic.init(source, target, totalNodes, totalEdges)
 
     const nodes: number[] = io.readIntegersOfLine()
     for (let i = 0; i < n; ++i) {
       const weight: number = nodes[i]
-      isap.addEdge(i + 1, target, weight)
+      dinic.addEdge(i + 1, target, weight)
     }
 
     let answer = 0
@@ -99,11 +99,11 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
       const [u, v, weight] = io.readIntegersOfLine()
       const x = n + i
       answer += weight
-      isap.addEdge(source, x, weight)
-      isap.addEdge(x, u, Number.MAX_SAFE_INTEGER)
-      isap.addEdge(x, v, Number.MAX_SAFE_INTEGER)
+      dinic.addEdge(source, x, weight)
+      dinic.addEdge(x, u, Number.MAX_SAFE_INTEGER)
+      dinic.addEdge(x, v, Number.MAX_SAFE_INTEGER)
     }
-    answer -= isap.maxflow()
+    answer -= dinic.maxflow()
     return answer
   }
   ```
@@ -111,9 +111,9 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 
 ## Related
 
-* [@algorithm.ts/dinic](https://github.com/guanghechen/algorithm.ts/tree/main/packages/dinic)
+* [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/main/packages/isap)
 * [网络流 24 题](https://me.guanghechen.com/post/algorithm/graph/network-flow/24-problems/)
 * [网络流基础之最大权闭合图](https://me.guanghechen.com/post/algorithm/graph/network-flow/%E6%9C%80%E5%A4%A7%E6%9D%83%E9%97%AD%E5%90%88%E5%9B%BE/)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/isap#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dinic#readme
