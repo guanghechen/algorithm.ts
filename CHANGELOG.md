@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.0.9"></a>
+## 1.0.9 (2021-08-24)
+
+### Changed
+
+- 🎨 improve(dinic,isap,mcmf): totalEdges is not required [[ba20cc9](https://github.com/guanghechen/algorithm.ts/commit/ba20cc92831972e060ec4da7e79aeb75b931ae3f)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[8d82092](https://github.com/guanghechen/algorithm.ts/commit/8d82092007d685004604c17b8a820cae55ff8835)]
+
+
 <a name="1.0.8"></a>
 ## 1.0.8 (2021-08-24)
 
