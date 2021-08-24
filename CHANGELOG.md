@@ -1,5 +1,39 @@
 # Changelog
 
+<a name="1.0.8"></a>
+## 1.0.8 (2021-08-24)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/mcmf&#x27; [[1f7f8c7](https://github.com/guanghechen/algorithm.ts/commit/1f7f8c713d420d8ae3fc5705688cb22d63aff17c)]
+- ✨ feat: implement &#x27;@algorithm.ts/dinic&#x27; [[bb5ac22](https://github.com/guanghechen/algorithm.ts/commit/bb5ac22249374e0cf4932605e4d663dc101c314d)]
+- ✨ feat: implement &#x27;@algorithm.ts/isap&#x27; [[a1d36ec](https://github.com/guanghechen/algorithm.ts/commit/a1d36ec15761e40e59a2621be7196d12705a58c5)]
+
+### Changed
+
+- 🎨 improve(isap, dinic): rename .maxflow to .maxFlow [[bbf2590](https://github.com/guanghechen/algorithm.ts/commit/bbf25907fcc2c1f54b504256be071633d491a387)]
+- ⬆️ chore: upgrade devDependencies [[a79aa1b](https://github.com/guanghechen/algorithm.ts/commit/a79aa1bc821a801bdf6f677c169577064cce5971)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[1f5ce72](https://github.com/guanghechen/algorithm.ts/commit/1f5ce726951e3b5a15a6e6701ddc2117bdcf78d0)]
+- 📝 docs: update READMEs [[de2a217](https://github.com/guanghechen/algorithm.ts/commit/de2a217fa3773fd4e94f265acc0fd707ccd7bd36)]
+
+
+<a name="1.0.7"></a>
+## 1.0.7 (2021-08-21)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/circular-queue&#x27; [[95e40f5](https://github.com/guanghechen/algorithm.ts/commit/95e40f50ba74aef385cecc75df4574a69588a8a6)]
+
+### Miscellaneous
+
+-  improve(priority-queue): resize the array while initializing [[5d6df88](https://github.com/guanghechen/algorithm.ts/commit/5d6df88a264dfee7802810628bfb9c07fd0ce0b8)]
+- 🚧 improve(binary-search-tree): no longer necessary to specify the initial size when create a new BIT [[8ec5f4d](https://github.com/guanghechen/algorithm.ts/commit/8ec5f4d4e432a6df911e95026f9dd7e54b5cc40a)]
+- 📝 docs: update README [[39901fb](https://github.com/guanghechen/algorithm.ts/commit/39901fbb321cdf757591a26aacf65cd787ae1d25)]
+
+
 <a name="1.0.6"></a>
 ## 1.0.6 (2021-08-20)
 
