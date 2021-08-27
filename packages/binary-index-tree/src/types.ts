@@ -18,14 +18,14 @@ export interface BinaryIndexTree<T extends number | bigint> {
   /**
    * Add value to the xth number.
    *
-   * @param x
+   * @param xth
    * @param value
    */
-  add(x: number, value: T): void
+  add(xth: number, value: T): void
   /**
    * Calculate the sum of the first x numbers.
    *
-   * @param x
+   * @param xth
    */
-  query(x: number): T
+  query(xth: number): T
 }

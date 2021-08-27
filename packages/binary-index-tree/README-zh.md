@@ -204,6 +204,28 @@
   bit.query(/* any integer between [5, 10] */) // => 0n
   ```
 
+* With Mod
+
+  ```typescript
+  import { createBinaryIndexTree1Mod } from '@algorithm.ts/binary-index-tree'
+
+  const MOD = 1e9 + 7
+  const bit = createBinaryIndexTree1Mod<number>(0, MOD) 
+
+  bit.add(2, <value>)   // <value> should in the range of (-MOD, MOD)
+  bit.query(3)
+  ```
+
+  ```typescript
+  import { createBinaryIndexTree2Mod } from '@algorithm.ts/binary-index-tree'
+
+  const MOD = 1e9 + 7
+  const bit = createBinaryIndexTree1Mod<bigint>(0, BigInt(MOD)) 
+
+  bit.add(2, <value>)   // <value> should in the range of (-MOD, MOD)
+  bit.query(3)
+  ```
+
 
 ## Related
 
