@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.0.10"></a>
+## 1.0.10 (2021-08-27)
+
+### Added
+
+- ✨ feat(binary-search-tree): export createBinaryIndexTree1Mod and createBinaryIndexTree2Mod [[602aaaf](https://github.com/guanghechen/algorithm.ts/commit/602aaafa73623d309f2da3bc4f263581d7f1ba1b)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[dea9c50](https://github.com/guanghechen/algorithm.ts/commit/dea9c503a5f84e18fd8060a0e429da5814674b0b)]
+
+
 <a name="1.0.9"></a>
 ## 1.0.9 (2021-08-24)
 
