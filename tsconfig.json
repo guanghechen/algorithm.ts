@@ -15,6 +15,7 @@
       "@algorithm.ts/mcmf": ["packages/mcmf/src"],
       "@algorithm.ts/priority-queue": ["packages/priority-queue/src"],
       "@algorithm.ts/sudoku": ["packages/sudoku/src"],
+      "@algorithm.ts/trie": ["packages/trie/src"],
       "jest.setup": ["jest.setup.ts"]
     }
   },
