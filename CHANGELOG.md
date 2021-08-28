@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.0.11"></a>
+## 1.0.11 (2021-08-28)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/trie&#x27; [[39a26a1](https://github.com/guanghechen/algorithm.ts/commit/39a26a179e4b67a809b51782d6c271cd921b0a27)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[1acaaa3](https://github.com/guanghechen/algorithm.ts/commit/1acaaa3d9fb9d57f725e8b8a17fd1018b523957a)]
+
+
 <a name="1.0.10"></a>
 ## 1.0.10 (2021-08-27)
 
