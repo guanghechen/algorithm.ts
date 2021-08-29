@@ -46,7 +46,7 @@ function countPaths(N: number, roads: number[][]): number {
 
   const source = 0
   const target = N - 1
-  const dist: number[] = dijkstra<number>(N, target, G, 0, 0x3f3f3f)
+  const dist: number[] = dijkstra<number>(N, target, G, 0, 1e12)
 
   const dp: number[] = new Array(N).fill(-1)
   return dfs(source)
