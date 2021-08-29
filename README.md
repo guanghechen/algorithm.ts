@@ -56,6 +56,7 @@ Package                             | Description
 :----------------------------------:|:--------------------------
 [@algorithm.ts/binary-index-tree][] | Binary Index Tree.
 [@algorithm.ts/circular-queue][]    | Circular queue.
+[@algorithm.ts/dijkstra][]          | Dijkstra algorithm optimized with [@algorithm.ts/priority-queue][]. #ShortestPath.
 [@algorithm.ts/dinic][]             | Dinic algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/dlx][]               | DLX algorithm.
 [@algorithm.ts/findset][]           | Find set.
@@ -75,6 +76,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [homepage]: https://github.com/guanghechen/algorithm.ts
 [@algorithm.ts/binary-index-tree]: ./packages/binary-index-tree
 [@algorithm.ts/circular-queue]: ./packages/circular-queue
+[@algorithm.ts/dijkstra]: ./packages/dijkstra
 [@algorithm.ts/dinic]: ./packages/dinic
 [@algorithm.ts/dlx]: ./packages/dlx
 [@algorithm.ts/findset]: ./packages/findset
