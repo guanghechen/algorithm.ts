@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.0.12"></a>
+## 1.0.12 (2021-08-29)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/dijkstra&#x27; [[9d61f0f](https://github.com/guanghechen/algorithm.ts/commit/9d61f0f3e44793403ecbb925ca4b148659caaef1)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[188e1bc](https://github.com/guanghechen/algorithm.ts/commit/188e1bc45cde62a60fe4d62eed9ca2bdf72b5ff3)]
+
+
 <a name="1.0.11"></a>
 ## 1.0.11 (2021-08-28)
 
