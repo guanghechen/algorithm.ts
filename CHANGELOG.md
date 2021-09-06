@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.0.13"></a>
+## 1.0.13 (2021-09-06)
+
+### Added
+
+- ✨ feat: implemented &#x27;@algorithm.ts/gcd&#x27; [[2b3c113](https://github.com/guanghechen/algorithm.ts/commit/2b3c113240a019677956b63d1137099a55a08531)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[3c5be84](https://github.com/guanghechen/algorithm.ts/commit/3c5be84d74979ffff4eba3772216e8cd4a48ab9d)]
+- 📝 docs: update CHANGELOG [[ba0a822](https://github.com/guanghechen/algorithm.ts/commit/ba0a8229605256a419c5f08e95528f6d25250a20)]
+
+
 <a name="1.0.12"></a>
 ## 1.0.12 (2021-08-29)
 
