@@ -60,6 +60,7 @@ Package                             | Description
 [@algorithm.ts/dinic][]             | Dinic algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/dlx][]               | DLX algorithm.
 [@algorithm.ts/findset][]           | Find set.
+[@algorithm.ts/gcd][]               | Greatest Common Divisor (GCD) and extended Euclidean algorithm.
 [@algorithm.ts/isap][]              | ISAP algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/knuth-shuffle][]     | Knuth-Shuffle algorithm.
 [@algorithm.ts/mcmf][]              | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.
@@ -80,6 +81,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/dinic]: ./packages/dinic
 [@algorithm.ts/dlx]: ./packages/dlx
 [@algorithm.ts/findset]: ./packages/findset
+[@algorithm.ts/gcd]: ./packages/gcd
 [@algorithm.ts/isap]: ./packages/isap
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
 [@algorithm.ts/mcmf]: ./packages/mcmf

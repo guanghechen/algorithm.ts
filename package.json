@@ -28,6 +28,7 @@
     "postinstall:dev": "is-ci || husky install",
     "postpublish": "pinst --enable",
     "rebuild": "run-s clean build",
+    "run:ts": "node -r ts-node/register -r tsconfig-paths/register",
     "test": "lerna exec 'echo && pwd && yarn test' --concurrency 1",
     "test:coverage": "lerna exec 'echo && pwd && yarn test --coverage' --concurrency 1",
     "test:update": "lerna exec 'echo && pwd && yarn test -u' --concurrency 1",
