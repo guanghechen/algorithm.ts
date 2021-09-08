@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="1.0.14"></a>
+## 1.0.14 (2021-09-08)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/sliding-window&#x27; [[bf4276b](https://github.com/guanghechen/algorithm.ts/commit/bf4276b8db2e224bc4f056be285dc45d1de4f33f)]
+- ✨ feat(trie): export new function &#x27;hasPrefixMatched&#x27; [[5bdb306](https://github.com/guanghechen/algorithm.ts/commit/5bdb3066663d222fbdbeac826f8c43e121ec7d82)]
+
+### Miscellaneous
+
+- 📝 docs(priority-queue): update README [[1746090](https://github.com/guanghechen/algorithm.ts/commit/17460905bc7228cc6a49fabbad7e0457c5cc28ee)]
+- 📝 docs: update CHANGELOG [[5dc4fd9](https://github.com/guanghechen/algorithm.ts/commit/5dc4fd975c0cbf3601b5b90e9ac425a64a1e6b4f)]
+
+
 <a name="1.0.13"></a>
 ## 1.0.13 (2021-09-06)
 
