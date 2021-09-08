@@ -65,6 +65,7 @@ Package                             | Description
 [@algorithm.ts/knuth-shuffle][]     | Knuth-Shuffle algorithm.
 [@algorithm.ts/mcmf][]              | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.
 [@algorithm.ts/priority-queue][]    | Priority Queue (heap).
+[@algorithm.ts/sliding-window][]    | Sliding window algorithm.
 [@algorithm.ts/sudoku][]            | A collection of utilities to generate / solve Sudoku problems.
 [@algorithm.ts/trie][]              | Trie. (digital tree or prefix tree)
 
@@ -86,5 +87,6 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
 [@algorithm.ts/mcmf]: ./packages/mcmf
 [@algorithm.ts/priority-queue]: ./packages/priority-queue
+[@algorithm.ts/sliding-window]: ./packages/sliding-window
 [@algorithm.ts/sudoku]: ./packages/sudoku
 [@algorithm.ts/trie]: ./packages/trie
