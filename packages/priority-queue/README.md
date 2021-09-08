@@ -72,34 +72,91 @@ complexity of the enqueue and dequeue operations are both $O(\log N)$.
   yarn add @algorithm.ts/priority-queue
   ```
 
+* deno
+
+  ```bash
+  import { createPriorityQueue } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/priority-queue/src/index.ts'
+  ```
+
 ## Usage
 
-```typescript
-import { createPriorityQueue } = '@algorithm.ts/priority-queue'
+* `PriorityQueue`
 
-const Q = createPriorityQueue<number>((x, y) => x - y)
+  Member                  | Return        |  Description
+  :----------------------:|:-------------:|:---------------------------------------
+  `init(elements?: T[])`  | `void`        | Initialize priority queue with initial elements.
+  `enqueue(val: T)`       | `void`        | Drop a element into the priority queue.
+  `dequeue()`             | `T|undefined` | Popup the top element.
+  `top()`                 | `T|undefined` | Get the top element.
+  `size()`                | `number`      | Return the number of elements of the priority queue.
+  `isEmpty()`             | `boolean`     | Check if the priority queue is empty.
+  `collect()`             | `T[]`         | Return all of the elements of the priority queue.
 
-Q.enqueue(3)
-Q.enqueue(7)
-Q.enqueue(1)
-Q.enqueue(-5)
+* `createPriorityQueue`
 
-Q.size()      // => 4
-Q.isEmpty()   // => false
+  ```typescript
+  export function createPriorityQueue<T>(
+    cmp: (x: T, y: T) => -1 | 0 | 1 | number,
+  ): PriorityQueue<T>
+  ```
 
-Q.dequeue()   // => 7
-Q.dequeue()   // => 3
-Q.top()       // => 1
-Q.top()       // => 1
-Q.dequeue()   // => 1
-Q.top()       // => -5
-Q.dequeue()   // => -5
-Q.top()       // => undefined
-Q.dequeue()   // => undefined
+  - `createPriorityQueue<number>((x, y) => x - y)`: The top element has a maximum value.
+  - `createPriorityQueue<number>((x, y) => y - x)`: The top element has a maximum value.
 
-Q.isEmpty()   // => true
-```
+### Example
 
+* Basic
+
+  ```typescript
+  import { createPriorityQueue } = '@algorithm.ts/priority-queue'
+
+  const Q = createPriorityQueue<number>((x, y) => x - y)
+
+  Q.enqueue(3)
+  Q.enqueue(7)
+  Q.enqueue(1)
+  Q.enqueue(-5)
+
+  Q.size()      // => 4
+  Q.isEmpty()   // => false
+
+  Q.dequeue()   // => 7
+  Q.dequeue()   // => 3
+  Q.top()       // => 1
+  Q.top()       // => 1
+  Q.dequeue()   // => 1
+  Q.top()       // => -5
+  Q.dequeue()   // => -5
+  Q.top()       // => undefined
+  Q.dequeue()   // => undefined
+
+  Q.isEmpty()   // => true
+  ```
+
+* A solution for 剑指offer#63 https://www.nowcoder.com/practice/9be0172896bd43948f8a32fb954e1be1
+
+  ```typescript
+  import { createPriorityQueue } from '@algorithm.ts/priority-queue'
+
+  const lowerQ = createPriorityQueue<number>((x, y) => x - y)
+  const upperQ = createPriorityQueue<number>((x, y) => y - x)
+
+  export function Insert(num: number): void {
+    if (lowerQ.size() === upperQ.size()) {
+      upperQ.enqueue(num)
+      lowerQ.enqueue(upperQ.dequeue()!)
+    } else {
+      lowerQ.enqueue(num)
+      upperQ.enqueue(lowerQ.dequeue()!)
+    }
+  }
+
+  export function GetMedian(): number {
+    return lowerQ.size() === upperQ.size()
+      ? (lowerQ.top()! + upperQ.top()!) / 2
+      : lowerQ.top()!
+  }
+  ```
 
 ## Related
 

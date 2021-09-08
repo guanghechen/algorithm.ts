@@ -6,10 +6,10 @@
  */
 export interface PriorityQueue<T> {
   /**
-   * Init priority queue with initial elements.
+   * Initialize priority queue with initial elements.
    * @param elements
    */
-  init(elements: ReadonlyArray<T>): void
+  init(elements?: ReadonlyArray<T>): void
   /**
    * Drop a element into the priority queue.
    */
@@ -39,6 +39,11 @@ export interface PriorityQueue<T> {
 /**
  * Create a priority queue, implementation based on a max-heap.
  *
+ * For example:
+ *
+ *  createPriorityQueue<number>((x, y) => x - y) // => The top element has a maximum value.
+ *  createPriorityQueue<number>((x, y) => y - x) // => The top element has a maximum value.
+ *
  * @param cmp   Comparison function, if the result > 0, the element on the left
  *              side of the operator has higher precedence.
  * @returns
@@ -64,9 +69,12 @@ export function createPriorityQueue<T>(
    * @param elements
    * @returns
    */
-  function init(elements: ReadonlyArray<T>): void {
-    _size = Math.max(0, elements.length)
+  function init(elements?: ReadonlyArray<T>): void {
+    _size = elements == null ? 0 : Math.max(0, elements.length)
     if (_tree.length <= _size) _tree.length = _size + 1
+    if (elements == null) return
+
+    // Build the heap with the initial elements.
     for (let i = 0; i < _size; ++i) _tree[i + 1] = elements[i]
     for (let q = _size; q > 1; q -= 2) _down(q >> 1)
   }
