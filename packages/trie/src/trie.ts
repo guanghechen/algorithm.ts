@@ -38,10 +38,10 @@ export function createTrie<T extends unknown = number>({
   idx,
   mergeAdditionalValues,
 }: CreateTrieOptions<T>): Trie<T> {
+  let sz: number
   const ch: Uint32Array[] = []
   const values: T[] = [ZERO]
-  let sz: number
-  return { init, insert, match, find, findAll }
+  return { init, insert, match, hasPrefixMatched, find, findAll }
 
   function init(): void {
     if (ch[0] === undefined) ch[0] = new Uint32Array(SIGMA_SIZE)
@@ -77,6 +77,17 @@ export function createTrie<T extends unknown = number>({
     }
     const val = values[u]
     return i < end || val === ZERO ? null : val
+  }
+
+  function hasPrefixMatched(str: string, start = 0, end = str.length): boolean {
+    for (let i = start, u = 0; i < end; ++i) {
+      const c: number = idx(str[i])
+      if (ch[u][c] === 0) return false
+      u = ch[u][c]
+      const val = values[u]
+      if (val !== ZERO) return true
+    }
+    return true
   }
 
   function find(

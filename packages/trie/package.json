@@ -1,7 +1,7 @@
 {
   "name": "@algorithm.ts/trie",
   "version": "1.0.13",
-  "description": "Dancing link + Algorithm X",
+  "description": "Trie",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"

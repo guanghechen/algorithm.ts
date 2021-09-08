@@ -77,9 +77,16 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   yarn add @algorithm.ts/trie
   ```
 
+* deno
+
+  ```bash
+  import { createTrie } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/trie/src/index.ts'
+  ```
+
 ## Usage
 
 * Trie
+
   - `init(): void`: Initialize a trie.
 
   - `insert(str: string, v: T, start?: number, end?: number): void`:  Insert a
@@ -89,6 +96,10 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
     the trie which exact match the `str.slice(start, end)`. If there is such a
     word, return its additional value, otherwise return null.
 
+  - `hasPrefixMatched(str: string, start?: number, end?: number): boolean`:
+    Check if there is a word `w` in the trie satisfied that
+    `w.slice(0, end - start)` equals to `str.slice(start, end)`.
+
   - `find(str: string, start?: number, end?: number): TrieNodeData<T> | null`:
     Find word with smallest length in the trie which exact match the
     `str.slice(start, x)`, where the x is an integer in the range [start, _end).
@@ -97,20 +108,28 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
     Find all words in the trie which exact match the
     `str.slice(start, x)`, where the x is an integer in the range [start, _end).
 
-* Solve https://leetcode.com/problems/word-break-ii/:
+* Util
+
+  - `lowercaseIdx(c: string): number`: Calc idx of lowercase English letter.
+  - `uppercaseIdx(c: string): number`: Calc idx of uppercase English letter. 
+  - `digitIdx(c: string): number`: Calc idx of digit character.
+
+### Example
+
+* A solution of https://leetcode.com/problems/word-break-ii/:
 
   ```typescript
-  import { Trie, createTrie } from '@algorithm.ts/trie'
-
-  const trie: Trie = createTrie({
-    SIGMA_SIZE: 26,
-    ZERO: 0,
-    idx: (c: string): number => c.codePointAt(0)! - 97,
-    mergeAdditionalValues: (x, y) => y,
-  })
+  import { Trie, createTrie, lowercaseIdx } from '@algorithm.ts/trie'
 
   export function wordBreak(s: string, wordDict: string[]): string[] {
     if (s.length <= 0) return []
+
+    const trie: Trie = createTrie({
+      SIGMA_SIZE: 26,
+      ZERO: 0,
+      idx: lowercaseIdx,
+      mergeAdditionalValues: (x, y) => y,
+    })
 
     trie.init()
     for (let i = 0; i < wordDict.length; ++i) {
@@ -144,7 +163,65 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   }
   ```
 
+* A solution of https://leetcode.com/problems/word-search-ii/
 
+  ```typescript
+  import { Trie, createTrie, lowercaseIdx } from '@algorithm.ts/trie'
+
+  function findWords(board: string[][], words: string[]): string[] {
+    if (words.length === 0) return []
+
+    const R = board.length
+    if (R <= 0) return []
+
+    const C = board[0].length
+    if (C <= 0) return []
+
+    const trie: Trie = createTrie({
+      SIGMA_SIZE: 26,
+      ZERO: 0,
+      idx: lowercaseIdx,
+      mergeAdditionalValues: x => x,
+    })
+
+    trie.init()
+
+    const visited: boolean[][] = new Array(R)
+    for (let r = 0; r < R; ++r) visited[r] = new Array(C).fill(false)
+
+    const boardWord: string[] = []
+    for (let r = 0; r < R; ++r) {
+      for (let c = 0; c < C; ++c) {
+        dfs(0, r, c)
+      }
+    }
+
+    const results: string[] = []
+    for (const word of words) {
+      if (trie.hasPrefixMatched(word)) results.push(word)
+    }
+    return results
+
+    function dfs(cur: number, r: number, c: number): void {
+      if (cur === 10 || r < 0 || r >= R || c < 0 || c >= C) {
+        trie.insert(boardWord.join(''), 1, 0, cur)
+        return
+      }
+
+      if (visited[r][c]) return
+
+      visited[r][c] = true
+      boardWord[cur] = board[r][c]
+
+      const nextCur: number = cur + 1
+      dfs(nextCur, r - 1, c)
+      dfs(nextCur, r, c + 1)
+      dfs(nextCur, r + 1, c)
+      dfs(nextCur, r, c - 1)
+      visited[r][c] = false
+    }
+  }
+  ```
 
 ## Related
 

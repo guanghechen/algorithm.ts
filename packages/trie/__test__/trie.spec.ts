@@ -1,5 +1,5 @@
 import type { Trie } from '../src'
-import { createTrie } from '../src'
+import { createTrie, digitIdx, lowercaseIdx, uppercaseIdx } from '../src'
 
 describe('trie', function () {
   describe('basic', function () {
@@ -7,9 +7,9 @@ describe('trie', function () {
       SIGMA_SIZE: 62,
       ZERO: 0,
       idx: (c: string): number => {
-        if (/\d/.test(c)) return c.codePointAt(0)! - 48 // digits
-        if (/[A-Z]/.test(c)) return c.codePointAt(0)! - 65 // uppercase letters
-        if (/[a-z]/.test(c)) return c.codePointAt(0)! - 97 // lowercase letters
+        if (/\d/.test(c)) return digitIdx(c) // digits
+        if (/[A-Z]/.test(c)) return uppercaseIdx(c) + 10 // uppercase letters
+        if (/[a-z]/.test(c)) return lowercaseIdx(c) + 36 // lowercase letters
         throw new TypeError(`Bad character: (${c})`)
       },
       mergeAdditionalValues: (x, y) => x + y,
@@ -47,80 +47,28 @@ describe('trie', function () {
       expect(trie.findAll('banana', 0, 3)).toEqual([{ end: 3, val: 2 }])
     })
   })
-})
 
-describe('leetcode', function () {
-  test('word-break-ii', function () {
-    const trie: Trie = createTrie({
-      SIGMA_SIZE: 26,
-      ZERO: 0,
-      idx: (c: string): number => c.codePointAt(0)! - 97,
-      mergeAdditionalValues: (x, y) => y,
-    })
-
-    const data: Array<{ input: [string, string[]]; answer: string[] }> = [
-      {
-        input: ['catsanddog', ['cat', 'cats', 'and', 'sand', 'dog']],
-        answer: ['cat sand dog', 'cats and dog'],
-      },
-      {
-        input: [
-          'pineapplepenapple',
-          ['apple', 'pen', 'applepen', 'pine', 'pineapple'],
-        ],
-        answer: [
-          'pine apple pen apple',
-          'pine applepen apple',
-          'pineapple pen apple',
-        ],
-      },
-      {
-        input: ['catsandog', ['cats', 'dog', 'sand', 'and', 'cat']],
-        answer: [],
-      },
-    ]
-
-    for (const { input, answer } of data) {
-      expect(wordBreak(input[0], input[1])).toEqual(answer)
+  test('lowercaseIdx', function () {
+    const letters: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
+    for (let i = 0; i < letters.length; ++i) {
+      const c = letters[i]
+      expect(lowercaseIdx(c)).toBe(i)
     }
+  })
 
-    /**
-     * A solution for leetcode https://leetcode.com/problems/word-break-ii/
-     *
-     * @author guanghechen
-     */
-    function wordBreak(s: string, wordDict: string[]): string[] {
-      if (s.length <= 0) return []
+  test('uppercaseIdx', function () {
+    const letters: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+    for (let i = 0; i < letters.length; ++i) {
+      const c = letters[i]
+      expect(uppercaseIdx(c)).toBe(i)
+    }
+  })
 
-      trie.init()
-      for (let i = 0; i < wordDict.length; ++i) {
-        const word = wordDict[i]
-        trie.insert(word, i + 1)
-      }
-
-      const N = s.length
-      const results: string[] = []
-      const collect: number[] = []
-      dfs(0, 0)
-      return results
-
-      function dfs(cur: number, pos: number): void {
-        if (pos === N) {
-          results.push(
-            collect
-              .slice(0, cur)
-              .map(x => wordDict[x - 1])
-              .join(' '),
-          )
-          return
-        }
-
-        const pairs = trie.findAll(s, pos)
-        for (const { end, val } of pairs) {
-          collect[cur] = val
-          dfs(cur + 1, end)
-        }
-      }
+  test('digitIdx', function () {
+    const letters: string[] = '0123456789'.split('')
+    for (let i = 0; i < letters.length; ++i) {
+      const c = letters[i]
+      expect(digitIdx(c)).toBe(i)
     }
   })
 })

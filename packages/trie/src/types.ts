@@ -51,6 +51,16 @@ export interface Trie<T extends unknown = number> {
   match(str: string, start?: number, end?: number): T | null
 
   /**
+   * Check if there is a word w in the trie satisfied that
+   * w.slice(0, end - start) equals to str.slice(start, end).
+   *
+   * @param str
+   * @param start
+   * @param end
+   */
+  hasPrefixMatched(str: string, start?: number, end?: number): boolean
+
+  /**
    * Find word with smallest length in the trie which exact match the
    * str.slice(start, x), where the x is an integer in the range [start, _end).
    *
