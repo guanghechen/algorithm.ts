@@ -42,7 +42,7 @@ export interface PriorityQueue<T> {
  * For example:
  *
  *  createPriorityQueue<number>((x, y) => x - y) // => The top element has a maximum value.
- *  createPriorityQueue<number>((x, y) => y - x) // => The top element has a maximum value.
+ *  createPriorityQueue<number>((x, y) => y - x) // => The top element has a minimum value.
  *
  * @param cmp   Comparison function, if the result > 0, the element on the left
  *              side of the operator has higher precedence.

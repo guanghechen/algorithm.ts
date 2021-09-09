@@ -101,7 +101,7 @@ complexity of the enqueue and dequeue operations are both $O(\log N)$.
   ```
 
   - `createPriorityQueue<number>((x, y) => x - y)`: The top element has a maximum value.
-  - `createPriorityQueue<number>((x, y) => y - x)`: The top element has a maximum value.
+  - `createPriorityQueue<number>((x, y) => y - x)`: The top element has a minimum value.
 
 ### Example
 
