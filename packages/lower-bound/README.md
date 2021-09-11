@@ -108,6 +108,14 @@ greater or equals than the target element.
   lowerBound(0, fruits.length, x => fruits[x].price - 11) // => 3
   ```
 
+* Bigint
+
+  ```typescript
+  import { lowerBoundBigint } from '@algorithm.ts/lower-bound'
+
+  lowerBoundBigint(-500000000000n, 5000000000n, x => x - 1n) // => 1n
+  ```
+
 
 ## Related
 

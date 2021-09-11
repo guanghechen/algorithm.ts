@@ -111,6 +111,14 @@ greater than the target element.
   upperBound(0, fruits.length, x => fruits[x].price - 11) // => 3
   ```
 
+* Bigint
+
+  ```typescript
+  import { upperBoundBigint } from '@algorithm.ts/upper-bound'
+
+  upperBoundBigInt(-500000000000n, 5000000000n, x => x - 1n) // => 2n
+  ```
+
 
 ## Related
 
