@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="1.0.15"></a>
+## 1.0.15 (2021-09-11)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/upper-bound&#x27; [[1bd4ef0](https://github.com/guanghechen/algorithm.ts/commit/1bd4ef0d0f6526792609ef481a8d0e4864a4ef39)]
+- ✨ feat: implement &#x27;@algorithm.ts/lower-bound&#x27; [[b1cbb99](https://github.com/guanghechen/algorithm.ts/commit/b1cbb9915d5959b38bfea992bb227a5613b183f9)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[ba86828](https://github.com/guanghechen/algorithm.ts/commit/ba8682840bc759f44055641d93501e92e89c93ae)]
+- 📝 docs: update README [[aa74fd2](https://github.com/guanghechen/algorithm.ts/commit/aa74fd2cc32c479476f6ffc808982deb73226841)]
+- 📝 docs: update CHANGELOG [[f8e28f7](https://github.com/guanghechen/algorithm.ts/commit/f8e28f778bd5d3b52950bc7a5cafd9fa9c2e5d98)]
+
+
 <a name="1.0.14"></a>
 ## 1.0.14 (2021-09-08)
 
