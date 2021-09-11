@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="1.0.16"></a>
+## 1.0.16 (2021-09-11)
+
+### Added
+
+- ✨ feat: implemented bigint versions of lower-bound and upper-bound [[97846b1](https://github.com/guanghechen/algorithm.ts/commit/97846b1f06f19bf57c666de1422a3833dd5259d5)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[e27d876](https://github.com/guanghechen/algorithm.ts/commit/e27d8766120d28c4bee975844bccf871e6e99c19)]
+
+
 <a name="1.0.15"></a>
 ## 1.0.15 (2021-09-11)
 
