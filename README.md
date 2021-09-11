@@ -69,6 +69,7 @@ Package                             | Description
 [@algorithm.ts/sliding-window][]    | Sliding window algorithm.
 [@algorithm.ts/sudoku][]            | A collection of utilities to generate / solve Sudoku problems.
 [@algorithm.ts/trie][]              | Trie. (digital tree or prefix tree)
+[@algorithm.ts/upper-bound][]       | Find the index of first elements which greater than the target element.
 
 
 ## License
@@ -92,3 +93,4 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/sliding-window]: ./packages/sliding-window
 [@algorithm.ts/sudoku]: ./packages/sudoku
 [@algorithm.ts/trie]: ./packages/trie
+[@algorithm.ts/upper-bound]: ./packages/upper-bound
