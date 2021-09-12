@@ -69,6 +69,12 @@ greater than the target element.
   yarn add @algorithm.ts/upper-bound
   ```
 
+* deno
+
+  ```typescript
+  import upperBound from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/upper-bound/src/index.ts'
+  ```
+
 ## Usage
 
 * Basic

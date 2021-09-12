@@ -72,6 +72,12 @@ If you are interested in this algorithm, you can check [here][dlx].
   yarn add @algorithm.ts/dlx
   ```
 
+* deno
+
+  ```typescript
+  import { createDLX } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/dlx/src/index.ts'
+  ```
+
 ## Usage
 
 * Use dlx to solve a 9x9 sudoku problem:

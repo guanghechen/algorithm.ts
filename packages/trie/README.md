@@ -79,7 +79,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
 * deno
 
-  ```bash
+  ```typescript
   import { createTrie } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/trie/src/index.ts'
   ```
 

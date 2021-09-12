@@ -74,7 +74,7 @@ complexity of the enqueue and dequeue operations are both $O(\log N)$.
 
 * deno
 
-  ```bash
+  ```typescript
   import { createPriorityQueue } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/priority-queue/src/index.ts'
   ```
 

@@ -69,6 +69,13 @@ greater or equals than the target element.
   yarn add @algorithm.ts/lower-bound
   ```
 
+* deno
+
+  ```typescript
+  import lowerBound from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/lower-bound/src/index.ts'
+  ```
+
+
 ## Usage
 
 * Basic

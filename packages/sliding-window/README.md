@@ -69,7 +69,7 @@ A typescript implementation of the **sliding-window** algorithm.
 
 * deno
 
-  ```bash
+  ```typescript
   import { createSlidingWindow } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/sliding-window/src/index.ts'
   ```
 

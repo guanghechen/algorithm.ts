@@ -73,6 +73,13 @@ are kept in the queue. Other operations are the same as ordinary queues.
   yarn add @algorithm.ts/circular-queue
   ```
 
+* deno
+
+  ```typescript
+  import { createCircularQueue } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/circular-queue/src/index.ts'
+  ```
+
+
 ## Usage
 
 * Basic:

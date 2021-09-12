@@ -72,6 +72,12 @@ If you are interested in this algorithm, you can check [here][knuth-shuffle].
   yarn add @algorithm.ts/knuth-shuffle
   ```
 
+* deno
+
+  ```typescript
+  import knuthShuffle from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/knuth-shuffle/src/index.ts'
+  ```
+
 ## Usage
 
 * Shuffle nums.

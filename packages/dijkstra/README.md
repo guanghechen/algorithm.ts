@@ -74,6 +74,12 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   yarn add @algorithm.ts/dijkstra
   ```
 
+* deno
+
+  ```typescript
+  import dijkstra from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/dijkstra/src/index.ts'
+  ```
+
 ## Usage
 
 A solution for leetcode "Number of Ways to Arrive at Destination"
