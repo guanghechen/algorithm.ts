@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.0.17"></a>
+## 1.0.17 (2021-09-20)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/calculate&#x27; [[22001ff](https://github.com/guanghechen/algorithm.ts/commit/22001ff6bbd0a9451a45f8d6fbed8ab1f693ab5e)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[b30be1f](https://github.com/guanghechen/algorithm.ts/commit/b30be1f29a545f2525a4b4422795387f8fa70333)]
+- 📝 docs: update CHANGELOG [[9cd3f2d](https://github.com/guanghechen/algorithm.ts/commit/9cd3f2de73ac0b2c8f25a232f0830012ef7931a4)]
+
+
 <a name="1.0.16"></a>
 ## 1.0.16 (2021-09-11)
 
