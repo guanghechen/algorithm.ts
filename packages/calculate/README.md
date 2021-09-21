@@ -70,7 +70,7 @@ A tiny calculator for integer arithmetics such as `+-*/()`.
 * deno
 
   ```typescript
-  import { createDLX } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/calculate/src/index.ts'
+  import calculate from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/calculate/src/index.ts'
   ```
 
 
