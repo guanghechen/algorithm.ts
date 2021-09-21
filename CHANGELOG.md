@@ -1,5 +1,23 @@
 # Changelog
 
+<a name="1.0.18"></a>
+## 1.0.18 (2021-09-21)
+
+### Added
+
+- ✨ feat(@algorithm.ts/calculate): support to perform bigint and decimal arithmetics [[2371dab](https://github.com/guanghechen/algorithm.ts/commit/2371dabd2e4ed25b7fa1fd82ff89e57d83a82468)]
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies &amp; fix linter warnings [[4e110da](https://github.com/guanghechen/algorithm.ts/commit/4e110da0a0fc8488a8aa819ff2a77150243752cd)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[2168e61](https://github.com/guanghechen/algorithm.ts/commit/2168e615921a1411b449ba7bee3548e3306427a7)]
+- 📝 docs: update README [[b13c7b2](https://github.com/guanghechen/algorithm.ts/commit/b13c7b29462a670df4abb945778e26067ebafdf5)]
+- 📝 docs: update CHANGELOG [[3f010b8](https://github.com/guanghechen/algorithm.ts/commit/3f010b8607fe37fbe5cfa6f58f992083ade71813)]
+
+
 <a name="1.0.17"></a>
 ## 1.0.17 (2021-09-20)
 
