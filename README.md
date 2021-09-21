@@ -55,7 +55,7 @@ Typescript. (no third-party dependencies)
 Package                             | Description
 :----------------------------------:|:--------------------------
 [@algorithm.ts/binary-index-tree][] | Binary Index Tree.
-[@algorithm.ts/calculate][]         | A tiny calculator for integer arithmetics.
+[@algorithm.ts/calculate][]         | A tiny calculator for number arithmetics.
 [@algorithm.ts/circular-queue][]    | Circular queue.
 [@algorithm.ts/dijkstra][]          | Dijkstra algorithm optimized with [@algorithm.ts/priority-queue][]. #ShortestPath.
 [@algorithm.ts/dinic][]             | Dinic algorithm. #MaxFlow, #NetworkFlow.

@@ -50,7 +50,7 @@
 <br/>
 
 
-A tiny calculator for integer arithmetics such as `+-*/()`.
+A tiny calculator for number arithmetics such as `+-*/()`.
 
 
 ## Install
@@ -76,14 +76,52 @@ A tiny calculator for integer arithmetics such as `+-*/()`.
 
 ## Usage
 
-* Basic
+
+```typescript
+// Perform integer arithmetics.
+import calculate from 'algorithm.ts/calculate'
+// or 
+import { calculate } from 'algorithm.ts/calculate'
+
+// Perform decimal arithmetics.
+import { decimalCalculate } from 'algorithm.ts/calculate'
+
+// Perform bigint arithmetics.
+import { bigintCalculate } from 'algorithm.ts/calculate'
+```
+
+
+## Examples
+
+* integer arithmetics
 
   ```typescript
   import calculate from '@algorithm.ts/calculate'
 
+  calculate('3/2')                  // => 1
   calculate('-2+1')                 // => -1
   calculate('-2*3 + 2*5*3/6')       // => -1
   calculate('(1+(4+5+2)-3)+(6+8)')  // => 23
+  ```
+
+* decimal arithmetics
+
+  ```typescript
+  import { decimalCalculate as calculate } from '@algorithm.ts/calculate'
+
+  calculate('3/2')                  // => 1.5
+  calculate('-2+1')                 // => -1
+  calculate('-2*3 + 2*5*3/6')       // => -1
+  calculate('(1+(4+5+2)-3)+(6+8)')  // => 23
+  ```
+
+* bigint arithmetics
+
+  ```typescript
+  import { bigintCalculate as calculate } from '@algorithm.ts/calculate'
+
+  calculate('22222222222222222222222222222 * 3333333333333333333323232')
+  // => 74074074074074074073849599999259259259259259259261504n
   ```
 
 * Illegal inputs
@@ -91,13 +129,19 @@ A tiny calculator for integer arithmetics such as `+-*/()`.
   ```typescript
   import calculate from '@algorithm.ts/calculate'
 
-  calculate('-2++1')      // => NaN
-  calculate('-2*/23')     // => NaN
-  calculate('1+(4+5+2))') // => NaN
-  calculate('1+(4+5+2')   // => NaN
+  calculate('-2++1')      // => SyntaxError
+  calculate('-2*/23')     // => SyntaxError
+  calculate('1+(4+5+2))') // => SyntaxError
+  calculate('1+(4+5+2')   // => SyntaxError
   ```
 
 * A solution of https://leetcode.com/problems/basic-calculator/
+
+  ```typescript
+  export { calculate } from '@algorithm.ts/calculate'
+  ```
+
+* A solution of https://leetcode.com/problems/basic-calculator-ii/
 
   ```typescript
   export { calculate } from '@algorithm.ts/calculate'
