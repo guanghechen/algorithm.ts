@@ -31,7 +31,7 @@ describe('codeforces', function () {
           mcmf.addEdge(x, v, Number.MAX_SAFE_INTEGER, 1)
         }
 
-        const [mincost, maxflow] = mcmf.minCostMaxFlow()
+        const [, maxflow] = mcmf.minCostMaxFlow()
         answer -= maxflow
         return answer
       }
