@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dijkstra",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Dancing link + Algorithm X",
   "author": {
     "name": "guanghechen",
@@ -43,6 +43,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/priority-queue": "^1.0.17"
+    "@algorithm.ts/priority-queue": "^1.0.18"
   }
 }
