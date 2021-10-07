@@ -70,6 +70,7 @@ Package                             | Description
 [@algorithm.ts/priority-queue][]    | Priority Queue (heap).
 [@algorithm.ts/sliding-window][]    | Sliding window algorithm.
 [@algorithm.ts/sieve-prime][]       | A linear time algorithm to sieve prime numbers.
+[@algorithm.ts/sieve-totient][]     | A linear time algorithm to sieve prime numbers and get the Euler's totient function.
 [@algorithm.ts/sudoku][]            | A collection of utilities to generate / solve Sudoku problems.
 [@algorithm.ts/trie][]              | Trie. (digital tree or prefix tree)
 [@algorithm.ts/upper-bound][]       | Find the index of first elements which greater than the target element.
