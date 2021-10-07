@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="1.0.21"></a>
+## 1.0.21 (2021-10-07)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/sieve-totient&#x27; [[38a939f](https://github.com/guanghechen/algorithm.ts/commit/38a939f4844451d26346c38cde1994e36e660ded)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[2e17b5b](https://github.com/guanghechen/algorithm.ts/commit/2e17b5b58cbc7c6119264ff851fa24f0942c11ac)]
+- 📝 docs: update CHANGELOG [[a33554d](https://github.com/guanghechen/algorithm.ts/commit/a33554d7612d593f8c7407555dfa9cbe8eeb233a)]
+
+
 <a name="1.0.20"></a>
 ## 1.0.20 (2021-10-07)
 
