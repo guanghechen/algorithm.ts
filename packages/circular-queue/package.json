@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/circular-queue",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Circular queue in Typescript",
   "author": {
     "name": "guanghechen",

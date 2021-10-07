@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sieve-prime",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "A linear time algorithm to sieve prime numbers",
   "author": {
     "name": "guanghechen",
