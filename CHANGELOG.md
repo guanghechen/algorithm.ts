@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.0.20"></a>
+## 1.0.20 (2021-10-07)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/sieve-prime&#x27; [[fee8d9a](https://github.com/guanghechen/algorithm.ts/commit/fee8d9aae9d08be91b30dc4dd23e4214332907af)]
+
+### Changed
+
+- ⚡ improve: prefer Unit32Array instead of number[] [[eb890fe](https://github.com/guanghechen/algorithm.ts/commit/eb890fe2ab0fca8ecb09b34e77f42424dbae5970)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[0c3ab92](https://github.com/guanghechen/algorithm.ts/commit/0c3ab92515f976376ba4284d837d6bc814208791)]
+
+
 <a name="1.0.19"></a>
 ## 1.0.19 (2021-10-07)
 
