@@ -19,6 +19,7 @@
       "@algorithm.ts/manacher": ["packages/manacher/src"],
       "@algorithm.ts/mcmf": ["packages/mcmf/src"],
       "@algorithm.ts/priority-queue": ["packages/priority-queue/src"],
+      "@algorithm.ts/sieve-prime": ["packages/sieve-prime/src"],
       "@algorithm.ts/sliding-window": ["packages/sliding-window/src"],
       "@algorithm.ts/sudoku": ["packages/sudoku/src"],
       "@algorithm.ts/trie": ["packages/trie/src"],

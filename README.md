@@ -69,6 +69,7 @@ Package                             | Description
 [@algorithm.ts/mcmf][]              | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.
 [@algorithm.ts/priority-queue][]    | Priority Queue (heap).
 [@algorithm.ts/sliding-window][]    | Sliding window algorithm.
+[@algorithm.ts/sieve-prime][]       | A linear time algorithm to sieve prime numbers.
 [@algorithm.ts/sudoku][]            | A collection of utilities to generate / solve Sudoku problems.
 [@algorithm.ts/trie][]              | Trie. (digital tree or prefix tree)
 [@algorithm.ts/upper-bound][]       | Find the index of first elements which greater than the target element.
@@ -94,6 +95,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/manacher]: ./packages/manacher
 [@algorithm.ts/mcmf]: ./packages/mcmf
 [@algorithm.ts/priority-queue]: ./packages/priority-queue
+[@algorithm.ts/sieve-prime]: ./packages/sieve-prime
 [@algorithm.ts/sliding-window]: ./packages/sliding-window
 [@algorithm.ts/sudoku]: ./packages/sudoku
 [@algorithm.ts/trie]: ./packages/trie
