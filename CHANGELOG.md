@@ -1,5 +1,21 @@
 # Changelog
 
+<a name="1.0.19"></a>
+## 1.0.19 (2021-10-07)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/manacher&#x27; [[a2151f1](https://github.com/guanghechen/algorithm.ts/commit/a2151f1cb9e1b3a7df38c1c3386a0425a1cc19df)]
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies [[68cf3e1](https://github.com/guanghechen/algorithm.ts/commit/68cf3e1388baa9734e588016651318aee0389058)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[b617ec5](https://github.com/guanghechen/algorithm.ts/commit/b617ec569e8461f915a758dcfeeeac25a79284ab)]
+
+
 <a name="1.0.18"></a>
 ## 1.0.18 (2021-09-21)
 
