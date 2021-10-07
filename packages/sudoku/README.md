@@ -71,7 +71,7 @@ A typescript implementation of the **sudoku** algorithm.
 sudoku is a shuffle algorithm, which can complete the shuffle in $O(N)$
 time complexity on the basis of only using a constant level of extra space.
 
-If you are interested in this algorithm, you can check [here][sudoku].
+If you are curious about this algorithm, you can visit [here][sudoku] for more details.
 
 
 ## Install

@@ -52,7 +52,7 @@
 
 A typescript implementation of the **Linear Sieve** algorithm for prime numbers.
 
-If you are interested in this algorithm, you can check [here][sieve-prime].
+If you are curious about this algorithm, you can visit [here][sieve-prime] for more details.
 
 
 ## Install

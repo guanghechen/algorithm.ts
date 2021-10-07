@@ -55,7 +55,7 @@ A typescript implementation of the **DLX** algorithm.
 DLX is the Algorithm X that applied the dancing-link. The algorithm is used to
 solve the exact-cover problem.
 
-If you are interested in this algorithm, you can check [here][dlx].
+If you are curious about this algorithm, you can visit [here][dlx] for more details.
 
 
 ## Install

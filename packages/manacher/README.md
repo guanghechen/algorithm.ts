@@ -55,7 +55,7 @@ A typescript implementation of the **manacher** algorithm.
 Manacher is a linear time algorithm for listing all the palindromes that appear
 at the start of a given string.
 
-If you are interested in this algorithm, you can check [here][manacher].
+If you are curious about this algorithm, you can visit [here][manacher] for more details.
 
 
 ## Install

@@ -2,6 +2,7 @@
  *
  * @param N
  * @returns
+ * @see https://me.guanghechen.com/post/math/number-theory/sieve/#heading-%E7%BA%BF%E6%80%A7%E7%AD%9B
  */
 export function sievePrime(N: number): number[] {
   if (N <= 1) return []

@@ -55,7 +55,7 @@ A typescript implementation of the **Knuth-Shuffle** algorithm.
 Knuth-Shuffle is a shuffle algorithm, which can complete the shuffle in $O(N)$
 time complexity on the basis of only using a constant level of extra space.
 
-If you are interested in this algorithm, you can check [here][knuth-shuffle].
+If you are curious about this algorithm, you can visit [here][knuth-shuffle] for more details.
 
 
 ## Install
