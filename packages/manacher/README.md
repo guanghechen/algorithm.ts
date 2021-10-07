@@ -85,16 +85,16 @@ If you are interested in this algorithm, you can check [here][manacher].
   ```typescript
   import manacher from '@algorithm.ts/manacher'
 
-  export function minCut(s: string): number {
-    const N: number = s.length
-    const f: number[] = manacher(s)
+  export function minCut(text: string): number {
+    const N: number = text.length
+    const radius: Uint32Array= manacher(text)
     const dp: Uint32Array = new Uint32Array(N)
 
     for (let i = 1; i < N; ++i) {
-      let answer: number = i < f[i] * 2 ? 0 : dp[i - 1] + 1
+      let answer: number = i < radius[i] * 2 ? 0 : dp[i - 1] + 1
       if (answer > 0) {
         for (let k = 1; k < i; ++k) {
-          if (i - k < f[i + k] * 2) {
+          if (i - k < radius[i + k] * 2) {
             answer = Math.min(answer, dp[k - 1] + 1)
           }
         }
