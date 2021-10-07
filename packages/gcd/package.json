@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/gcd",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "GCD + Euclidean algorithm",
   "author": {
     "name": "guanghechen",
