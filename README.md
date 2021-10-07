@@ -97,6 +97,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/mcmf]: ./packages/mcmf
 [@algorithm.ts/priority-queue]: ./packages/priority-queue
 [@algorithm.ts/sieve-prime]: ./packages/sieve-prime
+[@algorithm.ts/sieve-totient]: ./packages/sieve-totient
 [@algorithm.ts/sliding-window]: ./packages/sliding-window
 [@algorithm.ts/sudoku]: ./packages/sudoku
 [@algorithm.ts/trie]: ./packages/trie
