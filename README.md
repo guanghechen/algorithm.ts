@@ -65,6 +65,7 @@ Package                             | Description
 [@algorithm.ts/isap][]              | ISAP algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/knuth-shuffle][]     | Knuth-Shuffle algorithm.
 [@algorithm.ts/lower-bound][]       | Find the index of first elements which greater or equals than the target element.
+[@algorithm.ts/manacher][]          | The manacher algorithm for solving palindrome string problems.
 [@algorithm.ts/mcmf][]              | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.
 [@algorithm.ts/priority-queue][]    | Priority Queue (heap).
 [@algorithm.ts/sliding-window][]    | Sliding window algorithm.
@@ -90,6 +91,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/isap]: ./packages/isap
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
 [@algorithm.ts/lower-bound]: ./packages/lower-bound
+[@algorithm.ts/manacher]: ./packages/manacher
 [@algorithm.ts/mcmf]: ./packages/mcmf
 [@algorithm.ts/priority-queue]: ./packages/priority-queue
 [@algorithm.ts/sliding-window]: ./packages/sliding-window
