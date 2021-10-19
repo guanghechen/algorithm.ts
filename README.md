@@ -68,6 +68,7 @@ Package                             | Description
 [@algorithm.ts/manacher][]          | The manacher algorithm for solving palindrome string problems.
 [@algorithm.ts/mcmf][]              | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.
 [@algorithm.ts/priority-queue][]    | Priority Queue (heap).
+[@algorithm.ts/roman][]             | Support the mutual conversion between Roman numerals and Arabic numerals.
 [@algorithm.ts/sliding-window][]    | Sliding window algorithm.
 [@algorithm.ts/sieve-prime][]       | A linear time algorithm to sieve prime numbers.
 [@algorithm.ts/sieve-totient][]     | A linear time algorithm to sieve prime numbers and get the Euler's totient function.
@@ -96,6 +97,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/manacher]: ./packages/manacher
 [@algorithm.ts/mcmf]: ./packages/mcmf
 [@algorithm.ts/priority-queue]: ./packages/priority-queue
+[@algorithm.ts/roman]: ./packages/roman
 [@algorithm.ts/sieve-prime]: ./packages/sieve-prime
 [@algorithm.ts/sieve-totient]: ./packages/sieve-totient
 [@algorithm.ts/sliding-window]: ./packages/sliding-window
