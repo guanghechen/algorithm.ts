@@ -79,7 +79,7 @@ and Arabic numerals.
 * `int2roman`: Convert an Arabic numeral into a Roman numeral representation.
 
   ```typescript
-  import { int2roman } from '@algorithm.ts'
+  import { int2roman } from '@algorithm.ts/roman'
 
   int2roman(1)    // => 'I'
   int2roman(4)    // => 'IV'
@@ -94,11 +94,11 @@ and Arabic numerals.
 * `roman2int`: Convert an Roman numeral into a Arabic numeral representation.
 
   ```typescript
-  import { roman2int } from '@algorithm.ts'
+  import { roman2int } from '@algorithm.ts/roman'
 
   roman2int('I')          // => 1
   roman2int('IV')         // => 4
-  roman2int('IX')         // =>  9
+  roman2int('IX')         // => 9
   roman2int('MCDXXXVII')  // => 1437
   roman2int('MMMCMXCIX')  // => 3999
   ```
