@@ -1,5 +1,22 @@
 # Changelog
 
+<a name="1.0.22"></a>
+## 1.0.22 (2021-10-19)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/roman&#x27; [[fcc07fd](https://github.com/guanghechen/algorithm.ts/commit/fcc07fdb9888c1faa90746d0df3b86c97d8b5507)]
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies [[1dea6c1](https://github.com/guanghechen/algorithm.ts/commit/1dea6c123d9b857f91c31109f30e8ec6d0c1e50d)]
+
+### Miscellaneous
+
+- 📝 docs: fix invalid link references [[ab06d7b](https://github.com/guanghechen/algorithm.ts/commit/ab06d7b59aa215d0f326420e71e021fc7510a696)]
+- 📝 docs: update CHANGELOG [[fdc755b](https://github.com/guanghechen/algorithm.ts/commit/fdc755b174201f98a994b19eb026ee52296469c2)]
+
+
 <a name="1.0.21"></a>
 ## 1.0.21 (2021-10-07)
 
