@@ -71,7 +71,7 @@ and Arabic numerals.
 * deno
 
   ```typescript
-  import roman from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/roman/src/index.ts'
+  import { int2roman, roman2int } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/roman/src/index.ts'
   ```
 
 ## Usage
