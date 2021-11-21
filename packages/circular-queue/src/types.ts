@@ -7,7 +7,7 @@
  * number of elements in the queue exceeds C, only the most recent C elements
  * are kept in the queue. Other operations are the same as ordinary queues.
  */
-export interface CircularQueue<T extends unknown> {
+export interface CircularQueue<T> {
   /**
    * Initialize the circular queue: Resize the array & reset the start / end index.
    * @param MAX_SIZE

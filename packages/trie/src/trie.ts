@@ -3,7 +3,7 @@ import type { Trie, TrieNodeData } from './types'
 /**
  * Options for create trie.
  */
-export interface CreateTrieOptions<T extends unknown = number> {
+export interface CreateTrieOptions<T = number> {
   /**
    * The maximum number of children a parent node can have.
    */
@@ -32,7 +32,7 @@ export interface CreateTrieOptions<T extends unknown = number> {
   mergeAdditionalValues(prevValue: T, nextValue: T): T
 }
 
-export function createTrie<T extends unknown = number>({
+export function createTrie<T = number>({
   SIGMA_SIZE,
   ZERO,
   idx,

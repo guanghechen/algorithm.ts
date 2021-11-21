@@ -2,7 +2,7 @@
  * Shuffle array.
  * @param nodes
  */
-export function knuthShuffle<T extends unknown = unknown>(
+export function knuthShuffle<T = unknown>(
   nodes: T[],
   _start = 0,
   _end: number = nodes.length,

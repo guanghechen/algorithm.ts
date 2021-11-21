@@ -7,7 +7,7 @@ export * from './types'
  * @param MAX_SIZE
  * @returns
  */
-export function createCircularQueue<T extends unknown>(): CircularQueue<T> {
+export function createCircularQueue<T>(): CircularQueue<T> {
   let _MAX_SIZE = 0
   let _size = 0
   const _queue: T[] = []

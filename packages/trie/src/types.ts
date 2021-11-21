@@ -1,7 +1,7 @@
 /**
  * Result (s) data of the Trie.find, Tried.findAll
  */
-export interface TrieNodeData<T extends unknown = number> {
+export interface TrieNodeData<T = number> {
   /**
    * The ending position of the original string.
    */
@@ -23,7 +23,7 @@ export interface TrieNodeData<T extends unknown = number> {
  *
  * @see https://en.wikipedia.org/wiki/Trie
  */
-export interface Trie<T extends unknown = number> {
+export interface Trie<T = number> {
   /**
    * Initialize a trie.
    */
