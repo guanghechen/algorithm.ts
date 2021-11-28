@@ -1,4 +1,4 @@
-import type { FindSet } from './ordinary'
+import type { Findset } from './ordinary'
 
 /**
  * Enhanced findset.
@@ -13,7 +13,7 @@ import type { FindSet } from './ordinary'
  *  findset.initNode
  *  findset.merge(2)
  */
-export interface EnhancedFindset extends FindSet {
+export interface EnhancedFindset extends Findset {
   /**
    *
    * @param x

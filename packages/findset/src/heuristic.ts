@@ -1,4 +1,4 @@
-import type { FindSet } from './ordinary'
+import type { Findset } from './ordinary'
 
 /**
  * 启发式并查集，在普通并查集的基础上维护了每棵树的节点个数，在合并树时，始终采
@@ -9,7 +9,7 @@ import type { FindSet } from './ordinary'
  * tree with more nodes as the root node of the new tree, which can reduce the
  * number of executions of subsequent queries.
  */
-export interface HeuristicFindSet extends FindSet {
+export interface HeuristicFindset extends Findset {
   /**
    * Size (number of the nodes) of the tree which x belongs.
    * @param x
@@ -21,7 +21,7 @@ export interface HeuristicFindSet extends FindSet {
  * Create a heuristic find set.
  * @returns
  */
-export function createHeuristicFindSet(): HeuristicFindSet {
+export function createHeuristicFindset(): HeuristicFindset {
   const parent: number[] = []
   const count: number[] = []
 

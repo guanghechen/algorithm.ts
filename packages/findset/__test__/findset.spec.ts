@@ -3,13 +3,13 @@ import { randomInt } from '@algorithm.ts/knuth-shuffle'
 import type { EnhancedFindset } from '../src'
 import {
   createEnhancedFindset,
-  createFindSet,
-  createHeuristicFindSet,
+  createFindset,
+  createHeuristicFindset,
 } from '../src'
 
-describe('createFindSet', function () {
+describe('createfindset', function () {
   const MAX_N = 1000
-  const findset = createFindSet()
+  const findset = createFindset()
 
   test('basic', function () {
     findset.init(MAX_N)
@@ -45,9 +45,9 @@ describe('createFindSet', function () {
   })
 })
 
-describe('createHeuristicFindSet', function () {
+describe('createHeuristicfindset', function () {
   const MAX_N = 1000
-  const findset = createHeuristicFindSet()
+  const findset = createHeuristicFindset()
 
   test('basic', function () {
     findset.init(MAX_N)

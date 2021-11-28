@@ -12,7 +12,7 @@
  * 1. Determine whether two nodes are in a synonymous tree.
  * 2. Merge two trees.
  */
-export interface FindSet {
+export interface Findset {
   /**
    * Initialize the findSet.
    * @param N
@@ -36,7 +36,7 @@ export interface FindSet {
  * Create a find set.
  * @returns
  */
-export function createFindSet(): FindSet {
+export function createFindset(): Findset {
   const parent: number[] = []
   let _size = 0
   return { init, root, merge }
