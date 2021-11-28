@@ -127,6 +127,22 @@
   findset.size(4)   // => 1
   ```
 
+* 创建一个增强的并查集
+
+  ```typescript
+  import { createEnhancedFindset } from '@algorithm.ts/findset'
+
+  const findset = createEnhancedFindset(100)
+
+  findset.init(100)
+  findset.size(1)       // => 1
+  findset.merge(1, 2)
+  findset.size(1)       // => 2
+  findset.size(2)       // => 2
+  findset.getSetOf(1)   // => Set {1, 2}
+  findset.getSetOf(2)   // => Set {1, 2}
+  ```
+
 
 ## Related
 

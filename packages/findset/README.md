@@ -128,6 +128,25 @@ amortized constant time complexity:
   findset.size(4)   // => 1
   ```
 
+* Create an enhanced findset:
+
+  On the basis of ordinary findset, this enhanced version also supports to get
+  all the nodes on a given tree (access through the root node).
+
+  ```typescript
+  import { createEnhancedFindset } from '@algorithm.ts/findset'
+
+  const findset = createEnhancedFindset(100)
+
+  findset.init(100)
+  findset.size(1)       // => 1
+  findset.merge(1, 2)
+  findset.size(1)       // => 2
+  findset.size(2)       // => 2
+  findset.getSetOf(1)   // => Set {1, 2}
+  findset.getSetOf(2)   // => Set {1, 2}
+  ```
+
 
 ## Related
 
