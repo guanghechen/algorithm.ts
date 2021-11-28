@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/roman",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Conversion between Roman numerals and Arabic numerals",
   "author": {
     "name": "guanghechen",

@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/manacher",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "The manacher algorithm for solving palindrome string problems",
   "author": {
     "name": "guanghechen",
