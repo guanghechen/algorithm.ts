@@ -26,7 +26,7 @@ export function createHeuristicFindset(): HeuristicFindset {
   const count: number[] = []
 
   let _size = 0
-  return { init, root, merge, size }
+  return { init, initNode, root, merge, size }
 
   function init(N: number): void {
     _size = N
@@ -36,6 +36,11 @@ export function createHeuristicFindset(): HeuristicFindset {
       parent[i] = i
       count[i] = 1
     }
+  }
+
+  function initNode(x: number): void {
+    parent[x] = x
+    count[x] = 1
   }
 
   function root(x: number): number | never {

@@ -14,10 +14,15 @@
  */
 export interface Findset {
   /**
-   * Initialize the findSet.
+   * Initialize the findset .
    * @param N
    */
   init(N: number): void
+  /**
+   * Initialize a specified node in the findset.
+   * @param x
+   */
+  initNode(x: number): void
   /**
    * Find the root element of x.
    * @param x
@@ -39,12 +44,16 @@ export interface Findset {
 export function createFindset(): Findset {
   const parent: number[] = []
   let _size = 0
-  return { init, root, merge }
+  return { init, initNode, root, merge }
 
   function init(N: number): void {
     _size = N
     if (parent.length <= _size) parent.length = _size + 1
     for (let i = 1; i <= N; ++i) parent[i] = i
+  }
+
+  function initNode(x: number): void {
+    parent[x] = x
   }
 
   function root(x: number): number {

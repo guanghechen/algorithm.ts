@@ -31,6 +31,11 @@ describe('createfindset', function () {
     expect(findset.root(2)).toBe(findset.root(3))
 
     for (let i = 4; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
+
+    findset.initNode(2)
+    findset.initNode(3)
+    expect(findset.root(2)).toBe(2)
+    expect(findset.root(3)).toBe(3)
   })
 
   test('out of boundary', function () {
@@ -69,6 +74,13 @@ describe('createHeuristicfindset', function () {
     expect(findset.root(2)).toBe(findset.root(3))
 
     for (let i = 4; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
+
+    findset.initNode(2)
+    findset.initNode(3)
+    expect(findset.root(2)).toBe(2)
+    expect(findset.size(2)).toBe(1)
+    expect(findset.root(3)).toBe(3)
+    expect(findset.size(3)).toBe(1)
   })
 
   test('out of boundary', function () {

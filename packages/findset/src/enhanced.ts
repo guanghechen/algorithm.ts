@@ -15,17 +15,12 @@ import type { Findset } from './ordinary'
  */
 export interface EnhancedFindset extends Findset {
   /**
-   *
-   * @param x
-   */
-  initNode(x: number): void
-  /**
    * Size (number of the nodes) of the tree which x belongs.
    * @param x
    */
   size(x: number): number
   /**
-   *
+   * Get the set which contains all nodes of the tree which x belongs.
    * @param x
    */
   getSetOf(x: number): Readonly<Set<number>> | undefined
