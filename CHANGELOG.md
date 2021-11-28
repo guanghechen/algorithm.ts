@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="1.0.23"></a>
+## 1.0.23 (2021-11-28)
+
+### Added
+
+- ✨ feat(@algorithm.ts/findset): support EnhancedFindset (use through ) [[da80941](https://github.com/guanghechen/algorithm.ts/commit/da80941d186c70a7f656b370bb8a21ae8d879529)]
+- 👷‍♂️ chore: update ci configs [[709dc6f](https://github.com/guanghechen/algorithm.ts/commit/709dc6fff2e914b27d3cd2d4d05f19949787f8df)]
+
+### Changed
+
+- ⚡ improve(findset): use Unit32Array instead of number[] to save memory and get better performance [[a6d97d2](https://github.com/guanghechen/algorithm.ts/commit/a6d97d25dd01728c5181f126d1ef9afb9c7ab4e6)]
+- ⬆️ chore: upgrade devDependencies [[3f8b2d5](https://github.com/guanghechen/algorithm.ts/commit/3f8b2d5e72a31bcbe33faad818266f030d5c7c6e)]
+
+### Miscellaneous
+
+-   improve(findset): add new member func &#x27;initNode&#x27; to init a specify node in the findset [[a93bc91](https://github.com/guanghechen/algorithm.ts/commit/a93bc91aff2cdb1bfa26f8f069009f1d786b47a3)]
+-  [BREAKING] refactor: rename &#x27;FindSet&#x27; to &#x27;Findset&#x27; [[5b8c25f](https://github.com/guanghechen/algorithm.ts/commit/5b8c25ff01963252a3c65ead0d0031a26428b5fc)]
+- 📝 docs(@algorithm.ts/roman): update README [[d334490](https://github.com/guanghechen/algorithm.ts/commit/d33449052d318db10a4e12dc51498852cf6f173b)]
+- 📝 docs(@algorithm.ts/roman): update README [[ba78363](https://github.com/guanghechen/algorithm.ts/commit/ba78363aad832703b28ea091e17a92ae2bcdd4ab)]
+- 📝 docs: update CHANGELOG [[02213d0](https://github.com/guanghechen/algorithm.ts/commit/02213d09a727dcac60ce3435c1e6199a5b4ee10d)]
+
+
 <a name="1.0.22"></a>
 ## 1.0.22 (2021-10-19)
 
