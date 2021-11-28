@@ -41,24 +41,27 @@ export interface Findset {
  * Create a find set.
  * @returns
  */
-export function createFindset(): Findset {
-  const parent: number[] = []
-  let _size = 0
+export function createFindset(MAX_N: number): Findset {
+  const pa: Uint32Array = new Uint32Array(MAX_N + 1)
   return { init, initNode, root, merge }
 
   function init(N: number): void {
-    _size = N
-    if (parent.length <= _size) parent.length = _size + 1
-    for (let i = 1; i <= N; ++i) parent[i] = i
+    if (N < 1 || N > MAX_N) {
+      throw new TypeError(
+        `Invalid value, expect an integer in the range of [1, ${MAX_N}], but got ${N}.`,
+      )
+    }
+
+    for (let x = 1; x <= N; ++x) initNode(x)
   }
 
   function initNode(x: number): void {
-    parent[x] = x
+    pa[x] = x
   }
 
   function root(x: number): number {
-    if (x < 1 || x > _size)
-      throw new RangeError(`Out of boundary [1, ${_size}]. x: ${x}`)
+    if (x < 1 || x > MAX_N)
+      throw new RangeError(`Out of boundary [1, ${MAX_N}]. x: ${x}`)
     return _root(x)
   }
 
@@ -68,16 +71,16 @@ export function createFindset(): Findset {
     if (xx === yy) return xx
 
     if (xx < yy) {
-      parent[yy] = xx
+      pa[yy] = xx
       return xx
     }
-    parent[xx] = yy
+
+    pa[xx] = yy
     return yy
   }
 
-  function _root(x: number): number | never {
-    if (parent[x] === x) return x
+  function _root(x: number): number {
     // eslint-disable-next-line no-return-assign
-    return (parent[x] = _root(parent[x]))
+    return pa[x] === x ? x : (pa[x] = _root(pa[x]))
   }
 }

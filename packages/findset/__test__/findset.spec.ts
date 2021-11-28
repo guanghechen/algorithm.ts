@@ -9,7 +9,7 @@ import {
 
 describe('createfindset', function () {
   const MAX_N = 1000
-  const findset = createFindset()
+  const findset = createFindset(MAX_N)
 
   test('basic', function () {
     findset.init(MAX_N)
@@ -47,12 +47,21 @@ describe('createfindset', function () {
     expect(() => findset.root(MAX_N + 1)).toThrow(/Out of boundary/)
 
     for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
+
+    expect(() => findset.init(0)).toThrow(
+      /Invalid value, expect an integer in the range of/,
+    )
+    expect(() => findset.init(1)).not.toThrow()
+    expect(() => findset.init(MAX_N)).not.toThrow()
+    expect(() => findset.init(MAX_N + 1)).toThrow(
+      /Invalid value, expect an integer in the range of/,
+    )
   })
 })
 
 describe('createHeuristicfindset', function () {
   const MAX_N = 1000
-  const findset = createHeuristicFindset()
+  const findset = createHeuristicFindset(MAX_N)
 
   test('basic', function () {
     findset.init(MAX_N)
@@ -92,6 +101,15 @@ describe('createHeuristicfindset', function () {
     expect(() => findset.root(MAX_N + 1)).toThrow(/Out of boundary/)
 
     for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
+
+    expect(() => findset.init(0)).toThrow(
+      /Invalid value, expect an integer in the range of/,
+    )
+    expect(() => findset.init(1)).not.toThrow()
+    expect(() => findset.init(MAX_N)).not.toThrow()
+    expect(() => findset.init(MAX_N + 1)).toThrow(
+      /Invalid value, expect an integer in the range of/,
+    )
   })
 
   test('size', function () {
@@ -111,7 +129,8 @@ describe('createHeuristicfindset', function () {
 })
 
 describe('enhanced-findset', function () {
-  const findset = createEnhancedFindset(10)
+  const MAX_N = 10
+  const findset = createEnhancedFindset(MAX_N)
 
   test('init', function () {
     findset.init(5)
@@ -121,19 +140,10 @@ describe('enhanced-findset', function () {
     for (let x = 6; x <= 10; ++x) {
       expect(Array.from(findset.getSetOf(x)!)).toEqual([])
     }
-
-    expect(() => findset.init(0)).toThrow(
-      /Invalid value, expect an integer in the range of/,
-    )
-    expect(() => findset.init(1)).not.toThrow()
-    expect(() => findset.init(10)).not.toThrow()
-    expect(() => findset.init(11)).toThrow(
-      /Invalid value, expect an integer in the range of/,
-    )
   })
 
   test('merge', function () {
-    findset.init(10)
+    findset.init(MAX_N)
     findset.merge(2, 3)
     expect(findset.size(2)).toEqual(2)
     expect(findset.size(3)).toEqual(2)
@@ -150,6 +160,26 @@ describe('enhanced-findset', function () {
     expect(findset.size(1)).toEqual(3)
     expect(Array.from(findset.getSetOf(1)!).sort()).toEqual([1, 2, 3])
     expect(Array.from(findset.getSetOf(2)!).sort()).toEqual([1, 2, 3])
+  })
+
+  test('out of boundary', function () {
+    findset.init(MAX_N)
+    for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
+
+    expect(() => findset.root(-1)).toThrow(/Out of boundary/)
+    expect(() => findset.root(0)).toThrow(/Out of boundary/)
+    expect(() => findset.root(MAX_N + 1)).toThrow(/Out of boundary/)
+
+    for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
+
+    expect(() => findset.init(0)).toThrow(
+      /Invalid value, expect an integer in the range of/,
+    )
+    expect(() => findset.init(1)).not.toThrow()
+    expect(() => findset.init(MAX_N)).not.toThrow()
+    expect(() => findset.init(MAX_N + 1)).toThrow(
+      /Invalid value, expect an integer in the range of/,
+    )
   })
 })
 

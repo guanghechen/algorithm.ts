@@ -48,8 +48,9 @@ export function createEnhancedFindset(MAX_N: number): EnhancedFindset {
   }
 
   function root(x: number): number {
-    // eslint-disable-next-line no-return-assign
-    return pa[x] === x ? x : (pa[x] = root(pa[x]))
+    if (x < 1 || x > MAX_N)
+      throw new RangeError(`Out of boundary [1, ${MAX_N}]. x: ${x}`)
+    return _root(x)
   }
 
   function merge(x: number, y: number): number {
@@ -86,5 +87,10 @@ export function createEnhancedFindset(MAX_N: number): EnhancedFindset {
   function getSetOf(x: number): Readonly<Set<number>> {
     const xx: number = root(x)
     return sets[xx]
+  }
+
+  function _root(x: number): number {
+    // eslint-disable-next-line no-return-assign
+    return pa[x] === x ? x : (pa[x] = _root(pa[x]))
   }
 }

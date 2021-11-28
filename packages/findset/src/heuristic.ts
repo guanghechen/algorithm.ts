@@ -21,31 +21,29 @@ export interface HeuristicFindset extends Findset {
  * Create a heuristic find set.
  * @returns
  */
-export function createHeuristicFindset(): HeuristicFindset {
-  const parent: number[] = []
+export function createHeuristicFindset(MAX_N: number): HeuristicFindset {
+  const pa: Uint32Array = new Uint32Array(MAX_N + 1)
   const count: number[] = []
-
-  let _size = 0
   return { init, initNode, root, merge, size }
 
   function init(N: number): void {
-    _size = N
-    if (parent.length <= _size) parent.length = _size + 1
-    if (count.length <= _size) count.length = _size + 1
-    for (let i = 1; i <= _size; ++i) {
-      parent[i] = i
-      count[i] = 1
+    if (N < 1 || N > MAX_N) {
+      throw new TypeError(
+        `Invalid value, expect an integer in the range of [1, ${MAX_N}], but got ${N}.`,
+      )
     }
+
+    for (let x = 1; x <= N; ++x) initNode(x)
   }
 
   function initNode(x: number): void {
-    parent[x] = x
+    pa[x] = x
     count[x] = 1
   }
 
-  function root(x: number): number | never {
-    if (x < 1 || x > _size)
-      throw new RangeError(`Out of boundary [1, ${_size}]. x: ${x}`)
+  function root(x: number): number {
+    if (x < 1 || x > MAX_N)
+      throw new RangeError(`Out of boundary [1, ${MAX_N}]. x: ${x}`)
     return _root(x)
   }
 
@@ -55,11 +53,12 @@ export function createHeuristicFindset(): HeuristicFindset {
     if (xx === yy) return xx
 
     if (count[xx] > count[yy]) {
-      parent[yy] = xx
+      pa[yy] = xx
       count[xx] += count[yy]
       return xx
     }
-    parent[xx] = yy
+
+    pa[xx] = yy
     count[yy] += count[xx]
     return yy
   }
@@ -69,9 +68,8 @@ export function createHeuristicFindset(): HeuristicFindset {
     return count[xx]
   }
 
-  function _root(x: number): number | never {
-    if (parent[x] === x) return x
+  function _root(x: number): number {
     // eslint-disable-next-line no-return-assign
-    return (parent[x] = _root(parent[x]))
+    return pa[x] === x ? x : (pa[x] = _root(pa[x]))
   }
 }
