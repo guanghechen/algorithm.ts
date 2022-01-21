@@ -8,10 +8,7 @@ describe('sieve-totient', function () {
     expect(sieveTotient(1)).toEqual([new Uint32Array([0]), []])
     expect(sieveTotient(2)).toEqual([new Uint32Array([0, 1]), []])
     expect(sieveTotient(5)).toEqual([new Uint32Array([0, 1, 1, 2, 2]), [2, 3]])
-    expect(sieveTotient(6)).toEqual([
-      new Uint32Array([0, 1, 1, 2, 2, 4]),
-      [2, 3, 5],
-    ])
+    expect(sieveTotient(6)).toEqual([new Uint32Array([0, 1, 1, 2, 2, 4]), [2, 3, 5]])
     expect(sieveTotient(10)).toEqual([
       new Uint32Array([0, 1, 1, 2, 2, 4, 2, 6, 4, 6]),
       [2, 3, 5, 7],

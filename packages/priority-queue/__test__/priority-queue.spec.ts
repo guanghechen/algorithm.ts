@@ -48,10 +48,7 @@ describe('basic', function () {
       randomValues[i] = Math.random()
     }
 
-    const maximum = randomValues.reduce(
-      (acc, x) => Math.max(acc, x),
-      Number.MIN_SAFE_INTEGER,
-    )
+    const maximum = randomValues.reduce((acc, x) => Math.max(acc, x), Number.MIN_SAFE_INTEGER)
 
     for (let i = 0; i < N; ++i) Q.enqueue(randomValues[i])
     for (let i = 0; i <= N; ++i) {
@@ -68,9 +65,7 @@ describe('basic', function () {
     }
 
     for (let i = 0; i < N; ++i) Q.enqueue(randomValues[i])
-    expect(Q.collect().sort((x, y) => x - y)).toEqual(
-      randomValues.slice().sort((x, y) => x - y),
-    )
+    expect(Q.collect().sort((x, y) => x - y)).toEqual(randomValues.slice().sort((x, y) => x - y))
   })
 
   test('init', function () {

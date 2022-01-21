@@ -90,11 +90,7 @@ export function createTrie<T = number>({
     return true
   }
 
-  function find(
-    str: string,
-    start = 0,
-    end = str.length,
-  ): TrieNodeData<T> | null {
+  function find(str: string, start = 0, end = str.length): TrieNodeData<T> | null {
     for (let i = start, u = 0; i < end; ++i) {
       const c: number = idx(str[i])
       if (ch[u][c] === 0) break
@@ -105,11 +101,7 @@ export function createTrie<T = number>({
     return null
   }
 
-  function findAll(
-    str: string,
-    start = 0,
-    end = str.length,
-  ): Array<TrieNodeData<T>> {
+  function findAll(str: string, start = 0, end = str.length): Array<TrieNodeData<T>> {
     const results: Array<TrieNodeData<T>> = []
     for (let i = start, u = 0; i < end; ++i) {
       const c: number = idx(str[i])

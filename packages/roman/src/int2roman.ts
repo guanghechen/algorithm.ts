@@ -17,10 +17,7 @@ export const defaultRomanCodes = 'MDCLXVI'
  * @param value
  * @param romanCodes
  */
-export function int2roman(
-  originalValue: number,
-  romanCodes: string = defaultRomanCodes,
-): string {
+export function int2roman(originalValue: number, romanCodes: string = defaultRomanCodes): string {
   let one = 10 ** Math.floor(romanCodes.length / 2)
   const MAX_VALUE = romanCodes.length & 1 ? one * 4 : one * 9
 
@@ -33,9 +30,7 @@ export function int2roman(
   const roman: string[] = []
 
   // Convert high-order numbers
-  i == 0
-    ? convert('', '', romanCodes[0])
-    : convert('', romanCodes[0], romanCodes[1])
+  i == 0 ? convert('', '', romanCodes[0]) : convert('', romanCodes[0], romanCodes[1])
 
   // Covert remain numbers
   for (one /= 10; one > 0; one /= 10, i += 2) {

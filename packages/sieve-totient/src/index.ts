@@ -4,9 +4,7 @@
  * @returns
  * @see https://me.guanghechen.com/post/math/number-theory/sieve/#heading-%E7%BA%BF%E6%80%A7%E7%AD%9B-2
  */
-export function sieveTotient(
-  N: number,
-): [totient: Uint32Array, primes: number[]] {
+export function sieveTotient(N: number): [totient: Uint32Array, primes: number[]] {
   if (N < 1) return [new Uint32Array(0), []]
   if (N === 1) return [new Uint32Array(1), []]
 

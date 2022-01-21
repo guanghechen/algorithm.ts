@@ -60,8 +60,7 @@ export function createFindset(MAX_N: number): Findset {
   }
 
   function root(x: number): number {
-    if (x < 1 || x > MAX_N)
-      throw new RangeError(`Out of boundary [1, ${MAX_N}]. x: ${x}`)
+    if (x < 1 || x > MAX_N) throw new RangeError(`Out of boundary [1, ${MAX_N}]. x: ${x}`)
     return _root(x)
   }
 

@@ -70,10 +70,7 @@ export class SudokuSolver {
    * @returns Whether there is a solution
    * @public
    */
-  public solve(
-    puzzle: ReadonlyArray<number[]>,
-    solution: number[][] | null,
-  ): boolean {
+  public solve(puzzle: ReadonlyArray<number[]>, solution: number[][] | null): boolean {
     const {
       SUDOKU_SIZE_SQRT,
       SUDOKU_SIZE,

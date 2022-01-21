@@ -57,10 +57,7 @@ export function copySudokuBoard(
  * @param SUDOKU_SIZE_SQRT
  * @returns
  */
-export function checkSudokuSolution(
-  solution: SudokuBoard,
-  SUDOKU_SIZE_SQRT: number,
-): boolean {
+export function checkSudokuSolution(solution: SudokuBoard, SUDOKU_SIZE_SQRT: number): boolean {
   const SUDOKU_SIZE: number = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT
   const nums: number[] = new Array(SUDOKU_SIZE)
   let target = 0

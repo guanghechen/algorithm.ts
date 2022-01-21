@@ -17,11 +17,5 @@ test('lower-bound', function () {
 })
 
 test('bigint', function () {
-  expect(
-    upperBoundBigInt(
-      -5000000000000n,
-      500000000000000000000000000n,
-      x => x - 1n,
-    ),
-  ).toBe(2n)
+  expect(upperBoundBigInt(-5000000000000n, 500000000000000000000000000n, x => x - 1n)).toBe(2n)
 })

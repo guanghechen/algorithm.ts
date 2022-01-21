@@ -13,12 +13,8 @@ export enum SudokuConstraint {
   SUB = 3, // Sub(a, b): a-th sub-square matrix must have the number b
 }
 
-export function solveSudoku(
-  puzzle: ReadonlyArray<number[]>,
-  solution: number[][],
-): boolean {
-  const encode = (a: number, b: number, c: number): number =>
-    a * 81 + b * 9 + c + 1
+export function solveSudoku(puzzle: ReadonlyArray<number[]>, solution: number[][]): boolean {
+  const encode = (a: number, b: number, c: number): number => a * 81 + b * 9 + c + 1
 
   dlx.init(DL_TOTAL_COLUMNS)
   const columns: number[] = new Array<number>(4)

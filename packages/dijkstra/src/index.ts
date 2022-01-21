@@ -31,9 +31,7 @@ export function dijkstra<T extends number | bigint>(
   INF: T,
 ): T[] {
   const dist: T[] = new Array(N).fill(INF)
-  const Q = createPriorityQueue<{ pos: number; cost: T }>(
-    (x, y) => y.cost - x.cost,
-  )
+  const Q = createPriorityQueue<{ pos: number; cost: T }>((x, y) => y.cost - x.cost)
 
   // eslint-disable-next-line no-param-reassign
   dist[source] = ZERO

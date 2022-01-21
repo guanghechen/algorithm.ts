@@ -8,15 +8,8 @@ test('word-break-ii', function () {
       answer: ['cat sand dog', 'cats and dog'],
     },
     {
-      input: [
-        'pineapplepenapple',
-        ['apple', 'pen', 'applepen', 'pine', 'pineapple'],
-      ],
-      answer: [
-        'pine apple pen apple',
-        'pine applepen apple',
-        'pineapple pen apple',
-      ],
+      input: ['pineapplepenapple', ['apple', 'pen', 'applepen', 'pine', 'pineapple']],
+      answer: ['pine apple pen apple', 'pine applepen apple', 'pineapple pen apple'],
     },
     {
       input: ['catsandog', ['cats', 'dog', 'sand', 'and', 'cat']],

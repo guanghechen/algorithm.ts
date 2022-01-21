@@ -1,11 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { randomInt } from '@algorithm.ts/knuth-shuffle'
 import type { EnhancedFindset } from '../src'
-import {
-  createEnhancedFindset,
-  createFindset,
-  createHeuristicFindset,
-} from '../src'
+import { createEnhancedFindset, createFindset, createHeuristicFindset } from '../src'
 
 describe('createfindset', function () {
   const MAX_N = 1000
@@ -48,9 +44,7 @@ describe('createfindset', function () {
 
     for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
 
-    expect(() => findset.init(0)).toThrow(
-      /Invalid value, expect an integer in the range of/,
-    )
+    expect(() => findset.init(0)).toThrow(/Invalid value, expect an integer in the range of/)
     expect(() => findset.init(1)).not.toThrow()
     expect(() => findset.init(MAX_N)).not.toThrow()
     expect(() => findset.init(MAX_N + 1)).toThrow(
@@ -102,9 +96,7 @@ describe('createHeuristicfindset', function () {
 
     for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
 
-    expect(() => findset.init(0)).toThrow(
-      /Invalid value, expect an integer in the range of/,
-    )
+    expect(() => findset.init(0)).toThrow(/Invalid value, expect an integer in the range of/)
     expect(() => findset.init(1)).not.toThrow()
     expect(() => findset.init(MAX_N)).not.toThrow()
     expect(() => findset.init(MAX_N + 1)).toThrow(
@@ -172,9 +164,7 @@ describe('enhanced-findset', function () {
 
     for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toBe(i)
 
-    expect(() => findset.init(0)).toThrow(
-      /Invalid value, expect an integer in the range of/,
-    )
+    expect(() => findset.init(0)).toThrow(/Invalid value, expect an integer in the range of/)
     expect(() => findset.init(1)).not.toThrow()
     expect(() => findset.init(MAX_N)).not.toThrow()
     expect(() => findset.init(MAX_N + 1)).toThrow(
@@ -241,11 +231,7 @@ describe('leetcode', function () {
       expect(solve(N, meetings, firstPerson)).toEqual(kase.answer)
     }
 
-    function createSolve(): (
-      N: number,
-      meetings: number[][],
-      firstPerson: number,
-    ) => number[] {
+    function createSolve(): (N: number, meetings: number[][], firstPerson: number) => number[] {
       const MAX_N = 1e5 + 10
       const answer: Set<number> = new Set()
       const nodes: Set<number> = new Set()

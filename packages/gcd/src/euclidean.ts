@@ -41,10 +41,7 @@ export function euclidean(a: number, b: number): [number, number, number] {
  * @returns
  * @see https://me.guanghechen.com/post/math/number-theory/%E6%A8%A1%E6%96%B9%E7%A8%8B/basic/
  */
-export function euclideanBigint(
-  a: bigint,
-  b: bigint,
-): [bigint, bigint, bigint] {
+export function euclideanBigint(a: bigint, b: bigint): [bigint, bigint, bigint] {
   let x: bigint
   let y: bigint
   let d: bigint

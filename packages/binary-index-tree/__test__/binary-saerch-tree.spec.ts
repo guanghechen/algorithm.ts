@@ -14,9 +14,7 @@ describe('tree1', function () {
     const bit = createBinaryIndexTree1<number>(0)
     bit.init(MAX_N)
 
-    const A: number[] = new Array(MAX_N)
-      .fill(0)
-      .map((_x, i) => randomInt(MAX_N) + 17)
+    const A: number[] = new Array(MAX_N).fill(0).map((_x, i) => randomInt(MAX_N) + 17)
     for (let x = 0; x < MAX_N; ++x) bit.add(x + 1, A[x])
 
     const getSum = (x: number): number => {
@@ -45,9 +43,7 @@ describe('tree1', function () {
     const bit = createBinaryIndexTree1<bigint>(0n)
     bit.init(MAX_N)
 
-    const A: bigint[] = new Array(MAX_N)
-      .fill(0)
-      .map((_x, i) => BigInt(randomInt(MAX_N) + 17))
+    const A: bigint[] = new Array(MAX_N).fill(0).map((_x, i) => BigInt(randomInt(MAX_N) + 17))
     for (let x = 0; x < MAX_N; ++x) bit.add(x + 1, A[x])
 
     const getSum = (x: number): bigint => {
@@ -81,9 +77,7 @@ describe('tree2', function () {
     bit.init(MAX_N)
 
     // Initialize
-    const A: number[] = new Array(MAX_N)
-      .fill(0)
-      .map((_x, i) => randomInt(MAX_N) + 17)
+    const A: number[] = new Array(MAX_N).fill(0).map((_x, i) => randomInt(MAX_N) + 17)
     for (let x = 0; x < MAX_N; ++x) {
       bit.add(x, -A[x])
       bit.add(x + 1, A[x])
@@ -117,9 +111,7 @@ describe('tree2', function () {
     bit.init(MAX_N)
 
     // Initialize
-    const A: bigint[] = new Array(MAX_N)
-      .fill(0)
-      .map((_x, i) => BigInt(randomInt(MAX_N) + 17))
+    const A: bigint[] = new Array(MAX_N).fill(0).map((_x, i) => BigInt(randomInt(MAX_N) + 17))
     for (let x = 0; x < MAX_N; ++x) {
       bit.add(x, -A[x])
       bit.add(x + 1, A[x])
@@ -157,9 +149,7 @@ describe('tree1-mod', function () {
     const bit = createBinaryIndexTree1Mod<number>(0, MOD)
     bit.init(MAX_N)
 
-    const A: number[] = new Array(MAX_N)
-      .fill(0)
-      .map((_x, i) => randomInt(MOD - 1))
+    const A: number[] = new Array(MAX_N).fill(0).map((_x, i) => randomInt(MOD - 1))
     for (let x = 0; x < MAX_N; ++x) bit.add(x + 1, A[x])
 
     const getSum = (x: number): number => {
@@ -188,9 +178,7 @@ describe('tree1-mod', function () {
     const bit = createBinaryIndexTree1Mod<bigint>(0n, BigInt(MOD))
     bit.init(MAX_N)
 
-    const A: bigint[] = new Array(MAX_N)
-      .fill(0)
-      .map((_x, i) => BigInt(randomInt(MOD)))
+    const A: bigint[] = new Array(MAX_N).fill(0).map((_x, i) => BigInt(randomInt(MOD)))
     for (let x = 0; x < MAX_N; ++x) bit.add(x + 1, A[x])
 
     const getSum = (x: number): bigint => {
@@ -225,9 +213,7 @@ describe('tree2-mod', function () {
     bit.init(MAX_N)
 
     // Initialize
-    const A: number[] = new Array(MAX_N)
-      .fill(0)
-      .map((_x, i) => randomInt(MOD - 1))
+    const A: number[] = new Array(MAX_N).fill(0).map((_x, i) => randomInt(MOD - 1))
     for (let x = 0; x < MAX_N; ++x) {
       bit.add(x, -A[x])
       bit.add(x + 1, A[x])
@@ -261,9 +247,7 @@ describe('tree2-mod', function () {
     bit.init(MAX_N)
 
     // Initialize
-    const A: bigint[] = new Array(MAX_N)
-      .fill(0)
-      .map((_x, i) => BigInt(randomInt(MOD - 1)))
+    const A: bigint[] = new Array(MAX_N).fill(0).map((_x, i) => BigInt(randomInt(MOD - 1)))
     for (let x = 0; x < MAX_N; ++x) {
       bit.add(x, -A[x])
       bit.add(x + 1, A[x])

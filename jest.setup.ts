@@ -24,9 +24,7 @@ export const loadFixtures = (...p: string[]): string =>
  * Remove filepaths
  * @param filepaths
  */
-export const unlinkSync = (
-  ...filepaths: Array<string | null | undefined | string[]>
-): void => {
+export const unlinkSync = (...filepaths: Array<string | null | undefined | string[]>): void => {
   for (let filepath of filepaths) {
     if (filepath == null) continue
     if (!Array.isArray(filepath)) filepath = [filepath]

@@ -9,9 +9,7 @@ import { lowbit } from './util'
  * @param ZERO    0 for number, 0n for bigint.
  * @returns
  */
-export function createBinaryIndexTree1<T extends number | bigint>(
-  ZERO: T,
-): BinaryIndexTree<T> {
+export function createBinaryIndexTree1<T extends number | bigint>(ZERO: T): BinaryIndexTree<T> {
   let _size = 0
   const _nodes: T[] = [ZERO]
   return { init, add, query }

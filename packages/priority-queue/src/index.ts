@@ -48,9 +48,7 @@ export interface PriorityQueue<T> {
  *              side of the operator has higher precedence.
  * @returns
  */
-export function createPriorityQueue<T>(
-  cmp: (x: T, y: T) => -1 | 0 | 1 | number,
-): PriorityQueue<T> {
+export function createPriorityQueue<T>(cmp: (x: T, y: T) => -1 | 0 | 1 | number): PriorityQueue<T> {
   const _tree: T[] = [null as unknown as T]
   let _size = 0
 

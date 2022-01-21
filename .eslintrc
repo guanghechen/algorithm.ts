@@ -31,12 +31,7 @@
     },
     {
       "files": ["**/__test__/*.spec.ts", "jest.setup.ts"],
-      "extends": [
-        "@guanghechen",
-        "@guanghechen/ts",
-        "plugin:jest/recommended",
-        "prettier"
-      ],
+      "extends": ["@guanghechen", "@guanghechen/ts", "plugin:jest/recommended", "prettier"],
       "rules": {
         "import/no-extraneous-dependencies": 0,
         "jest/expect-expect": 0

@@ -1,12 +1,7 @@
 import knuthShuffle, { randomInt } from '@algorithm.ts/knuth-shuffle'
 import { SudokuSolver } from './solver'
 import type { SudokuBoard, SudokuData } from './types'
-import {
-  copySudokuBoard,
-  createSegmentCodeMap,
-  createSudokuBoard,
-  fillSudokuBoard,
-} from './util'
+import { copySudokuBoard, createSegmentCodeMap, createSudokuBoard, fillSudokuBoard } from './util'
 
 export interface SudokuCreatorOptions {
   /**
@@ -162,11 +157,7 @@ export class SudokuCreator {
    * @param r
    * @param c
    */
-  protected calcCandidates(
-    board: Readonly<SudokuBoard>,
-    r: number,
-    c: number,
-  ): number {
+  protected calcCandidates(board: Readonly<SudokuBoard>, r: number, c: number): number {
     const { SUDOKU_SIZE_SQRT, SUDOKU_SIZE } = this
     const { segmentCodeMap, candidates, visitedNums } = this
     visitedNums.fill(false)
