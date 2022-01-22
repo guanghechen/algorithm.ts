@@ -1,5 +1,26 @@
 # Changelog
 
+<a name="0.0.0"></a>
+## 0.0.0 (2022-01-22)
+
+### Added
+
+- ✨ feat：implement &#x27;@algorithm.ts/huffman&#x27; [[c3ebdda](https://github.com/guanghechen/algorithm.ts/commit/c3ebdda6224e4147e616e0fcd4cfafb8e659f466)]
+- ✨ feat：implement &#x27;@algorithm.ts/base64&#x27; [[5aef00b](https://github.com/guanghechen/algorithm.ts/commit/5aef00b59f57e2a15dec110b5af2ab320373d85c)]
+
+### Changed
+
+- 🔧 chore: update jest coveraage threshold [[07fa6cf](https://github.com/guanghechen/algorithm.ts/commit/07fa6cf7a804cf4fea37aa5f96c4df3a71238858)]
+- 🔧 chore: update yarn.lock [[3457be5](https://github.com/guanghechen/algorithm.ts/commit/3457be5a9e4d7500959b9f0f1e6938fdbbc8c598)]
+- 🎨 style: set print width to 100 (old is 80) [[dd57d3f](https://github.com/guanghechen/algorithm.ts/commit/dd57d3f5b59edb82426bc84fbf687bfa08c8cfe4)]
+- ⬆️ chore: upgrade dependencies [[46da4bc](https://github.com/guanghechen/algorithm.ts/commit/46da4bcc3839c623dfa15a747e16bbc7402c68f0)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[89d28d1](https://github.com/guanghechen/algorithm.ts/commit/89d28d1bbf2b7db1f87dbfde8d079a82925a5847)]
+- 📝 docs: update CHANGELOG [[fecbf5a](https://github.com/guanghechen/algorithm.ts/commit/fecbf5abb777efd078e56fb2b9ef9f8f7d5bf552)]
+
+
 <a name="1.0.23"></a>
 ## 1.0.23 (2021-11-28)
 
