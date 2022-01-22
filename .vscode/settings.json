@@ -1,23 +1,25 @@
 {
   "cSpell.words": [
-    "Dinic",
-    "Isap",
-    "Parens",
     "codeforces",
+    "Dinic",
     "findset",
     "gitmoji",
     "guanghechen",
+    "Isap",
     "leetcode",
     "lowbit",
+    "manacher",
     "maxflow",
     "mcmf",
     "mincost",
     "mincut",
     "nums",
+    "Parens",
     "pinst",
     "plusplus",
     "postpublish",
-    "prebuild"
+    "prebuild",
+    "totient"
   ],
   "files.associations": {
     ".prettierrc": "yaml"

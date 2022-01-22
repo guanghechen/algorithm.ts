@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot 1`] = `"SGVsbG8sIHdvcmxkIQ=="`;
+
+exports[`snapshot 2`] = `"SGVsbG8sIHdvcmxkITE="`;
+
+exports[`snapshot 3`] = `"SGVsbG8sIHdvcmxkITEx"`;
+
+exports[`snapshot 4`] = `"SGVsbG8sIHdvcmxkITExMQ=="`;

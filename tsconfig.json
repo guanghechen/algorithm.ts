@@ -5,6 +5,7 @@
     "module": "CommonJS",
     "sourceMap": true,
     "paths": {
+      "@algorithm.ts/base64": ["packages/base64/src"],
       "@algorithm.ts/binary-index-tree": ["packages/binary-index-tree/src"],
       "@algorithm.ts/calculate": ["packages/calculate/src"],
       "@algorithm.ts/circular-queue": ["packages/circular-queue/src"],
