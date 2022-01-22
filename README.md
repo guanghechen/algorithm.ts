@@ -54,6 +54,7 @@ Typescript. (no third-party dependencies)
 
 Package                             | Description
 :----------------------------------:|:--------------------------
+[@algorithm.ts/base64][]            | A [Base64][wiki-base64] encoding implementation.
 [@algorithm.ts/binary-index-tree][] | Binary Index Tree.
 [@algorithm.ts/calculate][]         | A tiny calculator for number arithmetics.
 [@algorithm.ts/circular-queue][]    | Circular queue.
@@ -62,6 +63,7 @@ Package                             | Description
 [@algorithm.ts/dlx][]               | DLX algorithm.
 [@algorithm.ts/findset][]           | Find set.
 [@algorithm.ts/gcd][]               | Greatest Common Divisor (GCD) and extended Euclidean algorithm.
+[@algorithm.ts/huffman][]           | A [Huffman][wiki-huffman] coding implementation.
 [@algorithm.ts/isap][]              | ISAP algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/knuth-shuffle][]     | Knuth-Shuffle algorithm.
 [@algorithm.ts/lower-bound][]       | Find the index of first elements which greater or equals than the target element.
@@ -81,8 +83,11 @@ Package                             | Description
 
 algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/main/LICENSE).
 
+[wiki-base64]: https://en.wikipedia.org/wiki/Base64
+[wiki-huffman]: https://en.wikipedia.org/wiki/Huffman_coding
 
 [homepage]: https://github.com/guanghechen/algorithm.ts
+[@algorithm.ts/base64]: ./packages/base64
 [@algorithm.ts/binary-index-tree]: ./packages/binary-index-tree
 [@algorithm.ts/calculate]: ./packages/calculate
 [@algorithm.ts/circular-queue]: ./packages/circular-queue
@@ -91,6 +96,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/dlx]: ./packages/dlx
 [@algorithm.ts/findset]: ./packages/findset
 [@algorithm.ts/gcd]: ./packages/gcd
+[@algorithm.ts/huffman]: ./packages/huffman
 [@algorithm.ts/isap]: ./packages/isap
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
 [@algorithm.ts/lower-bound]: ./packages/lower-bound

@@ -89,7 +89,7 @@ project uses `Uint8Array` to represent byte streams.
   import { decode } from '@algorithm.ts/base64'
 
   const data: Uint8Array = decode('SGVsbG8sIHdvcmxkIQ==') 
-  const textDecoder = new TextDecoder('utf-8)
+  const textDecoder = new TextDecoder('utf-8')
   textDecoder.decode(data) // => 'Hello, world!'
   ```
 
@@ -127,7 +127,7 @@ project uses `Uint8Array` to represent byte streams.
 
 
 
-* [Base65 | Wikipedia](https://en.wikipedia.org/wiki/Base64)
+* [Base64 | Wikipedia](https://en.wikipedia.org/wiki/Base64)
 * [base-64 | github](https://github.com/mathiasbynens/base64)
 * [`atob()` | MDN](https://developer.mozilla.org/en-US/docs/Web/API/atob)
 * [`btoa()` | MDN](https://developer.mozilla.org/en-US/docs/Web/API/btoa)
