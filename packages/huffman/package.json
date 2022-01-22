@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/huffman",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "huffman + Euclidean algorithm",
   "author": {
     "name": "guanghechen",
@@ -41,6 +41,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/priority-queue": "1.0.23"
+    "@algorithm.ts/priority-queue": "^1.0.24"
   }
 }
