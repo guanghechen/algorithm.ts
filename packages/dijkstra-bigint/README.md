@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra#readme">@algorithm.ts/dijkstra</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra-bigint#readme">@algorithm.ts/dijkstra-bigint</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@algorithm.ts/dijkstra">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/dijkstra-bigint">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@algorithm.ts/dijkstra.svg"
+        src="https://img.shields.io/npm/v/@algorithm.ts/dijkstra-bigint.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@algorithm.ts/dijkstra">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/dijkstra-bigint">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@algorithm.ts/dijkstra.svg"
+        src="https://img.shields.io/npm/dm/@algorithm.ts/dijkstra-bigint.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@algorithm.ts/dijkstra">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/dijkstra-bigint">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@algorithm.ts/dijkstra.svg"
+        src="https://img.shields.io/npm/l/@algorithm.ts/dijkstra-bigint.svg"
       />
     </a>
     <a href="#install">
@@ -30,7 +30,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@algorithm.ts/dijkstra"
+        src="https://img.shields.io/node/v/@algorithm.ts/dijkstra-bigint"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -50,7 +50,7 @@
 <br/>
 
 
-A typescript implementation of the **dijkstra** algorithm.
+A typescript implementation of the **dijkstra** algorithm (bigint version).
 
 The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm):
 
@@ -65,19 +65,19 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * npm
 
   ```bash
-  npm install --save @algorithm.ts/dijkstra
+  npm install --save @algorithm.ts/dijkstra-bigint
   ```
 
 * yarn
 
   ```bash
-  yarn add @algorithm.ts/dijkstra
+  yarn add @algorithm.ts/dijkstra-bigint
   ```
 
 * deno
 
   ```typescript
-  import dijkstra from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/dijkstra/src/index.ts'
+  import dijkstra from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/dijkstra-bigint/src/index.ts'
   ```
 
 ## Usage
@@ -85,43 +85,43 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * Simple
 
   ```typescript
-  import dijkstra from '@algorithm.ts/dijkstra'
+  import dijkstra from '@algorithm.ts/dijkstra-bigint'
 
-  const dist: number[] = dijkstra({
+  const dist: bigint[] = dijkstra({
     N: 4,
     source: 0,
     edges: [
-      { to: 1, cost: 2 },
-      { to: 2, cost: 2 },
-      { to: 3, cost: 2 },
-      { to: 3, cost: 1 },
+      { to: 1, cost: 2n },
+      { to: 2, cost: 2n },
+      { to: 3, cost: 2n },
+      { to: 3, cost: 1n },
     ],
     G: [[0], [1, 2], [3], []],
   })
-  // => [0, 2, 4, 4]
+  // => [0n, 2n, 4n, 4n]
   // 
   //    Which means:
-  //      0 --> 0: cost is 0
-  //      0 --> 1: cost is 2
-  //      0 --> 2: cost is 4
-  //      0 --> 3: cost is 4
+  //      0 --> 0: cost is 0n
+  //      0 --> 1: cost is 2n
+  //      0 --> 2: cost is 4n
+  //      0 --> 3: cost is 4n
   ```
 
 * Pass custom `dist` array.
 
   ```typescript
-  import dijkstra from '@algorithm.ts/dijkstra'
+  import dijkstra from '@algorithm.ts/dijkstra-bigint'
 
-  const dist: number[] = []
+  const dist: bigint[] = []
   dijkstra(
     {
       N: 4,
       source: 0,
       edges: [
-        { to: 1, cost: 2 },
-        { to: 2, cost: 2 },
-        { to: 3, cost: 2 },
-        { to: 3, cost: 1 },
+        { to: 1, cost: 2n },
+        { to: 2, cost: 2n },
+        { to: 3, cost: 2n },
+        { to: 3, cost: 1n },
       ],
       G: [[0], [1, 2], [3], []],
     },
@@ -129,7 +129,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
     dist
   )
 
-  dist // => [0, 2, 4, 4]
+  dist // => [0n, 2n, 4n, 4n]
   ```
 
 ### Example
@@ -138,15 +138,17 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   (https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/):
 
   ```typescript
-  import type { IEdge } from '@algorithm.ts/dijkstra'
-  import dijkstra from '@algorithm.ts/dijkstra'
+  import type { IEdge } from '@algorithm.ts/dijkstra-bigint'
+  import dijkstra from '@algorithm.ts/dijkstra-bigint'
 
-  const MOD = 1e9 + 7
+  const MOD = BigInt(1e9 + 7)
   export function countPaths(N: number, roads: number[][]): number {
     const edges: IEdge[] = []
     const G: number[][] = new Array(N)
     for (let i = 0; i < N; ++i) G[i] = []
-    for (const [from, to, cost] of roads) {
+    for (const [from, to, _cost] of roads) {
+      const cost = BigInt(_cost)
+
       G[from].push(edges.length)
       edges.push({ to, cost })
 
@@ -156,18 +158,18 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
     const source = 0
     const target = N - 1
-    const dist: number[] = dijkstra({ N, source: target, edges, G }, 1e12)
+    const dist: bigint[] = dijkstra({ N, source: target, edges, G }, BigInt(1e12))
 
-    const dp: number[] = new Array(N).fill(-1)
-    return dfs(source)
+    const dp: bigint[] = new Array(N).fill(-1n)
+    return Number(dfs(source))
 
-    function dfs(o: number): number {
-      if (o === target) return 1
+    function dfs(o: number): bigint {
+      if (o === target) return 1n
 
       let answer = dp[o]
-      if (answer !== -1) return answer
+      if (answer !== -1n) return answer
 
-      answer = 0
+      answer = 0n
       const d = dist[o]
       for (const idx of G[o]) {
         const e: IEdge = edges[idx]
@@ -176,13 +178,9 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
           answer = modAdd(answer, t)
         }
       }
-      return dp[o] = answer
+      dp[o] = answer
+      return answer
     }
-  }
-
-  function modAdd(x: number, y: number): number {
-    const z: number = x + y
-    return z < MOD ? z : z - MOD
   }
   ```
 
@@ -190,11 +188,11 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 ## Related
 
 * [dijkstra 算法][dijkstra]
-* [@algorithm.ts/dijkstra-bigint][]
+* [@algorithm.ts/dijkstra][]
 * [@algorithm.ts/priority-queue][]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra-bigint#readme
 [dijkstra]: https://me.guanghechen.com/post/algorithm/graph/shortest-path/dijkstra
-[@algorithm.ts/dijkstra-bigint]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra-bigint
+[@algorithm.ts/dijkstra]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra
 [@algorithm.ts/priority-queue]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/priority-queue

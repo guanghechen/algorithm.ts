@@ -10,6 +10,7 @@
       "@algorithm.ts/calculate": ["packages/calculate/src"],
       "@algorithm.ts/circular-queue": ["packages/circular-queue/src"],
       "@algorithm.ts/dijkstra": ["packages/dijkstra/src"],
+      "@algorithm.ts/dijkstra-bigint": ["packages/dijkstra-bigint/src"],
       "@algorithm.ts/dinic": ["packages/dinic/src"],
       "@algorithm.ts/dlx": ["packages/dlx/src"],
       "@algorithm.ts/findset": ["packages/findset/src"],
