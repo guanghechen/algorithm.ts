@@ -1,4 +1,4 @@
-import type { CircularQueue } from '@algorithm.ts/circular-queue'
+import type { ICircularQueue } from '@algorithm.ts/circular-queue'
 import { createCircularQueue } from '@algorithm.ts/circular-queue'
 import type { Dinic, DinicContext, DinicEdge } from './types'
 
@@ -12,7 +12,7 @@ export function createDinic(): Dinic {
   const _dist: number[] = [] // The distance from the source node to the i-th node.
   const _edges: DinicEdge[] = []
   const _G: number[][] = []
-  const _Q: CircularQueue<number> = createCircularQueue()
+  const _Q: ICircularQueue<number> = createCircularQueue()
   return { init, addEdge, maxFlow, solve }
 
   function init(source: number, target: number, n: number): void {

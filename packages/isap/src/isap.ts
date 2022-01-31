@@ -1,4 +1,4 @@
-import type { CircularQueue } from '@algorithm.ts/circular-queue'
+import type { ICircularQueue } from '@algorithm.ts/circular-queue'
 import { createCircularQueue } from '@algorithm.ts/circular-queue'
 import type { Isap, IsapContext, IsapEdge } from './types'
 
@@ -14,7 +14,7 @@ export function createIsap(): Isap {
   const _path: number[] = [] // An edge in an augmented path.
   const _edges: IsapEdge[] = []
   const _G: number[][] = []
-  const _Q: CircularQueue<number> = createCircularQueue()
+  const _Q: ICircularQueue<number> = createCircularQueue()
   return { init, addEdge, maxFlow, solve }
 
   function init(source: number, target: number, n: number): void {
