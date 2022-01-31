@@ -82,53 +82,107 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
 ## Usage
 
-A solution for leetcode "Number of Ways to Arrive at Destination"
-(https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/):
+* Simple
 
-```typescript
-import type { DijkstraEdge } from '@algorithm.ts/dijkstra'
-import dijkstra from '@algorithm.ts/dijkstra'
+  ```typescript
+  import dijkstra from '@algorithm.ts/dijkstra'
 
-export function countPaths(N: number, roads: number[][]): number {
-  const MOD = 1e9 + 7
-  const G: Array<Array<DijkstraEdge<number>>> = new Array(N)
-  for (let i = 0; i < N; ++i) G[i] = []
-  for (const road of roads) {
-    G[road[0]].push({ to: road[1], cost: road[2] })
-    G[road[1]].push({ to: road[0], cost: road[2] })
-  }
+  const dist: number[] = dijkstra({
+    N: 4,
+    source: 0,
+    edges: [
+      { to: 1, cost: 2 },
+      { to: 2, cost: 2 },
+      { to: 3, cost: 2 },
+      { to: 3, cost: 1 },
+    ],
+    G: [[0], [1, 2], [3], []],
+  })
+  // => [0, 2, 4, 4], Which means:
+  // 
+  //      0 --> 0: cost is 0
+  //      0 --> 1: cost is 2
+  //      0 --> 2: cost is 4
+  //      0 --> 3: cost is 4
+  ```
 
-  const source = 0
-  const target = N - 1
-  const dist: number[] = dijkstra<number>(N, target, G, 0, 1e12)
+* Pass custom `dist` array.
 
-  const dp: number[] = new Array(N).fill(-1)
-  return dfs(source)
+  ```typescript
+  import dijkstra from '@algorithm.ts/dijkstra'
 
-  function dfs(o: number): number {
-    if (o === target) return 1
+  const dist: number[] = []
+  dijkstra(
+    {
+      N: 4,
+      source: 0,
+      edges: [
+        { to: 1, cost: 2 },
+        { to: 2, cost: 2 },
+        { to: 3, cost: 2 },
+        { to: 3, cost: 1 },
+      ],
+      G: [[0], [1, 2], [3], []],
+    },
+    undefined,
+    dist
+  )
 
-    let answer = dp[o]
-    if (answer !== -1) return answer
+  dist // => [0, 2, 4, 4]
+  ```
 
-    answer = 0
-    const d = dist[o]
-    for (const e of G[o]) {
-      if (dist[e.to] + e.cost === d) {
-        const t = dfs(e.to)
-        answer = modAdd(answer, t)
-      }
+### Example
+
+* A solution for leetcode "Number of Ways to Arrive at Destination"
+  (https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/):
+
+  ```typescript
+  import type { DijkstraEdge } from '@algorithm.ts/dijkstra'
+  import dijkstra from '@algorithm.ts/dijkstra'
+
+  export function countPaths(N: number, roads: number[][]): number {
+    const edges: DijkstraEdge[] = []
+    const G: number[][] = new Array(N)
+    for (let i = 0; i < N; ++i) G[i] = []
+    for (const [from, to, cost] of roads) {
+      G[from].push(edges.length)
+      edges.push({ to, cost })
+
+      G[to].push(edges.length)
+      edges.push({ to: from, cost })
     }
-    dp[o] = answer
-    return answer
+
+    const source = 0
+    const target = N - 1
+    const dist: number[] = dijkstra({ N, source: target, edges, G }, 1e12)
+
+    const dp: number[] = new Array(N).fill(-1)
+    return dfs(source)
+
+    function dfs(o: number): number {
+      if (o === target) return 1
+
+      let answer = dp[o]
+      if (answer !== -1) return answer
+
+      answer = 0
+      const d = dist[o]
+      for (const idx of G[o]) {
+        const e: DijkstraEdge = edges[idx]
+        if (dist[e.to] + e.cost === d) {
+          const t = dfs(e.to)
+          answer = modAdd(answer, t)
+        }
+      }
+      return dp[o] = answer
+    }
   }
 
   function modAdd(x: number, y: number): number {
     const z: number = x + y
     return z < MOD ? z : z - MOD
   }
-}
-```
+  ```
 
 
 ## Related

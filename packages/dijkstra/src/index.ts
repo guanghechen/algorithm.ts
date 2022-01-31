@@ -1,6 +1,6 @@
 import { createPriorityQueue } from '@algorithm.ts/priority-queue'
 
-export interface DijkstraEdge<T extends number | bigint> {
+export interface IEdge {
   /**
    * The other end of the edge.
    */
@@ -8,44 +8,66 @@ export interface DijkstraEdge<T extends number | bigint> {
   /**
    * The cost of walking along this side.
    */
-  cost: T
+  cost: number
 }
+
+export interface IGraph {
+  /**
+   * The number of nodes in the graph. (0-index)
+   */
+  N: number
+  /**
+   * The source node. (0-index)
+   */
+  source: number
+  /**
+   * Graph edges.
+   */
+  edges: ReadonlyArray<IEdge>
+  /**
+   * Adjacency list. G[i] represent the index list of the  edges start from node i.
+   */
+  G: ReadonlyArray<ReadonlyArray<number>>
+}
+
+const ZERO = 0
+const DEFAULT_INF = Math.floor(Number.MAX_SAFE_INTEGER / 2)
+const Q = createPriorityQueue<{ pos: number; cost: number }>((x, y) => {
+  if (x.cost === y.cost) return 0
+  return x.cost < y.cost ? 1 : -1
+})
 
 /**
  * The dijkstra algorithm, optimized with priority queue.
  *
- * @param N         the number of nodes in the graph
- * @param source    the source node
- * @param G         edges of the graph. G[i] represent the edge list start from node i.
- * @param ZERO      0 for number, 0n for bigint.
- * @param INF       a big number, such as Number.MAX_SAFE_INTEGER
+ * @param INF         A big number, representing the unreachable cost.
+ * @param customDist
  * @returns
  *
  * @see https://me.guanghechen.com/post/algorithm/graph/shortest-path/dijkstra
  */
-export function dijkstra<T extends number | bigint>(
-  N: number,
-  source: number,
-  G: ReadonlyArray<ReadonlyArray<DijkstraEdge<T>>>,
-  ZERO: T,
-  INF: T,
-): T[] {
-  const dist: T[] = new Array(N).fill(INF)
-  const Q = createPriorityQueue<{ pos: number; cost: T }>((x, y) => y.cost - x.cost)
+export function dijkstra(
+  graph: IGraph,
+  INF: number = DEFAULT_INF,
+  customDist?: number[],
+): number[] {
+  const { N, source, edges, G } = graph
+  const dist: number[] = customDist ?? []
+  if (dist.length < N) dist.length = N
 
-  // eslint-disable-next-line no-param-reassign
+  dist.fill(INF, 0, N)
   dist[source] = ZERO
   Q.enqueue({ pos: source, cost: ZERO })
 
   while (Q.size() > 0) {
     const { pos, cost } = Q.dequeue()!
     if (dist[pos] < cost) continue
-    for (const e of G[pos]) {
-      const candidate: T = (dist[pos] as any) + e.cost
-      if (dist[e.to] > candidate) {
-        // eslint-disable-next-line no-param-reassign
-        dist[e.to] = candidate
-        Q.enqueue({ pos: e.to, cost: dist[e.to] })
+    for (const idx of G[pos]) {
+      const edge: IEdge = edges[idx]
+      const candidate: number = dist[pos] + edge.cost
+      if (dist[edge.to] > candidate) {
+        dist[edge.to] = candidate
+        Q.enqueue({ pos: edge.to, cost: dist[edge.to] })
       }
     }
   }

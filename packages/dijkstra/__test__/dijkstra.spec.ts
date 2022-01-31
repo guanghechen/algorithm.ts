@@ -1,7 +1,25 @@
-import type { DijkstraEdge } from '../src'
+import type { IEdge } from '../src'
 import dijkstra from '../src'
 
-describe('dijkstra', function () {
+describe('basic', function () {
+  test('simple', function () {
+    expect(
+      dijkstra({
+        N: 4,
+        source: 0,
+        edges: [
+          { to: 1, cost: 2 },
+          { to: 2, cost: 2 },
+          { to: 3, cost: 2 },
+          { to: 3, cost: 1 },
+        ],
+        G: [[0], [1, 2], [3], []],
+      }),
+    ).toEqual([0, 2, 4, 4])
+  })
+})
+
+describe('leetcode', function () {
   // https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
   test('leetcode/number-of-ways-to-arrive-at-destination', function () {
     const data: any[] = [
@@ -29,24 +47,32 @@ describe('dijkstra', function () {
       },
     ]
 
+    const customDist: number[] = []
     for (const kase of data) {
-      expect(countPaths(kase.input[0], kase.input[1])).toEqual(kase.answer)
+      const [N, roads] = kase.input
+
+      expect(countPaths(N, roads)).toEqual(kase.answer)
+      expect(countPaths(N, roads, customDist)).toEqual(kase.answer)
     }
   })
 })
 
 const MOD = 1e9 + 7
-function countPaths(N: number, roads: number[][]): number {
-  const G: Array<Array<DijkstraEdge<number>>> = new Array(N)
+function countPaths(N: number, roads: number[][], customDist?: number[]): number {
+  const edges: IEdge[] = []
+  const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
-  for (const road of roads) {
-    G[road[0]].push({ to: road[1], cost: road[2] })
-    G[road[1]].push({ to: road[0], cost: road[2] })
+  for (const [from, to, cost] of roads) {
+    G[from].push(edges.length)
+    edges.push({ to, cost })
+
+    G[to].push(edges.length)
+    edges.push({ to: from, cost })
   }
 
   const source = 0
   const target = N - 1
-  const dist: number[] = dijkstra<number>(N, target, G, 0, 1e12)
+  const dist: number[] = dijkstra({ N, source: target, edges, G }, 1e12, customDist)
 
   const dp: number[] = new Array(N).fill(-1)
   return dfs(source)
@@ -59,7 +85,8 @@ function countPaths(N: number, roads: number[][]): number {
 
     answer = 0
     const d = dist[o]
-    for (const e of G[o]) {
+    for (const idx of G[o]) {
+      const e: IEdge = edges[idx]
       if (dist[e.to] + e.cost === d) {
         const t = dfs(e.to)
         answer = modAdd(answer, t)
