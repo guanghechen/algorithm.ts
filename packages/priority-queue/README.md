@@ -80,7 +80,7 @@ complexity of the enqueue and dequeue operations are both $O(\log N)$.
 
 ## Usage
 
-* `PriorityQueue`
+* `IPriorityQueue`
 
   Member                  | Return        |  Description
   :----------------------:|:-------------:|:---------------------------------------
@@ -97,7 +97,7 @@ complexity of the enqueue and dequeue operations are both $O(\log N)$.
   ```typescript
   export function createPriorityQueue<T>(
     cmp: (x: T, y: T) => -1 | 0 | 1 | number,
-  ): PriorityQueue<T>
+  ): IPriorityQueue<T>
   ```
 
   - `createPriorityQueue<number>((x, y) => x - y)`: The top element has a maximum value.

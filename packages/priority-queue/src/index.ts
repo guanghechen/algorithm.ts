@@ -4,7 +4,7 @@
  * Priority queue can insert elements within the complexity of log(N) or remove
  * the largest element in the queue.
  */
-export interface PriorityQueue<T> {
+export interface IPriorityQueue<T> {
   /**
    * Initialize priority queue with initial elements.
    * @param elements
@@ -48,7 +48,9 @@ export interface PriorityQueue<T> {
  *              side of the operator has higher precedence.
  * @returns
  */
-export function createPriorityQueue<T>(cmp: (x: T, y: T) => -1 | 0 | 1 | number): PriorityQueue<T> {
+export function createPriorityQueue<T>(
+  cmp: (x: T, y: T) => -1 | 0 | 1 | number,
+): IPriorityQueue<T> {
   const _tree: T[] = [null as unknown as T]
   let _size = 0
 
