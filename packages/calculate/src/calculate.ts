@@ -1,13 +1,13 @@
 import { TokenSymbol, idx, ll1Table, sddTable } from './constant'
-import type { Operations } from './operations'
+import type { IOperations } from './operations'
 import { bigintOperations, decimalOperations, integerOperations } from './operations'
 
-export type Calculate<T extends number | bigint> = (expression: string) => T
+export type ICalculate<T extends number | bigint> = (expression: string) => T
 
 export function createCalculate<T extends number | bigint>(
-  operations: Operations<T>,
+  operations: IOperations<T>,
   resolveExpression?: (s: string) => string,
-): Calculate<T> {
+): ICalculate<T> {
   const { ZERO, parse, add, subtract, multiply, divide } = operations
   return function (rawExpression: string): T {
     const expression = resolveExpression == null ? rawExpression : resolveExpression(rawExpression)
@@ -136,16 +136,16 @@ export function createCalculate<T extends number | bigint>(
 }
 
 // Integer calculate.
-export const calculate: Calculate<number> = createCalculate<number>(integerOperations, s =>
+export const calculate: ICalculate<number> = createCalculate<number>(integerOperations, s =>
   s.replace(/[\s]+/g, ''),
 )
 
 // Decimal calculate.
-export const decimalCalculate: Calculate<number> = createCalculate<number>(decimalOperations, s =>
+export const decimalCalculate: ICalculate<number> = createCalculate<number>(decimalOperations, s =>
   s.replace(/[\s]+/g, '').replace(/(^|[^\d.])\./g, '$10.'),
 )
 
 // Bigint calculate.
-export const bigintCalculate: Calculate<bigint> = createCalculate<bigint>(bigintOperations, s =>
+export const bigintCalculate: ICalculate<bigint> = createCalculate<bigint>(bigintOperations, s =>
   s.replace(/[\s]+/g, ''),
 )

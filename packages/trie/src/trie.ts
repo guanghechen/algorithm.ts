@@ -1,9 +1,9 @@
-import type { Trie, TrieNodeData } from './types'
+import type { ITrie, ITrieNodeData } from './types'
 
 /**
  * Options for create trie.
  */
-export interface CreateTrieOptions<T = number> {
+export interface IOptions<T = number> {
   /**
    * The maximum number of children a parent node can have.
    */
@@ -37,7 +37,7 @@ export function createTrie<T = number>({
   ZERO,
   idx,
   mergeAdditionalValues,
-}: CreateTrieOptions<T>): Trie<T> {
+}: IOptions<T>): ITrie<T> {
   let sz: number
   const ch: Uint32Array[] = []
   const values: T[] = [ZERO]
@@ -90,7 +90,7 @@ export function createTrie<T = number>({
     return true
   }
 
-  function find(str: string, start = 0, end = str.length): TrieNodeData<T> | null {
+  function find(str: string, start = 0, end = str.length): ITrieNodeData<T> | null {
     for (let i = start, u = 0; i < end; ++i) {
       const c: number = idx(str[i])
       if (ch[u][c] === 0) break
@@ -101,8 +101,8 @@ export function createTrie<T = number>({
     return null
   }
 
-  function findAll(str: string, start = 0, end = str.length): Array<TrieNodeData<T>> {
-    const results: Array<TrieNodeData<T>> = []
+  function findAll(str: string, start = 0, end = str.length): Array<ITrieNodeData<T>> {
+    const results: Array<ITrieNodeData<T>> = []
     for (let i = start, u = 0; i < end; ++i) {
       const c: number = idx(str[i])
       if (ch[u][c] === 0) break

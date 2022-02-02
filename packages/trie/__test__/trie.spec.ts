@@ -1,9 +1,9 @@
-import type { Trie } from '../src'
+import type { ITrie } from '../src'
 import { createTrie, digitIdx, lowercaseIdx, uppercaseIdx } from '../src'
 
 describe('trie', function () {
   describe('basic', function () {
-    const trie: Trie = createTrie({
+    const trie: ITrie = createTrie({
       SIGMA_SIZE: 62,
       ZERO: 0,
       idx: (c: string): number => {

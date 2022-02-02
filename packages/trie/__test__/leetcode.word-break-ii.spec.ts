@@ -1,4 +1,4 @@
-import type { Trie } from '../src'
+import type { ITrie } from '../src'
 import { createTrie, lowercaseIdx } from '../src'
 
 test('word-break-ii', function () {
@@ -30,7 +30,7 @@ test('word-break-ii', function () {
 function wordBreak(s: string, wordDict: string[]): string[] {
   if (s.length <= 0) return []
 
-  const trie: Trie = createTrie({
+  const trie: ITrie = createTrie({
     SIGMA_SIZE: 26,
     ZERO: 0,
     idx: lowercaseIdx,

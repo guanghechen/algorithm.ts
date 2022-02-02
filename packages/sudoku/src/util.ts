@@ -1,11 +1,11 @@
-import type { SudokuBoard } from './types'
+import type { ISudokuBoard } from './types'
 
 /**
  * Create a sudoku board (two-dimensional array).
  * @param SUDOKU_SIZE
  */
-export function createSudokuBoard(SUDOKU_SIZE: number): SudokuBoard {
-  const board: SudokuBoard = new Array(SUDOKU_SIZE)
+export function createSudokuBoard(SUDOKU_SIZE: number): ISudokuBoard {
+  const board: ISudokuBoard = new Array(SUDOKU_SIZE)
   for (let r = 0; r < SUDOKU_SIZE; ++r) {
     board[r] = new Array(SUDOKU_SIZE)
   }
@@ -19,7 +19,7 @@ export function createSudokuBoard(SUDOKU_SIZE: number): SudokuBoard {
  * @param SUDOKU_SIZE
  */
 export function fillSudokuBoard(
-  board: SudokuBoard,
+  board: ISudokuBoard,
   v: number,
   SUDOKU_SIZE: number = board.length,
 ): void {
@@ -38,8 +38,8 @@ export function fillSudokuBoard(
  * @param SUDOKU_SIZE
  */
 export function copySudokuBoard(
-  src: Readonly<SudokuBoard>,
-  dst: SudokuBoard,
+  src: Readonly<ISudokuBoard>,
+  dst: ISudokuBoard,
   SUDOKU_SIZE: number = src.length,
 ): void {
   for (let r = 0; r < SUDOKU_SIZE; ++r) {
@@ -57,7 +57,7 @@ export function copySudokuBoard(
  * @param SUDOKU_SIZE_SQRT
  * @returns
  */
-export function checkSudokuSolution(solution: SudokuBoard, SUDOKU_SIZE_SQRT: number): boolean {
+export function checkSudokuSolution(solution: ISudokuBoard, SUDOKU_SIZE_SQRT: number): boolean {
   const SUDOKU_SIZE: number = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT
   const nums: number[] = new Array(SUDOKU_SIZE)
   let target = 0

@@ -1,4 +1,4 @@
-import type { BinaryIndexTree } from './types'
+import type { IBinaryIndexTree } from './types'
 import { lowbit } from './util'
 
 /**
@@ -16,7 +16,7 @@ import { lowbit } from './util'
 export function createBinaryIndexTree1Mod<T extends number | bigint>(
   ZERO: T,
   MOD: T,
-): BinaryIndexTree<T> {
+): IBinaryIndexTree<T> {
   let _size = 0
   const _nodes: T[] = [ZERO]
   return { init, add, query }

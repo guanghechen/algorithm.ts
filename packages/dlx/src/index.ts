@@ -11,7 +11,7 @@
  *
  * @see https://me.guanghechen.com/post/algorithm/dlx/
  */
-export interface DLX {
+export interface IDancingLinkX {
   /**
    * Initialize the dancing-link.
    * @param totalColumns   number of columns
@@ -50,7 +50,7 @@ export interface DLX {
  * @param MAX_N   maximum number of nodes in the dancing-link
  * @returns
  */
-export function createDLX(MAX_N: number): DLX {
+export function createDLX(MAX_N: number): IDancingLinkX {
   // The number of nodes in the dancing-link (including the virtual nodes on
   // the column).
   let sz: number
@@ -68,7 +68,7 @@ export function createDLX(MAX_N: number): DLX {
   return { init, destroy, addRow, solve }
 
   /**
-   * @see DLX#init
+   * @see IDancingLinkX#init
    * @public
    */
   function init(_totalColumns: number): void {
@@ -87,7 +87,7 @@ export function createDLX(MAX_N: number): DLX {
   }
 
   /**
-   * @see DLX#destroy
+   * @see IDancingLinkX#destroy
    * @public
    */
   function destroy(): void {
@@ -102,7 +102,7 @@ export function createDLX(MAX_N: number): DLX {
   }
 
   /**
-   * @see DLX#addRow
+   * @see IDancingLinkX#addRow
    * @public
    */
   function addRow(r: number, columns: ReadonlyArray<number>): void {
@@ -134,7 +134,7 @@ export function createDLX(MAX_N: number): DLX {
   }
 
   /**
-   * @see DLX#solve
+   * @see IDancingLinkX#solve
    * @public
    */
   function solve(): number[] | null {

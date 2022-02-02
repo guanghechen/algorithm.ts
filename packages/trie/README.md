@@ -119,12 +119,13 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * A solution of https://leetcode.com/problems/word-break-ii/:
 
   ```typescript
-  import { Trie, createTrie, lowercaseIdx } from '@algorithm.ts/trie'
+  import type { ITrie } from '@algorithm.ts/trie'
+  import { createTrie, lowercaseIdx } from '@algorithm.ts/trie'
 
   export function wordBreak(s: string, wordDict: string[]): string[] {
     if (s.length <= 0) return []
 
-    const trie: Trie = createTrie({
+    const trie: ITrie = createTrie({
       SIGMA_SIZE: 26,
       ZERO: 0,
       idx: lowercaseIdx,

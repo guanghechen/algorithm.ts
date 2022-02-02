@@ -8,7 +8,7 @@
  * Tree. Its advantage is that the complexity constant is smaller, and the
  * implementation is simpler and easier to understand.
  */
-export interface BinaryIndexTree<T extends number | bigint> {
+export interface IBinaryIndexTree<T extends number | bigint> {
   /**
    * Initialize the binary search tree.
    *

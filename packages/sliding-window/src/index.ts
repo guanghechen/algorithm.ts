@@ -2,7 +2,7 @@
  * Sliding window is an algorithm for solving extreme values in a fixed width
  * interval.
  */
-export interface SlidingWindow {
+export interface ISlidingWindow {
   /**
    * Initialize a sliding window.
    * @param WINDOW_SIZE
@@ -31,7 +31,7 @@ export interface SlidingWindow {
 export function createSlidingWindow(
   _WINDOW_SIZE: number,
   cmp: (x: number, y: number) => -1 | 0 | 1 | number,
-): SlidingWindow {
+): ISlidingWindow {
   let front = 0
   let end = -1
   let WINDOW_SIZE: number = _WINDOW_SIZE

@@ -1,4 +1,4 @@
-import type { DLX } from '@algorithm.ts/dlx'
+import type { IDancingLinkX } from '@algorithm.ts/dlx'
 import { createDLX } from '@algorithm.ts/dlx'
 import { createSegmentCodeMap } from './util'
 
@@ -19,7 +19,7 @@ export enum SudokuConstraint {
   SUB = 3,
 }
 
-export interface SudokuSolverOptions {
+export interface ISudokuSolverOptions {
   /**
    * Size of the child puzzle matrix (sqrt of original puzzle size)
    */
@@ -33,9 +33,9 @@ export class SudokuSolver {
   public readonly DL_TOTAL_COLUMNS: number
   protected readonly constraints: number[] = new Array<number>(4)
   protected readonly segmentCodeMap: ReadonlyArray<number>
-  protected readonly dlx: DLX
+  protected readonly dlx: IDancingLinkX
 
-  constructor(options: SudokuSolverOptions) {
+  constructor(options: ISudokuSolverOptions) {
     const { childMatrixSize } = options
     const SUDOKU_SIZE_SQRT = childMatrixSize
     const SUDOKU_SIZE = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT

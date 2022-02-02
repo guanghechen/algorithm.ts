@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { randomInt } from '@algorithm.ts/knuth-shuffle'
-import type { EnhancedFindset } from '../src'
+import type { IEnhancedFindset } from '../src'
 import { createEnhancedFindset, createFindset, createHeuristicFindset } from '../src'
 
 describe('createfindset', function () {
@@ -236,7 +236,7 @@ describe('leetcode', function () {
       const answer: Set<number> = new Set()
       const nodes: Set<number> = new Set()
       const visited: Uint8Array = new Uint8Array(MAX_N)
-      const findset: EnhancedFindset = createEnhancedFindset(MAX_N)
+      const findset: IEnhancedFindset = createEnhancedFindset(MAX_N)
 
       return function findAllPeople(
         N: number,

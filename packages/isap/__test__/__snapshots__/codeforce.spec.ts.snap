@@ -3,8 +3,6 @@
 exports[`codeforces contest 1082 g 1`] = `
 Array [
   "edgeTot",
-  "cnt",
-  "dist",
   "edges",
   "G",
 ]

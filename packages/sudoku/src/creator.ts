@@ -1,9 +1,9 @@
 import knuthShuffle, { randomInt } from '@algorithm.ts/knuth-shuffle'
 import { SudokuSolver } from './solver'
-import type { SudokuBoard, SudokuData } from './types'
+import type { ISudokuBoard, ISudokuData } from './types'
 import { copySudokuBoard, createSegmentCodeMap, createSudokuBoard, fillSudokuBoard } from './util'
 
-export interface SudokuCreatorOptions {
+export interface ISudokuCreatorOptions {
   /**
    * Size of the child puzzle matrix (sqrt of original puzzle size)
    */
@@ -24,10 +24,10 @@ export class SudokuCreator {
   protected readonly gridCodes: number[]
   protected readonly candidates: number[]
   protected readonly visitedNums: boolean[]
-  protected readonly tmpBoard: SudokuBoard
+  protected readonly tmpBoard: ISudokuBoard
   protected difficulty: number
 
-  constructor(options: SudokuCreatorOptions) {
+  constructor(options: ISudokuCreatorOptions) {
     const { childMatrixSize, difficulty = 0.2 } = options
     const SUDOKU_SIZE_SQRT = childMatrixSize
     const SUDOKU_SIZE = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT
@@ -60,7 +60,7 @@ export class SudokuCreator {
    * @param _difficulty
    * @returns
    */
-  public createSudoku(_difficulty?: number): SudokuData {
+  public createSudoku(_difficulty?: number): ISudokuData {
     if (_difficulty != null) {
       this.difficulty = this.resolveDifficulty(_difficulty)
     }
@@ -113,7 +113,7 @@ export class SudokuCreator {
    * @param solution
    * @returns
    */
-  protected createPuzzle(solution: Readonly<SudokuBoard>): SudokuBoard {
+  protected createPuzzle(solution: Readonly<ISudokuBoard>): ISudokuBoard {
     const { SUDOKU_SIZE, SUDOKU_SIZE_SQUARE } = this
     const { candidates, gridCodes, solver, difficulty } = this
 
@@ -157,7 +157,7 @@ export class SudokuCreator {
    * @param r
    * @param c
    */
-  protected calcCandidates(board: Readonly<SudokuBoard>, r: number, c: number): number {
+  protected calcCandidates(board: Readonly<ISudokuBoard>, r: number, c: number): number {
     const { SUDOKU_SIZE_SQRT, SUDOKU_SIZE } = this
     const { segmentCodeMap, candidates, visitedNums } = this
     visitedNums.fill(false)

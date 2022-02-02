@@ -1,4 +1,4 @@
-import type { Trie } from '../src'
+import type { ITrie } from '../src'
 import { createTrie, lowercaseIdx } from '../src'
 
 test('word-search-ii', function () {
@@ -46,7 +46,7 @@ function findWords(board: string[][], words: string[]): string[] {
   const C = board[0].length
   if (C <= 0) return []
 
-  const trie: Trie = createTrie({
+  const trie: ITrie = createTrie({
     SIGMA_SIZE: 26,
     ZERO: 0,
     idx: lowercaseIdx,

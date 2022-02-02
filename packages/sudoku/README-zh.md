@@ -88,13 +88,13 @@
 * 解决一个 16x16 的数独问题
 
   ```typescript
-  import type { SudokuBoard } from '@algorithm.ts/sudoku'
+  import type { ISudokuBoard } from '@algorithm.ts/sudoku'
   import { SudokuSolver, createSudokuBoard } from '@algorithm.ts/sudoku'
 
   // 4 x 4 = 16
   const solver = new SudokuSolver({ childMatrixSize: 4 })
 
-  const puzzle: SudokuBoard =  [
+  const puzzle: ISudokuBoard =  [
     [ 2,  3, 14, -1,  8,  6, -1, -1, -1, 13, -1, -1, -1, 10, 12, -1],
     [ 0, -1, -1, -1, -1, -1,  1,  9, -1, -1,  4, -1,  8, -1, -1,  2],
     [-1, -1, -1,  6,  7, -1,  2, -1, -1, -1, 10,  1, -1,  0, -1, 15],
@@ -115,7 +115,7 @@
 
   solver.solve(puzzle, null)  // => true
 
-  const solution: SudokuBoard = createSudokuBoard(16)
+  const solution: ISudokuBoard = createSudokuBoard(16)
   solver.solve(puzzle, solution)  // => true
 
   solution === [

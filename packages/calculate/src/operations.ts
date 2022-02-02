@@ -2,7 +2,7 @@ const DOT_CHAR_CODE = 46
 const ZERO_CHAR_CODE = 48
 const NINE_CHAR_CODE = 57
 
-export interface Operations<T extends number | bigint = number> {
+export interface IOperations<T extends number | bigint = number> {
   ZERO: T
   parse(s: string, start: number): [nextStart: number, value: T]
   add(a: T, b: T): T
@@ -11,7 +11,7 @@ export interface Operations<T extends number | bigint = number> {
   divide(a: T, b: T): T
 }
 
-export const integerOperations: Operations = {
+export const integerOperations: IOperations = {
   ZERO: 0,
   parse: (s, start) => {
     let result = 0
@@ -29,7 +29,7 @@ export const integerOperations: Operations = {
   divide: (a, b) => Math.floor(a / b),
 }
 
-export const decimalOperations: Operations = {
+export const decimalOperations: IOperations = {
   ZERO: 0,
   parse: (s, start) => {
     let i = start
@@ -52,7 +52,7 @@ export const decimalOperations: Operations = {
   divide: (a, b) => a / b,
 }
 
-export const bigintOperations: Operations<bigint> = {
+export const bigintOperations: IOperations<bigint> = {
   ZERO: 0n,
   parse: (s, start) => {
     let i = start

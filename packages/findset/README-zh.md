@@ -80,9 +80,9 @@
 * 创建一个普通并查集：
 
   ```typescript
-  import { createfindset } from '@algorithm.ts/findset'
+  import { createFindset } from '@algorithm.ts/findset'
 
-  const findset = createfindset()
+  const findset = createFindset()
 
   // Initialize the findset with 1000 node.
   findset.init(1000)
@@ -104,9 +104,9 @@
 
 
   ```typescript
-  import { createHeuristicfindset } from '@algorithm.ts/findset'
+  import { createHeuristicFindset } from '@algorithm.ts/findset'
 
-  const findset = createHeuristicfindset()
+  const findset = createHeuristicFindset()
 
   // Initialize the findset with 1000 node.
   findset.init(1000)

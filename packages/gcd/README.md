@@ -72,6 +72,11 @@ A typescript implementation of the **gcd** and **Extended Euclidean** algorithm.
   yarn add @algorithm.ts/gcd
   ```
 
+* deno
+
+  ```typescript
+  import { gcd, euclidean } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/gcd/src/index.ts'
+  ```
 
 ## Usage
 

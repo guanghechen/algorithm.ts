@@ -1,7 +1,7 @@
 /**
  * Result (s) data of the Trie.find, Tried.findAll
  */
-export interface TrieNodeData<T = number> {
+export interface ITrieNodeData<T = number> {
   /**
    * The ending position of the original string.
    */
@@ -23,7 +23,7 @@ export interface TrieNodeData<T = number> {
  *
  * @see https://en.wikipedia.org/wiki/Trie
  */
-export interface Trie<T = number> {
+export interface ITrie<T = number> {
   /**
    * Initialize a trie.
    */
@@ -68,7 +68,7 @@ export interface Trie<T = number> {
    * @param start   the starting position of the str. (default: 0)
    * @param end     the ending position of the str. (default: str.length)
    */
-  find(str: string, start?: number, end?: number): TrieNodeData<T> | null
+  find(str: string, start?: number, end?: number): ITrieNodeData<T> | null
 
   /**
    * Find all words in the trie which exact match the
@@ -78,5 +78,5 @@ export interface Trie<T = number> {
    * @param start   the starting position of the str. (default: 0)
    * @param end     the ending position of the str. (default: str.length)
    */
-  findAll(str: string, start?: number, end?: number): Array<TrieNodeData<T>>
+  findAll(str: string, start?: number, end?: number): Array<ITrieNodeData<T>>
 }

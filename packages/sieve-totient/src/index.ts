@@ -9,15 +9,15 @@ export function sieveTotient(N: number): [totient: Uint32Array, primes: number[]
   if (N === 1) return [new Uint32Array(1), []]
 
   let tot = 0
-  const totients: Uint32Array = new Uint32Array(N)
+  const phi: Uint32Array = new Uint32Array(N)
   const primes: number[] = []
 
-  totients[1] = 1
+  phi[1] = 1
   for (let x = 2; x < N; ++x) {
-    if (totients[x] === 0) {
+    if (phi[x] === 0) {
       // eslint-disable-next-line no-plusplus
       primes[tot++] = x
-      totients[x] = x - 1
+      phi[x] = x - 1
     }
 
     for (let i = 0; i < tot; ++i) {
@@ -26,16 +26,16 @@ export function sieveTotient(N: number): [totient: Uint32Array, primes: number[]
 
       // Ensure that each number is only marked by its smallest positive factor.
       if (x % primes[i] === 0) {
-        totients[target] = totients[x] * primes[i]
+        phi[target] = phi[x] * primes[i]
         break
       }
 
-      totients[target] = totients[x] * (primes[i] - 1)
+      phi[target] = phi[x] * (primes[i] - 1)
     }
   }
 
   primes.length = tot
-  return [totients, primes]
+  return [phi, primes]
 }
 
 export default sieveTotient

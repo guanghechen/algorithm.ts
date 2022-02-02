@@ -69,6 +69,12 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
   yarn add @algorithm.ts/isap
   ```
 
+* deno
+
+  ```typescript
+  import { createIsap } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/isap/src/index.ts'
+  ```
+
 ## Usage
 
 * Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):

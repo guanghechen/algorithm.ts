@@ -1,4 +1,4 @@
-import type { SudokuBoard } from '../src'
+import type { ISudokuBoard } from '../src'
 import { SudokuCreator, SudokuSolver, checkSudokuSolution } from '../src'
 import { createSudokuBoard } from '../src/util'
 import multipleSudoku9x9 from './fixtures/sudoku9x9/multiple.json'
@@ -12,7 +12,7 @@ describe('9x9', function () {
   const creator = new SudokuCreator({ childMatrixSize: SUDOKU_SIZE_SQRT })
 
   test('unique solution', function () {
-    const solution: SudokuBoard = createSudokuBoard(SUDOKU_SIZE)
+    const solution: ISudokuBoard = createSudokuBoard(SUDOKU_SIZE)
     for (const { puzzle, solution: answer } of uniqueSudoku9x9) {
       expect(solver.solve(puzzle, solution)).toBe(true)
       expect(checkSudokuSolution(solution, SUDOKU_SIZE_SQRT)).toBe(true)
@@ -21,7 +21,7 @@ describe('9x9', function () {
   })
 
   test('multiple solution', function () {
-    const solution: SudokuBoard = createSudokuBoard(SUDOKU_SIZE)
+    const solution: ISudokuBoard = createSudokuBoard(SUDOKU_SIZE)
     for (const { puzzle } of multipleSudoku9x9) {
       expect(solver.solve(puzzle, solution)).toBe(true)
       expect(checkSudokuSolution(solution, SUDOKU_SIZE_SQRT)).toBe(true)
@@ -29,7 +29,7 @@ describe('9x9', function () {
   })
 
   test('create puzzle', function () {
-    const solution: SudokuBoard = createSudokuBoard(SUDOKU_SIZE)
+    const solution: ISudokuBoard = createSudokuBoard(SUDOKU_SIZE)
     for (let difficulty = 0; difficulty <= 1; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
       expect(solver.solve(puzzle, solution)).toBe(true)
@@ -58,7 +58,7 @@ describe('16x16', function () {
   const creator = new SudokuCreator({ childMatrixSize: SUDOKU_SIZE_SQRT })
 
   test('create puzzle', function () {
-    const solution: SudokuBoard = createSudokuBoard(SUDOKU_SIZE)
+    const solution: ISudokuBoard = createSudokuBoard(SUDOKU_SIZE)
     for (let difficulty = 0; difficulty <= 0.4; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
       expect(solver.solve(puzzle, solution)).toBe(true)

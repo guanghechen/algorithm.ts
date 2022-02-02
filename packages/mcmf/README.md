@@ -68,6 +68,12 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
   yarn add @algorithm.ts/mcmf
   ```
 
+* deno
+
+  ```typescript
+  import { createMcmf } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/mcmf/src/index.ts'
+  ```
+
 ## Usage
 
 * Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):

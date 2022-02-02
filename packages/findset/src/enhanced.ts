@@ -1,4 +1,4 @@
-import type { Findset } from './ordinary'
+import type { IFindset } from './ordinary'
 
 /**
  * Enhanced findset.
@@ -13,7 +13,7 @@ import type { Findset } from './ordinary'
  *  findset.initNode
  *  findset.merge(2)
  */
-export interface EnhancedFindset extends Findset {
+export interface IEnhancedFindset extends IFindset {
   /**
    * Size (number of the nodes) of the tree which x belongs.
    * @param x
@@ -31,7 +31,7 @@ export interface EnhancedFindset extends Findset {
  * @param MAX_N  max nodes in the findset.
  * @returns
  */
-export function createEnhancedFindset(MAX_N: number): EnhancedFindset {
+export function createEnhancedFindset(MAX_N: number): IEnhancedFindset {
   const pa: Uint32Array = new Uint32Array(MAX_N + 1)
   const sets: Array<Set<number>> = new Array(MAX_N + 1)
   for (let i = 0; i <= MAX_N; ++i) sets[i] = new Set()

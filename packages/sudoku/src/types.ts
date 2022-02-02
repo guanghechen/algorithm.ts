@@ -1,18 +1,18 @@
 /**
  * Sudoku game board.
  */
-export type SudokuBoard = number[][]
+export type ISudokuBoard = number[][]
 
 /**
  * A sudoku game data.
  */
-export interface SudokuData {
+export interface ISudokuData {
   /**
    * Sudoku puzzle.
    */
-  puzzle: SudokuBoard
+  puzzle: ISudokuBoard
   /**
    * Solution of the sudoku puzzle.
    */
-  solution: SudokuBoard
+  solution: ISudokuBoard
 }
