@@ -187,12 +187,15 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
 ## Related
 
-* [dijkstra 算法][dijkstra]
+* 《算法竞赛入门经典（第2版）》（刘汝佳）： P359-P362 Dijkstra 算法
+* [dijkstra 算法 | 光和尘][dijkstra]
+* [dijkstra | Wikipedia][wikipedia-dijkstra]
 * [@algorithm.ts/dijkstra][]
 * [@algorithm.ts/priority-queue][]
 
 
 [homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra-bigint#readme
+[wikipedia-dijkstra]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 [dijkstra]: https://me.guanghechen.com/post/algorithm/graph/shortest-path/dijkstra
 [@algorithm.ts/dijkstra]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra
 [@algorithm.ts/priority-queue]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/priority-queue

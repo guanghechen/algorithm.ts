@@ -55,11 +55,12 @@ Typescript. (no third-party dependencies)
 Package                             | Description
 :----------------------------------:|:--------------------------
 [@algorithm.ts/base64][]            | A [Base64][wiki-base64] encoding implementation.
+[@algorithm.ts/bellman-ford][]      | Bellman-ford algorithm. #ShortestPath
 [@algorithm.ts/binary-index-tree][] | Binary Index Tree.
 [@algorithm.ts/calculate][]         | A tiny calculator for number arithmetics.
 [@algorithm.ts/circular-queue][]    | Circular queue.
-[@algorithm.ts/dijkstra][]          | Dijkstra algorithm optimized with [@algorithm.ts/priority-queue][]. #ShortestPath.
-[@algorithm.ts/dijkstra-bigint][]   | Dijkstra algorithm (bigint version) optimized with [@algorithm.ts/priority-queue][]. #ShortestPath.
+[@algorithm.ts/dijkstra][]          | Dijkstra algorithm optimized with [@algorithm.ts/priority-queue][]. #ShortestPath
+[@algorithm.ts/dijkstra-bigint][]   | Dijkstra algorithm (bigint version) optimized with [@algorithm.ts/priority-queue][]. #ShortestPath
 [@algorithm.ts/dinic][]             | Dinic algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/dlx][]               | DLX algorithm.
 [@algorithm.ts/findset][]           | Find set.
@@ -89,6 +90,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 
 [homepage]: https://github.com/guanghechen/algorithm.ts
 [@algorithm.ts/base64]: ./packages/base64
+[@algorithm.ts/bellman-ford]: ./packages/bellman-ford
 [@algorithm.ts/binary-index-tree]: ./packages/binary-index-tree
 [@algorithm.ts/calculate]: ./packages/calculate
 [@algorithm.ts/circular-queue]: ./packages/circular-queue
