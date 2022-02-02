@@ -1,18 +1,26 @@
 import type { ICircularQueue } from '@algorithm.ts/circular-queue'
 import { createCircularQueue } from '@algorithm.ts/circular-queue'
-import type { Mcmf, McmfContext, McmfEdge } from './types'
+import type { IMcmf, IMcmfContext, IMcmfEdge } from './types'
 
-export function createMcmf(): Mcmf {
+export interface IMcmfOptions {
+  /**
+   * A big number, representing the unreachable cost.
+   */
+  INF?: number
+}
+
+export function createMcmf(options: IMcmfOptions = {}): IMcmf {
   let _source: number // The source point in a network flow
   let _target: number // The sink in a network flow
   let _n: number // The number of nodes in a network flow
   let _mincost: number
   let _maxflow: number
   let _edgeTot: number
+  const _INF: number = options.INF ?? Number.MAX_VALUE / 2
   const _inq: boolean[] = [] // Whether if the i-th node is in the queue.
   const _dist: number[] = [] // The distance from the source node to the i-th node.
   const _path: number[] = [] // An edge in an augmented path.
-  const _edges: McmfEdge[] = []
+  const _edges: IMcmfEdge[] = []
   const _G: number[][] = []
   const _Q: ICircularQueue<number> = createCircularQueue()
   return { init, addEdge, minCostMaxFlow, solve }
@@ -50,8 +58,8 @@ export function createMcmf(): Mcmf {
   }
 
   function minCostMaxFlow(): [number, number] {
-    while (spfa()) {
-      let mif = Number.MAX_SAFE_INTEGER
+    while (bellmanFord()) {
+      let mif = _INF
       for (let o = _target; o !== _source; ) {
         const e = _edges[_path[o]]
         const remainCap = e.cap - e.flow
@@ -70,8 +78,8 @@ export function createMcmf(): Mcmf {
     return [_mincost, _maxflow]
   }
 
-  function solve(fn: (context: McmfContext) => void): void {
-    const context: McmfContext = {
+  function solve(fn: (context: IMcmfContext) => void): void {
+    const context: IMcmfContext = {
       edgeTot: _edgeTot,
       dist: _dist,
       edges: _edges,
@@ -80,9 +88,13 @@ export function createMcmf(): Mcmf {
     fn(context)
   }
 
-  function spfa(): boolean {
+  /**
+   * Negative loops should not appear in the residual network,
+   * so there is no need to check if there are negative loops.
+   */
+  function bellmanFord(): boolean {
     // Initialize the dist array.
-    _dist.fill(-1, 0, _n)
+    _dist.fill(_INF, 0, _n)
 
     _Q.enqueue(_source)
     _dist[_source] = 0
@@ -95,7 +107,7 @@ export function createMcmf(): Mcmf {
         if (e.cap === e.flow) continue
 
         const candidateDist = _dist[o] + e.cost
-        if (_dist[e.to] === -1 || _dist[e.to] > candidateDist) {
+        if (_dist[e.to] > candidateDist) {
           _dist[e.to] = candidateDist
           _path[e.to] = x
 
@@ -107,6 +119,6 @@ export function createMcmf(): Mcmf {
       _inq[o] = false
     }
 
-    return _dist[_target] !== -1
+    return _dist[_target] !== _INF
   }
 }

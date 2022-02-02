@@ -2,7 +2,7 @@
  * 残量网络中的一条弧
  * An arc in the residual network.
  */
-export interface McmfEdge {
+export interface IMcmfEdge {
   /**
    * The starting node of the arc.
    */
@@ -25,9 +25,12 @@ export interface McmfEdge {
   cost: number
 }
 
-export interface McmfContext {
+export interface IMcmfContext {
   /**
+   * The number of valid edges.
    *
+   * In order to save space, there is not recreate a new array at each `init()` called, so this
+   * field is used to record the actual effective array length.
    */
   edgeTot: number
   /**
@@ -35,16 +38,16 @@ export interface McmfContext {
    */
   dist: number[]
   /**
-   *
+   * Graph edges.
    */
-  edges: McmfEdge[]
+  edges: ReadonlyArray<IMcmfEdge>
   /**
-   *
+   * Adjacency list. G[i] represent the index list of the  edges start from node i.
    */
-  G: number[][]
+  G: ReadonlyArray<ReadonlyArray<number>>
 }
 
-export interface Mcmf {
+export interface IMcmf {
   /**
    * Initialize the mcmf algorithm.
    * @param source  the source node
@@ -74,5 +77,5 @@ export interface Mcmf {
    * will be passed into the callback function as parameters.
    * @param fn
    */
-  solve(fn: (context: McmfContext) => void): void
+  solve(fn: (context: IMcmfContext) => void): void
 }
