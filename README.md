@@ -59,6 +59,7 @@ Package                             | Description
 [@algorithm.ts/calculate][]         | A tiny calculator for number arithmetics.
 [@algorithm.ts/circular-queue][]    | Circular queue.
 [@algorithm.ts/dijkstra][]          | Dijkstra algorithm optimized with [@algorithm.ts/priority-queue][]. #ShortestPath.
+[@algorithm.ts/dijkstra-bigint][]   | Dijkstra algorithm (bigint version) optimized with [@algorithm.ts/priority-queue][]. #ShortestPath.
 [@algorithm.ts/dinic][]             | Dinic algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/dlx][]               | DLX algorithm.
 [@algorithm.ts/findset][]           | Find set.
@@ -92,6 +93,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/calculate]: ./packages/calculate
 [@algorithm.ts/circular-queue]: ./packages/circular-queue
 [@algorithm.ts/dijkstra]: ./packages/dijkstra
+[@algorithm.ts/dijkstra-bigint]: ./packages/dijkstra-bigint
 [@algorithm.ts/dinic]: ./packages/dinic
 [@algorithm.ts/dlx]: ./packages/dlx
 [@algorithm.ts/findset]: ./packages/findset
