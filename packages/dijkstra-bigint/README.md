@@ -113,21 +113,18 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   import dijkstra from '@algorithm.ts/dijkstra-bigint'
 
   const dist: bigint[] = []
-  dijkstra(
-    {
-      N: 4,
-      source: 0,
-      edges: [
-        { to: 1, cost: 2n },
-        { to: 2, cost: 2n },
-        { to: 3, cost: 2n },
-        { to: 3, cost: 1n },
-      ],
-      G: [[0], [1, 2], [3], []],
-    },
-    undefined,
-    dist
-  )
+  dijkstra({
+    N: 4,
+    source: 0,
+    edges: [
+      { to: 1, cost: 2n },
+      { to: 2, cost: 2n },
+      { to: 3, cost: 2n },
+      { to: 3, cost: 1n },
+    ],
+    G: [[0], [1, 2], [3], []],
+    dist,
+  })
 
   dist // => [0n, 2n, 4n, 4n]
   ```
@@ -158,7 +155,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
     const source = 0
     const target = N - 1
-    const dist: bigint[] = dijkstra({ N, source: target, edges, G }, BigInt(1e12))
+    const dist: bigint[] = dijkstra({ N, source: target, edges, G, dist: customDist }, { INF: BigInt(1e12) })
 
     const dp: bigint[] = new Array(N).fill(-1n)
     return Number(dfs(source))

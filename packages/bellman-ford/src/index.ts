@@ -57,9 +57,8 @@ const Q = createCircularQueue<number>()
 /**
  * The bellman-ford algorithm, optimized with queue.
  *
- * @param INF         A big number, representing the unreachable cost.
+ * @param graph
  * @param options
- * @returns
  */
 export function bellmanFord(graph: IGraph, options: IOptions = {}): boolean {
   const { N, source, edges, G, dist } = graph

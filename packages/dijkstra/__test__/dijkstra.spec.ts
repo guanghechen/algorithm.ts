@@ -72,7 +72,7 @@ function countPaths(N: number, roads: number[][], customDist?: number[]): number
 
   const source = 0
   const target = N - 1
-  const dist: number[] = dijkstra({ N, source: target, edges, G }, 1e12, customDist)
+  const dist: number[] = dijkstra({ N, source: target, edges, G, dist: customDist }, { INF: 1e12 })
 
   const dp: number[] = new Array(N).fill(-1)
   return dfs(source)

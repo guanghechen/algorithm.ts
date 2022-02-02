@@ -113,21 +113,18 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   import dijkstra from '@algorithm.ts/dijkstra'
 
   const dist: number[] = []
-  dijkstra(
-    {
-      N: 4,
-      source: 0,
-      edges: [
-        { to: 1, cost: 2 },
-        { to: 2, cost: 2 },
-        { to: 3, cost: 2 },
-        { to: 3, cost: 1 },
-      ],
-      G: [[0], [1, 2], [3], []],
-    },
-    undefined,
-    dist
-  )
+  dijkstra({
+    N: 4,
+    source: 0,
+    edges: [
+      { to: 1, cost: 2 },
+      { to: 2, cost: 2 },
+      { to: 3, cost: 2 },
+      { to: 3, cost: 1 },
+    ],
+    G: [[0], [1, 2], [3], []],
+    dist,
+  })
 
   dist // => [0, 2, 4, 4]
   ```
@@ -156,7 +153,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
     const source = 0
     const target = N - 1
-    const dist: number[] = dijkstra({ N, source: target, edges, G }, 1e12)
+    const dist: number[] = dijkstra({ N, source: target, edges, G, dist: customDist }, { INF: 1e12 })
 
     const dp: number[] = new Array(N).fill(-1)
     return dfs(source)

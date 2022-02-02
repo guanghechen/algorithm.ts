@@ -28,6 +28,17 @@ export interface IGraph {
    * Adjacency list. G[i] represent the index list of the  edges start from node i.
    */
   G: ReadonlyArray<ReadonlyArray<number>>
+  /**
+   * An array recording the shortest distance to the source point.
+   */
+  dist?: bigint[]
+}
+
+export interface IOptions {
+  /**
+   * A big number, representing the unreachable cost.
+   */
+  INF?: bigint
 }
 
 const ZERO = 0n
@@ -40,25 +51,22 @@ const Q = createPriorityQueue<{ pos: number; cost: bigint }>((x, y) => {
 /**
  * The dijkstra algorithm (bigint version), optimized with priority queue.
  *
- * @param INF         A big number, representing the unreachable cost.
- * @param customDist
- * @returns
- *
+ * @param graph
+ * @param options
  * @see https://me.guanghechen.com/post/algorithm/graph/shortest-path/dijkstra
  * @see https://github.com/guanghechen/algorithm.ts/blob/main/packages/dijkstra
  */
-export function dijkstra(
-  graph: IGraph,
-  INF: bigint = DEFAULT_INF,
-  customDist: bigint[] = [],
-): bigint[] {
-  const { N, source, edges, G } = graph
-  const dist: bigint[] = customDist
+export function dijkstra(graph: IGraph, options: IOptions = {}): bigint[] {
+  const { N, source, edges, G, dist = [] } = graph
+  const { INF = DEFAULT_INF } = options
+
   if (dist.length < N) dist.length = N
 
   dist.fill(INF, 0, N)
-  dist[source] = ZERO
+
+  Q.init()
   Q.enqueue({ pos: source, cost: ZERO })
+  dist[source] = ZERO
 
   while (Q.size() > 0) {
     const { pos, cost } = Q.dequeue()!
