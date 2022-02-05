@@ -1,7 +1,34 @@
 # Changelog
 
-<a name="0.0.0"></a>
-## 0.0.0 (2022-01-22)
+<a name="2.0.0-alpha.0"></a>
+## 2.0.0-alpha.0 (2022-02-02)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/bellman-ford&#x27; [[ca399d0](https://github.com/guanghechen/algorithm.ts/commit/ca399d0b8fc1e1489c862215e79ce971bbd51217)]
+- ✨ feat: implement &#x27;@algorithm.ts/dijkstra-bigint&#x27; [[5b3cf4f](https://github.com/guanghechen/algorithm.ts/commit/5b3cf4f5eff6054be7dababd071b7bdde166ff53)]
+- ✅ test: update tests &amp; update README [[e8882e1](https://github.com/guanghechen/algorithm.ts/commit/e8882e1b5f56759d558c49307760a33ed30fe18d)]
+
+### Changed
+
+- 🎨 [BREAKING] refactor: add &#x27;I&#x27; as prefix name for interface types [[7253441](https://github.com/guanghechen/algorithm.ts/commit/7253441870bd61579f644b47c64b9a50b169afc3)]
+- 🎨 [BREAKING] improve: change the interface of @algorithm.ts/dijkstra and @algorithm.ts/dijkstra-bigint [[6854588](https://github.com/guanghechen/algorithm.ts/commit/68545885a400c3d807594451582540a844724ae0)]
+- 🎨 improve(mcmf): update types &amp; improve shortest-path algorithm [[4fbcbdc](https://github.com/guanghechen/algorithm.ts/commit/4fbcbdc46d29c520fecb3421abba1cef6b6934bc)]
+- 🎨 refactor: rename &#x27;PriorityQueue&#x27; to &#x27;IPriorityQueue&#x27; [[0004fe8](https://github.com/guanghechen/algorithm.ts/commit/0004fe85db72d931870ef90590472da679d7db72)]
+- 🎨 refactor: rename &#x27;CircularQueue&#x27; to &#x27;ICircularQueue&#x27; [[ae8f349](https://github.com/guanghechen/algorithm.ts/commit/ae8f349e9e2d9e99e435fb3fe02070a8e393d47b)]
+
+### Breaking changes
+
+- 💥 [breaking] refactor: refactor dijkstra to make it more robust [[1543fea](https://github.com/guanghechen/algorithm.ts/commit/1543feac979a0fa3e920f96668d7dd8e34d712f5)]
+
+### Miscellaneous
+
+- 📝 docs: update READMEs [[4341cb8](https://github.com/guanghechen/algorithm.ts/commit/4341cb80d760d189a41799dd2ba638a104757f1f)]
+- 📝 docs: update README [[f3f0807](https://github.com/guanghechen/algorithm.ts/commit/f3f0807a707617ca134010598887b26a9e3562da)]
+
+
+<a name="1.0.24"></a>
+## 1.0.24 (2022-01-22)
 
 ### Added
 
@@ -17,6 +44,7 @@
 
 ### Miscellaneous
 
+- 📝 docs: update CHANGELOG [[c29da8f](https://github.com/guanghechen/algorithm.ts/commit/c29da8f0a5559190e83f8670d383d8b771fda062)]
 - 📝 docs: update READMEs [[89d28d1](https://github.com/guanghechen/algorithm.ts/commit/89d28d1bbf2b7db1f87dbfde8d079a82925a5847)]
 - 📝 docs: update CHANGELOG [[fecbf5a](https://github.com/guanghechen/algorithm.ts/commit/fecbf5abb777efd078e56fb2b9ef9f8f7d5bf552)]
 
