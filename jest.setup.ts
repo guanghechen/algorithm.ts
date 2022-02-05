@@ -4,6 +4,25 @@ import path from 'path'
 export const workspaceRootDir = __dirname
 export const testRootDior = path.resolve()
 
+export interface ITestData<P extends any[] = any[], D = any> {
+  input: P
+  answer: D
+}
+
+export const locateCommonJsonFixtures = (...p: string[]): string => {
+  const filepath: string = path.resolve(__dirname, '_fixtures', ...p)
+  if (!fs.existsSync(filepath)) {
+    throw new Error(`Cannot find common fixture (${filepath})`)
+  }
+
+  if (fs.statSync(filepath).isDirectory()) return path.join(filepath, 'data.json')
+  return filepath
+}
+
+export const loadCommonJsonFixtures = <P extends any[] = any[], D = any>(
+  ...p: string[]
+): Array<ITestData<P, D>> => fs.readJSONSync(locateCommonJsonFixtures(...p))
+
 /**
  * Locate fixture filepath.
  * @param p
