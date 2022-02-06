@@ -1,5 +1,29 @@
 # Changelog
 
+<a name="2.0.0"></a>
+## 2.0.0 (2022-02-06)
+
+### Added
+
+- ✅ test: update tests [[44297c8](https://github.com/guanghechen/algorithm.ts/commit/44297c8360a8817f0da39095609e456db6aa00d8)]
+- ✅ test: update tests [[949a6c7](https://github.com/guanghechen/algorithm.ts/commit/949a6c7122026e7e2687d15114765fca5256fa86)]
+- ✅ test(mcmf): update tests [[7c3e3dc](https://github.com/guanghechen/algorithm.ts/commit/7c3e3dcbee08f7f9e436c3298fd57fe09e5d885e)]
+- ✅ test: simplify tests [[75d9be3](https://github.com/guanghechen/algorithm.ts/commit/75d9be3929f6589c4da16d335b2df145e885514a)]
+- ✅ test(isap): update tests [[f3f9841](https://github.com/guanghechen/algorithm.ts/commit/f3f98419ddcbec6db0fb3ec1097ce31ad579bf58)]
+- ✅ test(dinic): update tests [[4bc8373](https://github.com/guanghechen/algorithm.ts/commit/4bc8373ba0c7964f4a2bbf37911778dddc7706ad)]
+- ✨ feat: implement &#x27;@algorithm.ts/bipartite-graph-matching&#x27; [[5a46561](https://github.com/guanghechen/algorithm.ts/commit/5a465613546012588bcc83f79768513ef92a730c)]
+- ✅ test: update tests [[e942a21](https://github.com/guanghechen/algorithm.ts/commit/e942a21fe8481d7912a40adca8c023408cb2aa81)]
+
+### Changed
+
+- 🔧 chore: update coverage threshold (make strictly) [[ac18ca0](https://github.com/guanghechen/algorithm.ts/commit/ac18ca005a19da91864255c38981cdb9082bdac5)]
+- 🎨 [BREAKING] feat: rewrite &#x27;@algorithm.ts/sliding-window&#x27; [[5521403](https://github.com/guanghechen/algorithm.ts/commit/5521403ee10b7ddb41c468ebb3c77ce31cf3c1ac)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[5ffc752](https://github.com/guanghechen/algorithm.ts/commit/5ffc75251be9056a00d045626dca20cd4a65c887)]
+
+
 <a name="2.0.0-alpha.0"></a>
 ## 2.0.0-alpha.0 (2022-02-02)
 
