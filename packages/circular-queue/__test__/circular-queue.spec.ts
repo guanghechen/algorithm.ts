@@ -156,4 +156,10 @@ describe('createCircularQueue', function () {
     expect(queue.size()).toBe(2)
     expect(queue.size()).toBe(2)
   })
+
+  test('destroy', function () {
+    const queue = createCircularQueue()
+    queue.init(10)
+    queue.destroy()
+  })
 })

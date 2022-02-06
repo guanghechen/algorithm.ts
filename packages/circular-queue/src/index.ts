@@ -16,7 +16,7 @@ export interface ICircularQueue<T> {
   /**
    * Free memory.
    */
-  free(): void
+  destroy(): void
   /**
    * Get the front element of the queue.
    */
@@ -78,7 +78,7 @@ export function createCircularQueue<T>(): ICircularQueue<T> {
 
   return {
     init,
-    free,
+    destroy,
     front,
     end,
     dequeue,
@@ -99,7 +99,7 @@ export function createCircularQueue<T>(): ICircularQueue<T> {
     _endIndex = 0
   }
 
-  function free(): void {
+  function destroy(): void {
     _MAX_SIZE = 0
     _size = 0
     _queue.length = 0

@@ -21,7 +21,8 @@
     "plusplus",
     "postpublish",
     "prebuild",
-    "totient"
+    "totient",
+    "varepsilon"
   ],
   "files.associations": {
     ".prettierrc": "yaml"

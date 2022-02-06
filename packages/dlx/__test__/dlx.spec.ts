@@ -1,3 +1,4 @@
+import { createDLX } from '@algorithm.ts/dlx'
 import multipleSudoku3x3 from './fixtures/sudoku9x9/multiple.json'
 import uniqueSudoku3x3 from './fixtures/sudoku9x9/unique.json'
 import { solveSudoku } from './sudoku3x3'
@@ -23,6 +24,26 @@ describe('dlx', function () {
         expect(checkSudoku(solution, 3)).toBe(true)
       }
     })
+
+    test('no solution', function () {
+      const solution: number[][] = new Array(9)
+      for (let r = 0; r < 9; ++r) solution[r] = new Array(9)
+
+      for (const { puzzle, solution: _solution } of uniqueSudoku3x3) {
+        puzzle[0][0] = 2
+        puzzle[0][1] = 2
+        expect(solveSudoku(puzzle, solution)).toBe(false)
+      }
+    })
+  })
+
+  test('destroy', function () {
+    const dlx = createDLX(10)
+
+    dlx.init(10)
+    dlx.destroy()
+
+    expect(dlx.solve()).toEqual(null)
   })
 })
 

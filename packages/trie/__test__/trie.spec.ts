@@ -1,3 +1,4 @@
+import { testOjCodes } from 'jest.setup'
 import type { ITrie } from '../src'
 import { createTrie, digitIdx, lowercaseIdx, uppercaseIdx } from '../src'
 
@@ -71,4 +72,12 @@ describe('trie', function () {
       expect(digitIdx(c)).toBe(i)
     }
   })
+})
+
+describe('oj', function () {
+  // https://leetcode.com/problems/word-break-ii/
+  testOjCodes('leetcode/word-break-ii', import('./oj/word-break-ii'))
+
+  // https://leetcode.com/problems/word-search-ii/
+  testOjCodes('leetcode/word-search-ii', import('./oj/word-search-ii'))
 })

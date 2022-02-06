@@ -82,10 +82,8 @@ export function createTrie<T = number>({
   function hasPrefixMatched(str: string, start = 0, end = str.length): boolean {
     for (let i = start, u = 0; i < end; ++i) {
       const c: number = idx(str[i])
-      if (ch[u][c] === 0) return false
       u = ch[u][c]
-      const val = values[u]
-      if (val !== ZERO) return true
+      if (u === 0) return false
     }
     return true
   }
@@ -93,10 +91,9 @@ export function createTrie<T = number>({
   function find(str: string, start = 0, end = str.length): ITrieNodeData<T> | null {
     for (let i = start, u = 0; i < end; ++i) {
       const c: number = idx(str[i])
-      if (ch[u][c] === 0) break
       u = ch[u][c]
-      const val = values[u]
-      if (val !== ZERO) return { end: i + 1, val }
+      if (u === 0) break
+      if (values[u] !== ZERO) return { end: i + 1, val: values[u] }
     }
     return null
   }

@@ -58,7 +58,7 @@ export function createDLX(MAX_N: number): IDancingLinkX {
   const selectedRowNos: number[] = new Array(MAX_N) // list of row numbers of selected rows
   let countOfSelectedRows: number // the number of selected rows
 
-  const count: number[] = new Array(MAX_N) // lhe number of nodes of a column in the dancing-link
+  const count: number[] = new Array(MAX_N) // the number of nodes of a column in the dancing-link
   const row: number[] = new Array(MAX_N) // the row number of a node in the dancing-link
   const col: number[] = new Array(MAX_N) // the column number of a node in the dancing-link
   const L: number[] = new Array(MAX_N) // left pointer of cross-link list
@@ -91,6 +91,7 @@ export function createDLX(MAX_N: number): IDancingLinkX {
    * @public
    */
   function destroy(): void {
+    sz = 0
     selectedRowNos.length = 0
     count.length = 0
     row.length = 0
@@ -138,6 +139,7 @@ export function createDLX(MAX_N: number): IDancingLinkX {
    * @public
    */
   function solve(): number[] | null {
+    if (sz === 0) return null
     if (!algorithmX(0)) return null
     return selectedRowNos.slice(0, countOfSelectedRows)
   }

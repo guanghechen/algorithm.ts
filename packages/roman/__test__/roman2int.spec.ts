@@ -8,4 +8,8 @@ describe('roman2int', function () {
       expect(v).toEqual(n)
     }
   })
+
+  test('exception', function () {
+    expect(() => roman2int('ABCD')).toThrow(/Invalid roman number/)
+  })
 })

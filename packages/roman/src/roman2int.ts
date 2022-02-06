@@ -32,7 +32,11 @@ export function roman2int(
   const N = roman.length
   let value = 0
   for (let i = 0; i < N; ++i) {
-    const u: number = romanCodeMap[roman[i]] ?? 0
+    const u: number | undefined = romanCodeMap[roman[i]]
+    if (u === undefined) {
+      throw new TypeError(`Invalid roman number: (${roman})`)
+    }
+
     if (i + 1 < N && u < romanCodeMap[roman[i + 1]]) value -= u
     else value += u
   }

@@ -51,6 +51,7 @@ export function createCalculate<T extends number | bigint>(
       }
 
       // Syntax error.
+      /* istanbul ignore next */
       if (id > 0) {
         throw new SyntaxError('Not a valid arithmetic expression.')
       }
@@ -63,6 +64,7 @@ export function createCalculate<T extends number | bigint>(
       const tokens: ReadonlyArray<number> = sddTable[ssdId]
       const syn0: T = tokens.length > 0 ? execute(tokens[0], ZERO, ZERO) : ZERO
 
+      /* istanbul ignore next */
       switch (ssdId) {
         // 0: A --> BD
         case 0:
@@ -129,6 +131,7 @@ export function createCalculate<T extends number | bigint>(
 
         // Here is not reachable.
         default:
+          /* istanbul ignore next */
           throw new Error('Shit codes!')
       }
     }

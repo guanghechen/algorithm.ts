@@ -28,6 +28,7 @@ export function knuthShuffle<T = unknown>(
  */
 export function randomInt(n: number): number {
   const x = (Math.random() * n) >> 0
+  /* istanbul ignore next */
   return x === n ? n - 1 : x
 }
 

@@ -1,0 +1,54 @@
+[
+  {
+    "input": [
+      [
+        ["o", "a", "a", "n"],
+        ["e", "t", "a", "e"],
+        ["i", "h", "k", "r"],
+        ["i", "f", "l", "v"]
+      ],
+      ["oath", "pea", "eat", "rain"]
+    ],
+    "answer": ["oath", "eat"]
+  },
+  {
+    "input": [
+      [
+        ["a", "b"],
+        ["c", "d"]
+      ],
+      ["abcb"]
+    ],
+    "answer": []
+  },
+  {
+    "input": [
+      [
+        ["d", "c", "e", "b", "d", "e", "d", "a"],
+        ["c", "a", "e", "a", "d", "d", "e", "e"],
+        ["a", "c", "e", "d", "b", "c", "c", "b"],
+        ["c", "b", "a", "a", "a", "e", "e", "e"],
+        ["a", "e", "d", "e", "b", "d", "d", "e"],
+        ["a", "a", "d", "c", "e", "a", "d", "e"],
+        ["b", "d", "e", "b", "b", "b", "c", "e"],
+        ["d", "a", "e", "e", "b", "e", "b", "d"],
+        ["b", "b", "c", "a", "b", "b", "b", "a"],
+        ["a", "c", "b", "a", "c", "a", "d", "d"]
+      ],
+      [
+        "ab",
+        "bddbebcba",
+        "ededa",
+        "daebeda",
+        "edecaeabc",
+        "cbeedad",
+        "bcaaecb",
+        "c",
+        "eb",
+        "aadbdbacee",
+        "dcaaba"
+      ]
+    ],
+    "answer": ["ab", "ededa", "daebeda", "c", "eb"]
+  }
+]

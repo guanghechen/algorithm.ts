@@ -160,9 +160,9 @@ describe('tree1-mod', function () {
 
     for (let q = 0; q < 1000; ++q) {
       const x = Math.max(1, Math.ceil(Math.random() * MAX_N))
-      const value = Math.round(Math.random() * (MOD - 1))
+      const value = Math.round(Math.random() * MOD * 2) - MOD
 
-      A[x - 1] += value
+      A[x - 1] = (((A[x - 1] + value) % MOD) + MOD) % MOD
       bit.add(x, value)
       expect(bit.query(x)).toBe(getSum(x))
     }

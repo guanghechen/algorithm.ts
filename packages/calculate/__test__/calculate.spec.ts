@@ -1,7 +1,33 @@
-import { bigintCalculate, calculate, decimalCalculate } from '../src'
+import {
+  bigintCalculate,
+  calculate,
+  createCalculate,
+  decimalCalculate,
+  integerOperations,
+} from '../src'
+
+describe('basic', function () {
+  test('custom', function () {
+    const f = createCalculate(integerOperations)
+    expect(f('1+2')).toEqual(3)
+    expect(() => f('1+2.2')).toThrow(/Unrecognized symbol/)
+  })
+})
 
 describe('calculate', function () {
   const data = [
+    {
+      input: '-0',
+      answer: 0,
+    },
+    {
+      input: '+1.3',
+      answer: 1.3,
+    },
+    {
+      input: '0.2',
+      answer: 0.2,
+    },
     {
       input: '-2+1',
       answer: -1,
@@ -72,6 +98,11 @@ describe('calculate', function () {
       }
     })
   }
+
+  test('exceptional', function () {
+    expect(() => decimalCalculate('$0.2')).toThrow(/Not a valid arithmetic expression/)
+    expect(() => decimalCalculate('1.1$0.2')).toThrow(/Not a valid arithmetic expression/)
+  })
 })
 
 describe('integer calculate', function () {

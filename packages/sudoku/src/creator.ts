@@ -105,6 +105,8 @@ export class SudokuCreator {
       const c = p & 0xffff
       radicalPuzzle[r][c] = -1
     }
+
+    /* istanbul ignore next */
     throw new Error('[createSolution] This is impossible!')
   }
 

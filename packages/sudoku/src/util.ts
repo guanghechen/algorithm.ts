@@ -57,6 +57,7 @@ export function copySudokuBoard(
  * @param SUDOKU_SIZE_SQRT
  * @returns
  */
+/* istanbul ignore next */
 export function checkSudokuSolution(solution: ISudokuBoard, SUDOKU_SIZE_SQRT: number): boolean {
   const SUDOKU_SIZE: number = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT
   const nums: number[] = new Array(SUDOKU_SIZE)
