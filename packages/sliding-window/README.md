@@ -78,27 +78,24 @@ A typescript implementation of the **sliding-window** algorithm.
 
 * `SlidingWindow`
 
-  Member                        | Return    |  Description
-  :----------------------------:|:---------:|:---------------------------------------
-  `init(WINDOW_SIZE?: number)`  | `void`    | Initialize a sliding window.
-  `push(idx: number)`           | `void`    | See a new element with index `idx`.
-  `max()`                       | `number`  | Get the index of the maximum value in the sliding window.
+  Member                                          | Return    |  Description
+  :----------------------------------------------:|:---------:|:---------------------------------------
+  `init(WINDOW_SIZE: number, startIdx?: number)`  | `void`    | Initialize a sliding window.
+  `moveForward(steps: number)`                    | `void`    | Move the sliding window forward with specified steps.
+  `max()`                                         | `number`  | Get the index of the maximum value in the sliding window.
 
 * `createSlidingWindow`
 
   ```typescript
-  export function createSlidingWindow(
-    _WINDOW_SIZE: number,
-    cmp: (x: number, y: number) => -1 | 0 | 1 | number,
-  ): SlidingWindow
+  export function createSlidingWindow(cmp: (x: number, y: number) => -1 | 0 | 1 | number): ISlidingWindow
   ```
 
-  - `createSlidingWindow(5, (x, y) => nums[x] - nums[y])`: 
-    Create a sliding window with a fixed width of 5, and maintain the index of 
+  - `createSlidingWindow((x, y) => nums[x] - nums[y])`: 
+    Create a sliding window (the window size is not specified yet), and maintain the index of 
     the nums with the largest value in the window.
 
-  - The `slidingWindow.max(10, (x, y) => nums[y] - nums[x])`:
-    Create a sliding window with a fixed width of 10, and maintain the index of 
+  - The `createSlidingWindow((x, y) => nums[y] - nums[x])`:
+    Create a sliding window (the window size is not specified yet), and maintain the index of 
     the nums with the smallest value in the window.
 
 
@@ -114,13 +111,12 @@ A typescript implementation of the **sliding-window** algorithm.
     if (N < K) return []
 
     const results: number[] = []
-    const window = createSlidingWindow(K, (x, y) => nums[x] - nums[y])
-    window.init()
+    const window = createSlidingWindow((x, y) => nums[x] - nums[y])
+    window.init(K)
 
-    for (let i = 0, _end = K - 1; i < _end; ++i) window.push(i)
-
+    window.moveForward(K - 1)
     for (let i = K - 1; i < N; ++i) {
-      window.push(i)
+      window.moveForward()
       results.push(nums[window.max()])
     }
     return results
