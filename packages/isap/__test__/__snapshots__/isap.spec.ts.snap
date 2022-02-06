@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic simple 1`] = `
+Object {
+  "G": Array [
+    Array [
+      0,
+      2,
+    ],
+    Array [
+      5,
+    ],
+    Array [
+      1,
+    ],
+    Array [
+      3,
+      4,
+    ],
+  ],
+  "edgeTot": 6,
+  "edges": Array [
+    Object {
+      "cap": 1,
+      "flow": 0,
+      "from": 0,
+      "to": 2,
+    },
+    Object {
+      "cap": 0,
+      "flow": 0,
+      "from": 2,
+      "to": 0,
+    },
+    Object {
+      "cap": 2,
+      "flow": 1,
+      "from": 0,
+      "to": 3,
+    },
+    Object {
+      "cap": 0,
+      "flow": -1,
+      "from": 3,
+      "to": 0,
+    },
+    Object {
+      "cap": 1,
+      "flow": 1,
+      "from": 3,
+      "to": 1,
+    },
+    Object {
+      "cap": 0,
+      "flow": -1,
+      "from": 1,
+      "to": 3,
+    },
+  ],
+}
+`;

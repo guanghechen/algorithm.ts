@@ -77,31 +77,53 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 
 ## Usage
 
-* Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
+* Simple
 
   ```typescript
   import { createIsap } from '@algorithm.ts/isap'
 
   const isap = createIsap()
+  isap.init(0, 1, 4)
+  isap.addEdge(0, 2, 1)
+  isap.addEdge(0, 3, 2)
+  isap.addEdge(3, 1, 1)
 
-  // The implementation of `io` is omitted.
-  function solve(io: any): number {
-    const [n, m] = io.readIntegersOfLine()
+  isap.maxFlow() // => 1
+
+  // Access current residual network.
+  isap.solve(context => {
+    context
+    // { G: [...], edgeTot: 6, edges: [...] }
+  })
+  ```
+
+### Example
+
+* A solution for Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
+
+  ```typescript
+  import { createIsap } from '@algorithm.ts/isap'
+
+  const isap = createIsap()
+  export function solveCodeforces1082G(
+    nodes: number[],
+    edges: Array<[u: number, v: number, weight: number]>,
+  ): number {
+    const n: number = nodes.length
+    const m: number = edges.length
 
     const source = 0
     const target: number = n + m + 1
-    const totalNodes: number = n + m + 2
-    isap.init(source, target, totalNodes)
+    isap.init(source, target, n + m + 2)
 
-    const nodes: number[] = io.readIntegersOfLine()
     for (let i = 0; i < n; ++i) {
       const weight: number = nodes[i]
       isap.addEdge(i + 1, target, weight)
     }
 
     let answer = 0
-    for (let i = 1; i <= m; ++i) {
-      const [u, v, weight] = io.readIntegersOfLine()
+    for (let i = 0; i < m; ++i) {
+      const [u, v, weight] = edges[i]
       const x = n + i
       answer += weight
       isap.addEdge(source, x, weight)
@@ -113,10 +135,77 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
   }
   ```
 
+* A solution for leetcode "Maximum Students Taking Exam" (https://leetcode.com/problems/maximum-students-taking-exam/):
+
+  ```typescript
+  import { createIsap } from '@algorithm.ts/isap'
+
+  export function maxStudents(seats: string[][]): number {
+    const R: number = seats.length
+    if (R <= 0) return 0
+
+    const C: number = seats[0].length
+    if (C <= 0) return 0
+
+    let total = 0
+    const seatCodes: number[][] = new Array(R)
+    for (let r = 0; r < R; ++r) seatCodes[r] = new Array(C).fill(-1)
+
+    for (let r = 0; r < R; ++r) {
+      for (let c = 0; c < C; ++c) {
+        if (seats[r][c] === '.') seatCodes[r][c] = total++
+      }
+    }
+
+    if (total <= 0) return 0
+    if (total === 1) return 1
+
+    const source: number = total * 2
+    const target: number = source + 1
+    const isap = createIsap()
+    isap.init(source, target, target + 1)
+
+    for (let r = 0; r < R; ++r) {
+      for (let c = 0; c < C; ++c) {
+        const u: number = seatCodes[r][c]
+        if (u > -1) {
+          isap.addEdge(source, u, 1)
+          isap.addEdge(u + total, target, 1)
+          if (r > 0) {
+            // Check upper left
+            if (c > 0 && seatCodes[r - 1][c - 1] > -1) {
+              const v: number = seatCodes[r - 1][c - 1]
+              isap.addEdge(u, v + total, 1)
+              isap.addEdge(v, u + total, 1)
+            }
+
+            // Check upper right
+            if (c + 1 < C && seatCodes[r - 1][c + 1] > -1) {
+              const v: number = seatCodes[r - 1][c + 1]
+              isap.addEdge(u, v + total, 1)
+              isap.addEdge(v, u + total, 1)
+            }
+          }
+
+          // Check left
+          if (c > 0 && seatCodes[r][c - 1] > -1) {
+            const v: number = seatCodes[r][c - 1]
+            isap.addEdge(u, v + total, 1)
+            isap.addEdge(v, u + total, 1)
+          }
+        }
+      }
+    }
+
+    const totalPaired: number = isap.maxFlow() / 2
+    return total - totalPaired
+  }
+  ```
+
 
 ## Related
 
-* [@algorithm.ts/dinic](https://github.com/guanghechen/algorithm.ts/tree/main/packages/dinic)
+* [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/main/packages/isap)
 * [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/main/packages/mcmf)
 * [网络流 24 题](https://me.guanghechen.com/post/algorithm/graph/network-flow/24-problems/)
 * [网络流基础之最大权闭合图](https://me.guanghechen.com/post/algorithm/graph/network-flow/%E6%9C%80%E5%A4%A7%E6%9D%83%E9%97%AD%E5%90%88%E5%9B%BE/)
