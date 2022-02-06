@@ -77,31 +77,53 @@ The **Dinic** algorithm is an algorithm for solving network flow problems.
 
 ## Usage
 
-* Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
+* Simple
 
   ```typescript
   import { createDinic } from '@algorithm.ts/dinic'
 
   const dinic = createDinic()
+  dinic.init(0, 1, 4)
+  dinic.addEdge(0, 2, 1)
+  dinic.addEdge(0, 3, 2)
+  dinic.addEdge(3, 1, 1)
 
-  // The implementation of `io` is omitted.
-  function solve(io: any): number {
-    const [n, m] = io.readIntegersOfLine()
+  dinic.maxFlow() // => 1
+
+  // Access current residual network.
+  dinic.solve(context => {
+    context
+    // { G: [...], edgeTot: 6, edges: [...] }
+  })
+  ```
+
+### Example
+
+* A solution for Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
+
+  ```typescript
+  import { createDinic } from '@algorithm.ts/dinic'
+
+  const dinic = createDinic()
+  export function solveCodeforces1082G(
+    nodes: number[],
+    edges: Array<[u: number, v: number, weight: number]>,
+  ): number {
+    const n: number = nodes.length
+    const m: number = edges.length
 
     const source = 0
     const target: number = n + m + 1
-    const totalNodes: number = n + m + 2
-    dinic.init(source, target, totalNodes)
+    dinic.init(source, target, n + m + 2)
 
-    const nodes: number[] = io.readIntegersOfLine()
     for (let i = 0; i < n; ++i) {
       const weight: number = nodes[i]
       dinic.addEdge(i + 1, target, weight)
     }
 
     let answer = 0
-    for (let i = 1; i <= m; ++i) {
-      const [u, v, weight] = io.readIntegersOfLine()
+    for (let i = 0; i < m; ++i) {
+      const [u, v, weight] = edges[i]
       const x = n + i
       answer += weight
       dinic.addEdge(source, x, weight)
@@ -113,6 +135,72 @@ The **Dinic** algorithm is an algorithm for solving network flow problems.
   }
   ```
 
+* A solution for leetcode "Maximum Students Taking Exam" (https://leetcode.com/problems/maximum-students-taking-exam/):
+
+  ```typescript
+  import { createDinic } from '@algorithm.ts/dinic'
+
+  export function maxStudents(seats: string[][]): number {
+    const R: number = seats.length
+    if (R <= 0) return 0
+
+    const C: number = seats[0].length
+    if (C <= 0) return 0
+
+    let total = 0
+    const seatCodes: number[][] = new Array(R)
+    for (let r = 0; r < R; ++r) seatCodes[r] = new Array(C).fill(-1)
+
+    for (let r = 0; r < R; ++r) {
+      for (let c = 0; c < C; ++c) {
+        if (seats[r][c] === '.') seatCodes[r][c] = total++
+      }
+    }
+
+    if (total <= 0) return 0
+    if (total === 1) return 1
+
+    const source: number = total * 2
+    const target: number = source + 1
+    const dinic = createDinic()
+    dinic.init(source, target, target + 1)
+
+    for (let r = 0; r < R; ++r) {
+      for (let c = 0; c < C; ++c) {
+        const u: number = seatCodes[r][c]
+        if (u > -1) {
+          dinic.addEdge(source, u, 1)
+          dinic.addEdge(u + total, target, 1)
+          if (r > 0) {
+            // Check upper left
+            if (c > 0 && seatCodes[r - 1][c - 1] > -1) {
+              const v: number = seatCodes[r - 1][c - 1]
+              dinic.addEdge(u, v + total, 1)
+              dinic.addEdge(v, u + total, 1)
+            }
+
+            // Check upper right
+            if (c + 1 < C && seatCodes[r - 1][c + 1] > -1) {
+              const v: number = seatCodes[r - 1][c + 1]
+              dinic.addEdge(u, v + total, 1)
+              dinic.addEdge(v, u + total, 1)
+            }
+          }
+
+          // Check left
+          if (c > 0 && seatCodes[r][c - 1] > -1) {
+            const v: number = seatCodes[r][c - 1]
+            dinic.addEdge(u, v + total, 1)
+            dinic.addEdge(v, u + total, 1)
+          }
+        }
+      }
+    }
+
+    const totalPaired: number = dinic.maxFlow() / 2
+    return total - totalPaired
+  }
+  ```
 
 ## Related
 
