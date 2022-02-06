@@ -1,5 +1,8 @@
 import { createIsap } from '../../src'
 
+export default maxStudents
+
+const isap = createIsap()
 export function maxStudents(seats: string[][]): number {
   const R: number = seats.length
   if (R <= 0) return 0
@@ -22,7 +25,6 @@ export function maxStudents(seats: string[][]): number {
 
   const source: number = total * 2
   const target: number = source + 1
-  const isap = createIsap()
   isap.init(source, target, target + 1)
 
   for (let r = 0; r < R; ++r) {

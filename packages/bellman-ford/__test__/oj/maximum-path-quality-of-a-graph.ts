@@ -1,5 +1,5 @@
-import type { IEdge } from '../../src'
-import { dijkstra } from '../../src'
+import type { IEdge, IGraph } from '../../src'
+import { bellmanFord } from '../../src'
 
 export default maximalPathQuality
 
@@ -21,15 +21,16 @@ export function maximalPathQuality(
     G[v].push(edges.length)
     edges.push({ to: u, cost: w })
   }
-  const dist: number[] = dijkstra(
-    {
-      N,
-      source: 0,
-      edges,
-      G,
-    },
-    { INF: Number.MAX_SAFE_INTEGER },
-  )
+  const graph: IGraph = {
+    N,
+    source: 0,
+    edges,
+    G,
+    dist: [],
+  }
+  if (!bellmanFord(graph, { INF: Number.MAX_SAFE_INTEGER })) return -1
+
+  const { dist } = graph
 
   const visited: Uint8Array = new Uint8Array(N)
   return dfs(0, T, values[0])

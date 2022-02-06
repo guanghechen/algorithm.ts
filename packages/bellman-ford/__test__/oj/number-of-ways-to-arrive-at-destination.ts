@@ -1,16 +1,14 @@
-import type { IEdge } from '../../src'
-import { dijkstra } from '../../src'
+import type { IEdge, IGraph } from '../../src'
+import bellmanFord from '../../src'
 
 export default countPaths
 
-const MOD = BigInt(1e9 + 7)
+const MOD = 1e9 + 7
 export function countPaths(N: number, roads: number[][]): number {
   const edges: IEdge[] = []
   const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
-  for (const [from, to, _cost] of roads) {
-    const cost = BigInt(_cost)
-
+  for (const [from, to, cost] of roads) {
     G[from].push(edges.length)
     edges.push({ to, cost })
 
@@ -20,19 +18,27 @@ export function countPaths(N: number, roads: number[][]): number {
 
   const source = 0
   const target = N - 1
-  const dist: bigint[] = dijkstra({ N, source: target, edges, G }, { INF: BigInt(1e12) })
+  const graph: IGraph = {
+    N,
+    source: target,
+    edges,
+    G,
+    dist: [],
+  }
 
-  const dp: bigint[] = new Array(N).fill(-1n)
-  const result: bigint = dfs(source)
-  return Number(result)
+  bellmanFord(graph, { INF: 1e12 })
+  const { dist } = graph
 
-  function dfs(o: number): bigint {
-    if (o === target) return 1n
+  const dp: number[] = new Array(N).fill(-1)
+  return dfs(source)
+
+  function dfs(o: number): number {
+    if (o === target) return 1
 
     let answer = dp[o]
-    if (answer !== -1n) return answer
+    if (answer !== -1) return answer
 
-    answer = 0n
+    answer = 0
     const d = dist[o]
     for (const idx of G[o]) {
       const e: IEdge = edges[idx]
@@ -46,7 +52,7 @@ export function countPaths(N: number, roads: number[][]): number {
   }
 }
 
-function modAdd(x: bigint, y: bigint): bigint {
-  const z: bigint = x + y
+function modAdd(x: number, y: number): number {
+  const z: number = x + y
   return z < MOD ? z : z - MOD
 }

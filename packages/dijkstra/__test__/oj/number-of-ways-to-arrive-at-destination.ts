@@ -1,8 +1,9 @@
 import type { IEdge } from '../../src'
 import { dijkstra } from '../../src'
 
-const MOD = 1e9 + 7
+export default countPaths
 
+const MOD = 1e9 + 7
 export function countPaths(N: number, roads: number[][]): number {
   const edges: IEdge[] = []
   const G: number[][] = new Array(N)

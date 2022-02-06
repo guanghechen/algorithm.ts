@@ -1,5 +1,7 @@
 import { createDinic } from '../../src'
 
+export default solveCodeforces1082G
+
 const dinic = createDinic()
 export function solveCodeforces1082G(
   nodes: number[],

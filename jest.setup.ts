@@ -1,8 +1,13 @@
+/* eslint-disable jest/no-export */
 import fs from 'fs-extra'
 import path from 'path'
 
 export const workspaceRootDir = __dirname
 export const testRootDior = path.resolve()
+
+const isPromise = (object: unknown): object is Promise<unknown> => {
+  return !!(object as any).then
+}
 
 export interface ITestData<P extends any[] = any[], D = any> {
   input: P
@@ -22,6 +27,21 @@ export const locateCommonJsonFixtures = (...p: string[]): string => {
 export const loadCommonJsonFixtures = <P extends any[] = any[], D = any>(
   ...p: string[]
 ): Array<ITestData<P, D>> => fs.readJSONSync(locateCommonJsonFixtures(...p))
+
+export function testOjCodes<T extends (...input: any[]) => any>(
+  problem: string,
+  solution: Promise<{ default: T }> | T,
+): void {
+  // eslint-disable-next-line jest/valid-title
+  test(problem, async function () {
+    type IParameters = Parameters<T>
+    type IAnswer = ReturnType<T>
+    const data: Array<ITestData<IParameters, IAnswer>> = loadCommonJsonFixtures(problem)
+
+    const solve: T = isPromise(solution) ? (await solution).default : solution
+    for (const { input, answer } of data) expect(solve(...input)).toEqual(answer)
+  })
+}
 
 /**
  * Locate fixture filepath.

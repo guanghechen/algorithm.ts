@@ -1,5 +1,7 @@
 import { createIsap } from '../../src'
 
+export default solveCodeforces1082G
+
 const isap = createIsap()
 export function solveCodeforces1082G(
   nodes: number[],

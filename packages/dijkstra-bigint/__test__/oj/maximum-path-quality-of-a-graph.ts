@@ -1,6 +1,8 @@
 import type { IEdge } from '../../src'
 import { dijkstra } from '../../src'
 
+export default maximalPathQuality
+
 export function maximalPathQuality(
   values: number[],
   originalEdges: number[][],
