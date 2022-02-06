@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/base64",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0",
   "description": "base64 + Euclidean algorithm",
   "author": {
     "name": "guanghechen",
