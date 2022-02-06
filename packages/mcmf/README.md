@@ -76,67 +76,25 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
 
 ## Usage
 
-* Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
-
-  ```typescript
-  import { createMcmf } from '@algorithm.ts/mcmf'
-
-  const mcmf = createMcmf()
-
-  // The implementation of `io` is omitted.
-  function solve(io: any): number {
-    const [n, m] = io.readIntegersOfLine()
-
-    const source = 0
-    const target: number = n + m + 1
-    mcmf.init(source, target, n + m + 2, n + m * 3)
-
-    const nodes: number[] = io.readIntegersOfLine()
-    for (let i = 0; i < n; ++i) {
-      const weight: number = nodes[i]
-      mcmf.addEdge(i + 1, target, weight, 1)
-    }
-
-    let answer = 0
-    for (let i = 1; i <= m; ++i) {
-      const [u, v, weight] = io.readIntegersOfLine()
-      const x = n + i
-      answer += weight
-      mcmf.addEdge(source, x, weight, 1)
-      mcmf.addEdge(x, u, Number.MAX_SAFE_INTEGER, 1)
-      mcmf.addEdge(x, v, Number.MAX_SAFE_INTEGER, 1)
-    }
-
-    const [mincost, maxflow] = mcmf.minCostMaxFlow()
-    answer -= maxflow
-    return answer
-  }
-  ```
-
 * Codeforces contest 0277 Problem E (https://codeforces.com/contest/277/problem/E):
 
   ```typescript
   import { createMcmf } from '@algorithm.ts/mcmf'
 
   const mcmf = createMcmf()
+  export function solveCodeforces0277E(coordinates: Array<[x: number, y: number]>): number {
+    const N: number = coordinates.length
 
-  // The implementation of `io` is omitted.
-  function solve(io: any): number {
-    const [N] = io.readIntegersOfLine()
-
-    const vertexes: Vertex[] = new Array(N)
-    for (let i = 0; i < N; ++i) {
-      const [x, y] = io.readIntegersOfLine()
-      vertexes[i] = { x, y }
-    }
-    vertexes.sort((p, q) => {
-      if (p.y === q.y) return p.x - q.x
-      return q.y - p.y
-    })
+    const vertexes: IVertex[] = coordinates
+      .map(([x, y]) => ({ x, y }))
+      .sort((p, q) => {
+        if (p.y === q.y) return p.x - q.x
+        return q.y - p.y
+      })
 
     const source = 0
     const target: number = N * 2 + 1
-    mcmf.init(source, target, N * 2 + 2, N * N + 2 * N)
+    mcmf.init(source, target, N * 2 + 2)
 
     for (let i = 0; i < N; ++i) {
       mcmf.addEdge(source, i + 1, 2, 0)
@@ -152,14 +110,118 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
     return answer
   }
 
-  function dist(p: Vertex, q: Vertex): number {
+  function dist(p: IVertex, q: IVertex): number {
     const d = (p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y)
     return Math.sqrt(d)
   }
 
-  interface Vertex {
+  interface IVertex {
     x: number
     y: number
+  }
+  ```
+
+
+* A solution for Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
+
+  ```typescript
+  import { createMcmf } from '@algorithm.ts/mcmf'
+
+  const mcmf = createMcmf()
+  export function solveCodeforces1082G(
+    nodes: number[],
+    edges: Array<[u: number, v: number, weight: number]>,
+  ): number {
+    const n: number = nodes.length
+    const m: number = edges.length
+
+    const source = 0
+    const target: number = n + m + 1
+    mcmf.init(source, target, n + m + 2)
+
+    for (let i = 0; i < n; ++i) {
+      const weight: number = nodes[i]
+      mcmf.addEdge(i + 1, target, weight, 0)
+    }
+
+    let answer = 0
+    for (let i = 0; i < m; ++i) {
+      const [u, v, weight] = edges[i]
+      const x = n + i
+      answer += weight
+      mcmf.addEdge(source, x, weight, 0)
+      mcmf.addEdge(x, u, Number.MAX_SAFE_INTEGER, 0)
+      mcmf.addEdge(x, v, Number.MAX_SAFE_INTEGER, 0)
+    }
+    answer -= mcmf.maxFlow()
+    return answer
+  }
+  ```
+
+* A solution for leetcode "Maximum Students Taking Exam" (https://leetcode.com/problems/maximum-students-taking-exam/):
+
+  ```typescript
+  import { createMcmf } from '@algorithm.ts/mcmf'
+
+  export function maxStudents(seats: string[][]): number {
+    const R: number = seats.length
+    if (R <= 0) return 0
+
+    const C: number = seats[0].length
+    if (C <= 0) return 0
+
+    let total = 0
+    const seatCodes: number[][] = new Array(R)
+    for (let r = 0; r < R; ++r) seatCodes[r] = new Array(C).fill(-1)
+
+    for (let r = 0; r < R; ++r) {
+      for (let c = 0; c < C; ++c) {
+        if (seats[r][c] === '.') seatCodes[r][c] = total++
+      }
+    }
+
+    if (total <= 0) return 0
+    if (total === 1) return 1
+
+    const source: number = total * 2
+    const target: number = source + 1
+    const mcmf = createMcmf()
+    mcmf.init(source, target, target + 1)
+
+    for (let r = 0; r < R; ++r) {
+      for (let c = 0; c < C; ++c) {
+        const u: number = seatCodes[r][c]
+        if (u > -1) {
+          mcmf.addEdge(source, u, 1, 0)
+          mcmf.addEdge(u + total, target, 1, 0)
+          if (r > 0) {
+            // Check upper left
+            if (c > 0 && seatCodes[r - 1][c - 1] > -1) {
+              const v: number = seatCodes[r - 1][c - 1]
+              mcmf.addEdge(u, v + total, 1, 0)
+              mcmf.addEdge(v, u + total, 1, 0)
+            }
+
+            // Check upper right
+            if (c + 1 < C && seatCodes[r - 1][c + 1] > -1) {
+              const v: number = seatCodes[r - 1][c + 1]
+              mcmf.addEdge(u, v + total, 1, 0)
+              mcmf.addEdge(v, u + total, 1, 0)
+            }
+          }
+
+          // Check left
+          if (c > 0 && seatCodes[r][c - 1] > -1) {
+            const v: number = seatCodes[r][c - 1]
+            mcmf.addEdge(u, v + total, 1, 0)
+            mcmf.addEdge(v, u + total, 1, 0)
+          }
+        }
+      }
+    }
+
+    const totalPaired: number = mcmf.maxFlow() / 2
+    return total - totalPaired
   }
   ```
 
@@ -167,7 +229,7 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
 
 
 * [@algorithm.ts/dinic](https://github.com/guanghechen/algorithm.ts/tree/main/packages/dinic)
-* [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/main/packages/isap)
+* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/main/packages/mcmf)
 * [网络流 24 题](https://me.guanghechen.com/post/algorithm/graph/network-flow/24-problems/)
 * [网络流基础之最大权闭合图](https://me.guanghechen.com/post/algorithm/graph/network-flow/%E6%9C%80%E5%A4%A7%E6%9D%83%E9%97%AD%E5%90%88%E5%9B%BE/)
 
