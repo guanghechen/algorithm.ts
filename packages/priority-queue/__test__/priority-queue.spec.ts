@@ -94,4 +94,19 @@ describe('basic', function () {
       expect(output).toEqual(answer)
     }
   })
+
+  test('edge case', function () {
+    const Q = createPriorityQueue<number>((x, y) => x - y)
+    Q.init()
+    Q.enqueue(0)
+    Q.enqueue(2)
+
+    expect(Q.size()).toEqual(2)
+    expect(Q.dequeue()).toEqual(2)
+    expect(Q.size()).toEqual(1)
+    expect(Q.dequeue()).toEqual(0)
+    expect(Q.size()).toEqual(0)
+    expect(Q.dequeue()).toEqual(undefined)
+    expect(Q.size()).toEqual(0)
+  })
 })

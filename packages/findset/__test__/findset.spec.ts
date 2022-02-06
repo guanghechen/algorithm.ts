@@ -1,9 +1,8 @@
-/* eslint-disable no-param-reassign */
 import { randomInt } from '@algorithm.ts/knuth-shuffle'
-import type { IEnhancedFindset } from '../src'
+import { testOjCodes } from 'jest.setup'
 import { createEnhancedFindset, createFindset, createHeuristicFindset } from '../src'
 
-describe('createfindset', function () {
+describe('createFindset', function () {
   const MAX_N = 1000
   const findset = createFindset(MAX_N)
 
@@ -53,7 +52,7 @@ describe('createfindset', function () {
   })
 })
 
-describe('createHeuristicfindset', function () {
+describe('createHeuristicFindset', function () {
   const MAX_N = 1000
   const findset = createHeuristicFindset(MAX_N)
 
@@ -173,128 +172,7 @@ describe('enhanced-findset', function () {
   })
 })
 
-describe('leetcode', function () {
-  test('2092 Find All People With Secret', function () {
-    const solve = createSolve()
-    const data: Array<{ input: Parameters<typeof solve>; answer: number[] }> = [
-      {
-        input: [
-          6,
-          [
-            [1, 2, 5],
-            [2, 3, 8],
-            [1, 5, 10],
-          ],
-          1,
-        ],
-        answer: [0, 1, 2, 3, 5],
-      },
-      {
-        input: [
-          4,
-          [
-            [3, 1, 3],
-            [1, 2, 2],
-            [0, 3, 3],
-          ],
-          3,
-        ],
-        answer: [0, 1, 3],
-      },
-      {
-        input: [
-          5,
-          [
-            [3, 4, 2],
-            [1, 2, 1],
-            [2, 3, 1],
-          ],
-          1,
-        ],
-        answer: [0, 1, 2, 3, 4],
-      },
-      {
-        input: [
-          6,
-          [
-            [0, 2, 1],
-            [1, 3, 1],
-            [4, 5, 1],
-          ],
-          1,
-        ],
-        answer: [0, 1, 2, 3],
-      },
-    ]
-    for (const kase of data) {
-      const [N, meetings, firstPerson] = kase.input
-      expect(solve(N, meetings, firstPerson)).toEqual(kase.answer)
-    }
-
-    function createSolve(): (N: number, meetings: number[][], firstPerson: number) => number[] {
-      const MAX_N = 1e5 + 10
-      const answer: Set<number> = new Set()
-      const nodes: Set<number> = new Set()
-      const visited: Uint8Array = new Uint8Array(MAX_N)
-      const findset: IEnhancedFindset = createEnhancedFindset(MAX_N)
-
-      return function findAllPeople(
-        N: number,
-        meetings: number[][],
-        firstPerson: number,
-      ): number[] {
-        const M: number = meetings.length
-
-        answer.clear()
-        answer.add(1)
-        answer.add(firstPerson + 1)
-
-        meetings
-          .sort((x, y) => x[2] - y[2])
-          .forEach(item => {
-            item[0] += 1
-            item[1] += 1
-          })
-
-        for (let i = 0, j: number; i < M; i = j) {
-          const t: number = meetings[i][2]
-          for (j = i + 1; j < M; ++j) {
-            if (meetings[j][2] !== t) break
-          }
-
-          nodes.clear()
-          for (let k = i; k < j; ++k) {
-            const [x, y] = meetings[k]
-            nodes.add(x)
-            nodes.add(y)
-          }
-
-          for (const x of nodes) {
-            findset.initNode(x)
-            visited[x] = 0
-          }
-
-          for (let k = i; k < j; ++k) {
-            const [x, y] = meetings[k]
-            findset.merge(x, y)
-          }
-
-          for (const x of nodes) {
-            if (!answer.has(x)) continue
-
-            const xx: number = findset.root(x)
-            if (visited[xx]) continue
-            visited[xx] = 1
-
-            const xxSet: Set<number> = findset.getSetOf(xx)!
-            for (const t of xxSet) answer.add(t)
-          }
-        }
-
-        return Array.from(answer)
-          .map(x => x - 1)
-          .sort((x, y) => x - y)
-      }
-    }
-  })
+describe('oj', function () {
+  // https://leetcode.com/problems/find-all-people-with-secret/
+  testOjCodes('leetcode/find-all-people-with-secret', import('./oj/find-all-people-with-secret'))
 })
