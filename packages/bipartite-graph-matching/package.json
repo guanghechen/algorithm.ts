@@ -1,7 +1,7 @@
 {
   "name": "@algorithm.ts/bipartite-graph-matching",
   "version": "2.0.0",
-  "description": "Dancing link + Algorithm X",
+  "description": "The algorithm to find the maximum matching of the bipartite graph.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"

@@ -1,7 +1,7 @@
 {
   "name": "@algorithm.ts/dijkstra-bigint",
   "version": "2.0.0",
-  "description": "Dancing link + Algorithm X",
+  "description": "Dijkstra algorithm (bigint version) optimized with @algorithm.ts/priority-queue.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"

@@ -1,7 +1,7 @@
 {
   "name": "@algorithm.ts/base64",
   "version": "2.0.0",
-  "description": "base64 + Euclidean algorithm",
+  "description": "A Base64 encoding implementation.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
