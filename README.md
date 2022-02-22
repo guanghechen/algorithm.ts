@@ -69,6 +69,7 @@ Package                                     | Description
 [@algorithm.ts/huffman][]                   | A [Huffman][wiki-huffman] coding implementation.
 [@algorithm.ts/isap][]                      | ISAP algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/knuth-shuffle][]             | Knuth-Shuffle algorithm.
+[@algorithm.ts/lcs][]                       | Find the Longest Common Subsequence.
 [@algorithm.ts/lower-bound][]               | Find the index of first elements which greater or equals than the target element.
 [@algorithm.ts/manacher][]                  | The manacher algorithm for solving palindrome string problems.
 [@algorithm.ts/mcmf][]                      | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.
@@ -107,6 +108,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/huffman]: ./packages/huffman
 [@algorithm.ts/isap]: ./packages/isap
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
+[@algorithm.ts/lcs]: ./packages/lcs
 [@algorithm.ts/lower-bound]: ./packages/lower-bound
 [@algorithm.ts/manacher]: ./packages/manacher
 [@algorithm.ts/mcmf]: ./packages/mcmf
