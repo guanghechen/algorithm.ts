@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="2.0.1"></a>
+## 2.0.1 (2022-02-22)
+
+### Added
+
+- ✨ feat: implement &#x27;@algorithm.ts/lcs&#x27; [[3c59c78](https://github.com/guanghechen/algorithm.ts/commit/3c59c784656b8b983ea3cc420b973cf4ea37007f)]
+
+### Miscellaneous
+
+- 📝 docs: update package descriptions [[a2455ed](https://github.com/guanghechen/algorithm.ts/commit/a2455edb5dbf5e7662e85e04733b86b8d5e30a5b)]
+- 📝 docs: update README [[de7b296](https://github.com/guanghechen/algorithm.ts/commit/de7b2965d6d29e780efed5e0ce3a4dba97093c6b)]
+- 📝 docs: update CHANGELOG [[d3d48ab](https://github.com/guanghechen/algorithm.ts/commit/d3d48ab53932c2e6669c9c055a9c2b7e610dd947)]
+
+
 <a name="2.0.0"></a>
 ## 2.0.0 (2022-02-06)
 
