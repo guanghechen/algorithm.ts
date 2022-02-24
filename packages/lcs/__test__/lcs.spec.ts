@@ -5,6 +5,9 @@ describe('basic', function () {
     const lenOf = (s1: string | number[], s2: string | number[]): number =>
       findLengthOfLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y])
 
+    expect(
+      lenOf('f8d1d155-d14e-433f-88e1-07b54f184740', 'a00322f7-256e-46fe-ae91-8de835c57778'),
+    ).toEqual(12)
     expect(lenOf('abcde', 'ace')).toEqual(3)
     expect(lenOf('ace', 'abcde')).toEqual(3)
     expect(lenOf('abc', 'abc')).toEqual(3)
@@ -19,6 +22,23 @@ describe('basic', function () {
   test('findMinLexicographicalLCS', function () {
     const lcsOf = (s1: string | number[], s2: string | number[]): Array<[number, number]> =>
       findMinLexicographicalLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y])
+
+    expect(
+      lcsOf('f8d1d155-d14e-433f-88e1-07b54f184740', 'a00322f7-256e-46fe-ae91-8de835c57778'),
+    ).toEqual([
+      [0, 6],
+      [8, 8],
+      [12, 12],
+      [13, 13],
+      [14, 14],
+      [17, 16],
+      [18, 18],
+      [21, 20],
+      [22, 22],
+      [23, 23],
+      [31, 24],
+      [33, 32],
+    ])
 
     expect(lcsOf('abcde', 'ace')).toEqual([
       [0, 0],
@@ -100,6 +120,14 @@ describe('basic', function () {
   test('findLCSOfEveryRightPrefix', function () {
     const dpOf = (s1: string | number[], s2: string | number[]): Uint32Array | null =>
       findLCSOfEveryRightPrefix(s1.length, s2.length, (x, y) => s1[x] === s2[y])
+    expect(
+      dpOf('f8d1d155-d14e-433f-88e1-07b54f184740', 'a00322f7-256e-46fe-ae91-8de835c57778'),
+    ).toEqual(
+      new Uint32Array([
+        0, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 6, 6, 7, 7, 8, 8, 8, 8, 9, 10, 11, 11, 11, 11, 11,
+        11, 11, 11, 12, 12, 12, 12,
+      ]),
+    )
     expect(dpOf('abcde', 'ace')).toEqual(new Uint32Array([1, 2, 3]))
     expect(dpOf('ace', 'abcde')).toEqual(new Uint32Array([1, 1, 2, 2, 3]))
     expect(dpOf('abc', 'abc')).toEqual(new Uint32Array([1, 2, 3]))

@@ -17,45 +17,30 @@ export function findMinLexicographicalLCS(
 ): Array<[number, number]> {
   if (N1 <= 0 || N2 <= 0) return []
 
-  // parent[x] represent the index of previous element which are consists the smallest
-  // lexicographical longest common subsequence.
-  const parent: number[] = new Array(N2).fill(-1)
+  const dp: Uint32Array[] = new Array(N1)
+  for (let i = 0; i < N1; ++i) dp[i] = new Uint32Array(N2)
 
-  const dp: Uint32Array = new Uint32Array(N2)
-  for (let i = 0, k: number; i < N1; ++i) {
-    for (let j = N2 - 1; j > 0; --j) {
-      if (isEqual(i, j)) {
-        const candidate: number = dp[j - 1]
+  dp[0][0] = isEqual(0, 0) ? 1 : 0
+  for (let i = 1; i < N1; ++i) dp[i][0] = dp[i - 1][0] | (isEqual(i, 0) ? 1 : 0)
+  for (let j = 1; j < N2; ++j) dp[0][j] = dp[0][j - 1] | (isEqual(0, j) ? 1 : 0)
 
-        // Find a longer common subsequence
-        if (dp[j] < candidate + 1) {
-          dp[j] = candidate + 1
-          for (k = j - 1; k >= 0 && dp[k] === candidate; ) k -= 1
-          parent[j] = k + 1
-        }
-      }
-    }
-
-    if (isEqual(i, 0)) dp[0] = 1
-
-    for (let j = 1, x = dp[0]; j < N2; ++j) {
-      if (dp[j] < x) dp[j] = x
-      else x = dp[j]
+  for (let i = 1; i < N1; ++i) {
+    for (let j = 1; j < N2; ++j) {
+      dp[i][j] = isEqual(i, j) ? dp[i - 1][j - 1] + 1 : Math.max(dp[i][j - 1], dp[i - 1][j])
     }
   }
-
-  const maxLen = dp[N2 - 1]
-  const paths: number[] = new Array(maxLen).fill(0)
-  const head = dp.findIndex(x => x === maxLen)
-  for (let p = head, k = maxLen - 1; p > -1; p = parent[p], --k) paths[k] = p
 
   const pairs: Array<[number, number]> = []
-  for (let i = 0, k = 0; k < maxLen; ++k, ++i) {
-    const j = paths[k]
-    while (i < N1 && !isEqual(i, j)) i += 1
-    pairs.push([i, j])
+  for (let len = dp[N1 - 1][N2 - 1], i = N1 - 1; len > 0; --len) {
+    for (let j = 0; j < N2; ++j) {
+      if (dp[i][j] === len) {
+        while (i >= 0 && dp[i][j] === len) i -= 1
+        pairs.push([i + 1, j])
+        break
+      }
+    }
   }
-  return pairs
+  return pairs.reverse()
 }
 
 /**
