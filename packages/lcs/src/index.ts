@@ -1,8 +1,8 @@
 /**
  * Find a least lexicographical match for the longest common subsequence.
  *
- * The returned value is an number array (called `paired`), where the paired[j] indicates that the
- * j-th element of the second sequence is paired with the i-th element of the first sequence.
+ * The returned value is an tuple array (called `pairs`), where each element (pair=[i,j]) indicates that
+ * the i-th element of the first sequence is paired with the j-th element of the second sequence.
  *
  * @param N1
  * @param N2
@@ -14,9 +14,8 @@ export function findMinLexicographicalLCS(
   N1: number,
   N2: number,
   isEqual: (x: number, y: number) => boolean,
-): number[] {
-  if (N2 <= 0) return []
-  if (N1 <= 0) return new Array(N2).fill(-1)
+): Array<[number, number]> {
+  if (N1 <= 0 || N2 <= 0) return []
 
   // parent[x] represent the index of previous element which are consists the smallest
   // lexicographical longest common subsequence.
@@ -56,10 +55,7 @@ export function findMinLexicographicalLCS(
     while (i < N1 && !isEqual(i, j)) i += 1
     pairs.push([i, j])
   }
-
-  const paired: number[] = new Array(N2).fill(-1)
-  for (const pair of pairs) paired[pair[1]] = pair[0]
-  return paired
+  return pairs
 }
 
 /**
