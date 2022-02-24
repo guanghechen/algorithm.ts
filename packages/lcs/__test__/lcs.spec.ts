@@ -1,4 +1,4 @@
-import { calcDpOfLCS, findLengthOfLCS, findMinLexicographicalLCS } from '../src'
+import { findLCSOfEveryRightPrefix, findLengthOfLCS, findMinLexicographicalLCS } from '../src'
 
 describe('basic', function () {
   test('findLengthOfLCS', function () {
@@ -33,58 +33,30 @@ describe('basic', function () {
     expect(lcsOf('abeep boop', 'beep boob blah')).toEqual([
       1, 2, 3, 4, 5, 6, 7, 8, -1, -1, -1, -1, -1, -1,
     ])
+    expect(lcsOf([1, 2, 3, 4], [2, 1, 2, 3, 4])).toEqual([-1, 0, 1, 2, 3])
+    expect(lcsOf([1, 2, 3, 4], [2, 3, 4, 1, 4])).toEqual([1, 2, 3, -1, -1])
+    expect(lcsOf([1, 2, 3, 4], [2, 3, 1, 2, 3, 4])).toEqual([-1, -1, 0, 1, 2, 3])
+    expect(lcsOf([1, 2, 3, 4], [2, 3, 1, 3, 1, 2, 3, 4])).toEqual([-1, -1, 0, -1, -1, 1, 2, 3])
+    expect(lcsOf([1, 2, 3, 4], [2, 3, 1, 3, 1, 2, 3, 4, 3, 4])).toEqual([
+      -1, -1, 0, -1, -1, 1, 2, 3, -1, -1,
+    ])
   })
 
-  test('testDpOfLCS', function () {
-    const dpOf = (s1: string | number[], s2: string | number[]): number[][] =>
-      calcDpOfLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y])
-    expect(dpOf('abcde', 'ace')).toEqual([
-      [1, 1, 1],
-      [1, 1, 1],
-      [1, 2, 2],
-      [1, 2, 2],
-      [1, 2, 3],
-    ])
-    expect(dpOf('ace', 'abcde')).toEqual([
-      [1, 1, 1, 1, 1],
-      [1, 1, 2, 2, 2],
-      [1, 1, 2, 2, 3],
-    ])
-    expect(dpOf('abc', 'abc')).toEqual([
-      [1, 1, 1],
-      [1, 2, 2],
-      [1, 2, 3],
-    ])
-    expect(dpOf('abc', 'abce')).toEqual([
-      [1, 1, 1, 1],
-      [1, 2, 2, 2],
-      [1, 2, 3, 3],
-    ])
-    expect(dpOf('', 'abce')).toEqual([])
-    expect(dpOf('abce', '')).toEqual([])
-    expect(dpOf('', '')).toEqual([])
-    expect(dpOf([1, 2, 3, 4, 6, 6, 7, 8, 6], [2, 3, 4, 7, 9, 8, 2, 3, 5, 2])).toEqual([
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-      [1, 2, 3, 3, 3, 3, 3, 3, 3, 3],
-      [1, 2, 3, 3, 3, 3, 3, 3, 3, 3],
-      [1, 2, 3, 3, 3, 3, 3, 3, 3, 3],
-      [1, 2, 3, 4, 4, 4, 4, 4, 4, 4],
-      [1, 2, 3, 4, 4, 5, 5, 5, 5, 5],
-      [1, 2, 3, 4, 4, 5, 5, 5, 5, 5],
-    ])
-    expect(dpOf('abeep boop', 'beep boob blah')).toEqual([
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-      [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-      [1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-      [1, 2, 3, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-      [1, 2, 3, 4, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6],
-      [1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7, 7, 7],
-      [1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8],
-      [1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8],
-    ])
+  test('findLCSOfEveryRightPrefix', function () {
+    const dpOf = (s1: string | number[], s2: string | number[]): Uint32Array | null =>
+      findLCSOfEveryRightPrefix(s1.length, s2.length, (x, y) => s1[x] === s2[y])
+    expect(dpOf('abcde', 'ace')).toEqual(new Uint32Array([1, 2, 3]))
+    expect(dpOf('ace', 'abcde')).toEqual(new Uint32Array([1, 1, 2, 2, 3]))
+    expect(dpOf('abc', 'abc')).toEqual(new Uint32Array([1, 2, 3]))
+    expect(dpOf('abc', 'abce')).toEqual(new Uint32Array([1, 2, 3, 3]))
+    expect(dpOf('', 'abce')).toEqual(null)
+    expect(dpOf('abce', '')).toEqual(null)
+    expect(dpOf('', '')).toEqual(null)
+    expect(dpOf([1, 2, 3, 4, 6, 6, 7, 8, 6], [2, 3, 4, 7, 9, 8, 2, 3, 5, 2])).toEqual(
+      new Uint32Array([1, 2, 3, 4, 4, 5, 5, 5, 5, 5]),
+    )
+    expect(dpOf('abeep boop', 'beep boob blah')).toEqual(
+      new Uint32Array([1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8]),
+    )
   })
 })
