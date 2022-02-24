@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sieve-totient",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A linear time algorithm to sieve prime numbers and get the Euler's totient function",
   "author": {
     "name": "guanghechen",
