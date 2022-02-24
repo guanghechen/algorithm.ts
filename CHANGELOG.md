@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="2.0.2"></a>
+## 2.0.2 (2022-02-24)
+
+### Changed
+
+- 🎨 [BREAKING] feat: change return type of findMinLexicographicalLCS -- return pairs instead of confusing number[] [[b0af7fe](https://github.com/guanghechen/algorithm.ts/commit/b0af7fea9c64b5c20bffc3ff5368b77056150c37)]
+- ⚡ improve: optimize space complexity, from O(N1xN2) to O(N1) or O(N2) [[f3efd52](https://github.com/guanghechen/algorithm.ts/commit/f3efd52de24759ae31f271591cd558a043678292)]
+
+### Miscellaneous
+
+- 📝 docs: update README [[79e9ac6](https://github.com/guanghechen/algorithm.ts/commit/79e9ac649170251ddb348fb40f5160fb23366631)]
+- 📝 docs: update CHANGELOG [[58e20ce](https://github.com/guanghechen/algorithm.ts/commit/58e20ceab94e287097e217c66dbac21a9fb4054b)]
+
+
 <a name="2.0.1"></a>
 ## 2.0.1 (2022-02-22)
 
