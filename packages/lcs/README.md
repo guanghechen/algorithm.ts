@@ -97,7 +97,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   findLengthOfLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y]) // => 5
 
   findMinLexicographicalLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y]) 
-  // => [1, 2, 3, 6, -1, 7, -1, -1, -1, -1]
+  // => [ [1, 0], [2, 1], [3, 2], [6, 3], [7, 5] ]
   // 
   //    Here is why:
   //      
@@ -105,16 +105,16 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   //      s1: 1 2 3 4 6 6 7 8 6
   //      s2: 2 3 4 7 9 8 2 3 5 2
   //
-  //      s2[0] <----> s1[1]
-  //      s2[1] <----> s1[2]
-  //      s2[2] <----> s1[3]
-  //      s2[3] <----> s1[6]
-  //      s2[4] <----> null
-  //      s2[5] <----> s1[7]
-  //      s2[6] <----> null
-  //      s2[7] <----> null
-  //      s2[8] <----> null
-  //      s2[9] <----> null
+  //      s1[1] <----> s2[0]
+  //      s1[2] <----> s2[1]
+  //      s1[3] <----> s2[2]
+  //      s1[6] <----> s2[3]
+  //      null  <----> s2[4]
+  //      s1[7] <----> s2[5]
+  //      null  <----> s2[6]
+  //      null  <----> s2[7]
+  //      null  <----> s2[8]
+  //      null  <----> s2[9]
   ```
 
 ## Related
