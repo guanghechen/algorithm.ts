@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/isap",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "The ISAP algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",
@@ -43,6 +43,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/circular-queue": "^2.0.1"
+    "@algorithm.ts/circular-queue": "^2.0.2"
   }
 }
