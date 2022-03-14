@@ -1,5 +1,17 @@
 # Changelog
 
+<a name="2.0.3"></a>
+## 2.0.3 (2022-02-24)
+
+### Fixed
+
+- 🐛 fix: revert findMinLexicographicalLCS as the previous change is incorrectly [[57485d6](https://github.com/guanghechen/algorithm.ts/commit/57485d6e1164c1af5b38bec2f19c86b5fdc543a7)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[afd8033](https://github.com/guanghechen/algorithm.ts/commit/afd8033fd8519b9fc8d06603f4fe928306db7a72)]
+
+
 <a name="2.0.2"></a>
 ## 2.0.2 (2022-02-24)
 
