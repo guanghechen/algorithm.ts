@@ -63,7 +63,7 @@ export class GomokuState {
     const player: number = board[id]
     if (player < 0) return
 
-    this.beforeRollup(r, c, player)
+    this.beforeRollback(r, c, player)
     {
       this.placedCount -= 1
       board[id] = -1
@@ -75,7 +75,7 @@ export class GomokuState {
         }
       })
     }
-    this.afterRollup(r, c, player)
+    this.afterRollback(r, c, player)
   }
 
   public expand(player: number): IGomokuCandidateState[] {
@@ -120,11 +120,11 @@ export class GomokuState {
     this.countMap.afterForward(r, c, player)
   }
 
-  protected beforeRollup(r: number, c: number, player: number): void {
+  protected beforeRollback(r: number, c: number, player: number): void {
     this.countMap.afterForward(r, c, player)
   }
 
-  protected afterRollup(r: number, c: number, player: number): void {
+  protected afterRollback(r: number, c: number, player: number): void {
     this.countMap.afterForward(r, c, player)
   }
 }

@@ -98,24 +98,68 @@ export class GomokuCountMap {
     // Update continuouslyShapeCountMap.
     for (const dirType of leftHalfGomokuDirectionTypes) {
       const revDirType: GomokuDirectionType = dirType ^ 1
-      const [startR, startC] = context.move(r, c, dirType, dirCountMap[dirType][id] - 1)
+      const lftCnt: number = dirCountMap[revDirType][id]
+      const rhtCnt: number = dirCountMap[dirType][id]
+      const [startR, startC] = context.move(r, c, dirType, rhtCnt - 1)
       const [cnt, freeSide] = this.detectContinuousLine(startR, startC, player, revDirType)
       continuouslyShapeCountMap[player][cnt][freeSide] += 1
+
+      if (lftCnt === 1) {
+        const [r0, c0] = context.move(r, c, revDirType, 1)
+        const d0: number = context.idxIfValid(r0, c0)
+        if (d0 >= 0 && board[d0] >= 0) {
+          const player0: number = board[d0]
+          const [cnt0, freeSide0] = this.detectContinuousLine(r0, c0, player0, revDirType)
+          continuouslyShapeCountMap[player0][cnt0][freeSide0] += 1
+        }
+      }
+
+      if (rhtCnt === 1) {
+        const [r2, c2] = context.move(r, c, dirType, 1)
+        const d2: number = context.idxIfValid(r2, c2)
+        if (d2 >= 0 && board[d2] >= 0) {
+          const player2: number = board[d2]
+          const [cnt2, freeSide2] = this.detectContinuousLine(r2, c2, player2, dirType)
+          continuouslyShapeCountMap[player2][cnt2][freeSide2] += 1
+        }
+      }
     }
   }
 
-  public beforeRollup(r: number, c: number, player: number): void {
-    const { context, dirCountMap, continuouslyShapeCountMap } = this
+  public beforeRollback(r: number, c: number, player: number): void {
+    const { context, board, dirCountMap, continuouslyShapeCountMap } = this
     const id: number = context.idx(r, c)
     for (const dirType of leftHalfGomokuDirectionTypes) {
       const revDirType: GomokuDirectionType = dirType ^ 1
-      const [startR, startC] = context.move(r, c, dirType, dirCountMap[dirType][id] - 1)
+      const lftCnt: number = dirCountMap[revDirType][id]
+      const rhtCnt: number = dirCountMap[dirType][id]
+      const [startR, startC] = context.move(r, c, dirType, rhtCnt - 1)
       const [cnt, freeSide] = this.detectContinuousLine(startR, startC, player, revDirType)
       continuouslyShapeCountMap[player][cnt][freeSide] -= 1
+
+      if (lftCnt === 1) {
+        const [r0, c0] = context.move(r, c, revDirType, 1)
+        const d0: number = context.idxIfValid(r0, c0)
+        if (d0 >= 0 && board[d0] >= 0) {
+          const player0: number = board[d0]
+          const [cnt0, freeSide0] = this.detectContinuousLine(r0, c0, player0, revDirType)
+          continuouslyShapeCountMap[player0][cnt0][freeSide0] -= 1
+        }
+      }
+
+      if (rhtCnt === 1) {
+        const [r2, c2] = context.move(r, c, dirType, 1)
+        const d2: number = context.idxIfValid(r2, c2)
+        if (d2 >= 0 && board[d2] >= 0) {
+          const player2: number = board[d2]
+          const [cnt2, freeSide2] = this.detectContinuousLine(r2, c2, player2, dirType)
+          continuouslyShapeCountMap[player2][cnt2][freeSide2] -= 1
+        }
+      }
     }
   }
 
-  public afterRollup(r: number, c: number, player: number): void {
+  public afterRollback(r: number, c: number, player: number): void {
     const { context, board, dirCountMap, continuouslyShapeCountMap } = this
     const id: number = context.idx(r, c)
 
@@ -179,7 +223,8 @@ export class GomokuCountMap {
     return false
   }
 
-  public toJSON(): Record<string, unknown> {
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  public toJSON() {
     const { dirCountMap, continuouslyShapeCountMap } = this
     return { dirCountMap, continuouslyShapeCountMap }
   }
@@ -195,7 +240,7 @@ export class GomokuCountMap {
 
     const [r0, c0] = context.move(startR, startC, dirType, -1)
     const d0: number = context.idxIfValid(r0, c0)
-    if (d0 < 0 || (board[d0] >= 0 && board[d0] !== player)) freeSide -= 1
+    if (d0 < 0 || board[d0] >= 0) freeSide -= 1
 
     const id: number = context.idxIfValid(startR, startC)
     const cnt = dirCountMap[dirType][id]
