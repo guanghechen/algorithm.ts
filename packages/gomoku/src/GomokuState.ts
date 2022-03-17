@@ -83,10 +83,14 @@ export class GomokuState {
     const candidates: IGomokuCandidateState[] = []
     for (const id of candidateSet) {
       if (board[id] >= 0) continue
-
       const [r, c] = context.reIdx(id)
+      candidates.push({ r, c, score: 0 })
+    }
+
+    for (const candidate of candidates) {
+      const { r, c } = candidate
       this.forward(r, c, player)
-      candidates.push({ r, c, score: this.score(player) })
+      candidate.score = this.score(player)
       this.rollback(r, c)
     }
     return candidates

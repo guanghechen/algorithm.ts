@@ -36,7 +36,7 @@ export class GomokuSolution {
       Number.MIN_SAFE_INTEGER,
       Number.MAX_SAFE_INTEGER,
       this.state.score(currentPlayer),
-      0,
+      1,
     )
     return { r: this.bestR, c: this.bestC }
   }
@@ -52,6 +52,7 @@ export class GomokuSolution {
     if (cur > this.MAX_DEPTH || state.isFinal()) return stateScore
 
     const candidates: IGomokuCandidateState[] = state.expand(player)
+
     if (player === currentPlayer) {
       // Higher score items common first.
       candidates.sort((x, y) => y.score - x.score)
