@@ -43,7 +43,7 @@ export class GomokuState {
     const id: number = context.idx(r, c)
     if (board[id] >= 0) return
 
-    this.beforeForward(r, c, player)
+    this.beforeForward(r, c)
     {
       this.placedCount += 1
       board[id] = player
@@ -53,7 +53,7 @@ export class GomokuState {
         if (board[id2] < 0) candidateSet.add(id2)
       })
     }
-    this.afterForward(r, c, player)
+    this.afterForward(r, c)
   }
 
   // Remove the piece in r-th row and c-th column.
@@ -63,7 +63,7 @@ export class GomokuState {
     const player: number = board[id]
     if (player < 0) return
 
-    this.beforeRollback(r, c, player)
+    this.beforeRollback(r, c)
     {
       this.placedCount -= 1
       board[id] = -1
@@ -78,7 +78,7 @@ export class GomokuState {
     this.afterRollback(r, c, player)
   }
 
-  public expand(player: number): IGomokuCandidateState[] {
+  public expand(currentPlayer: number, scoreForPlayer: number): IGomokuCandidateState[] {
     const { context, board, candidateSet } = this
     const candidates: IGomokuCandidateState[] = []
     for (const id of candidateSet) {
@@ -89,16 +89,16 @@ export class GomokuState {
 
     for (const candidate of candidates) {
       const { r, c } = candidate
-      this.forward(r, c, player)
-      candidate.score = this.score(player)
+      this.forward(r, c, currentPlayer)
+      candidate.score = this.score(currentPlayer, scoreForPlayer)
       this.rollback(r, c)
     }
-    return candidates
+    return candidates.filter(candidate => candidate.score >= 0)
   }
 
   // Get score of current state.
-  public score(player: number): number {
-    return this.countMap.score(player)
+  public score(currentPlayer: number, scoreForPlayer: number): number {
+    return this.countMap.score(currentPlayer, scoreForPlayer)
   }
 
   // Check if it's endgame.
@@ -111,6 +111,18 @@ export class GomokuState {
     return false
   }
 
+  public randomMove(): { r: number; c: number } {
+    const { context, board } = this
+    const { MAX_ROW, MAX_COL } = this.context
+    for (let r = 0; r < MAX_ROW; ++r) {
+      for (let c = 0; c < MAX_COL; ++c) {
+        const id = context.idx(r, c)
+        if (board[id] < 0) return { r, c }
+      }
+    }
+    return { r: -1, c: -1 }
+  }
+
   protected hasPlacedNeighbors(r: number, c: number): boolean {
     const { context, board } = this
     return context.hasGoodNeighbor(r, c, (r2, c2): boolean => {
@@ -119,16 +131,16 @@ export class GomokuState {
     })
   }
 
-  protected beforeForward(r: number, c: number, player: number): void {
-    this.countMap.beforeForward(r, c, player)
+  protected beforeForward(r: number, c: number): void {
+    this.countMap.beforeForward(r, c)
   }
 
-  protected afterForward(r: number, c: number, player: number): void {
-    this.countMap.afterForward(r, c, player)
+  protected afterForward(r: number, c: number): void {
+    this.countMap.afterForward(r, c)
   }
 
-  protected beforeRollback(r: number, c: number, player: number): void {
-    this.countMap.beforeRollback(r, c, player)
+  protected beforeRollback(r: number, c: number): void {
+    this.countMap.beforeRollback(r, c)
   }
 
   protected afterRollback(r: number, c: number, player: number): void {

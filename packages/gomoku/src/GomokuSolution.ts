@@ -7,7 +7,7 @@ export class GomokuSolution {
   protected readonly MAX_DEPTH: number
   protected readonly context: GomokuContext
   protected readonly state: GomokuState
-  protected currentPlayer: number
+  protected scoreForPlayer: number
   protected bestR: number
   protected bestC: number
 
@@ -19,13 +19,12 @@ export class GomokuSolution {
     scoreMap?: IScoreMap,
   ) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
-    const _scoreMap: IScoreMap =
-      scoreMap ?? createScoreMap(context.MAX_INLINE, context.MAX_POSSIBLE_INLINE)
+    const _scoreMap: IScoreMap = scoreMap ?? createScoreMap(context.MAX_INLINE)
 
     this.MAX_DEPTH = MAX_DEPTH
     this.context = context
     this.state = new GomokuState(context, _scoreMap)
-    this.currentPlayer = -1
+    this.scoreForPlayer = -1
     this.bestR = -1
     this.bestC = -1
   }
@@ -39,15 +38,11 @@ export class GomokuSolution {
   }
 
   public minmaxMatch(currentPlayer: number): { r: number; c: number } {
-    this.currentPlayer = currentPlayer
-    this.alphaBeta(
-      currentPlayer,
-      Number.MIN_SAFE_INTEGER,
-      Number.MAX_SAFE_INTEGER,
-      this.state.score(currentPlayer),
-      1,
-    )
-    return { r: this.bestR, c: this.bestC }
+    this.scoreForPlayer = currentPlayer
+    this.bestR = this.bestC = -1
+    this.alphaBeta(currentPlayer, 0, Number.MAX_SAFE_INTEGER, 0, 1)
+    const { bestR: r, bestC: c } = this
+    return r < 0 || c < 0 ? this.state.randomMove() : { r, c }
   }
 
   protected alphaBeta(
@@ -57,12 +52,13 @@ export class GomokuSolution {
     stateScore: number,
     cur: number,
   ): number {
-    const { state, currentPlayer } = this
+    const { state, scoreForPlayer } = this
     if (cur > this.MAX_DEPTH || state.isFinal()) return stateScore
 
-    const candidates: IGomokuCandidateState[] = state.expand(player)
+    const candidates: IGomokuCandidateState[] = state.expand(player, scoreForPlayer)
+    if (candidates.length <= 0) return stateScore
 
-    if (player === currentPlayer) {
+    if (player === scoreForPlayer) {
       // Higher score items common first.
       candidates.sort((x, y) => y.score - x.score)
     } else {
@@ -75,15 +71,16 @@ export class GomokuSolution {
       const gamma: number = this.alphaBeta(player ^ 1, alpha, beta, score, cur + 1)
       state.rollback(r, c)
 
-      if (player === currentPlayer) {
+      if (cur === 1) {
         if (alpha < gamma) {
-          // eslint-disable-next-line no-param-reassign
-          alpha = gamma
-          if (cur === 1) {
-            this.bestR = r
-            this.bestC = c
-          }
+          this.bestR = r
+          this.bestC = c
         }
+      }
+
+      if (player === scoreForPlayer) {
+        // eslint-disable-next-line no-param-reassign
+        if (alpha < gamma) alpha = gamma
       } else {
         // eslint-disable-next-line no-param-reassign
         if (beta > gamma) beta = gamma
@@ -91,6 +88,6 @@ export class GomokuSolution {
       if (beta <= alpha) break
     }
 
-    return player === currentPlayer ? alpha : beta
+    return player === scoreForPlayer ? alpha : beta
   }
 }

@@ -12,7 +12,7 @@ class TesterHelper {
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
     const board = new Int32Array(context.TOTAL_POS).fill(-1)
-    const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE, context.MAX_POSSIBLE_INLINE)
+    const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE)
     const countMap = new GomokuCountMap(context, board, scoreMap)
 
     this.context = context
@@ -32,9 +32,9 @@ class TesterHelper {
     const id: number = context.idx(r, c)
     if (board[id] >= 0) return
 
-    countMap.beforeForward(r, c, p)
+    countMap.beforeForward(r, c)
     board[id] = p
-    countMap.afterForward(r, c, p)
+    countMap.afterForward(r, c)
   }
 
   public rollback(r: number, c: number): void {
@@ -43,7 +43,7 @@ class TesterHelper {
     if (board[id] < 0) return
 
     const p: number = board[id]
-    countMap.beforeRollback(r, c, p)
+    countMap.beforeRollback(r, c)
     board[id] = -1
     countMap.afterRollback(r, c, p)
   }

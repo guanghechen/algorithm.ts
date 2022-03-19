@@ -10,7 +10,6 @@ export class GomokuContext {
   public readonly MAX_ROW: number
   public readonly MAX_COL: number
   public readonly MAX_INLINE: number
-  public readonly MAX_POSSIBLE_INLINE: number
   public readonly TOTAL_POS: number
   public readonly TOTAL_PLAYERS: number
 
@@ -18,7 +17,6 @@ export class GomokuContext {
     this.MAX_ROW = MAX_ROW
     this.MAX_COL = MAX_COL
     this.MAX_INLINE = MAX_INLINE
-    this.MAX_POSSIBLE_INLINE = MAX_INLINE * 2 - 1
     this.TOTAL_POS = MAX_ROW * MAX_COL
     this.TOTAL_PLAYERS = 2
   }
