@@ -62,18 +62,17 @@ describe('7x7', () => {
 
   test('basic', function () {
     helper.init()
-    const { context, countMap } = helper
-    const id1: number = context.idx(1, 1)
-    const id2: number = context.idx(2, 2)
+    const id1: number = helper.context.idx(1, 1)
+    const id2: number = helper.context.idx(2, 2)
 
     const testState1 = (): void => {
-      const { continuouslyShapeCountMap, dirCountMap } = countMap.toJSON()
+      const { continuouslyShapeCountMap, dirCountMap } = helper.countMap.toJSON()
       expect(continuouslyShapeCountMap[1][1][2]).toEqual(4)
       expect(gomokuDirectionTypes.every(dirType => dirCountMap[dirType][id1] === 1)).toEqual(true)
     }
 
     const testState2 = (): void => {
-      const { continuouslyShapeCountMap, dirCountMap } = countMap.toJSON()
+      const { continuouslyShapeCountMap, dirCountMap } = helper.countMap.toJSON()
       expect(continuouslyShapeCountMap[1][1][2]).toEqual(6)
       expect(continuouslyShapeCountMap[1][2][2]).toEqual(1)
       expect(
@@ -103,7 +102,8 @@ describe('7x7', () => {
     helper.forward(5, 2, 1)
     helper.forward(4, 2, 0)
     helper.forward(4, 0, 0)
-    expect(countMap.toJSON()).toMatchSnapshot()
+    expect(helper.countMap.isReachTheLimit()).toEqual(true)
+    expect(helper.countMap.toJSON()).toMatchSnapshot()
 
     helper.rollback(4, 0)
     helper.rollback(4, 2)
@@ -152,6 +152,10 @@ describe('7x7', () => {
     helper.forward(0, 4, 1)
     expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
     helper.forward(0, 5, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(0, 2, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.rollback(0, 2)
     expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
   })
 })
