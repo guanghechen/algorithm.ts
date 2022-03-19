@@ -1,6 +1,6 @@
 import type { GomokuContext } from './GomokuContext'
 import { GomokuCountMap } from './GomokuCountMap'
-import type { IGomokuCandidateState, IGomokuPiece } from './types'
+import type { IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
 
 export class GomokuState {
   protected readonly context: GomokuContext
@@ -9,10 +9,10 @@ export class GomokuState {
   protected readonly candidateSet: Set<number>
   protected placedCount: number
 
-  constructor(context: GomokuContext) {
+  constructor(context: GomokuContext, scoreMap: IScoreMap) {
     this.context = context
     this.board = new Int32Array(context.TOTAL_POS)
-    this.countMap = new GomokuCountMap(context, this.board)
+    this.countMap = new GomokuCountMap(context, this.board, scoreMap)
     this.candidateSet = new Set<number>()
     this.placedCount = 0
   }
@@ -105,7 +105,10 @@ export class GomokuState {
   public isFinal(): boolean {
     const { context, countMap, placedCount } = this
     if (placedCount === context.TOTAL_POS) return true
-    return countMap.isReachTheLimit()
+    for (let player = 0; player < context.TOTAL_PLAYERS; ++player) {
+      if (countMap.hasReachedTheLimit(player)) return true
+    }
+    return false
   }
 
   protected hasPlacedNeighbors(r: number, c: number): boolean {

@@ -1,21 +1,25 @@
-import type { IGomokuPiece } from '../src'
+import type { IGomokuPiece, IScoreMap } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionType, gomokuDirectionTypes } from '../src'
+import { createScoreMap } from '../src/util'
 
 class TesterHelper {
   public readonly context: GomokuContext
   public readonly board: Int32Array
   public readonly countMap: GomokuCountMap
   protected readonly pieces: IGomokuPiece[]
+  protected readonly scoreMap: IScoreMap
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
     const board = new Int32Array(context.TOTAL_POS).fill(-1)
-    const countMap = new GomokuCountMap(context, board)
+    const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE, context.MAX_POSSIBLE_INLINE)
+    const countMap = new GomokuCountMap(context, board, scoreMap)
 
     this.context = context
     this.board = board
     this.countMap = countMap
     this.pieces = []
+    this.scoreMap = scoreMap
   }
 
   public init(): void {
@@ -51,7 +55,7 @@ class TesterHelper {
       board[id] = p
     }
 
-    const countMap = new GomokuCountMap(this.context, board)
+    const countMap = new GomokuCountMap(this.context, board, this.scoreMap)
     countMap.init()
     return countMap.toJSON()
   }
@@ -102,7 +106,7 @@ describe('7x7', () => {
     helper.forward(5, 2, 1)
     helper.forward(4, 2, 0)
     helper.forward(4, 0, 0)
-    expect(helper.countMap.isReachTheLimit()).toEqual(true)
+    expect(helper.countMap.hasReachedTheLimit(1)).toEqual(true)
     expect(helper.countMap.toJSON()).toMatchSnapshot()
 
     helper.rollback(4, 0)

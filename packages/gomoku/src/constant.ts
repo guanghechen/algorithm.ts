@@ -53,5 +53,5 @@ export const continuouslyShapeScoreMap: IShapeCount[] = [
   [0, 1, 8], // 1
   [0, 2, 16], // 2
   [0, 32, 64], // 3
-  [0, 520, 520], // 4
+  [0, 520, 2048], // 4
 ]

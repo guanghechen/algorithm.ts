@@ -1,6 +1,7 @@
 import { GomokuContext } from './GomokuContext'
 import { GomokuState } from './GomokuState'
-import type { IGomokuCandidateState, IGomokuPiece } from './types'
+import type { IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
+import { createScoreMap } from './util'
 
 export class GomokuSolution {
   protected readonly MAX_DEPTH: number
@@ -10,12 +11,20 @@ export class GomokuSolution {
   protected bestR: number
   protected bestC: number
 
-  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE = 5, MAX_DEPTH = 3) {
+  constructor(
+    MAX_ROW: number,
+    MAX_COL: number,
+    MAX_INLINE = 5,
+    MAX_DEPTH = 3,
+    scoreMap?: IScoreMap,
+  ) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
+    const _scoreMap: IScoreMap =
+      scoreMap ?? createScoreMap(context.MAX_INLINE, context.MAX_POSSIBLE_INLINE)
 
     this.MAX_DEPTH = MAX_DEPTH
     this.context = context
-    this.state = new GomokuState(context)
+    this.state = new GomokuState(context, _scoreMap)
     this.currentPlayer = -1
     this.bestR = -1
     this.bestC = -1

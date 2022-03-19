@@ -1,14 +1,7 @@
 import type { GomokuDirectionType } from './constant'
-import {
-  continuouslyShapeScoreMap,
-  gomokuDirectionTypes,
-  gomokuDirections,
-  leftHalfGomokuDirectionTypes,
-} from './constant'
+import { gomokuDirectionTypes, gomokuDirections, leftHalfGomokuDirectionTypes } from './constant'
 import type { GomokuContext } from './GomokuContext'
-import type { IShapeCount } from './types'
-
-type IFreeSideResult = [cnt: number, countOfFreeSide: 0 | 1]
+import type { IScoreMap, IShapeCount } from './types'
 
 export class GomokuCountMap {
   protected readonly context: GomokuContext
@@ -16,8 +9,9 @@ export class GomokuCountMap {
   protected readonly dirCountMap: Uint32Array[]
   protected readonly continuouslyShapeCountMap: IShapeCount[][]
   protected readonly gapShapeCountMap: IShapeCount[][]
+  protected readonly scoreMap: IScoreMap
 
-  constructor(context: GomokuContext, board: Readonly<Int32Array>) {
+  constructor(context: GomokuContext, board: Readonly<Int32Array>, scoreMap: IScoreMap) {
     this.context = context
     this.board = board
     this.dirCountMap = new Array(gomokuDirections.length)
@@ -29,6 +23,7 @@ export class GomokuCountMap {
     this.gapShapeCountMap = new Array(context.TOTAL_PLAYERS)
       .fill([])
       .map(() => new Array(context.MAX_POSSIBLE_INLINE + 1).fill([]).map(() => [0, 0, 0]))
+    this.scoreMap = scoreMap
   }
 
   public init(): void {
@@ -356,28 +351,40 @@ export class GomokuCountMap {
   }
 
   public score(player: number): number {
-    if (this.isReachTheLimit()) return Number.MAX_SAFE_INTEGER
+    if (this.hasReachedTheLimit(player)) return Number.MAX_SAFE_INTEGER
+    for (let otherPlayer = 0; otherPlayer < this.context.TOTAL_PLAYERS; ++otherPlayer) {
+      if (otherPlayer !== player && this.hasReachedTheLimit(otherPlayer)) return 0
+    }
 
     let score = 0
-    const { context, continuouslyShapeCountMap } = this
-    for (let i = 1; i < context.MAX_INLINE; ++i) {
-      const [a, b, c] = continuouslyShapeCountMap[player][i]
-      const [s1 = 0, s2 = 32 * 2 ** i, s3 = 128 * 2 ** i] = continuouslyShapeScoreMap[i]
-      score += a * s1 + b * s2 + c * s3
+    const { context, continuouslyShapeCountMap, gapShapeCountMap, scoreMap } = this
+    {
+      const countMap = continuouslyShapeCountMap[player]
+      for (let cnt = 1; cnt < context.MAX_INLINE; ++cnt) {
+        const [a, b, c] = countMap[cnt]
+        const [x, y, z] = scoreMap.continuously[cnt]
+        score += a * x + b * y + c * z
+      }
+    }
+    {
+      const countMap = gapShapeCountMap[player]
+      for (let cnt = 1; cnt <= context.MAX_POSSIBLE_INLINE; ++cnt) {
+        const [a, b, c] = countMap[cnt]
+        const [x, y, z] = scoreMap.gap[cnt]
+        score += a * x + b * y + c * z
+      }
     }
     return score
   }
 
   // Check if it's endgame.
-  public isReachTheLimit(): boolean {
+  public hasReachedTheLimit(player: number): boolean {
     const { context, continuouslyShapeCountMap } = this
     const { MAX_INLINE, MAX_POSSIBLE_INLINE } = context
-    for (let player = 0; player < context.TOTAL_PLAYERS; ++player) {
-      const shapeCountMap: IShapeCount[] = continuouslyShapeCountMap[player]
-      for (let count = MAX_INLINE; count <= MAX_POSSIBLE_INLINE; ++count) {
-        const shapeCount: IShapeCount = shapeCountMap[count]
-        if (shapeCount.some(Boolean)) return true
-      }
+    const countMap: IShapeCount[] = continuouslyShapeCountMap[player]
+    for (let count = MAX_INLINE; count <= MAX_POSSIBLE_INLINE; ++count) {
+      const shapeCount: IShapeCount = countMap[count]
+      if (shapeCount.some(Boolean)) return true
     }
     return false
   }

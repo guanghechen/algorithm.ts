@@ -15,3 +15,8 @@ export type IShapeCount = [
   oneSideAvailable: number,
   twoSideAvailable: number,
 ]
+
+export interface IScoreMap {
+  continuously: IShapeCount[]
+  gap: IShapeCount[]
+}
