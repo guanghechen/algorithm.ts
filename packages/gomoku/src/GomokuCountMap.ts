@@ -22,12 +22,17 @@ export class GomokuCountMap {
       .map(() => new Uint32Array(context.TOTAL_POS))
     this.continuouslyShapeCountMap = new Array(context.TOTAL_PLAYERS)
       .fill([])
-      .map(() => new Array(context.MAX_POSSIBLE_INLINE + 1).fill([]).map(() => [0, 0, 0]))
+      .map(() => new Array(context.MAX_INLINE + 1).fill([]).map(() => [0, 0, 0]))
   }
 
   public init(): void {
     const { context, board, dirCountMap, continuouslyShapeCountMap } = this
     for (const dirType of gomokuDirectionTypes) dirCountMap[dirType].fill(0)
+    for (let player = 0; player < context.TOTAL_PLAYERS; ++player) {
+      for (let i = 0; i <= context.MAX_INLINE; ++i) {
+        continuouslyShapeCountMap[player][i].fill(0)
+      }
+    }
 
     context.traverseAllDirections((r, c, dirType) => {
       const id: number = context.idx(r, c)

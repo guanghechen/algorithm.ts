@@ -1,16 +1,30 @@
+import type { IGomokuPiece } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionType, gomokuDirectionTypes } from '../src'
 
-describe('7x7', () => {
-  const context = new GomokuContext(7, 7, 5)
-  const board = new Int32Array(context.TOTAL_POS).fill(-1)
-  const countMap = new GomokuCountMap(context, board)
+class TesterHelper {
+  public readonly context: GomokuContext
+  public readonly board: Int32Array
+  public readonly countMap: GomokuCountMap
+  protected readonly pieces: IGomokuPiece[]
 
-  const init = (): void => {
-    board.fill(-1)
-    countMap.init()
+  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
+    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
+    const board = new Int32Array(context.TOTAL_POS).fill(-1)
+    const countMap = new GomokuCountMap(context, board)
+
+    this.context = context
+    this.board = board
+    this.countMap = countMap
+    this.pieces = []
   }
 
-  const forward = (r: number, c: number, p: number): void => {
+  public init(): void {
+    this.board.fill(-1)
+    this.countMap.init()
+  }
+
+  public forward(r: number, c: number, p: number): void {
+    const { context, board, countMap } = this
     const id: number = context.idx(r, c)
     if (board[id] >= 0) return
 
@@ -19,7 +33,8 @@ describe('7x7', () => {
     countMap.afterForward(r, c, p)
   }
 
-  const rollback = (r: number, c: number): void => {
+  public rollback(r: number, c: number): void {
+    const { context, board, countMap } = this
     const id: number = context.idx(r, c)
     if (board[id] < 0) return
 
@@ -29,8 +44,25 @@ describe('7x7', () => {
     countMap.afterRollback(r, c, p)
   }
 
+  public snapshot(): ReturnType<GomokuCountMap['toJSON']> {
+    const board = new Int32Array(this.board)
+    for (const { r, c, p } of this.pieces) {
+      const id: number = this.context.idx(r, c)
+      board[id] = p
+    }
+
+    const countMap = new GomokuCountMap(this.context, board)
+    countMap.init()
+    return countMap.toJSON()
+  }
+}
+
+describe('7x7', () => {
+  const helper = new TesterHelper(7, 7, 5)
+
   test('basic', function () {
-    init()
+    helper.init()
+    const { context, countMap } = helper
     const id1: number = context.idx(1, 1)
     const id2: number = context.idx(2, 2)
 
@@ -59,22 +91,55 @@ describe('7x7', () => {
       ).toEqual(true)
     }
 
-    forward(1, 1, 1)
+    helper.forward(1, 1, 1)
     testState1()
 
-    forward(2, 2, 1)
+    helper.forward(2, 2, 1)
     testState2()
 
-    forward(3, 3, 1)
-    forward(4, 4, 1)
-    forward(5, 5, 1)
+    helper.forward(3, 3, 1)
+    helper.forward(4, 4, 1)
+    helper.forward(5, 5, 1)
     expect(countMap.toJSON()).toMatchSnapshot()
 
-    rollback(5, 5)
-    rollback(4, 4)
-    rollback(3, 3)
+    helper.rollback(5, 5)
+    helper.rollback(4, 4)
+    helper.rollback(3, 3)
     testState2()
-    rollback(2, 2)
+    helper.rollback(2, 2)
     testState1()
+  })
+
+  test('complicate', function () {
+    helper.init()
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(1, 1, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(2, 3, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(1, 3, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(3, 1, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(4, 1, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(5, 3, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(6, 4, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.rollback(5, 3)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(1, 1, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.rollback(4, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(3, 6, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.rollback(1, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(0, 0, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(0, 1, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
   })
 })
