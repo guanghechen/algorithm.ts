@@ -125,10 +125,10 @@ export class GomokuState {
   }
 
   protected beforeRollback(r: number, c: number, player: number): void {
-    this.countMap.afterForward(r, c, player)
+    this.countMap.beforeRollback(r, c, player)
   }
 
   protected afterRollback(r: number, c: number, player: number): void {
-    this.countMap.afterForward(r, c, player)
+    this.countMap.afterRollback(r, c, player)
   }
 }

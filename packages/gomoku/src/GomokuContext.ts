@@ -28,7 +28,7 @@ export class GomokuContext {
   }
 
   public idxIfValid(r: number, c: number): number {
-    return this.isInvalidPos(r, c) ? -1 : r * this.MAX_ROW + c
+    return this.isValidPos(r, c) ? r * this.MAX_ROW + c : -1
   }
 
   public reIdx(id: number): [r: number, c: number] {
