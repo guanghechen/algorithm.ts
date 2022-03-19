@@ -2,7 +2,7 @@
 
 exports[`7x7 basic 1`] = `
 Object {
-  "continuouslyShapeCountMap": Array [
+  "conShapeCountMap": Array [
     Array [
       Array [
         0,
@@ -545,4 +545,142 @@ Object {
     ],
   ],
 }
+`;
+
+exports[`15x15 pieces1: conShapeCountMap 1`] = `
+Array [
+  Array [
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      14,
+      6,
+    ],
+    Array [
+      0,
+      2,
+      1,
+    ],
+    Array [
+      0,
+      0,
+      2,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+  ],
+  Array [
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      1,
+      5,
+      3,
+    ],
+    Array [
+      2,
+      1,
+      1,
+    ],
+    Array [
+      0,
+      4,
+      1,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+  ],
+]
+`;
+
+exports[`15x15 pieces1: gapShapeCountMap 1`] = `
+Array [
+  Array [
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      1,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+  ],
+  Array [
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      1,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+  ],
+]
 `;

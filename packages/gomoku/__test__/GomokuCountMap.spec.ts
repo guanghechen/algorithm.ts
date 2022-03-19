@@ -70,15 +70,15 @@ describe('7x7', () => {
     const id2: number = helper.context.idx(2, 2)
 
     const testState1 = (): void => {
-      const { continuouslyShapeCountMap, dirCountMap } = helper.countMap.toJSON()
-      expect(continuouslyShapeCountMap[1][1][2]).toEqual(4)
+      const { conShapeCountMap, dirCountMap } = helper.countMap.toJSON()
+      expect(conShapeCountMap[1][1][2]).toEqual(4)
       expect(gomokuDirectionTypes.every(dirType => dirCountMap[dirType][id1] === 1)).toEqual(true)
     }
 
     const testState2 = (): void => {
-      const { continuouslyShapeCountMap, dirCountMap } = helper.countMap.toJSON()
-      expect(continuouslyShapeCountMap[1][1][2]).toEqual(6)
-      expect(continuouslyShapeCountMap[1][2][2]).toEqual(1)
+      const { conShapeCountMap, dirCountMap } = helper.countMap.toJSON()
+      expect(conShapeCountMap[1][1][2]).toEqual(6)
+      expect(conShapeCountMap[1][2][2]).toEqual(1)
       expect(
         gomokuDirectionTypes.every(
           dirType =>
@@ -161,5 +161,22 @@ describe('7x7', () => {
     expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
     helper.rollback(0, 2)
     expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+  })
+})
+
+describe('15x15', () => {
+  const helper = new TesterHelper(15, 15, 5)
+
+  test('pieces1', async function () {
+    helper.init()
+    const pieces = await import('./fixtures/pieces1.json')
+    for (const { r, c, p } of pieces.default) helper.forward(r, c, p)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+
+    const { conShapeCountMap, gapShapeCountMap } = helper.countMap.toJSON()
+    expect(gapShapeCountMap[0][4][2]).toEqual(1)
+    expect(gapShapeCountMap[1][4][1]).toEqual(1)
+    expect(gapShapeCountMap).toMatchSnapshot('gapShapeCountMap')
+    expect(conShapeCountMap).toMatchSnapshot('conShapeCountMap')
   })
 })

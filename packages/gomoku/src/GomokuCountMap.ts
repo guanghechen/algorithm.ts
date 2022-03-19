@@ -7,7 +7,7 @@ export class GomokuCountMap {
   protected readonly context: GomokuContext
   protected readonly board: Readonly<Int32Array>
   protected readonly dirCountMap: Uint32Array[]
-  protected readonly continuouslyShapeCountMap: IShapeCount[][]
+  protected readonly conShapeCountMap: IShapeCount[][]
   protected readonly gapShapeCountMap: IShapeCount[][]
   protected readonly scoreMap: IScoreMap
 
@@ -17,7 +17,7 @@ export class GomokuCountMap {
     this.dirCountMap = new Array(gomokuDirections.length)
       .fill([])
       .map(() => new Uint32Array(context.TOTAL_POS))
-    this.continuouslyShapeCountMap = new Array(context.TOTAL_PLAYERS)
+    this.conShapeCountMap = new Array(context.TOTAL_PLAYERS)
       .fill([])
       .map(() => new Array(context.MAX_INLINE + 1).fill([]).map(() => [0, 0, 0]))
     this.gapShapeCountMap = new Array(context.TOTAL_PLAYERS)
@@ -28,9 +28,9 @@ export class GomokuCountMap {
 
   public init(): void {
     this.dirCountMap.forEach(idMap => idMap.fill(0))
-    this.continuouslyShapeCountMap.forEach(maps => maps.forEach(countMap => countMap.fill(0)))
+    this.conShapeCountMap.forEach(maps => maps.forEach(countMap => countMap.fill(0)))
     this.gapShapeCountMap.forEach(maps => maps.forEach(countMap => countMap.fill(0)))
-    const { context, board, dirCountMap, continuouslyShapeCountMap, gapShapeCountMap } = this
+    const { context, board, dirCountMap, conShapeCountMap, gapShapeCountMap } = this
 
     // Initialize dirCountMap.
     context.traverseAllDirections((r, c, dirType) => {
@@ -44,13 +44,13 @@ export class GomokuCountMap {
       }
     })
 
-    // Initialize continuouslyShapeCountMap.
+    // Initialize conShapeCountMap.
     context.traverseLeftDirections((r, c, dirType) => {
       const id: number = context.idx(r, c)
       const player: number = board[id]
       if (player >= 0 && dirCountMap[dirType][id] === 1) {
         const [cnt, countOfFreeSide] = this.detectContinuousLine(r, c, dirType)
-        this.updateShapeCountMap(continuouslyShapeCountMap, player, cnt, countOfFreeSide, 1)
+        this.updateShapeCountMap(conShapeCountMap, player, cnt, countOfFreeSide, 1)
       }
     })
 
@@ -78,15 +78,15 @@ export class GomokuCountMap {
   }
 
   public beforeForward(r: number, c: number): void {
-    const { context, board, continuouslyShapeCountMap, gapShapeCountMap } = this
+    const { context, board, conShapeCountMap, gapShapeCountMap } = this
 
-    // Update continuouslyShapeCountMap.
+    // Update conShapeCountMap.
     context.visitValidNeighbors(r, c, (r2, c2, dirType) => {
       const id2: number = context.idx(r2, c2)
       const player2: number = board[id2]
       if (player2 >= 0) {
         const [cnt2, countOfFreeSide2] = this.detectContinuousLine(r2, c2, dirType)
-        this.updateShapeCountMap(continuouslyShapeCountMap, player2, cnt2, countOfFreeSide2, -1)
+        this.updateShapeCountMap(conShapeCountMap, player2, cnt2, countOfFreeSide2, -1)
       }
     })
 
@@ -126,7 +126,7 @@ export class GomokuCountMap {
   }
 
   public afterForward(r: number, c: number): void {
-    const { context, board, dirCountMap, continuouslyShapeCountMap, gapShapeCountMap } = this
+    const { context, board, dirCountMap, conShapeCountMap, gapShapeCountMap } = this
     const id: number = context.idx(r, c)
     const player: number = board[id]
 
@@ -154,10 +154,10 @@ export class GomokuCountMap {
       }
     }
 
-    // Update continuouslyShapeCountMap.
+    // Update conShapeCountMap.
     for (const dirType of leftHalfGomokuDirectionTypes) {
       const [cnt, countOfFreeSide] = this.detectContinuousLine(r, c, dirType)
-      this.updateShapeCountMap(continuouslyShapeCountMap, player, cnt, countOfFreeSide, 1)
+      this.updateShapeCountMap(conShapeCountMap, player, cnt, countOfFreeSide, 1)
 
       const revDirType: GomokuDirectionType = dirType ^ 1
       if (dirCountMap[revDirType][id] === 1) {
@@ -166,7 +166,7 @@ export class GomokuCountMap {
         if (d0 >= 0 && board[d0] >= 0) {
           const player0: number = board[d0]
           const [cnt0, countOfFreeSide0] = this.detectContinuousLine(r0, c0, revDirType)
-          this.updateShapeCountMap(continuouslyShapeCountMap, player0, cnt0, countOfFreeSide0, 1)
+          this.updateShapeCountMap(conShapeCountMap, player0, cnt0, countOfFreeSide0, 1)
         }
       }
 
@@ -176,7 +176,7 @@ export class GomokuCountMap {
         if (d2 >= 0 && board[d2] >= 0) {
           const player2: number = board[d2]
           const [cnt2, countOfFreeSide2] = this.detectContinuousLine(r2, c2, dirType)
-          this.updateShapeCountMap(continuouslyShapeCountMap, player2, cnt2, countOfFreeSide2, 1)
+          this.updateShapeCountMap(conShapeCountMap, player2, cnt2, countOfFreeSide2, 1)
         }
       }
     }
@@ -227,14 +227,14 @@ export class GomokuCountMap {
   }
 
   public beforeRollback(r: number, c: number): void {
-    const { context, board, dirCountMap, continuouslyShapeCountMap, gapShapeCountMap } = this
+    const { context, board, dirCountMap, conShapeCountMap, gapShapeCountMap } = this
     const id: number = context.idx(r, c)
     const player: number = board[id]
 
-    // Update continuouslyShapeCountMap.
+    // Update conShapeCountMap.
     for (const dirType of leftHalfGomokuDirectionTypes) {
       const [cnt, countOfFreeSide] = this.detectContinuousLine(r, c, dirType)
-      this.updateShapeCountMap(continuouslyShapeCountMap, player, cnt, countOfFreeSide, -1)
+      this.updateShapeCountMap(conShapeCountMap, player, cnt, countOfFreeSide, -1)
 
       const revDirType: GomokuDirectionType = dirType ^ 1
       if (dirCountMap[revDirType][id] === 1) {
@@ -243,7 +243,7 @@ export class GomokuCountMap {
         if (d0 >= 0 && board[d0] >= 0) {
           const player0: number = board[d0]
           const [cnt0, countOfFreeSide0] = this.detectContinuousLine(r0, c0, revDirType)
-          this.updateShapeCountMap(continuouslyShapeCountMap, player0, cnt0, countOfFreeSide0, -1)
+          this.updateShapeCountMap(conShapeCountMap, player0, cnt0, countOfFreeSide0, -1)
         }
       }
 
@@ -253,7 +253,7 @@ export class GomokuCountMap {
         if (d2 >= 0 && board[d2] >= 0) {
           const player2: number = board[d2]
           const [cnt2, countOfFreeSide2] = this.detectContinuousLine(r2, c2, dirType)
-          this.updateShapeCountMap(continuouslyShapeCountMap, player2, cnt2, countOfFreeSide2, -1)
+          this.updateShapeCountMap(conShapeCountMap, player2, cnt2, countOfFreeSide2, -1)
         }
       }
     }
@@ -304,7 +304,7 @@ export class GomokuCountMap {
   }
 
   public afterRollback(r: number, c: number, player: number): void {
-    const { context, board, dirCountMap, continuouslyShapeCountMap, gapShapeCountMap } = this
+    const { context, board, dirCountMap, conShapeCountMap, gapShapeCountMap } = this
     const id: number = context.idx(r, c)
 
     // Update dirCountMap.
@@ -326,13 +326,13 @@ export class GomokuCountMap {
       }
     }
 
-    // Update continuouslyShapeCountMap.
+    // Update conShapeCountMap.
     context.visitValidNeighbors(r, c, (r2, c2, dirType) => {
       const id2: number = context.idx(r2, c2)
       const player2: number = board[id2]
       if (player2 >= 0) {
         const [cnt2, countOfFreeSide2] = this.detectContinuousLine(r2, c2, dirType)
-        this.updateShapeCountMap(continuouslyShapeCountMap, player2, cnt2, countOfFreeSide2, 1)
+        this.updateShapeCountMap(conShapeCountMap, player2, cnt2, countOfFreeSide2, 1)
       }
     })
 
@@ -375,17 +375,17 @@ export class GomokuCountMap {
     if (this.hasReachedTheLimit(scoreForPlayer)) return Number.MAX_SAFE_INTEGER
     if (this.hasReachedTheLimit(scoreForPlayer ^ 1)) return -1
 
-    const { context, continuouslyShapeCountMap, gapShapeCountMap, scoreMap } = this
-    if (this.countOfDangerShape(currentPlayer) > 0) {
-      return currentPlayer === scoreForPlayer ? Number.MAX_SAFE_INTEGER : -1
-    }
-
-    if (this.countOfDangerShape(currentPlayer ^ 1) > 1) {
+    const { context, conShapeCountMap, gapShapeCountMap, scoreMap } = this
+    if (this.countOfDangerShape(currentPlayer ^ 1) > 0) {
       return currentPlayer === scoreForPlayer ? -1 : Number.MAX_SAFE_INTEGER
     }
 
+    if (this.countOfDangerShape(currentPlayer) > 1) {
+      return currentPlayer === scoreForPlayer ? Number.MAX_SAFE_INTEGER : -1
+    }
+
     let score = 0
-    const conCountMap = continuouslyShapeCountMap[scoreForPlayer]
+    const conCountMap = conShapeCountMap[scoreForPlayer]
     for (let cnt = 1; cnt < context.MAX_INLINE; ++cnt) {
       const [a, b, c] = conCountMap[cnt]
       const [x, y, z] = scoreMap.continuously[cnt]
@@ -403,14 +403,14 @@ export class GomokuCountMap {
 
   // Check if it's endgame.
   public hasReachedTheLimit(player: number): boolean {
-    const { context, continuouslyShapeCountMap } = this
-    return continuouslyShapeCountMap[player][context.MAX_INLINE].some(x => x > 0)
+    const { context, conShapeCountMap } = this
+    return conShapeCountMap[player][context.MAX_INLINE].some(x => x > 0)
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   public toJSON() {
-    const { dirCountMap, continuouslyShapeCountMap, gapShapeCountMap } = this
-    return { dirCountMap, continuouslyShapeCountMap, gapShapeCountMap }
+    const { dirCountMap, conShapeCountMap, gapShapeCountMap } = this
+    return { dirCountMap, conShapeCountMap, gapShapeCountMap }
   }
 
   protected detectContinuousLine(
@@ -476,8 +476,8 @@ export class GomokuCountMap {
   }
 
   protected countOfDangerShape(player: number): number {
-    const { context, continuouslyShapeCountMap, gapShapeCountMap } = this
-    const shapeCountMap1 = continuouslyShapeCountMap[player][context.MAX_INLINE - 1]
+    const { context, conShapeCountMap, gapShapeCountMap } = this
+    const shapeCountMap1 = conShapeCountMap[player][context.MAX_INLINE - 1]
     const shapeCountMap2 = gapShapeCountMap[player][context.MAX_INLINE]
     const cnt: number =
       shapeCountMap1[1] +
