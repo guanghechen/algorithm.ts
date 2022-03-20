@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dijkstra",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Dijkstra algorithm optimized with @algorithm.ts/priority-queue.",
   "author": {
     "name": "guanghechen",
@@ -43,6 +43,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/priority-queue": "^2.0.3"
+    "@algorithm.ts/priority-queue": "^2.0.4"
   }
 }
