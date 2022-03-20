@@ -10,8 +10,14 @@ export class GomokuCountMap {
   protected readonly conShapeCountMap: IShapeCount[][]
   protected readonly gapShapeCountMap: IShapeCount[][]
   protected readonly scoreMap: IScoreMap
+  protected readonly NEXT_MOVER_FAC: number
 
-  constructor(context: GomokuContext, board: Readonly<Int32Array>, scoreMap: IScoreMap) {
+  constructor(
+    context: GomokuContext,
+    board: Readonly<Int32Array>,
+    scoreMap: IScoreMap,
+    NEXT_MOVER_FAC = 1.4,
+  ) {
     this.context = context
     this.board = board
     this.dirCountMap = new Array(gomokuDirections.length)
@@ -24,6 +30,7 @@ export class GomokuCountMap {
       .fill([])
       .map(() => new Array(context.MAX_INLINE + 1).fill([]).map(() => [0, 0, 0]))
     this.scoreMap = scoreMap
+    this.NEXT_MOVER_FAC = NEXT_MOVER_FAC
   }
 
   public init(): void {
@@ -365,29 +372,21 @@ export class GomokuCountMap {
     if (this.hasReachedTheLimit(scoreForPlayer ^ 1)) return Number.NEGATIVE_INFINITY
 
     const { context, conShapeCountMap, gapShapeCountMap, scoreMap } = this
-    // if (this.countDangerShapes(currentPlayer ^ 1) > 0) {
-    //   return currentPlayer === scoreForPlayer ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY
-    // }
-
-    // if (this.countDangerShapes(currentPlayer) > 1) {
-    //   return currentPlayer === scoreForPlayer ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY
-    // }
+    const conCountMap = conShapeCountMap[scoreForPlayer]
+    const gapCountMap = gapShapeCountMap[scoreForPlayer]
 
     let score = 0
-    const conCountMap = conShapeCountMap[scoreForPlayer]
     for (let cnt = 1; cnt < context.MAX_INLINE; ++cnt) {
       const [a, b, c] = conCountMap[cnt]
       const [x, y, z] = scoreMap.continuously[cnt]
       score += a * x + b * y + c * z
     }
-
-    const gapCountMap = gapShapeCountMap[scoreForPlayer]
     for (let cnt = 1; cnt <= context.MAX_INLINE; ++cnt) {
       const [a, b, c] = gapCountMap[cnt]
       const [x, y, z] = scoreMap.gap[cnt]
       score += a * x + b * y + c * z
     }
-    return score
+    return currentPlayer === scoreForPlayer ? score : score * this.NEXT_MOVER_FAC
   }
 
   // Check if it's endgame.

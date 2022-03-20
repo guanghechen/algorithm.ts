@@ -9,10 +9,10 @@ export class GomokuState {
   protected readonly candidateSet: Set<number>
   protected placedCount: number
 
-  constructor(context: GomokuContext, scoreMap: IScoreMap) {
+  constructor(context: GomokuContext, scoreMap: IScoreMap, NEXT_MOVER_FAC?: number) {
     this.context = context
     this.board = new Int32Array(context.TOTAL_POS)
-    this.countMap = new GomokuCountMap(context, this.board, scoreMap)
+    this.countMap = new GomokuCountMap(context, this.board, scoreMap, NEXT_MOVER_FAC)
     this.candidateSet = new Set<number>()
     this.placedCount = 0
   }

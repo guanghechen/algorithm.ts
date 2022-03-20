@@ -20,13 +20,14 @@ export class GomokuSolution {
     MAX_INLINE = 5,
     MAX_DEPTH = 3,
     scoreMap?: IScoreMap,
+    NEXT_MOVER_FAC?: number,
   ) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
     const _scoreMap: IScoreMap = scoreMap ?? createScoreMap(context.MAX_INLINE)
 
     this.MAX_DEPTH = Math.max(1, Math.round(MAX_DEPTH))
     this.context = context
-    this.state = new GomokuState(context, _scoreMap)
+    this.state = new GomokuState(context, _scoreMap, NEXT_MOVER_FAC)
     this.stateCompressor = new GomokuStateCompressor(BigInt(context.TOTAL_POS))
     this.stateCache = new Map()
     this.scoreForPlayer = -1
