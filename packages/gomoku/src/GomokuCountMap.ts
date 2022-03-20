@@ -372,16 +372,16 @@ export class GomokuCountMap {
   }
 
   public score(currentPlayer: number, scoreForPlayer: number): number {
-    if (this.hasReachedTheLimit(scoreForPlayer)) return Number.MAX_SAFE_INTEGER
-    if (this.hasReachedTheLimit(scoreForPlayer ^ 1)) return -1
+    if (this.hasReachedTheLimit(scoreForPlayer)) return Number.POSITIVE_INFINITY
+    if (this.hasReachedTheLimit(scoreForPlayer ^ 1)) return Number.NEGATIVE_INFINITY
 
     const { context, conShapeCountMap, gapShapeCountMap, scoreMap } = this
     if (this.countOfDangerShape(currentPlayer ^ 1) > 0) {
-      return currentPlayer === scoreForPlayer ? -1 : Number.MAX_SAFE_INTEGER
+      return currentPlayer === scoreForPlayer ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY
     }
 
     if (this.countOfDangerShape(currentPlayer) > 1) {
-      return currentPlayer === scoreForPlayer ? Number.MAX_SAFE_INTEGER : -1
+      return currentPlayer === scoreForPlayer ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY
     }
 
     let score = 0

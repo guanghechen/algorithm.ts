@@ -93,12 +93,15 @@ export class GomokuState {
       candidate.score = this.score(currentPlayer, scoreForPlayer)
       this.rollback(r, c)
     }
-    return candidates.filter(candidate => candidate.score >= 0)
+    return candidates
   }
 
   // Get score of current state.
   public score(currentPlayer: number, scoreForPlayer: number): number {
-    return this.countMap.score(currentPlayer, scoreForPlayer)
+    return (
+      this.countMap.score(currentPlayer, scoreForPlayer) -
+      this.countMap.score(currentPlayer, scoreForPlayer ^ 1)
+    )
   }
 
   // Check if it's endgame.

@@ -38,9 +38,11 @@ export class GomokuSolution {
   }
 
   public minmaxMatch(currentPlayer: number): { r: number; c: number } {
+    if (this.state.isFinal()) return { r: -1, c: -1 }
+
     this.scoreForPlayer = currentPlayer
     this.bestR = this.bestC = -1
-    this.alphaBeta(currentPlayer, 0, Number.MAX_SAFE_INTEGER, 0, 1)
+    this.alphaBeta(currentPlayer, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, 0, 1)
     const { bestR: r, bestC: c } = this
     return r < 0 || c < 0 ? this.state.randomMove() : { r, c }
   }
