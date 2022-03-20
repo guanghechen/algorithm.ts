@@ -58,18 +58,6 @@ export class GomokuContext {
     return [r2, c2]
   }
 
-  public moveToLatestPlacedPos(r: number, c: number, dirType: GomokuDirectionType): number {
-    const { board } = this
-    const [dr, dc] = gomokuDirections[dirType]
-    let r2: number = r + dr
-    let c2: number = c + dc
-    for (; this.isValidPos(r2, c2); r2 += dr, c2 += dc) {
-      const id2: number = this.idx(r2, c2)
-      if (board[id2] >= 0) return id2
-    }
-    return -1
-  }
-
   public visitValidNeighbors(
     r: number,
     c: number,
