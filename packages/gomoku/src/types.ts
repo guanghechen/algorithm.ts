@@ -20,3 +20,5 @@ export interface IScoreMap {
   continuously: IShapeCount[]
   gap: IShapeCount[]
 }
+
+export type IGomokuBoard = Int32Array

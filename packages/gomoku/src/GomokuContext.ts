@@ -5,6 +5,7 @@ import {
   leftHalfGomokuDirectionTypes,
   rightHalfGomokuDirectionTypes,
 } from './constant'
+import type { IGomokuBoard } from './types'
 
 export class GomokuContext {
   public readonly MAX_ROW: number
@@ -12,6 +13,7 @@ export class GomokuContext {
   public readonly MAX_INLINE: number
   public readonly TOTAL_POS: number
   public readonly TOTAL_PLAYERS: number
+  public readonly board: Readonly<IGomokuBoard>
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
     this.MAX_ROW = MAX_ROW
@@ -19,6 +21,7 @@ export class GomokuContext {
     this.MAX_INLINE = MAX_INLINE
     this.TOTAL_POS = MAX_ROW * MAX_COL
     this.TOTAL_PLAYERS = 2
+    this.board = new Int32Array(this.TOTAL_POS)
   }
 
   public idx(r: number, c: number): number {
@@ -35,6 +38,14 @@ export class GomokuContext {
     return [r, c]
   }
 
+  public isValidPos(r: number, c: number): boolean {
+    return r >= 0 && r < this.MAX_ROW && c >= 0 && c < this.MAX_COL
+  }
+
+  public isInvalidPos(r: number, c: number): boolean {
+    return r < 0 || r >= this.MAX_ROW || c < 0 || c >= this.MAX_COL
+  }
+
   public move(
     r: number,
     c: number,
@@ -47,12 +58,16 @@ export class GomokuContext {
     return [r2, c2]
   }
 
-  public isValidPos(r: number, c: number): boolean {
-    return r >= 0 && r < this.MAX_ROW && c >= 0 && c < this.MAX_COL
-  }
-
-  public isInvalidPos(r: number, c: number): boolean {
-    return r < 0 || r >= this.MAX_ROW || c < 0 || c >= this.MAX_COL
+  public moveToLatestPlacedPos(r: number, c: number, dirType: GomokuDirectionType): number {
+    const { board } = this
+    const [dr, dc] = gomokuDirections[dirType]
+    let r2: number = r + dr
+    let c2: number = c + dc
+    for (; this.isValidPos(r2, c2); r2 += dr, c2 += dc) {
+      const id2: number = this.idx(r2, c2)
+      if (board[id2] >= 0) return id2
+    }
+    return -1
   }
 
   public visitValidNeighbors(
@@ -66,14 +81,14 @@ export class GomokuContext {
     }
   }
 
-  public hasGoodNeighbor(
-    r: number,
-    c: number,
-    isGoodNeighbor: (r2: number, c2: number, dirType: GomokuDirectionType) => boolean,
-  ): boolean {
+  public hasPlacedNeighbors(r: number, c: number): boolean {
+    const { board } = this
     for (const dirType of gomokuDirectionTypes) {
       const [r2, c2] = this.move(r, c, dirType)
-      if (this.isValidPos(r2, c2) && isGoodNeighbor(r2, c2, dirType)) return true
+      if (this.isValidPos(r2, c2)) {
+        const id2: number = this.idx(r2, c2)
+        if (board[id2] >= 0) return true
+      }
     }
     return false
   }

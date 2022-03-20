@@ -1,24 +1,23 @@
 import type { GomokuContext } from './GomokuContext'
 import { GomokuCountMap } from './GomokuCountMap'
-import type { IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
+import type { IGomokuBoard, IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
 
 export class GomokuState {
   protected readonly context: GomokuContext
-  protected readonly board: Int32Array
   protected readonly countMap: GomokuCountMap
   protected readonly candidateSet: Set<number>
   protected placedCount: number
 
   constructor(context: GomokuContext, scoreMap: IScoreMap, NEXT_MOVER_FAC?: number) {
     this.context = context
-    this.board = new Int32Array(context.TOTAL_POS)
-    this.countMap = new GomokuCountMap(context, this.board, scoreMap, NEXT_MOVER_FAC)
+    this.countMap = new GomokuCountMap(context, scoreMap, NEXT_MOVER_FAC)
     this.candidateSet = new Set<number>()
     this.placedCount = 0
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece> = []): void {
-    const { context, board, candidateSet } = this
+    const { context, candidateSet } = this
+    const board = context.board as IGomokuBoard
 
     this.placedCount = pieces.length
     board.fill(-1)
@@ -39,9 +38,10 @@ export class GomokuState {
 
   // Place a piece in r-th row and c-th column.
   public forward(r: number, c: number, player: number): void {
-    const { context, board, candidateSet } = this
-    const id: number = context.idx(r, c)
-    if (board[id] >= 0) return
+    const { context, candidateSet } = this
+    const board = context.board as IGomokuBoard
+    const id: number = context.idxIfValid(r, c)
+    if (id < 0 || board[id] >= 0) return
 
     this.beforeForward(r, c)
     {
@@ -58,19 +58,20 @@ export class GomokuState {
 
   // Remove the piece in r-th row and c-th column.
   public rollback(r: number, c: number): void {
-    const { context, board, candidateSet } = this
-    const id: number = context.idx(r, c)
-    const player: number = board[id]
-    if (player < 0) return
+    const { context, candidateSet } = this
+    const board = context.board as IGomokuBoard
+    const id: number = context.idxIfValid(r, c)
+    if (id < 0 || board[id] < 0) return
 
+    const player: number = board[id]
     this.beforeRollback(r, c)
     {
       this.placedCount -= 1
       board[id] = -1
-      if (this.hasPlacedNeighbors(r, c)) candidateSet.add(id)
+      if (context.hasPlacedNeighbors(r, c)) candidateSet.add(id)
       context.visitValidNeighbors(r, c, (r2, c2) => {
         const id2: number = context.idx(r2, c2)
-        if (board[id2] >= 0 || !this.hasPlacedNeighbors(r2, c2)) {
+        if (board[id2] >= 0 || !context.hasPlacedNeighbors(r2, c2)) {
           candidateSet.delete(id2)
         }
       })
@@ -79,7 +80,9 @@ export class GomokuState {
   }
 
   public expand(currentPlayer: number, scoreForPlayer: number): IGomokuCandidateState[] {
-    const { context, board, candidateSet } = this
+    const { context, candidateSet } = this
+    const { board } = context
+
     const candidates: IGomokuCandidateState[] = []
     for (const id of candidateSet) {
       if (board[id] >= 0) continue
@@ -115,7 +118,9 @@ export class GomokuState {
   }
 
   public randomMove(): { r: number; c: number } {
-    const { context, board, candidateSet } = this
+    const { context, candidateSet } = this
+    const { board } = context
+
     let result: { r: number; c: number } | null = null
     for (const id of candidateSet) {
       const [r, c] = context.reIdx(id)
@@ -129,14 +134,6 @@ export class GomokuState {
       })
     }
     return result ?? { r: -1, c: -1 }
-  }
-
-  protected hasPlacedNeighbors(r: number, c: number): boolean {
-    const { context, board } = this
-    return context.hasGoodNeighbor(r, c, (r2, c2): boolean => {
-      const id2: number = context.idx(r2, c2)
-      return board[id2] >= 0
-    })
   }
 
   protected beforeForward(r: number, c: number): void {

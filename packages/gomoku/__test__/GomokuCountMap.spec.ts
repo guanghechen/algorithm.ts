@@ -1,20 +1,20 @@
 import fs from 'fs-extra'
 import { locateFixtures } from 'jest.setup'
-import type { IGomokuPiece, IScoreMap } from '../src'
+import type { IGomokuBoard, IGomokuPiece, IScoreMap } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionType, gomokuDirectionTypes } from '../src'
 import { createScoreMap } from '../src/util'
 
 class TesterHelper {
   public readonly context: GomokuContext
-  public readonly board: Int32Array
+  public readonly board: IGomokuBoard
   public readonly countMap: GomokuCountMap
   protected readonly scoreMap: IScoreMap
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
-    const board = new Int32Array(context.TOTAL_POS).fill(-1)
+    const board = context.board as IGomokuBoard
     const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE)
-    const countMap = new GomokuCountMap(context, board, scoreMap)
+    const countMap = new GomokuCountMap(context, scoreMap)
 
     this.context = context
     this.board = board
@@ -52,8 +52,7 @@ class TesterHelper {
   }
 
   public snapshot(): ReturnType<GomokuCountMap['toJSON']> {
-    const board = new Int32Array(this.board)
-    const countMap = new GomokuCountMap(this.context, board, this.scoreMap)
+    const countMap = new GomokuCountMap(this.context, this.scoreMap)
     countMap.init()
     return countMap.toJSON()
   }
@@ -69,13 +68,15 @@ describe('7x7', () => {
 
     const testState1 = (): void => {
       const { conShapeCountMap, dirCountMap } = helper.countMap.toJSON()
-      expect(conShapeCountMap[1][1][2]).toEqual(4)
+      expect(conShapeCountMap[1][1][0]).toEqual(1)
+      expect(conShapeCountMap[1][1][2]).toEqual(3)
       expect(gomokuDirectionTypes.every(dirType => dirCountMap[dirType][id1] === 1)).toEqual(true)
     }
 
     const testState2 = (): void => {
       const { conShapeCountMap, dirCountMap } = helper.countMap.toJSON()
-      expect(conShapeCountMap[1][1][2]).toEqual(6)
+      expect(conShapeCountMap[1][1][0]).toEqual(1)
+      expect(conShapeCountMap[1][1][2]).toEqual(5)
       expect(conShapeCountMap[1][2][2]).toEqual(1)
       expect(
         gomokuDirectionTypes.every(
@@ -178,5 +179,43 @@ describe('15x15', () => {
     expect(conShapeCountMap[1][4][2]).toEqual(1)
     expect(gapShapeCountMap).toMatchSnapshot('gapShapeCountMap')
     expect(conShapeCountMap).toMatchSnapshot('conShapeCountMap')
+  })
+
+  test('edge case - 1', function () {
+    helper.init()
+    helper.forward(7, 7, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(6, 8, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(5, 7, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(4, 8, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(3, 8, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(2, 8, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(7, 8, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+  })
+
+  test('edge case - 2', function () {
+    helper.init()
+    helper.forward(7, 7, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(7, 6, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(6, 6, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(8, 5, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(6, 7, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(8, 7, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(9, 4, 0)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+    helper.forward(8, 6, 1)
+    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
   })
 })
