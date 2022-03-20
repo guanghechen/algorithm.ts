@@ -1,3 +1,5 @@
+import fs from 'fs-extra'
+import { locateFixtures } from 'jest.setup'
 import type { IGomokuPiece, IScoreMap } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionType, gomokuDirectionTypes } from '../src'
 import { createScoreMap } from '../src/util'
@@ -6,7 +8,6 @@ class TesterHelper {
   public readonly context: GomokuContext
   public readonly board: Int32Array
   public readonly countMap: GomokuCountMap
-  protected readonly pieces: IGomokuPiece[]
   protected readonly scoreMap: IScoreMap
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
@@ -18,13 +19,15 @@ class TesterHelper {
     this.context = context
     this.board = board
     this.countMap = countMap
-    this.pieces = []
     this.scoreMap = scoreMap
   }
 
-  public init(): void {
+  public init(pieces?: IGomokuPiece[]): void {
     this.board.fill(-1)
     this.countMap.init()
+    if (pieces) {
+      for (const { r, c, p } of pieces) this.forward(r, c, p)
+    }
   }
 
   public forward(r: number, c: number, p: number): void {
@@ -50,11 +53,6 @@ class TesterHelper {
 
   public snapshot(): ReturnType<GomokuCountMap['toJSON']> {
     const board = new Int32Array(this.board)
-    for (const { r, c, p } of this.pieces) {
-      const id: number = this.context.idx(r, c)
-      board[id] = p
-    }
-
     const countMap = new GomokuCountMap(this.context, board, this.scoreMap)
     countMap.init()
     return countMap.toJSON()
@@ -119,63 +117,65 @@ describe('7x7', () => {
     helper.rollback(2, 2)
     testState1()
   })
-
-  test('complicate', function () {
-    helper.init()
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(1, 1, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(2, 3, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(1, 3, 0)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(3, 1, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(4, 1, 0)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(5, 3, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(6, 4, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.rollback(5, 3)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(1, 1, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.rollback(4, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(3, 6, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.rollback(1, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(0, 0, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(0, 1, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(0, 3, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(0, 4, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(0, 5, 0)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.forward(0, 2, 1)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-    helper.rollback(0, 2)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
-  })
 })
 
 describe('15x15', () => {
   const helper = new TesterHelper(15, 15, 5)
 
-  test('pieces1', async function () {
-    helper.init()
-    const pieces = await import('./fixtures/pieces1.json')
-    for (const { r, c, p } of pieces.default) helper.forward(r, c, p)
-    expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+  test('overview', async function () {
+    const filepaths = fs
+      .readdirSync(locateFixtures('15x15'))
+      .filter(filename => /pieces\.\d+?\.json$/.test(filename))
+      .map(filename => locateFixtures('15x15', filename))
+      .filter(filepath => fs.statSync(filepath).isFile())
+    expect(filepaths.length).toBeGreaterThan(0)
+    for (const filepath of filepaths) {
+      const pieces = await fs.readJSON(filepath)
+      helper.init()
+      for (let i = 0; i < pieces.length; ++i) {
+        const { r, c, p } = pieces[i]
+        if (i > 0 && Math.random() > 0.8) {
+          helper.rollback(r, c)
+          i -= 2
+        } else {
+          helper.forward(r, c, p)
+        }
+        expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+      }
+      expect(helper.countMap.toJSON()).toEqual(helper.snapshot())
+
+      let pieceCnt = 0
+      for (let r = 0; r < helper.context.MAX_ROW; ++r) {
+        for (let c = 0; c < helper.context.MAX_COL; ++c) {
+          const id: number = helper.context.idx(r, c)
+          if (helper.board[id] >= 0) pieceCnt += 1
+        }
+      }
+      expect(pieceCnt).toEqual(pieces.length)
+    }
+  })
+
+  test('pieces.1', async function () {
+    const pieces = await import('./fixtures/15x15/pieces.1.json')
+    helper.init(pieces.default)
 
     const { conShapeCountMap, gapShapeCountMap } = helper.countMap.toJSON()
     expect(gapShapeCountMap[0][4][2]).toEqual(1)
     expect(gapShapeCountMap[1][4][1]).toEqual(1)
+    expect(gapShapeCountMap).toMatchSnapshot('gapShapeCountMap')
+    expect(conShapeCountMap).toMatchSnapshot('conShapeCountMap')
+  })
+
+  test('pieces.2', async function () {
+    const pieces = await import('./fixtures/15x15/pieces.2.json')
+    helper.init(pieces.default)
+
+    const { conShapeCountMap, gapShapeCountMap } = helper.countMap.toJSON()
+    expect(gapShapeCountMap[0][4][2]).toEqual(1)
+    expect(gapShapeCountMap[1][4][2]).toEqual(1)
+    expect(conShapeCountMap[0][4][2]).toEqual(1)
+    expect(conShapeCountMap[0][3][2]).toEqual(1)
+    expect(conShapeCountMap[1][4][2]).toEqual(1)
     expect(gapShapeCountMap).toMatchSnapshot('gapShapeCountMap')
     expect(conShapeCountMap).toMatchSnapshot('conShapeCountMap')
   })

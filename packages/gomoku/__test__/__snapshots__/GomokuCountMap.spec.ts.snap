@@ -547,7 +547,7 @@ Object {
 }
 `;
 
-exports[`15x15 pieces1: conShapeCountMap 1`] = `
+exports[`15x15 pieces.1: conShapeCountMap 1`] = `
 Array [
   Array [
     Array [
@@ -616,7 +616,7 @@ Array [
 ]
 `;
 
-exports[`15x15 pieces1: gapShapeCountMap 1`] = `
+exports[`15x15 pieces.1: gapShapeCountMap 1`] = `
 Array [
   Array [
     Array [
@@ -675,6 +675,144 @@ Array [
       0,
       1,
       0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+  ],
+]
+`;
+
+exports[`15x15 pieces.2: conShapeCountMap 1`] = `
+Array [
+  Array [
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      2,
+      20,
+      19,
+    ],
+    Array [
+      0,
+      0,
+      2,
+    ],
+    Array [
+      0,
+      0,
+      1,
+    ],
+    Array [
+      0,
+      0,
+      1,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+  ],
+  Array [
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      2,
+      20,
+      16,
+    ],
+    Array [
+      0,
+      0,
+      3,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      1,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+  ],
+]
+`;
+
+exports[`15x15 pieces.2: gapShapeCountMap 1`] = `
+Array [
+  Array [
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      4,
+      4,
+      1,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      1,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+  ],
+  Array [
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      1,
+      1,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      0,
+    ],
+    Array [
+      0,
+      0,
+      1,
     ],
     Array [
       0,
