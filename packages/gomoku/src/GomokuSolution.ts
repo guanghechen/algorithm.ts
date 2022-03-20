@@ -54,8 +54,8 @@ export class GomokuSolution {
       Number.NEGATIVE_INFINITY,
       Number.POSITIVE_INFINITY,
       0,
-      0,
       this.stateCompressor.INITIAL_STATE,
+      0,
     )
     const { bestR: r, bestC: c } = this
     return r < 0 || c < 0 ? this.state.randomMove() : { r, c }
@@ -65,9 +65,9 @@ export class GomokuSolution {
     player: number,
     alpha: number,
     beta: number,
-    stateScore: number,
     cur: number,
     prevState: bigint,
+    stateScore: number,
   ): number {
     const { context, state, stateCompressor, stateCache, scoreForPlayer } = this
     if (cur === this.MAX_DEPTH || state.isFinal()) return stateScore
@@ -95,7 +95,7 @@ export class GomokuSolution {
       let gamma = stateCache.get(nextState)
       if (gamma === undefined) {
         state.forward(r, c, player)
-        gamma = this.alphaBeta(player ^ 1, alpha, beta, score, cur + 1, nextState)
+        gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, nextState, score)
         state.rollback(r, c)
         stateCache.set(nextState, gamma)
       }
