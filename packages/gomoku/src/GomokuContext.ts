@@ -61,9 +61,7 @@ export class GomokuContext {
     touch: (r2: number, c2: number, dirType: GomokuDirectionType) => void,
   ): void {
     for (const dirType of gomokuDirectionTypes) {
-      const [dr, dc] = gomokuDirections[dirType]
-      const r2: number = r + dr
-      const c2: number = c + dc
+      const [r2, c2] = this.move(r, c, dirType)
       if (this.isValidPos(r2, c2)) touch(r2, c2, dirType)
     }
   }
@@ -74,9 +72,7 @@ export class GomokuContext {
     isGoodNeighbor: (r2: number, c2: number, dirType: GomokuDirectionType) => boolean,
   ): boolean {
     for (const dirType of gomokuDirectionTypes) {
-      const [dr, dc] = gomokuDirections[dirType]
-      const r2: number = r + dr
-      const c2: number = c + dc
+      const [r2, c2] = this.move(r, c, dirType)
       if (this.isValidPos(r2, c2) && isGoodNeighbor(r2, c2, dirType)) return true
     }
     return false

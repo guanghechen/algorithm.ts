@@ -68,6 +68,12 @@ export class GomokuSolution {
       candidates.sort((x, y) => x.score - y.score)
     }
 
+    if (cur === 1 && this.bestR === -1) {
+      const { r, c } = candidates[0]
+      this.bestR = r
+      this.bestC = c
+    }
+
     for (const { r, c, score } of candidates) {
       state.forward(r, c, player)
       const gamma: number = this.alphaBeta(player ^ 1, alpha, beta, score, cur + 1)

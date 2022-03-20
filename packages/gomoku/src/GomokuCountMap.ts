@@ -365,13 +365,13 @@ export class GomokuCountMap {
     if (this.hasReachedTheLimit(scoreForPlayer ^ 1)) return Number.NEGATIVE_INFINITY
 
     const { context, conShapeCountMap, gapShapeCountMap, scoreMap } = this
-    if (this.countDangerShapes(currentPlayer ^ 1) > 0) {
-      return currentPlayer === scoreForPlayer ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY
-    }
+    // if (this.countDangerShapes(currentPlayer ^ 1) > 0) {
+    //   return currentPlayer === scoreForPlayer ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY
+    // }
 
-    if (this.countDangerShapes(currentPlayer) > 1) {
-      return currentPlayer === scoreForPlayer ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY
-    }
+    // if (this.countDangerShapes(currentPlayer) > 1) {
+    //   return currentPlayer === scoreForPlayer ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY
+    // }
 
     let score = 0
     const conCountMap = conShapeCountMap[scoreForPlayer]
