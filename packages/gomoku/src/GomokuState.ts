@@ -17,7 +17,7 @@ export class GomokuState {
     this.placedCount = 0
   }
 
-  public init(pieces: ReadonlyArray<IGomokuPiece>): void {
+  public init(pieces: ReadonlyArray<IGomokuPiece> = []): void {
     const { context, board, candidateSet } = this
 
     this.placedCount = pieces.length
@@ -115,15 +115,20 @@ export class GomokuState {
   }
 
   public randomMove(): { r: number; c: number } {
-    const { context, board } = this
-    const { MAX_ROW, MAX_COL } = this.context
-    for (let r = 0; r < MAX_ROW; ++r) {
-      for (let c = 0; c < MAX_COL; ++c) {
-        const id = context.idx(r, c)
-        if (board[id] < 0) return { r, c }
-      }
+    const { context, board, candidateSet } = this
+    let result: { r: number; c: number } | null = null
+    for (const id of candidateSet) {
+      const [r, c] = context.reIdx(id)
+      context.visitValidNeighbors(r, c, (r2, c2) => {
+        if (result) return
+
+        const id2: number = context.idx(r2, c2)
+        if (board[id2] < 0) {
+          result = { r: r2, c: c2 }
+        }
+      })
     }
-    return { r: -1, c: -1 }
+    return result ?? { r: -1, c: -1 }
   }
 
   protected hasPlacedNeighbors(r: number, c: number): boolean {
