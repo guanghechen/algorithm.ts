@@ -1,5 +1,48 @@
 # Changelog
 
+<a name="2.0.4"></a>
+## 2.0.4 (2022-03-20)
+
+### Added
+
+- ✨ feat(gomoku): add GomokuStateCompressor [[ad419ad](https://github.com/guanghechen/algorithm.ts/commit/ad419adb2e8223699c8b02fb7b711f66065ef813)]
+- ✅ test(gomoku): update tests [[40ed757](https://github.com/guanghechen/algorithm.ts/commit/40ed757ea6dff8193ec8f05893169cf196a68b48)]
+- ✅ test: update tests [[d78bfdb](https://github.com/guanghechen/algorithm.ts/commit/d78bfdbfdae75c45bf2a2bf3c1c77658db867e9c)]
+- ✨ feat: implement @algorithm.ts/gomoku [[a961f2c](https://github.com/guanghechen/algorithm.ts/commit/a961f2c465f358269becfdce8087b8f3c6bb9e8b)]
+
+### Changed
+
+- 🔧 chore: update coverageThreshold [[26f92fc](https://github.com/guanghechen/algorithm.ts/commit/26f92fc8c6b22d616006efa469ebcc17512775ca)]
+- 🎨 improve: detect max-possible size [[ddbc92b](https://github.com/guanghechen/algorithm.ts/commit/ddbc92b3b3b4380f4e6b8296acad019b512e7381)]
+- ⚡ improve(gomoku): next mover should take a advantage factor [[af99efd](https://github.com/guanghechen/algorithm.ts/commit/af99efda2b1d58d37f50e61f7e8458770ebbcf9c)]
+- 🎨 refactor(gomoku): refactor interface of alphaBeta [[f88940d](https://github.com/guanghechen/algorithm.ts/commit/f88940d42c094156a58d60d360b3b0d64adb1e4a)]
+- ⚡ improve(gomoku): cache intermediate search states to improve performance [[b82504a](https://github.com/guanghechen/algorithm.ts/commit/b82504a9457311053252aafc965e18bedef50ddf)]
+- 🎨 improve(gomoku): detect COMPRESS_MOVE_BIT_BASE automaticly [[1752cca](https://github.com/guanghechen/algorithm.ts/commit/1752ccad21427c50d230a72a9325eb3b8b514afc)]
+- 🎨 improve: update randomMove to perform a reasonable move &amp; update tests [[116b563](https://github.com/guanghechen/algorithm.ts/commit/116b563ff537ad8365195980bff6cc2c86dd661b)]
+- 🎨 improve(gomoku): refactor codes [[40569ae](https://github.com/guanghechen/algorithm.ts/commit/40569ae6674a5e22451476a5096b9b158987ed0b)]
+- ⚡ improve(gomoku): improve algorithm [[c31b64b](https://github.com/guanghechen/algorithm.ts/commit/c31b64bc9d1098e040040dbba49884844e0131fd)]
+- ⚡ improve(gomoku): tweak scoreMap [[a5ced54](https://github.com/guanghechen/algorithm.ts/commit/a5ced54d9613c86bcd4d7a1a3ac7909b8fff1c60)]
+
+### Removed
+
+- 🔥 improve(gomoku): remove dead codes [[d5d779e](https://github.com/guanghechen/algorithm.ts/commit/d5d779ec86041c555bbf99d3103de1d1e281160e)]
+
+### Fixed
+
+- 🐛 fix(gomoku): fix logic error in score func [[2c9fde2](https://github.com/guanghechen/algorithm.ts/commit/2c9fde278311e8985cda0cc2ab88688c2f12f738)]
+- 🐛 fix(gomoku): tweak score [[e9229ad](https://github.com/guanghechen/algorithm.ts/commit/e9229ad761bcc98432b950e0765b37f71d28508a)]
+- 🐛 fix(gomoku): tweak score [[7befcaa](https://github.com/guanghechen/algorithm.ts/commit/7befcaab1c28b373530fd50e5b93840862e574f1)]
+- 🐛 fix(gomoku): init continuouslyShapeCountMap when GomokuCountMap.init is called [[6dfa81e](https://github.com/guanghechen/algorithm.ts/commit/6dfa81e84798684953da9fdac89375a5c31c81e3)]
+- 🐛 fix(gomoku): fix logic error [[8e9ac56](https://github.com/guanghechen/algorithm.ts/commit/8e9ac567e5bba3dfdfda285ced42ea78d956aa2d)]
+
+### Miscellaneous
+
+-  Merge branch &#x27;develop-gomoku&#x27; [[43896da](https://github.com/guanghechen/algorithm.ts/commit/43896da66ddbfd4352bf955e449a2b6f43c89ed6)]
+-  feat(gomoku): maintain gapShapeCountMap [[6b60cde](https://github.com/guanghechen/algorithm.ts/commit/6b60cde9de7069101b453b07367d8e4e0bf45901)]
+-  fix(gomoku): fix logic error [[e1aa811](https://github.com/guanghechen/algorithm.ts/commit/e1aa811c21e7de53cc0549a4a35f3bc0f395a210)]
+- 📝 docs: update CHANGELOG [[7d49547](https://github.com/guanghechen/algorithm.ts/commit/7d49547bec845f4e5202704d6821dd0d2c667c00)]
+
+
 <a name="2.0.3"></a>
 ## 2.0.3 (2022-02-24)
 
