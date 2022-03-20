@@ -2,8 +2,12 @@ export class GomokuStateCompressor {
   public readonly MOVE_STEP_BIT_BASE
   public readonly MOVE_STEP_MASK
   public readonly MOVE_STEP_MINIMUM_FLAG
+  public readonly INITIAL_STATE = 1n
 
-  constructor(COMPRESS_MOVE_BIT_BASE = 10n) {
+  constructor(TOTAL_POS: bigint) {
+    let COMPRESS_MOVE_BIT_BASE = 1n
+    while (1n << COMPRESS_MOVE_BIT_BASE < TOTAL_POS) COMPRESS_MOVE_BIT_BASE += 1n
+
     this.MOVE_STEP_BIT_BASE = COMPRESS_MOVE_BIT_BASE
     this.MOVE_STEP_MASK = (1n << COMPRESS_MOVE_BIT_BASE) - 1n
     this.MOVE_STEP_MINIMUM_FLAG = 1n << COMPRESS_MOVE_BIT_BASE

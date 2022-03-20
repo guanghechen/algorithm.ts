@@ -6,14 +6,9 @@ class TesterHelper {
   public readonly context: GomokuContext
   public readonly compressor: GomokuStateCompressor
 
-  constructor(
-    MAX_ROW: number,
-    MAX_COL: number,
-    MAX_INLINE: number,
-    COMPRESS_MOVE_BIT_BASE: bigint,
-  ) {
+  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
-    const compressor = new GomokuStateCompressor(COMPRESS_MOVE_BIT_BASE)
+    const compressor = new GomokuStateCompressor(BigInt(context.TOTAL_POS))
     this.context = context
     this.compressor = compressor
   }
@@ -52,7 +47,7 @@ class TesterHelper {
 }
 
 describe('15x15', function () {
-  const helper = new TesterHelper(15, 15, 5, 10n)
+  const helper = new TesterHelper(15, 15, 5)
 
   test('basic', function () {
     const steps: IStep[] = [
