@@ -1,0 +1,44 @@
+{
+  "name": "@algorithm.ts/gomoku",
+  "version": "2.0.3",
+  "description": "A algorithm based on minimax search and alpha-beta prune to solve gomoku game.",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/algorithm.ts.git",
+    "directory": "packages/gomoku"
+  },
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/main/packages/gomoku#readme",
+  "keywords": [
+    "algorithm",
+    "gomoku",
+    "minimax search",
+    "alpha-beta prune"
+  ],
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/types/index.d.ts",
+  "source": "src/index.ts",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 14.15.0"
+  },
+  "files": [
+    "lib/",
+    "!lib/**/*.js.map",
+    "!lib/**/*.d.ts.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
+    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
+    "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
+  }
+}

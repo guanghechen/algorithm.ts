@@ -17,6 +17,7 @@
       "@algorithm.ts/dlx": ["packages/dlx/src"],
       "@algorithm.ts/findset": ["packages/findset/src"],
       "@algorithm.ts/gcd": ["packages/gcd/src"],
+      "@algorithm.ts/gomoku": ["packages/gomoku/src"],
       "@algorithm.ts/huffman": ["packages/huffman"],
       "@algorithm.ts/isap": ["packages/isap/src"],
       "@algorithm.ts/knuth-shuffle": ["packages/knuth-shuffle/src"],
