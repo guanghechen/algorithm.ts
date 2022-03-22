@@ -73,17 +73,15 @@ export class GomokuCountMap {
         const id2: number = context.idxIfValid(r2, c2)
         if (id2 < 0 || board[id2] !== player) return
 
-        const [cnt0, countOfFreeSide0] = this.detectFreeSide(r0, c0, revDirType)
-        const [cnt2, countOfFreeSide2] = this.detectFreeSide(r2, c2, dirType)
-        const countOfFreeSide: number = countOfFreeSide0 + countOfFreeSide2
-        this.updateGapShapeCountMap(player, cnt0, cnt2, countOfFreeSide, 1)
+        const lftCnt: number = dirCountMap[revDirType][id0]
+        const rhtCnt: number = dirCountMap[dirType][id2]
+        const [startR, startC] = context.move(r, c, revDirType, lftCnt)
+        this.updateGapShapeCountMap(player, startR, startC, lftCnt, rhtCnt, dirType, 1)
       }
     })
   }
 
   public beforeForward(r: number, c: number): void {
-    const { context, board } = this
-
     // Update conShapeCountMap.
     for (const dirType of gomokuDirectionTypes) {
       this.updateRelatedConShapeCountMap(r, c, 1, dirType, -1)
@@ -91,37 +89,7 @@ export class GomokuCountMap {
 
     // Update gapShapeCountMap.
     for (const dirType of leftHalfGomokuDirectionTypes) {
-      const revDirType: GomokuDirectionType = dirType ^ 1
-      const [r0, c0] = context.move(r, c, revDirType, 1)
-      const id0: number = context.idxIfValid(r0, c0)
-      const [r2, c2] = context.move(r, c, dirType, 1)
-      const id2: number = context.idxIfValid(r2, c2)
-
-      if (id0 >= 0 && id2 >= 0 && board[id0] === board[id2] && board[id0] >= 0) {
-        const player0: number = board[id0]
-        const [cnt0, countOfFreeSide0] = this.detectFreeSide(r0, c0, revDirType)
-        const [cnt2, countOfFreeSide2] = this.detectFreeSide(r2, c2, dirType)
-        const countOfFreeSide: number = countOfFreeSide0 + countOfFreeSide2
-        this.updateGapShapeCountMap(player0, cnt0, cnt2, countOfFreeSide, -1)
-      }
-
-      if (id0 >= 0 && board[id0] >= 0) {
-        const player0: number = board[id0]
-        const gapShape = this.detectGapContinuousLine(r0, c0, player0, revDirType)
-        if (gapShape) {
-          const [lftCnt, rhtCnt, countOfFreeSide] = gapShape
-          this.updateGapShapeCountMap(player0, lftCnt, rhtCnt, countOfFreeSide, -1)
-        }
-      }
-
-      if (id2 >= 0 && board[id2] >= 0) {
-        const player2: number = board[id2]
-        const gapShape = this.detectGapContinuousLine(r2, c2, player2, dirType)
-        if (gapShape) {
-          const [lftCnt, rhtCnt, countOfFreeSide] = gapShape
-          this.updateGapShapeCountMap(player2, lftCnt, rhtCnt, countOfFreeSide, -1)
-        }
-      }
+      this.updateRelatedGapShapeCountMap(r, c, dirType, -1)
     }
   }
 
@@ -171,40 +139,7 @@ export class GomokuCountMap {
 
     // Update gapShapeCountMap.
     for (const dirType of leftHalfGomokuDirectionTypes) {
-      const revDirType: GomokuDirectionType = dirType ^ 1
-      const gapShape0 = this.detectGapContinuousLine(r, c, player, revDirType)
-      if (gapShape0) {
-        const [lftCnt, rhtCnt, countOfFreeSide] = gapShape0
-        this.updateGapShapeCountMap(player, lftCnt, rhtCnt, countOfFreeSide, 1)
-      } else {
-        const [r00, c00] = context.move(r, c, revDirType, dirCountMap[revDirType][id])
-        const id00: number = context.idxIfValid(r00, c00)
-        if (id00 >= 0 && board[id00] >= 0) {
-          const player00: number = board[id00]
-          const gapShape00 = this.detectGapContinuousLine(r00, c00, player00, revDirType)
-          if (gapShape00) {
-            const [lftCnt, rhtCnt, countOfFreeSide] = gapShape00
-            this.updateGapShapeCountMap(player00, lftCnt, rhtCnt, countOfFreeSide, 1)
-          }
-        }
-      }
-
-      const gapShape2 = this.detectGapContinuousLine(r, c, player, dirType)
-      if (gapShape2) {
-        const [lftCnt, rhtCnt, countOfFreeSide] = gapShape2
-        this.updateGapShapeCountMap(player, lftCnt, rhtCnt, countOfFreeSide, 1)
-      } else {
-        const [r22, c22] = context.move(r, c, dirType, dirCountMap[dirType][id])
-        const id22: number = context.idxIfValid(r22, c22)
-        if (id22 >= 0 && board[id22] >= 0) {
-          const player22: number = board[id22]
-          const gapShape22 = this.detectGapContinuousLine(r22, c22, player22, dirType)
-          if (gapShape22) {
-            const [lftCnt, rhtCnt, countOfFreeSide] = gapShape22
-            this.updateGapShapeCountMap(player22, lftCnt, rhtCnt, countOfFreeSide, 1)
-          }
-        }
-      }
+      this.updateRelatedGapShapeCountMap(r, c, dirType, 1)
     }
   }
 
@@ -230,40 +165,7 @@ export class GomokuCountMap {
 
     // Update gapShapeCountMap.
     for (const dirType of leftHalfGomokuDirectionTypes) {
-      const revDirType: GomokuDirectionType = dirType ^ 1
-      const gapShape0 = this.detectGapContinuousLine(r, c, player, revDirType)
-      if (gapShape0) {
-        const [lftCnt, rhtCnt, countOfFreeSide] = gapShape0
-        this.updateGapShapeCountMap(player, lftCnt, rhtCnt, countOfFreeSide, -1)
-      } else {
-        const [r00, c00] = context.move(r, c, revDirType, dirCountMap[revDirType][id])
-        const id00: number = context.idxIfValid(r00, c00)
-        if (id00 >= 0 && board[id00] >= 0) {
-          const player00: number = board[id00]
-          const gapShape00 = this.detectGapContinuousLine(r00, c00, player00, revDirType)
-          if (gapShape00) {
-            const [lftCnt, rhtCnt, countOfFreeSide] = gapShape00
-            this.updateGapShapeCountMap(player00, lftCnt, rhtCnt, countOfFreeSide, -1)
-          }
-        }
-      }
-
-      const gapShape2 = this.detectGapContinuousLine(r, c, player, dirType)
-      if (gapShape2) {
-        const [lftCnt, rhtCnt, countOfFreeSide] = gapShape2
-        this.updateGapShapeCountMap(player, lftCnt, rhtCnt, countOfFreeSide, -1)
-      } else {
-        const [r22, c22] = context.move(r, c, dirType, dirCountMap[dirType][id])
-        const id22: number = context.idxIfValid(r22, c22)
-        if (id22 >= 0 && board[id22] >= 0) {
-          const player22: number = board[id22]
-          const gapShape22 = this.detectGapContinuousLine(r22, c22, player22, dirType)
-          if (gapShape22) {
-            const [lftCnt, rhtCnt, countOfFreeSide] = gapShape22
-            this.updateGapShapeCountMap(player22, lftCnt, rhtCnt, countOfFreeSide, -1)
-          }
-        }
-      }
+      this.updateRelatedGapShapeCountMap(r, c, dirType, -1)
     }
   }
 
@@ -295,37 +197,7 @@ export class GomokuCountMap {
 
     // Update gapShapeCountMap.
     for (const dirType of leftHalfGomokuDirectionTypes) {
-      const revDirType: GomokuDirectionType = dirType ^ 1
-      const [r0, c0] = context.move(r, c, revDirType, 1)
-      const id0: number = context.idxIfValid(r0, c0)
-      const [r2, c2] = context.move(r, c, dirType, 1)
-      const id2: number = context.idxIfValid(r2, c2)
-
-      if (id0 >= 0 && id2 >= 0 && board[id0] === board[id2] && board[id0] >= 0) {
-        const player0: number = board[id0]
-        const [cnt0, countOfFreeSide0] = this.detectFreeSide(r0, c0, revDirType)
-        const [cnt2, countOfFreeSide2] = this.detectFreeSide(r2, c2, dirType)
-        const countOfFreeSide: number = countOfFreeSide0 + countOfFreeSide2
-        this.updateGapShapeCountMap(player0, cnt0, cnt2, countOfFreeSide, 1)
-      }
-
-      if (id0 >= 0 && board[id0] >= 0) {
-        const player0: number = board[id0]
-        const gapShape = this.detectGapContinuousLine(r0, c0, player0, revDirType)
-        if (gapShape) {
-          const [lftCnt, rhtCnt, countOfFreeSide] = gapShape
-          this.updateGapShapeCountMap(player0, lftCnt, rhtCnt, countOfFreeSide, 1)
-        }
-      }
-
-      if (id2 >= 0 && board[id2] >= 0) {
-        const player2: number = board[id2]
-        const gapShape = this.detectGapContinuousLine(r2, c2, player2, dirType)
-        if (gapShape) {
-          const [lftCnt, rhtCnt, countOfFreeSide] = gapShape
-          this.updateGapShapeCountMap(player2, lftCnt, rhtCnt, countOfFreeSide, 1)
-        }
-      }
+      this.updateRelatedGapShapeCountMap(r, c, dirType, 1)
     }
   }
 
@@ -370,18 +242,18 @@ export class GomokuCountMap {
   protected updateRelatedConShapeCountMap(
     centerR: number,
     centerC: number,
-    startCnt: number,
+    distanceToCenterPos: number,
     dirType: GomokuDirectionType,
     v: number,
   ): void {
     const { context, board, dirCountMap } = this
     const [dr, dc] = gomokuDirections[dirType]
 
-    let threshold: number = context.MAX_INLINE - startCnt
-    let r = centerR + dr * startCnt
-    let c = centerC + dc * startCnt
+    let threshold: number = context.MAX_INLINE - distanceToCenterPos
+    let r = centerR + dr * distanceToCenterPos
+    let c = centerC + dc * distanceToCenterPos
     let player = -1
-    if (startCnt > 1) {
+    if (distanceToCenterPos > 1) {
       const id: number = context.idx(centerR, centerC)
       if (id >= 0) player = board[id]
     }
@@ -416,64 +288,115 @@ export class GomokuCountMap {
     dirType: GomokuDirectionType,
     v: number,
   ): void {
-    const countOfFreeSide: number = this.detectExpandable(player, startR, startC, cnt, dirType)
+    const countOfFreeSide: number = this.countFreeSide(player, startR, startC, cnt, dirType)
     const normalizedCnt: number = Math.min(cnt, this.context.MAX_INLINE)
     this.conShapeCountMap[player][normalizedCnt][countOfFreeSide] += v
   }
 
+  protected updateRelatedGapShapeCountMap(
+    centerR: number,
+    centerC: number,
+    dirType: number,
+    v: number,
+  ): void {
+    const { context, board, dirCountMap } = this
+    const revDirType = dirType ^ 1
+
+    const [dr, dc] = gomokuDirections[dirType]
+    let r: number = centerR - dr * context.MAX_INLINE
+    let c: number = centerC - dc * context.MAX_INLINE
+    const THRESHOLD: number = context.MAX_INLINE * 2 + 1
+    let steps = 0
+
+    // Find leftest valid pos.
+    for (; context.isInvalidPos(r, c); r += dr, c += dc) steps += 1
+
+    // Find leftest placed pos.
+    for (; steps < THRESHOLD; r += dr, c += dc, steps += 1) {
+      const id: number = context.idxIfValid(r, c)
+      if (id < 0) return
+
+      const player: number = board[id]
+      if (player < 0) continue
+
+      const lftCnt: number = dirCountMap[revDirType][id]
+      const rhtCnt: number = dirCountMap[dirType][id]
+
+      if (steps < 2) {
+        const [r2, c2] = context.move(r, c, dirType, rhtCnt - 1)
+        this.detectGapShape(r2, c2, revDirType, v)
+      }
+
+      r -= dr * (lftCnt - 1)
+      c -= dc * (lftCnt - 1)
+      steps -= lftCnt - 1
+      break
+    }
+
+    for (; steps < THRESHOLD; ) {
+      const id: number = context.idx(r, c)
+      if (id < 0) return
+
+      const player: number = board[id]
+      if (player < 0) {
+        r += dr
+        c += dc
+        steps += 1
+        continue
+      }
+
+      if (player >= 0) {
+        this.detectGapShape(r, c, dirType, v)
+
+        const rhtCnt: number = dirCountMap[dirType][id]
+        r += dr * rhtCnt
+        c += dc * rhtCnt
+        steps += rhtCnt
+      }
+    }
+  }
+
+  protected detectGapShape(r: number, c: number, dirType: number, v: number): void {
+    const { context, board, dirCountMap } = this
+    const id: number = context.idx(r, c)
+    const lftCnt: number = dirCountMap[dirType][id]
+
+    const [r1, c1] = context.move(r, c, dirType, lftCnt)
+    const id1: number = context.idxIfValid(r1, c1)
+    if (id1 < 0 || board[id1] >= 0) return
+
+    const player = board[id]
+    const [r2, c2] = context.move(r1, c1, dirType, 1)
+    const id2: number = context.idxIfValid(r2, c2)
+    if (id2 < 0 || board[id2] !== player) return
+    const rhtCnt: number = dirCountMap[dirType][id2]
+    this.updateGapShapeCountMap(player, r, c, lftCnt, rhtCnt, dirType, v)
+  }
+
   protected updateGapShapeCountMap(
     player: number,
+    startR: number,
+    startC: number,
     lftCnt: number,
     rhtCnt: number,
-    countOfFreeSide: number,
+    dirType: GomokuDirectionType,
     v: number,
   ): void {
     const threshold: number = this.context.MAX_INLINE - 1
     if (lftCnt >= threshold || rhtCnt >= threshold) return
 
-    const cnt: number = lftCnt + rhtCnt
-    const _cnt: number = Math.min(cnt, this.context.MAX_INLINE)
-    this.gapShapeCountMap[player][_cnt][countOfFreeSide] += v
+    const countOfFreeSide: number = this.countFreeSide(
+      player,
+      startR,
+      startC,
+      lftCnt + rhtCnt + 1,
+      dirType,
+    )
+    const normalizedCnt: number = Math.min(lftCnt + rhtCnt, this.context.MAX_INLINE)
+    this.gapShapeCountMap[player][normalizedCnt][countOfFreeSide] += v
   }
 
-  protected detectGapContinuousLine(
-    r: number,
-    c: number,
-    player: number,
-    dirType: GomokuDirectionType,
-  ): [lftCnt: number, rhtCnt: number, countOfFreeSide: number] | null {
-    const revDirType: GomokuDirectionType = dirType ^ 1
-    const [cnt0, countOfFreeSide0] = this.detectFreeSide(r, c, revDirType)
-    const [cnt2, countOfFreeSide2] = this.detectFreeSide(r, c, dirType)
-
-    if (countOfFreeSide2) {
-      const { context, board } = this
-      const [r22, c22] = context.move(r, c, dirType, cnt2 + 1)
-      const id22: number = context.idxIfValid(r22, c22)
-      if (id22 >= 0 && board[id22] === player) {
-        const [cnt22, countOfFreeSide22] = this.detectFreeSide(r22, c22, dirType)
-        const countOfFreeSide: number = countOfFreeSide0 + countOfFreeSide22
-        return [cnt0 + cnt2 - 1, cnt22, countOfFreeSide]
-      }
-    }
-    return null
-  }
-
-  protected detectFreeSide(
-    r: number,
-    c: number,
-    dirType: GomokuDirectionType,
-  ): [cnt: number, countOfFreeSide: 0 | 1] {
-    const { context, board, dirCountMap } = this
-    const id: number = context.idx(r, c)
-    const cnt = dirCountMap[dirType][id]
-    const [r2, c2] = context.move(r, c, dirType, cnt)
-    const id2 = context.idxIfValid(r2, c2)
-    const result = [cnt, id2 >= 0 && board[id2] < 0 ? 1 : 0] as [number, 0 | 1]
-    return result
-  }
-
-  protected detectExpandable(
+  protected countFreeSide(
     player: number,
     startR: number,
     startC: number,
