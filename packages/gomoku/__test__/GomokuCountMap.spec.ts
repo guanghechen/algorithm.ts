@@ -11,10 +11,10 @@ class TesterHelper {
   protected readonly scoreMap: IScoreMap
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
-    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
-    const board = context.board as IGomokuBoard
+    const context: GomokuContext = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
+    const board: IGomokuBoard = new Int32Array(context.TOTAL_POS)
     const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE)
-    const countMap = new GomokuCountMap(context, scoreMap)
+    const countMap: GomokuCountMap = new GomokuCountMap(context, board, scoreMap)
 
     this.context = context
     this.board = board
@@ -52,7 +52,8 @@ class TesterHelper {
   }
 
   public snapshot(): ReturnType<GomokuCountMap['toJSON']> {
-    const countMap = new GomokuCountMap(this.context, this.scoreMap)
+    const board: IGomokuBoard = new Int32Array(this.board)
+    const countMap = new GomokuCountMap(this.context, board, this.scoreMap)
     countMap.init()
     return countMap.toJSON()
   }

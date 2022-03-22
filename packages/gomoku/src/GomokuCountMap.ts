@@ -521,17 +521,4 @@ export class GomokuCountMap {
     }
     return maxPossibleCnt < MAX_INLINE ? 0 : countOfFreeSide
   }
-
-  protected countDangerShapes(player: number): number {
-    const { context, conShapeCountMap, gapShapeCountMap } = this
-    const shapeCountMap1 = conShapeCountMap[player][context.MAX_INLINE - 1]
-    const shapeCountMap2 = gapShapeCountMap[player][context.MAX_INLINE]
-    const cnt: number =
-      shapeCountMap1[1] +
-      shapeCountMap1[2] * 2 +
-      shapeCountMap2[0] +
-      shapeCountMap2[1] +
-      shapeCountMap2[2]
-    return cnt
-  }
 }

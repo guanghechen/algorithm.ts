@@ -30,7 +30,7 @@ describe('15x15', () => {
   })
 
   test('move', () => {
-    expect(context.move(5, 4, GomokuDirectionType.LEFT)).toEqual([5, 3])
+    expect(context.move(5, 4, GomokuDirectionType.LEFT, 1)).toEqual([5, 3])
     expect(context.move(5, 4, GomokuDirectionType.LEFT, 2)).toEqual([5, 2])
     expect(context.move(5, 4, GomokuDirectionType.LEFT, -3)).toEqual([5, 7])
   })
@@ -48,7 +48,7 @@ describe('15x15', () => {
   test('visitValidNeighbors', () => {
     const collect = (r: number, c: number): unknown[] => {
       const result: unknown[] = []
-      context.visitValidNeighbors(r, c, (...args) => void result.push(args))
+      for (const item of context.validNeighbors(r, c)) result.push(item)
       return result
     }
     expect(collect(0, 0)).toEqual([
