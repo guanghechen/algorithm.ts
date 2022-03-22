@@ -1,18 +1,23 @@
 import type { GomokuDirectionType } from './constant'
 import { gomokuDirectionTypes, gomokuDirections, leftHalfGomokuDirectionTypes } from './constant'
 import type { GomokuContext } from './GomokuContext'
-import type { IScoreMap, IShapeCount } from './types'
+import type { IGomokuBoard, IScoreMap, IShapeCount } from './types'
 
 export class GomokuCountMap {
-  protected readonly context: GomokuContext
+  protected readonly context: Readonly<GomokuContext>
+  protected readonly board: Readonly<IGomokuBoard>
   protected readonly dirCountMap: Uint32Array[]
   protected readonly conShapeCountMap: IShapeCount[][]
   protected readonly gapShapeCountMap: IShapeCount[][]
   protected readonly scoreMap: IScoreMap
-  protected readonly NEXT_MOVER_FAC: number
 
-  constructor(context: GomokuContext, scoreMap: IScoreMap, NEXT_MOVER_FAC = 1.4) {
+  constructor(
+    context: Readonly<GomokuContext>,
+    board: Readonly<IGomokuBoard>,
+    scoreMap: IScoreMap,
+  ) {
     this.context = context
+    this.board = board
     this.dirCountMap = new Array(gomokuDirections.length)
       .fill([])
       .map(() => new Uint32Array(context.TOTAL_POS))
@@ -23,15 +28,13 @@ export class GomokuCountMap {
       .fill([])
       .map(() => new Array(context.MAX_INLINE + 1).fill([]).map(() => [0, 0, 0]))
     this.scoreMap = scoreMap
-    this.NEXT_MOVER_FAC = NEXT_MOVER_FAC
   }
 
   public init(): void {
     this.dirCountMap.forEach(idMap => idMap.fill(0))
     this.conShapeCountMap.forEach(maps => maps.forEach(countMap => countMap.fill(0)))
     this.gapShapeCountMap.forEach(maps => maps.forEach(countMap => countMap.fill(0)))
-    const { context, dirCountMap } = this
-    const { board } = context
+    const { context, board, dirCountMap } = this
 
     // Initialize dirCountMap.
     context.traverseAllDirections((r, c, dirType) => {
@@ -79,8 +82,7 @@ export class GomokuCountMap {
   }
 
   public beforeForward(r: number, c: number): void {
-    const { context } = this
-    const { board } = context
+    const { context, board } = this
 
     // Update conShapeCountMap.
     for (const dirType of gomokuDirectionTypes) {
@@ -124,8 +126,7 @@ export class GomokuCountMap {
   }
 
   public afterForward(r: number, c: number): void {
-    const { context, dirCountMap } = this
-    const { board } = context
+    const { context, board, dirCountMap } = this
     const id: number = context.idx(r, c)
     const player: number = board[id]
 
@@ -208,8 +209,7 @@ export class GomokuCountMap {
   }
 
   public beforeRollback(r: number, c: number): void {
-    const { context, dirCountMap } = this
-    const { board } = context
+    const { context, board, dirCountMap } = this
     const id: number = context.idx(r, c)
     const player: number = board[id]
 
@@ -268,8 +268,7 @@ export class GomokuCountMap {
   }
 
   public afterRollback(r: number, c: number, player: number): void {
-    const { context, dirCountMap } = this
-    const { board } = context
+    const { context, board, dirCountMap } = this
     const id: number = context.idx(r, c)
 
     // Update dirCountMap.
@@ -349,7 +348,11 @@ export class GomokuCountMap {
       const [x, y, z] = scoreMap.gap[cnt]
       score += a * x + b * y + c * z
     }
-    return currentPlayer === scoreForPlayer ? score : score * this.NEXT_MOVER_FAC
+
+    if (currentPlayer === scoreForPlayer) return score
+
+    const buffer: number = Math.random() * context.NEXT_MOVER_BUFFER_FAC
+    return score + score * buffer
   }
 
   // Check if it's endgame.
@@ -371,8 +374,7 @@ export class GomokuCountMap {
     dirType: GomokuDirectionType,
     v: number,
   ): void {
-    const { context, dirCountMap } = this
-    const { board } = context
+    const { context, board, dirCountMap } = this
     const [dr, dc] = gomokuDirections[dirType]
 
     let threshold: number = context.MAX_INLINE - startCnt
@@ -445,10 +447,10 @@ export class GomokuCountMap {
     const [cnt2, countOfFreeSide2] = this.detectFreeSide(r, c, dirType)
 
     if (countOfFreeSide2) {
-      const { context } = this
+      const { context, board } = this
       const [r22, c22] = context.move(r, c, dirType, cnt2 + 1)
       const id22: number = context.idxIfValid(r22, c22)
-      if (id22 >= 0 && context.board[id22] === player) {
+      if (id22 >= 0 && board[id22] === player) {
         const [cnt22, countOfFreeSide22] = this.detectFreeSide(r22, c22, dirType)
         const countOfFreeSide: number = countOfFreeSide0 + countOfFreeSide22
         return [cnt0 + cnt2 - 1, cnt22, countOfFreeSide]
@@ -462,12 +464,12 @@ export class GomokuCountMap {
     c: number,
     dirType: GomokuDirectionType,
   ): [cnt: number, countOfFreeSide: 0 | 1] {
-    const id: number = this.context.idx(r, c)
-    const { context, dirCountMap } = this
+    const { context, board, dirCountMap } = this
+    const id: number = context.idx(r, c)
     const cnt = dirCountMap[dirType][id]
     const [r2, c2] = context.move(r, c, dirType, cnt)
     const id2 = context.idxIfValid(r2, c2)
-    const result = [cnt, id2 >= 0 && context.board[id2] < 0 ? 1 : 0] as [number, 0 | 1]
+    const result = [cnt, id2 >= 0 && board[id2] < 0 ? 1 : 0] as [number, 0 | 1]
     return result
   }
 
@@ -478,8 +480,8 @@ export class GomokuCountMap {
     cnt: number,
     dirType: number,
   ): number {
-    const { context } = this
-    const { MAX_INLINE, board } = context
+    const { context, board } = this
+    const { MAX_INLINE } = context
     const revDirType: GomokuDirectionType = dirType ^ 1
 
     // Left position

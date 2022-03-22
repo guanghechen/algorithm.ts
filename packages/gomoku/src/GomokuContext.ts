@@ -5,23 +5,22 @@ import {
   leftHalfGomokuDirectionTypes,
   rightHalfGomokuDirectionTypes,
 } from './constant'
-import type { IGomokuBoard } from './types'
 
 export class GomokuContext {
   public readonly MAX_ROW: number
   public readonly MAX_COL: number
   public readonly MAX_INLINE: number
+  public readonly NEXT_MOVER_BUFFER_FAC: number
   public readonly TOTAL_POS: number
   public readonly TOTAL_PLAYERS: number
-  public readonly board: Readonly<IGomokuBoard>
 
-  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
+  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, NEXT_MOVER_BUFFER_FAC = 0.4) {
     this.MAX_ROW = MAX_ROW
     this.MAX_COL = MAX_COL
     this.MAX_INLINE = MAX_INLINE
     this.TOTAL_POS = MAX_ROW * MAX_COL
     this.TOTAL_PLAYERS = 2
-    this.board = new Int32Array(this.TOTAL_POS)
+    this.NEXT_MOVER_BUFFER_FAC = Math.max(0.1, Math.min(0.9, NEXT_MOVER_BUFFER_FAC))
   }
 
   public idx(r: number, c: number): number {
@@ -50,7 +49,7 @@ export class GomokuContext {
     r: number,
     c: number,
     dirType: GomokuDirectionType,
-    step = 1,
+    step: number,
   ): [r2: number, c2: number] {
     const [dr, dc] = gomokuDirections[dirType]
     const r2: number = r + dr * step
@@ -58,27 +57,14 @@ export class GomokuContext {
     return [r2, c2]
   }
 
-  public visitValidNeighbors(
+  public *validNeighbors(
     r: number,
     c: number,
-    touch: (r2: number, c2: number, dirType: GomokuDirectionType) => void,
-  ): void {
+  ): Iterable<[r2: number, c2: number, dirType: GomokuDirectionType]> {
     for (const dirType of gomokuDirectionTypes) {
-      const [r2, c2] = this.move(r, c, dirType)
-      if (this.isValidPos(r2, c2)) touch(r2, c2, dirType)
+      const [r2, c2] = this.move(r, c, dirType, 1)
+      if (this.isValidPos(r2, c2)) yield [r2, c2, dirType]
     }
-  }
-
-  public hasPlacedNeighbors(r: number, c: number): boolean {
-    const { board } = this
-    for (const dirType of gomokuDirectionTypes) {
-      const [r2, c2] = this.move(r, c, dirType)
-      if (this.isValidPos(r2, c2)) {
-        const id2: number = this.idx(r2, c2)
-        if (board[id2] >= 0) return true
-      }
-    }
-    return false
   }
 
   /**

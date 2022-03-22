@@ -1,5 +1,3 @@
-import type { IShapeCount } from './types'
-
 export enum GomokuDirectionType {
   LEFT = 0,
   TOP_LEFT = 2,

@@ -6,18 +6,19 @@ export class GomokuState {
   protected readonly context: GomokuContext
   protected readonly countMap: GomokuCountMap
   protected readonly candidateSet: Set<number>
+  protected readonly board: IGomokuBoard
   protected placedCount: number
 
-  constructor(context: GomokuContext, scoreMap: IScoreMap, NEXT_MOVER_FAC?: number) {
+  constructor(context: GomokuContext, scoreMap: IScoreMap) {
     this.context = context
-    this.countMap = new GomokuCountMap(context, scoreMap, NEXT_MOVER_FAC)
+    this.board = new Int32Array(context.TOTAL_POS)
+    this.countMap = new GomokuCountMap(context, this.board, scoreMap)
     this.candidateSet = new Set<number>()
     this.placedCount = 0
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece> = []): void {
-    const { context, candidateSet } = this
-    const board = context.board as IGomokuBoard
+    const { context, board, candidateSet } = this
 
     this.placedCount = pieces.length
     board.fill(-1)
@@ -26,10 +27,10 @@ export class GomokuState {
       const id: number = context.idx(r, c)
       board[id] = p
       candidateSet.delete(id)
-      context.visitValidNeighbors(r, c, (r2, c2) => {
+      for (const [r2, c2] of context.validNeighbors(r, c)) {
         const id2: number = context.idx(r2, c2)
         if (board[id2] < 0) candidateSet.add(id2)
-      })
+      }
     }
 
     // Initializing countMap should be performed after the board initialized.
@@ -38,8 +39,7 @@ export class GomokuState {
 
   // Place a piece in r-th row and c-th column.
   public forward(r: number, c: number, player: number): void {
-    const { context, candidateSet } = this
-    const board = context.board as IGomokuBoard
+    const { context, board, candidateSet } = this
     const id: number = context.idxIfValid(r, c)
     if (id < 0 || board[id] >= 0) return
 
@@ -48,18 +48,17 @@ export class GomokuState {
       this.placedCount += 1
       board[id] = player
       candidateSet.delete(id)
-      context.visitValidNeighbors(r, c, (r2, c2) => {
+      for (const [r2, c2] of context.validNeighbors(r, c)) {
         const id2: number = context.idx(r2, c2)
         if (board[id2] < 0) candidateSet.add(id2)
-      })
+      }
     }
     this.afterForward(r, c)
   }
 
   // Remove the piece in r-th row and c-th column.
   public rollback(r: number, c: number): void {
-    const { context, candidateSet } = this
-    const board = context.board as IGomokuBoard
+    const { context, board, candidateSet } = this
     const id: number = context.idxIfValid(r, c)
     if (id < 0 || board[id] < 0) return
 
@@ -68,21 +67,19 @@ export class GomokuState {
     {
       this.placedCount -= 1
       board[id] = -1
-      if (context.hasPlacedNeighbors(r, c)) candidateSet.add(id)
-      context.visitValidNeighbors(r, c, (r2, c2) => {
+      if (this.hasPlacedNeighbors(r, c)) candidateSet.add(id)
+      for (const [r2, c2] of context.validNeighbors(r, c)) {
         const id2: number = context.idx(r2, c2)
-        if (board[id2] >= 0 || !context.hasPlacedNeighbors(r2, c2)) {
+        if (board[id2] >= 0 || !this.hasPlacedNeighbors(r2, c2)) {
           candidateSet.delete(id2)
         }
-      })
+      }
     }
     this.afterRollback(r, c, player)
   }
 
   public expand(currentPlayer: number, scoreForPlayer: number): IGomokuCandidateState[] {
-    const { context, candidateSet } = this
-    const { board } = context
-
+    const { context, board, candidateSet } = this
     const candidates: IGomokuCandidateState[] = []
     for (const id of candidateSet) {
       if (board[id] >= 0) continue
@@ -118,22 +115,24 @@ export class GomokuState {
   }
 
   public randomMove(): { r: number; c: number } {
-    const { context, candidateSet } = this
-    const { board } = context
-
-    let result: { r: number; c: number } | null = null
+    const { context, board, candidateSet } = this
     for (const id of candidateSet) {
       const [r, c] = context.reIdx(id)
-      context.visitValidNeighbors(r, c, (r2, c2) => {
-        if (result) return
-
+      for (const [r2, c2] of context.validNeighbors(r, c)) {
         const id2: number = context.idx(r2, c2)
-        if (board[id2] < 0) {
-          result = { r: r2, c: c2 }
-        }
-      })
+        if (board[id2] < 0) return { r: r2, c: c2 }
+      }
     }
-    return result ?? { r: -1, c: -1 }
+    return { r: -1, c: -1 }
+  }
+
+  protected hasPlacedNeighbors(r: number, c: number): boolean {
+    const { context, board } = this
+    for (const [r2, c2] of context.validNeighbors(r, c)) {
+      const id2: number = context.idx(r2, c2)
+      if (board[id2] >= 0) return true
+    }
+    return false
   }
 
   protected beforeForward(r: number, c: number): void {
