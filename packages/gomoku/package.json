@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/gomoku",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A algorithm based on minimax search and alpha-beta prune to solve gomoku game.",
   "author": {
     "name": "guanghechen",
