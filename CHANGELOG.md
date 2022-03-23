@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="2.0.5"></a>
+## 2.0.5 (2022-03-23)
+
+### Added
+
+- ✅ test(gomoku): udpate tests [[1bfebee](https://github.com/guanghechen/algorithm.ts/commit/1bfebeead8fb981ec34562239f1ae045c2c7b38d)]
+- ✅ test: update tests [[5d6b494](https://github.com/guanghechen/algorithm.ts/commit/5d6b494987e44ca2dcd85323ae7bf5ea91478045)]
+
+### Changed
+
+- 🔧 chore: update jest coverageThreshold [[0ecd53d](https://github.com/guanghechen/algorithm.ts/commit/0ecd53d462aea9f9786e80b6908e6bfd2af4e107)]
+- ⬆️ chore: upgrade devDependencies [[cb69cec](https://github.com/guanghechen/algorithm.ts/commit/cb69cece8914e90a4b1fffceee65005f10cf00aa)]
+- 🔧 chore: update jest coverageThreshold [[0e22cd3](https://github.com/guanghechen/algorithm.ts/commit/0e22cd358d294c7ac8333a4c0cfbbfd00ca61919)]
+- 🎨 improve(gomoku): refactor updateRelatedConShapeCountMap to make it more readable [[45c6128](https://github.com/guanghechen/algorithm.ts/commit/45c612850c374b41ade745608be2c5b9b7318400)]
+- 🎨 improve(gomoku): detected max-possible size for gap shapes [[697b131](https://github.com/guanghechen/algorithm.ts/commit/697b1317a6d17f898a0a71169e711fbecc183365)]
+- 🎨 improve: prefer iterator instead of high-level func [[8270395](https://github.com/guanghechen/algorithm.ts/commit/8270395f67d222df5e498093c933629aaf33cc04)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[fe32d92](https://github.com/guanghechen/algorithm.ts/commit/fe32d92f6ca23900bf5c231cfcb29d62e6c574b5)]
+
+
 <a name="2.0.4"></a>
 ## 2.0.4 (2022-03-20)
 
