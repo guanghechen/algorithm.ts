@@ -44,8 +44,8 @@ export class GomokuSolution {
     this.state.forward(r, c, p)
   }
 
-  public minmaxMatch(currentPlayer: number): { r: number; c: number } {
-    if (this.state.isFinal()) return { r: -1, c: -1 }
+  public minmaxMatch(currentPlayer: number): [r: number, c: number] {
+    if (this.state.isFinal()) return [-1, -1]
 
     this.stateCache.clear()
     this.scoreForPlayer = currentPlayer
@@ -58,8 +58,11 @@ export class GomokuSolution {
       this.stateCompressor.INITIAL_STATE,
       0,
     )
+
     const { bestR: r, bestC: c } = this
-    return r < 0 || c < 0 ? this.state.randomMove() : { r, c }
+
+    /* istanbul ignore next */
+    return this.context.isValidPos(r, c) ? [r, c] : this.state.randomMove()
   }
 
   protected alphaBeta(
@@ -74,6 +77,8 @@ export class GomokuSolution {
     if (cur === this.MAX_DEPTH || state.isFinal()) return stateScore
 
     const candidates: IGomokuCandidateState[] = state.expand(player, scoreForPlayer)
+
+    /* istanbul ignore next */
     if (candidates.length <= 0) return stateScore
 
     if (player === scoreForPlayer) {

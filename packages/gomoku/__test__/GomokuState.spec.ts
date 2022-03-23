@@ -32,6 +32,35 @@ describe('15x15', function () {
     helper.init(pieces.default)
     const candidates = helper.state.expand(0, 0)
     expect(candidates.length).toEqual(26)
-    expect(candidates.map(({ r, c }) => ({ r, c }))).toContainEqual(helper.state.randomMove())
+    expect(candidates.map(({ r, c }) => [r, c])).toContainEqual(helper.state.randomMove())
+  })
+
+  test('edge case', function () {
+    helper.init()
+    {
+      const board = new Int32Array(helper.board)
+      helper.state.rollback(0, 0)
+      helper.state.rollback(-1, 0)
+      expect(helper.board).toEqual(board)
+    }
+
+    let player = 0
+    for (let r = 0; r < helper.context.MAX_ROW; ++r) {
+      for (let c = 0; c < helper.context.MAX_COL; ++c) {
+        helper.state.forward(r, c, player)
+        player ^= 1
+      }
+    }
+
+    expect(helper.state.randomMove()).toEqual([-1, -1])
+    expect(helper.state.expand(0, 0)).toEqual([])
+    expect(helper.state.isFinal()).toEqual(true)
+
+    {
+      const board = new Int32Array(helper.board)
+      helper.state.forward(0, 0, 0)
+      helper.state.forward(-1, 0, 0)
+      expect(helper.board).toEqual(board)
+    }
   })
 })
