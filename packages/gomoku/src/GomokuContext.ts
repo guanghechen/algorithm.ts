@@ -13,14 +13,25 @@ export class GomokuContext {
   public readonly NEXT_MOVER_BUFFER_FAC: number
   public readonly TOTAL_POS: number
   public readonly TOTAL_PLAYERS: number
+  protected readonly idxMap: ReadonlyArray<Readonly<[r: number, c: number]>>
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, NEXT_MOVER_BUFFER_FAC = 0.4) {
+    const TOTAL_POS = MAX_ROW * MAX_COL
+    const idxMap: Array<Readonly<[r: number, c: number]>> = new Array(TOTAL_POS)
+    for (let r = 0; r < MAX_ROW; ++r) {
+      for (let c = 0; c < MAX_COL; ++c) {
+        const id: number = r * MAX_ROW + c
+        idxMap[id] = [r, c]
+      }
+    }
+
     this.MAX_ROW = MAX_ROW
     this.MAX_COL = MAX_COL
     this.MAX_INLINE = MAX_INLINE
-    this.TOTAL_POS = MAX_ROW * MAX_COL
+    this.TOTAL_POS = TOTAL_POS
     this.TOTAL_PLAYERS = 2
     this.NEXT_MOVER_BUFFER_FAC = Math.max(0.1, Math.min(0.9, NEXT_MOVER_BUFFER_FAC))
+    this.idxMap = idxMap
   }
 
   public idx(r: number, c: number): number {
@@ -31,10 +42,8 @@ export class GomokuContext {
     return this.isValidPos(r, c) ? r * this.MAX_ROW + c : -1
   }
 
-  public reIdx(id: number): [r: number, c: number] {
-    const c: number = id % this.MAX_ROW
-    const r: number = Math.round((id - c) / this.MAX_ROW)
-    return [r, c]
+  public revIdx(id: number): Readonly<[r: number, c: number]> {
+    return this.idxMap[id]
   }
 
   public isValidPos(r: number, c: number): boolean {

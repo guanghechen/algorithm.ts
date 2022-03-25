@@ -39,7 +39,7 @@ class TesterHelper {
     const steps: IStep[] = []
     for (let v = state; v > 1n; v >>= compressor.MOVE_STEP_BIT_BASE) {
       const id: bigint = v & compressor.MOVE_STEP_MASK
-      const [r, c] = context.reIdx(Number(id))
+      const [r, c] = context.revIdx(Number(id))
       steps.push([r, c])
     }
     return steps

@@ -11,10 +11,10 @@ describe('15x15', () => {
 
   test('idx', () => {
     expect(context.idx(3, 3)).toEqual(48)
-    expect(context.reIdx(48)).toEqual([3, 3])
+    expect(context.revIdx(48)).toEqual([3, 3])
 
     for (let i = 0; i < context.TOTAL_PLAYERS; ++i) {
-      const [r, c] = context.reIdx(i)
+      const [r, c] = context.revIdx(i)
       const id: number = context.idx(r, c)
       expect(id).toEqual(i)
     }

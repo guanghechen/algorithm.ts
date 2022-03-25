@@ -85,7 +85,7 @@ export class GomokuState {
       /* istanbul ignore next */
       if (board[id] >= 0) continue
 
-      const [r, c] = context.reIdx(id)
+      const [r, c] = context.revIdx(id)
       candidates.push({ r, c, score: 0 })
     }
 
@@ -119,7 +119,7 @@ export class GomokuState {
   public randomMove(): [r: number, c: number] {
     const { context, board, candidateSet } = this
     for (const id of candidateSet) {
-      const [r, c] = context.reIdx(id)
+      const [r, c] = context.revIdx(id)
       for (const [r2, c2] of context.validNeighbors(r, c)) {
         const id2: number = context.idx(r2, c2)
         if (board[id2] < 0) return [r2, c2]
