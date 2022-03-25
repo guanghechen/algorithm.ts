@@ -198,7 +198,7 @@ export class GomokuCountMap {
 
     if (currentPlayer === scoreForPlayer) return score
 
-    const buffer: number = Math.random() * context.NEXT_MOVER_BUFFER_FAC
+    const buffer: number = Math.random() * context.NEXT_MOVER_MAX_BUFFER
     return score + score * buffer
   }
 

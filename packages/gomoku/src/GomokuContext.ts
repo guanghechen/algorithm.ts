@@ -10,12 +10,12 @@ export class GomokuContext {
   public readonly MAX_ROW: number
   public readonly MAX_COL: number
   public readonly MAX_INLINE: number
-  public readonly NEXT_MOVER_BUFFER_FAC: number
+  public readonly NEXT_MOVER_MAX_BUFFER: number
   public readonly TOTAL_POS: number
   public readonly TOTAL_PLAYERS: number
   protected readonly idxMap: ReadonlyArray<Readonly<[r: number, c: number]>>
 
-  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, NEXT_MOVER_BUFFER_FAC = 0.4) {
+  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, NEXT_MOVER_MAX_BUFFER = 0.4) {
     const TOTAL_POS = MAX_ROW * MAX_COL
     const idxMap: Array<Readonly<[r: number, c: number]>> = new Array(TOTAL_POS)
     for (let r = 0; r < MAX_ROW; ++r) {
@@ -30,7 +30,7 @@ export class GomokuContext {
     this.MAX_INLINE = MAX_INLINE
     this.TOTAL_POS = TOTAL_POS
     this.TOTAL_PLAYERS = 2
-    this.NEXT_MOVER_BUFFER_FAC = Math.max(0.1, Math.min(0.9, NEXT_MOVER_BUFFER_FAC))
+    this.NEXT_MOVER_MAX_BUFFER = Math.max(0.1, Math.min(0.9, NEXT_MOVER_MAX_BUFFER))
     this.idxMap = idxMap
   }
 

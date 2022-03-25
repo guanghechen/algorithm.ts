@@ -19,10 +19,10 @@ export class GomokuSolution {
     MAX_COL: number,
     MAX_INLINE = 5,
     MAX_DEPTH = 3,
-    NEXT_MOVER_BUFFER_FAC?: number,
+    NEXT_MOVER_MAX_BUFFER?: number,
     scoreMap?: IScoreMap,
   ) {
-    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE, NEXT_MOVER_BUFFER_FAC)
+    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE, NEXT_MOVER_MAX_BUFFER)
     const _scoreMap: IScoreMap = scoreMap ?? createScoreMap(context.MAX_INLINE)
 
     this.MAX_DEPTH = Math.max(1, Math.round(MAX_DEPTH))
