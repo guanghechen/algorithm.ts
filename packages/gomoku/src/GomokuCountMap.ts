@@ -133,8 +133,8 @@ export class GomokuCountMap {
     }
   }
 
-  public afterRollback(id: number, player: number): void {
-    const { context, board, dirCountMap } = this
+  public afterRollback(id: number): void {
+    const { context, dirCountMap } = this
 
     // Update dirCountMap.
     {

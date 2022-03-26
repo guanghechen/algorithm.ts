@@ -29,7 +29,7 @@ describe('dlx', function () {
       const solution: number[][] = new Array(9)
       for (let r = 0; r < 9; ++r) solution[r] = new Array(9)
 
-      for (const { puzzle, solution: _solution } of uniqueSudoku3x3) {
+      for (const { puzzle } of uniqueSudoku3x3) {
         puzzle[0][0] = 2
         puzzle[0][1] = 2
         expect(solveSudoku(puzzle, solution)).toBe(false)

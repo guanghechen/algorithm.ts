@@ -58,7 +58,6 @@ export class GomokuState {
     const { context, board, candidateSet } = this
     if (id < 0 || board[id] < 0) return
 
-    const player: number = board[id]
     this.beforeRollback(id)
     {
       this.placedCount -= 1
@@ -70,7 +69,7 @@ export class GomokuState {
         }
       }
     }
-    this.afterRollback(id, player)
+    this.afterRollback(id)
   }
 
   public expand(currentPlayer: number, scoreForPlayer: number): IGomokuCandidateState[] {
@@ -138,7 +137,7 @@ export class GomokuState {
     this.countMap.beforeRollback(id)
   }
 
-  protected afterRollback(id: number, player: number): void {
-    this.countMap.afterRollback(id, player)
+  protected afterRollback(id: number): void {
+    this.countMap.afterRollback(id)
   }
 }
