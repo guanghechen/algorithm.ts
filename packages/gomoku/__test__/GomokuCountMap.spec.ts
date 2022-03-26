@@ -1,6 +1,7 @@
 import fs from 'fs-extra'
 import { locateFixtures } from 'jest.setup'
-import type { IGomokuBoard, IGomokuPiece, IScoreMap } from '../src'
+import path from 'path'
+import type { IGomokuPiece, IScoreMap } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionType, gomokuDirectionTypes } from '../src'
 import { createScoreMap } from '../src/util'
 
@@ -146,6 +147,9 @@ describe('15x15', () => {
         }
       }
       expect(pieceCnt).toEqual(pieces.length)
+
+      const snapshotName: string = path.parse(filepath).name
+      expect(helper.snapshot()).toMatchSnapshot(snapshotName)
     }
   })
 
