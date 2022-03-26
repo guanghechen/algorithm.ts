@@ -23,6 +23,8 @@ export class GomokuState {
     this.placedCount = pieces.length
     board.fill(-1)
     candidateSet.clear()
+    candidateSet.add(context.TOTAL_POS >> 1)
+
     for (const { r, c, p } of pieces) {
       const id: number = context.idx(r, c)
       board[id] = p

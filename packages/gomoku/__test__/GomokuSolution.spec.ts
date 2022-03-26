@@ -27,6 +27,12 @@ describe('15x15 -- 3', function () {
     const [r, c] = solution.minmaxMatch(1)
     expect([[7, 7]]).toContainEqual([r, c])
   })
+
+  test('corner case', function () {
+    solution.init([])
+    const [r, c] = solution.minmaxMatch(0)
+    expect([r, c]).toEqual([7, 7])
+  })
 })
 
 describe('5x5', function () {
