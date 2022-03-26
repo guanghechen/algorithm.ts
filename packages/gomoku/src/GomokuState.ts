@@ -36,10 +36,8 @@ export class GomokuState {
     this.countMap.init()
   }
 
-  // Place a piece in r-th row and c-th column.
-  public forward(r: number, c: number, player: number): void {
+  public forward(id: number, player: number): void {
     const { context, board, candidateSet } = this
-    const id: number = context.idxIfValid(r, c)
     if (id < 0 || board[id] >= 0) return
 
     this.beforeForward(id)
@@ -54,10 +52,8 @@ export class GomokuState {
     this.afterForward(id)
   }
 
-  // Remove the piece in r-th row and c-th column.
-  public rollback(r: number, c: number): void {
+  public rollback(id: number): void {
     const { context, board, candidateSet } = this
-    const id: number = context.idxIfValid(r, c)
     if (id < 0 || board[id] < 0) return
 
     const player: number = board[id]
@@ -76,21 +72,18 @@ export class GomokuState {
   }
 
   public expand(currentPlayer: number, scoreForPlayer: number): IGomokuCandidateState[] {
-    const { context, board, candidateSet } = this
+    const { board, candidateSet } = this
     const candidates: IGomokuCandidateState[] = []
     for (const id of candidateSet) {
       /* istanbul ignore next */
       if (board[id] >= 0) continue
-
-      const [r, c] = context.revIdx(id)
-      candidates.push({ r, c, score: 0 })
+      candidates.push({ id, score: 0 })
     }
 
     for (const candidate of candidates) {
-      const { r, c } = candidate
-      this.forward(r, c, currentPlayer)
+      this.forward(candidate.id, currentPlayer)
       candidate.score = this.score(currentPlayer, scoreForPlayer)
-      this.rollback(r, c)
+      this.rollback(candidate.id)
     }
     return candidates
   }
@@ -113,17 +106,14 @@ export class GomokuState {
     return false
   }
 
-  public randomMove(): [r: number, c: number] {
+  public randomMove(): number | -1 {
     const { context, board, candidateSet } = this
     for (const id of candidateSet) {
       for (const [id2] of context.validNeighbors(id)) {
-        if (board[id2] < 0) {
-          const [r2, c2] = context.revIdx(id2)
-          return [r2, c2]
-        }
+        if (board[id2] < 0) return id2
       }
     }
-    return [-1, -1]
+    return -1
   }
 
   protected hasPlacedNeighbors(id: number): boolean {

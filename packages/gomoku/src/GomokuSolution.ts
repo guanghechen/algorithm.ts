@@ -11,8 +11,7 @@ export class GomokuSolution {
   protected readonly stateCompressor: GomokuStateCompressor
   protected readonly stateCache: Map<bigint, number>
   protected scoreForPlayer: number
-  protected bestR: number
-  protected bestC: number
+  protected bestMoveId: number
 
   constructor(
     MAX_ROW: number,
@@ -31,8 +30,7 @@ export class GomokuSolution {
     this.stateCompressor = new GomokuStateCompressor(BigInt(context.TOTAL_POS))
     this.stateCache = new Map()
     this.scoreForPlayer = -1
-    this.bestR = -1
-    this.bestC = -1
+    this.bestMoveId = -1
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
@@ -40,8 +38,14 @@ export class GomokuSolution {
     this.stateCache.clear()
   }
 
-  public move(r: number, c: number, p: number): void {
-    this.state.forward(r, c, p)
+  public forward(r: number, c: number, p: number): void {
+    const id: number = this.context.idx(r, c)
+    this.state.forward(id, p)
+  }
+
+  public rollback(r: number, c: number): void {
+    const id: number = this.context.idx(r, c)
+    this.state.rollback(id)
   }
 
   public minmaxMatch(currentPlayer: number): [r: number, c: number] {
@@ -49,7 +53,7 @@ export class GomokuSolution {
 
     this.stateCache.clear()
     this.scoreForPlayer = currentPlayer
-    this.bestR = this.bestC = -1
+    this.bestMoveId = -1
     this.alphaBeta(
       currentPlayer,
       Number.NEGATIVE_INFINITY,
@@ -59,10 +63,10 @@ export class GomokuSolution {
       0,
     )
 
-    const { bestR: r, bestC: c } = this
-
     /* istanbul ignore next */
-    return this.context.isValidPos(r, c) ? [r, c] : this.state.randomMove()
+    const bestMoveId: number = this.bestMoveId < 0 ? this.state.randomMove() : this.bestMoveId
+    const [r, c] = this.context.revIdx(bestMoveId)
+    return [r, c]
   }
 
   protected alphaBeta(
@@ -73,14 +77,10 @@ export class GomokuSolution {
     prevState: bigint,
     stateScore: number,
   ): number {
-    const { context, state, stateCompressor, stateCache, scoreForPlayer } = this
+    const { state, stateCompressor, stateCache, scoreForPlayer } = this
     if (cur === this.MAX_DEPTH || state.isFinal()) return stateScore
 
     const candidates: IGomokuCandidateState[] = state.expand(player, scoreForPlayer)
-
-    /* istanbul ignore next */
-    if (candidates.length <= 0) return stateScore
-
     if (player === scoreForPlayer) {
       // Higher score items common first.
       candidates.sort((x, y) => y.score - x.score)
@@ -89,29 +89,18 @@ export class GomokuSolution {
       candidates.sort((x, y) => x.score - y.score)
     }
 
-    if (cur === 0 && this.bestR === -1) {
-      const { r, c } = candidates[0]
-      this.bestR = r
-      this.bestC = c
-    }
-
-    for (const { r, c, score } of candidates) {
-      const id: number = context.idx(r, c)
+    for (const { id, score } of candidates) {
       const nextState: bigint = stateCompressor.compress(cur, prevState, BigInt(id))
       let gamma = stateCache.get(nextState)
       if (gamma === undefined) {
-        state.forward(r, c, player)
+        state.forward(id, player)
         gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, nextState, score)
-        state.rollback(r, c)
+        state.rollback(id)
         stateCache.set(nextState, gamma)
       }
 
-      if (cur === 0) {
-        if (alpha < gamma) {
-          this.bestR = r
-          this.bestC = c
-        }
-      }
+      // Update answer.
+      if (cur === 0 && alpha < gamma) this.bestMoveId = id
 
       if (player === scoreForPlayer) {
         // eslint-disable-next-line no-param-reassign
