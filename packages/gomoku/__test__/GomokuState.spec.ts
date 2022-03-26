@@ -29,7 +29,6 @@ describe('15x15', function () {
     helper.init(pieces.default)
     const candidates = helper.state.expand(0, 0)
     expect(candidates.length).toEqual(26)
-    expect(candidates.map(({ id }) => id)).toContainEqual(helper.state.randomMove())
   })
 
   test('edge case', function () {
@@ -47,7 +46,6 @@ describe('15x15', function () {
       player ^= 1
     }
 
-    expect(helper.state.randomMove()).toEqual(-1)
     expect(helper.state.expand(0, 0)).toEqual([])
     expect(helper.state.isFinal()).toEqual(true)
 

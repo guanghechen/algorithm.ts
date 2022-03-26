@@ -104,16 +104,6 @@ export class GomokuState {
     return false
   }
 
-  public randomMove(): number | -1 {
-    const { context, candidateSet } = this
-    for (const id of candidateSet) {
-      for (const [id2] of context.validNeighbors(id)) {
-        if (context.board[id2] < 0) return id2
-      }
-    }
-    return -1
-  }
-
   protected beforeForward(id: number): void {
     this.countMap.beforeForward(id)
   }

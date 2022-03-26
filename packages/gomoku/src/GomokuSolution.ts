@@ -48,7 +48,7 @@ export class GomokuSolution {
     this.state.rollback(id)
   }
 
-  public minmaxMatch(currentPlayer: number): [r: number, c: number] {
+  public minimaxSearch(currentPlayer: number): [r: number, c: number] {
     if (this.state.isFinal()) return [-1, -1]
 
     this.stateCache.clear()
@@ -64,9 +64,8 @@ export class GomokuSolution {
     )
 
     /* istanbul ignore next */
-    const bestMoveId: number = this.bestMoveId ?? this.state.randomMove()
-    /* istanbul ignore next */
-    const [r, c] = bestMoveId < 0 ? [-1, -1] : this.context.revIdx(bestMoveId)
+    if (!this.bestMoveId) return [-1, -1]
+    const [r, c] = this.context.revIdx(this.bestMoveId)
     return [r, c]
   }
 
