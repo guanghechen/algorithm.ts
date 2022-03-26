@@ -5,6 +5,7 @@ import {
   leftHalfGomokuDirectionTypes,
   rightHalfGomokuDirectionTypes,
 } from './constant'
+import type { IGomokuBoard, IGomokuPiece } from './types'
 
 export class GomokuContext {
   public readonly MAX_ROW: number
@@ -13,6 +14,7 @@ export class GomokuContext {
   public readonly NEXT_MOVER_MAX_BUFFER: number
   public readonly TOTAL_POS: number
   public readonly TOTAL_PLAYERS: number
+  public readonly board: Readonly<IGomokuBoard>
   protected readonly gomokuDirections: Readonly<Int32Array>
   protected readonly idxMap: ReadonlyArray<Readonly<[r: number, c: number]>>
   protected readonly idxMaxMoveMap: ReadonlyArray<Readonly<Int32Array>>
@@ -22,6 +24,7 @@ export class GomokuContext {
     const _TOTAL_PLAYERS = 2
     const _NEXT_MOVER_MAX_BUFFER = Math.max(0.1, Math.min(0.9, NEXT_MOVER_MAX_BUFFER))
     const _gomokuDirections = new Int32Array(gomokuDirections.map(([dr, dc]) => dr * MAX_ROW + dc))
+    const board: IGomokuBoard = new Int32Array(_TOTAL_POS)
 
     const _idxMap: Array<Readonly<[r: number, c: number]>> = new Array(_TOTAL_POS)
     for (let r = 0; r < MAX_ROW; ++r) {
@@ -56,9 +59,29 @@ export class GomokuContext {
     this.TOTAL_POS = _TOTAL_POS
     this.TOTAL_PLAYERS = _TOTAL_PLAYERS
     this.NEXT_MOVER_MAX_BUFFER = _NEXT_MOVER_MAX_BUFFER
+    this.board = board
     this.gomokuDirections = _gomokuDirections
     this.idxMap = _idxMap
     this.idxMaxMoveMap = _idxMaxMoveMap
+  }
+
+  public init(pieces: ReadonlyArray<IGomokuPiece>): void {
+    const board = this.board as IGomokuBoard
+    board.fill(-1)
+    for (const { r, c, p } of pieces) {
+      const id: number = this.idx(r, c)
+      board[id] = p
+    }
+  }
+
+  public forward(id: number, p: number): void {
+    const board = this.board as IGomokuBoard
+    board[id] = p
+  }
+
+  public rollback(id: number): void {
+    const board = this.board as IGomokuBoard
+    board[id] = -1
   }
 
   public idx(r: number, c: number): number {
@@ -135,6 +158,15 @@ export class GomokuContext {
       const id2: number = this.safeMoveOneStep(id, dirType)
       if (id2 >= 0) yield [id2, dirType]
     }
+  }
+
+  public hasPlacedNeighbors(id: number): boolean {
+    const { board } = this
+    for (const dirType of gomokuDirectionTypes) {
+      const id2: number = this.safeMoveOneStep(id, dirType)
+      if (id2 >= 0 && board[id2] >= 0) return true
+    }
+    return false
   }
 
   /**

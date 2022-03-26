@@ -1,36 +1,33 @@
 import type { GomokuContext } from './GomokuContext'
 import { GomokuCountMap } from './GomokuCountMap'
-import type { IGomokuBoard, IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
+import type { IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
 
 export class GomokuState {
   protected readonly context: GomokuContext
   protected readonly countMap: GomokuCountMap
   protected readonly candidateSet: Set<number>
-  protected readonly board: IGomokuBoard
   protected placedCount: number
 
   constructor(context: GomokuContext, scoreMap: IScoreMap) {
     this.context = context
-    this.board = new Int32Array(context.TOTAL_POS)
-    this.countMap = new GomokuCountMap(context, this.board, scoreMap)
+    this.countMap = new GomokuCountMap(context, scoreMap)
     this.candidateSet = new Set<number>()
     this.placedCount = 0
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece> = []): void {
-    const { context, board, candidateSet } = this
+    const { context, candidateSet } = this
 
     this.placedCount = pieces.length
-    board.fill(-1)
+    context.init(pieces)
     candidateSet.clear()
     candidateSet.add(context.TOTAL_POS >> 1)
 
-    for (const { r, c, p } of pieces) {
+    for (const { r, c } of pieces) {
       const id: number = context.idx(r, c)
-      board[id] = p
       candidateSet.delete(id)
       for (const [id2] of context.validNeighbors(id)) {
-        if (board[id2] < 0) candidateSet.add(id2)
+        if (context.board[id2] < 0) candidateSet.add(id2)
       }
     }
 
@@ -39,32 +36,32 @@ export class GomokuState {
   }
 
   public forward(id: number, player: number): void {
-    const { context, board, candidateSet } = this
-    if (id < 0 || board[id] >= 0) return
+    const { context, candidateSet } = this
+    if (id < 0 || context.board[id] >= 0) return
 
     this.beforeForward(id)
     {
       this.placedCount += 1
-      board[id] = player
+      context.forward(id, player)
       candidateSet.delete(id)
       for (const [id2] of context.validNeighbors(id)) {
-        if (board[id2] < 0) candidateSet.add(id2)
+        if (context.board[id2] < 0) candidateSet.add(id2)
       }
     }
     this.afterForward(id)
   }
 
   public rollback(id: number): void {
-    const { context, board, candidateSet } = this
-    if (id < 0 || board[id] < 0) return
+    const { context, candidateSet } = this
+    if (id < 0 || context.board[id] < 0) return
 
     this.beforeRollback(id)
     {
       this.placedCount -= 1
-      board[id] = -1
-      if (this.hasPlacedNeighbors(id)) candidateSet.add(id)
+      context.rollback(id)
+      if (context.hasPlacedNeighbors(id)) candidateSet.add(id)
       for (const [id2] of context.validNeighbors(id)) {
-        if (board[id2] >= 0 || !this.hasPlacedNeighbors(id2)) {
+        if (context.board[id2] >= 0 || !context.hasPlacedNeighbors(id2)) {
           candidateSet.delete(id2)
         }
       }
@@ -73,11 +70,11 @@ export class GomokuState {
   }
 
   public expand(currentPlayer: number, scoreForPlayer: number): IGomokuCandidateState[] {
-    const { board, candidateSet } = this
+    const { context, candidateSet } = this
     const candidates: IGomokuCandidateState[] = []
     for (const id of candidateSet) {
       /* istanbul ignore next */
-      if (board[id] >= 0) continue
+      if (context.board[id] >= 0) continue
       candidates.push({ id, score: 0 })
     }
 
@@ -108,21 +105,13 @@ export class GomokuState {
   }
 
   public randomMove(): number | -1 {
-    const { context, board, candidateSet } = this
+    const { context, candidateSet } = this
     for (const id of candidateSet) {
       for (const [id2] of context.validNeighbors(id)) {
-        if (board[id2] < 0) return id2
+        if (context.board[id2] < 0) return id2
       }
     }
     return -1
-  }
-
-  protected hasPlacedNeighbors(id: number): boolean {
-    const { context, board } = this
-    for (const [id2] of context.validNeighbors(id)) {
-      if (board[id2] >= 0) return true
-    }
-    return false
   }
 
   protected beforeForward(id: number): void {

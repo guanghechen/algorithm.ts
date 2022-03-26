@@ -6,54 +6,46 @@ import { createScoreMap } from '../src/util'
 
 class TesterHelper {
   public readonly context: GomokuContext
-  public readonly board: IGomokuBoard
   public readonly countMap: GomokuCountMap
   protected readonly scoreMap: IScoreMap
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
     const context: GomokuContext = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
-    const board: IGomokuBoard = new Int32Array(context.TOTAL_POS)
     const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE)
-    const countMap: GomokuCountMap = new GomokuCountMap(context, board, scoreMap)
+    const countMap: GomokuCountMap = new GomokuCountMap(context, scoreMap)
 
     this.context = context
-    this.board = board
     this.countMap = countMap
     this.scoreMap = scoreMap
   }
 
   public init(pieces?: IGomokuPiece[]): void {
-    this.board.fill(-1)
+    this.context.init(pieces ?? [])
     this.countMap.init()
-    if (pieces) {
-      for (const { r, c, p } of pieces) this.forward(r, c, p)
-    }
   }
 
   public forward(r: number, c: number, p: number): void {
-    const { context, board, countMap } = this
+    const { context, countMap } = this
     const id: number = context.idx(r, c)
-    if (board[id] >= 0) return
+    if (context.board[id] >= 0) return
 
     countMap.beforeForward(id)
-    board[id] = p
+    context.forward(id, p)
     countMap.afterForward(id)
   }
 
   public rollback(r: number, c: number): void {
-    const { context, board, countMap } = this
+    const { context, countMap } = this
     const id: number = context.idx(r, c)
-    if (board[id] < 0) return
+    if (context.board[id] < 0) return
 
-    const p: number = board[id]
     countMap.beforeRollback(id)
-    board[id] = -1
-    countMap.afterRollback(id, p)
+    context.rollback(id)
+    countMap.afterRollback(id)
   }
 
   public snapshot(): ReturnType<GomokuCountMap['toJSON']> {
-    const board: IGomokuBoard = new Int32Array(this.board)
-    const countMap = new GomokuCountMap(this.context, board, this.scoreMap)
+    const countMap = new GomokuCountMap(this.context, this.scoreMap)
     countMap.init()
     return countMap.toJSON()
   }
@@ -150,7 +142,7 @@ describe('15x15', () => {
       for (let r = 0; r < helper.context.MAX_ROW; ++r) {
         for (let c = 0; c < helper.context.MAX_COL; ++c) {
           const id: number = helper.context.idx(r, c)
-          if (helper.board[id] >= 0) pieceCnt += 1
+          if (helper.context.board[id] >= 0) pieceCnt += 1
         }
       }
       expect(pieceCnt).toEqual(pieces.length)

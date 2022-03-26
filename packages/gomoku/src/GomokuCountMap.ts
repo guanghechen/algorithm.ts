@@ -1,23 +1,17 @@
 import type { GomokuDirectionType } from './constant'
 import { gomokuDirectionTypes, gomokuDirections, leftHalfGomokuDirectionTypes } from './constant'
 import type { GomokuContext } from './GomokuContext'
-import type { IGomokuBoard, IScoreMap, IShapeCount } from './types'
+import type { IScoreMap, IShapeCount } from './types'
 
 export class GomokuCountMap {
   protected readonly context: Readonly<GomokuContext>
-  protected readonly board: Readonly<IGomokuBoard>
   protected readonly dirCountMap: Uint32Array[]
   protected readonly conShapeCountMap: IShapeCount[][]
   protected readonly gapShapeCountMap: IShapeCount[][]
   protected readonly scoreMap: IScoreMap
 
-  constructor(
-    context: Readonly<GomokuContext>,
-    board: Readonly<IGomokuBoard>,
-    scoreMap: IScoreMap,
-  ) {
+  constructor(context: Readonly<GomokuContext>, scoreMap: IScoreMap) {
     this.context = context
-    this.board = board
     this.dirCountMap = new Array(gomokuDirections.length)
       .fill([])
       .map(() => new Uint32Array(context.TOTAL_POS))
@@ -34,7 +28,9 @@ export class GomokuCountMap {
     this.dirCountMap.forEach(idMap => idMap.fill(0))
     this.conShapeCountMap.forEach(maps => maps.forEach(countMap => countMap.fill(0)))
     this.gapShapeCountMap.forEach(maps => maps.forEach(countMap => countMap.fill(0)))
-    const { context, board, dirCountMap } = this
+
+    const { context, dirCountMap } = this
+    const { board } = context
 
     // Initialize dirCountMap.
     context.traverseAllDirections((id, dirType) => {
@@ -87,7 +83,8 @@ export class GomokuCountMap {
   }
 
   public afterForward(id: number): void {
-    const { context, board, dirCountMap } = this
+    const { context, dirCountMap } = this
+    const { board } = context
     const player: number = board[id]
 
     // Update dirCountMap.
@@ -206,7 +203,9 @@ export class GomokuCountMap {
     v: number,
   ): void {
     const revDirType = dirType ^ 1
-    const { context, board, dirCountMap } = this
+    const { context, dirCountMap } = this
+    const { board } = context
+
     const lftMaxMovableStep: number = Math.min(
       context.MAX_INLINE - 1,
       context.maxMovableSteps(centerId, revDirType),
@@ -241,7 +240,7 @@ export class GomokuCountMap {
   }
 
   protected updateConShapeCountMap(startId: number, dirType: GomokuDirectionType, v: number): void {
-    const player: number = this.board[startId]
+    const player: number = this.context.board[startId]
     const cnt: number = this.dirCountMap[dirType][startId]
     const countOfFreeSide: number = this.countFreeSide(player, startId, cnt, dirType)
     const normalizedCnt: number = Math.min(cnt, this.context.MAX_INLINE)
@@ -250,7 +249,9 @@ export class GomokuCountMap {
 
   protected updateRelatedGapShapeCountMap(centerId: number, dirType: number, v: number): void {
     const revDirType = dirType ^ 1
-    const { context, board, dirCountMap } = this
+    const { context, dirCountMap } = this
+    const { board } = context
+
     const lftMaxMovableStep: number = Math.min(
       context.MAX_INLINE - 1,
       context.maxMovableSteps(centerId, revDirType),
@@ -293,7 +294,9 @@ export class GomokuCountMap {
   }
 
   protected detectGapShape(id: number, dirType: number, v: number): void {
-    const { context, board, dirCountMap } = this
+    const { context, dirCountMap } = this
+    const { board } = context
+
     const lftCnt: number = dirCountMap[dirType][id]
     if (context.maxMovableSteps(id, dirType) < lftCnt) return
 
@@ -318,7 +321,7 @@ export class GomokuCountMap {
     const threshold: number = this.context.MAX_INLINE - 1
     if (cnt1 >= threshold || cnt2 >= threshold) return
 
-    const player: number = this.board[startId]
+    const player: number = this.context.board[startId]
     const cnt: number = cnt1 + cnt2
     const countOfFreeSide: number = this.countFreeSide(player, startId, cnt + 1, dirType)
     const normalizedCnt: number = Math.min(cnt, this.context.MAX_INLINE)
@@ -326,8 +329,8 @@ export class GomokuCountMap {
   }
 
   protected countFreeSide(player: number, startId: number, cnt: number, dirType: number): number {
-    const { context, board } = this
-    const { MAX_INLINE } = context
+    const { context } = this
+    const { board, MAX_INLINE } = context
 
     // Left position
     const revDirType: GomokuDirectionType = dirType ^ 1

@@ -4,17 +4,14 @@ import { GomokuContext, GomokuState, createScoreMap } from '../src'
 class TesterHelper {
   public readonly context: GomokuContext
   public readonly state: GomokuState
-  public readonly board: Int32Array
   protected readonly scoreMap: IScoreMap
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
-    const board = new Int32Array(context.TOTAL_POS).fill(-1)
     const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE)
     const state = new GomokuState(context, scoreMap)
 
     this.context = context
-    this.board = board
     this.state = state
     this.scoreMap = scoreMap
   }
@@ -38,10 +35,10 @@ describe('15x15', function () {
   test('edge case', function () {
     helper.init()
     {
-      const board = new Int32Array(helper.board)
+      const board = new Int32Array(helper.context.board)
       helper.state.rollback(0)
       helper.state.rollback(-1)
-      expect(helper.board).toEqual(board)
+      expect(helper.context.board).toEqual(board)
     }
 
     let player = 0
@@ -55,10 +52,10 @@ describe('15x15', function () {
     expect(helper.state.isFinal()).toEqual(true)
 
     {
-      const board = new Int32Array(helper.board)
+      const board = new Int32Array(helper.context.board)
       helper.state.forward(0, 0)
       helper.state.forward(-1, 0)
-      expect(helper.board).toEqual(board)
+      expect(helper.context.board).toEqual(board)
     }
   })
 })
