@@ -1,5 +1,23 @@
 # Changelog
 
+<a name="2.0.6"></a>
+## 2.0.6 (2022-03-26)
+
+### Changed
+
+- ⚡ improve(gomoku): tweak score map [[49f13d4](https://github.com/guanghechen/algorithm.ts/commit/49f13d46b0ee0e375a1980c55a214e58386d682a)]
+- ⚡ improve(gomoku): avoid unnecessary check [[278d041](https://github.com/guanghechen/algorithm.ts/commit/278d041169b00843a6ce3f6bba0ceb17793bd7da)]
+- ⚡ improve(gomoku): avoid encode/decode coordinates [[56fa8cf](https://github.com/guanghechen/algorithm.ts/commit/56fa8cfe99ebccca18db3c6d9640a5ee8bc6739f)]
+- ⚡ improve(gomoku): avoid encode/decode coordinates [[cf0926e](https://github.com/guanghechen/algorithm.ts/commit/cf0926ed5bd715542663623e00f8e4f2f99fafbd)]
+- ⚡ improve(gomoku): use &#x27;context.safeMove()&#x27; and &#x27;context.fastMove()&#x27; instead of &#x27;context.move()&#x27; [[616f8a6](https://github.com/guanghechen/algorithm.ts/commit/616f8a6f4b4df356e988e1d78ef1a32d9902e648)]
+- 🎨 refactor: rename NEXT_MOVER_BUFFER_FAC to NEXT_MOVER_MAX_BUFFER [[ed0de20](https://github.com/guanghechen/algorithm.ts/commit/ed0de206d7641050f9da06c6a62c06c5f1974555)]
+- ⚡ improve(gomoku): avoid division and modulo operations [[754b580](https://github.com/guanghechen/algorithm.ts/commit/754b5806b877355c4366641eae44e9affd02288a)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[c68789c](https://github.com/guanghechen/algorithm.ts/commit/c68789cb9aa1c92b6113f53940bb33d1750740e6)]
+
+
 <a name="2.0.5"></a>
 ## 2.0.5 (2022-03-23)
 
