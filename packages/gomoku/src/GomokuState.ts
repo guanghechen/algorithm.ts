@@ -6,23 +6,19 @@ export class GomokuState {
   protected readonly context: GomokuContext
   protected readonly countMap: GomokuCountMap
   protected readonly candidateSet: Set<number>
-  protected placedCount: number
 
   constructor(context: GomokuContext, scoreMap: IScoreMap) {
     this.context = context
     this.countMap = new GomokuCountMap(context, scoreMap)
     this.candidateSet = new Set<number>()
-    this.placedCount = 0
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece> = []): void {
     const { context, candidateSet } = this
 
-    this.placedCount = pieces.length
     context.init(pieces)
     candidateSet.clear()
     candidateSet.add(context.TOTAL_POS >> 1)
-
     for (const { r, c } of pieces) {
       const id: number = context.idx(r, c)
       candidateSet.delete(id)
@@ -41,7 +37,6 @@ export class GomokuState {
 
     this.beforeForward(id)
     {
-      this.placedCount += 1
       context.forward(id, player)
       candidateSet.delete(id)
       for (const [id2] of context.validNeighbors(id)) {
@@ -57,7 +52,6 @@ export class GomokuState {
 
     this.beforeRollback(id)
     {
-      this.placedCount -= 1
       context.rollback(id)
       if (context.hasPlacedNeighbors(id)) candidateSet.add(id)
       for (const [id2] of context.validNeighbors(id)) {
@@ -96,8 +90,8 @@ export class GomokuState {
 
   // Check if it's endgame.
   public isFinal(): boolean {
-    const { context, countMap, placedCount } = this
-    if (placedCount === context.TOTAL_POS) return true
+    const { context, countMap } = this
+    if (context.placedCount === context.TOTAL_POS) return true
     for (let player = 0; player < context.TOTAL_PLAYERS; ++player) {
       if (countMap.hasReachedTheLimit(player)) return true
     }

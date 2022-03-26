@@ -15,9 +15,10 @@ export class GomokuContext {
   public readonly TOTAL_POS: number
   public readonly TOTAL_PLAYERS: number
   public readonly board: Readonly<IGomokuBoard>
-  protected readonly gomokuDirections: Readonly<Int32Array>
-  protected readonly idxMap: ReadonlyArray<Readonly<[r: number, c: number]>>
-  protected readonly idxMaxMoveMap: ReadonlyArray<Readonly<Int32Array>>
+  protected readonly _gomokuDirections: Readonly<Int32Array>
+  protected readonly _idxMap: ReadonlyArray<Readonly<[r: number, c: number]>>
+  protected readonly _idxMaxMoveMap: ReadonlyArray<Readonly<Int32Array>>
+  protected _placedCount: number
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, NEXT_MOVER_MAX_BUFFER = 0.4) {
     const _TOTAL_POS: number = MAX_ROW * MAX_COL
@@ -60,14 +61,20 @@ export class GomokuContext {
     this.TOTAL_PLAYERS = _TOTAL_PLAYERS
     this.NEXT_MOVER_MAX_BUFFER = _NEXT_MOVER_MAX_BUFFER
     this.board = board
-    this.gomokuDirections = _gomokuDirections
-    this.idxMap = _idxMap
-    this.idxMaxMoveMap = _idxMaxMoveMap
+    this._gomokuDirections = _gomokuDirections
+    this._idxMap = _idxMap
+    this._idxMaxMoveMap = _idxMaxMoveMap
+    this._placedCount = 0
+  }
+
+  public get placedCount(): number {
+    return this._placedCount
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
     const board = this.board as IGomokuBoard
     board.fill(-1)
+    this._placedCount = pieces.length
     for (const { r, c, p } of pieces) {
       const id: number = this.idx(r, c)
       board[id] = p
@@ -77,11 +84,13 @@ export class GomokuContext {
   public forward(id: number, p: number): void {
     const board = this.board as IGomokuBoard
     board[id] = p
+    this._placedCount += 1
   }
 
   public rollback(id: number): void {
     const board = this.board as IGomokuBoard
     board[id] = -1
+    this._placedCount -= 1
   }
 
   public idx(r: number, c: number): number {
@@ -98,7 +107,7 @@ export class GomokuContext {
    * @returns
    */
   public revIdx(id: number): Readonly<[r: number, c: number]> {
-    return this.idxMap[id]
+    return this._idxMap[id]
   }
 
   public isValidPos(r: number, c: number): boolean {
@@ -117,7 +126,9 @@ export class GomokuContext {
    * @returns
    */
   public safeMove(id: number, dirType: GomokuDirectionType, step: number): number | -1 {
-    return step <= this.idxMaxMoveMap[dirType][id] ? id + this.gomokuDirections[dirType] * step : -1
+    return step <= this._idxMaxMoveMap[dirType][id]
+      ? id + this._gomokuDirections[dirType] * step
+      : -1
   }
 
   /**
@@ -127,7 +138,7 @@ export class GomokuContext {
    * @returns
    */
   public safeMoveOneStep(id: number, dirType: GomokuDirectionType): number | -1 {
-    return 1 <= this.idxMaxMoveMap[dirType][id] ? id + this.gomokuDirections[dirType] : -1
+    return 1 <= this._idxMaxMoveMap[dirType][id] ? id + this._gomokuDirections[dirType] : -1
   }
 
   /**
@@ -137,7 +148,7 @@ export class GomokuContext {
    * @param step    Number of steps to move.
    */
   public fastMove(id: number, dirType: GomokuDirectionType, step: number): number {
-    return id + this.gomokuDirections[dirType] * step
+    return id + this._gomokuDirections[dirType] * step
   }
 
   /**
@@ -146,11 +157,11 @@ export class GomokuContext {
    * @param dirType Moving directions.
    */
   public fastMoveOneStep(id: number, dirType: GomokuDirectionType): number {
-    return id + this.gomokuDirections[dirType]
+    return id + this._gomokuDirections[dirType]
   }
 
   public maxMovableSteps(id: number, dirType: GomokuDirectionType): number {
-    return this.idxMaxMoveMap[dirType][id]
+    return this._idxMaxMoveMap[dirType][id]
   }
 
   public *validNeighbors(id: number): Iterable<[id2: number, dirType: GomokuDirectionType]> {

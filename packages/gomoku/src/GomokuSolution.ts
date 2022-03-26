@@ -89,6 +89,7 @@ export class GomokuSolution {
       candidates.sort((x, y) => x.score - y.score)
     }
 
+    if (cur === 0) this.bestMoveId = candidates[0].id
     for (const { id, score } of candidates) {
       const nextState: bigint = stateCompressor.compress(cur, prevState, BigInt(id))
       let gamma = stateCache.get(nextState)
@@ -99,15 +100,18 @@ export class GomokuSolution {
         stateCache.set(nextState, gamma)
       }
 
-      // Update answer.
-      if (cur === 0 && alpha < gamma) this.bestMoveId = id
-
       if (player === scoreForPlayer) {
-        // eslint-disable-next-line no-param-reassign
-        if (alpha < gamma) alpha = gamma
+        if (alpha < gamma) {
+          // eslint-disable-next-line no-param-reassign
+          alpha = gamma
+          // Update answer.
+          if (cur === 0) this.bestMoveId = id
+        }
       } else {
-        // eslint-disable-next-line no-param-reassign
-        if (beta > gamma) beta = gamma
+        if (beta > gamma) {
+          // eslint-disable-next-line no-param-reassign
+          beta = gamma
+        }
       }
       if (beta <= alpha) break
     }
