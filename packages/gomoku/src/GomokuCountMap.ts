@@ -159,7 +159,7 @@ export class GomokuCountMap {
     }
   }
 
-  public score(currentPlayer: number, scoreForPlayer: number): number {
+  public score(scoreForPlayer: number): number {
     if (this.hasReachedTheLimit(scoreForPlayer)) return Number.POSITIVE_INFINITY
     if (this.hasReachedTheLimit(scoreForPlayer ^ 1)) return Number.NEGATIVE_INFINITY
 
@@ -178,11 +178,7 @@ export class GomokuCountMap {
       const [x, y, z] = scoreMap.gap[cnt]
       score += a * x + b * y + c * z
     }
-
-    if (currentPlayer === scoreForPlayer) return score
-
-    const buffer: number = Math.random() * context.NEXT_MOVER_MAX_BUFFER
-    return score + score * buffer
+    return score
   }
 
   // Check if it's endgame.

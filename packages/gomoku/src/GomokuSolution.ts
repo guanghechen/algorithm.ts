@@ -60,7 +60,7 @@ export class GomokuSolution {
       Number.POSITIVE_INFINITY,
       0,
       this.stateCompressor.INITIAL_STATE,
-      0,
+      this.state.score(currentPlayer ^ 1, currentPlayer),
     )
 
     /* istanbul ignore next */

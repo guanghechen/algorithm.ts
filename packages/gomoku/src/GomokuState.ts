@@ -82,10 +82,10 @@ export class GomokuState {
 
   // Get score of current state.
   public score(currentPlayer: number, scoreForPlayer: number): number {
-    return (
-      this.countMap.score(currentPlayer, scoreForPlayer) -
-      this.countMap.score(currentPlayer, scoreForPlayer ^ 1)
-    )
+    const score1: number = this.countMap.score(scoreForPlayer)
+    const score2: number = this.countMap.score(scoreForPlayer ^ 1)
+    const buffer: number = 1 + Math.random() * this.context.NEXT_MOVER_MAX_BUFFER
+    return currentPlayer === scoreForPlayer ? score1 - score2 * buffer : score1 * buffer - score2
   }
 
   // Check if it's endgame.
