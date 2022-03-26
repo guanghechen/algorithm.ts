@@ -11,7 +11,7 @@ export class GomokuSolution {
   protected readonly stateCompressor: GomokuStateCompressor
   protected readonly stateCache: Map<bigint, number>
   protected scoreForPlayer: number
-  protected bestMoveId: number
+  protected bestMoveId: number | null
 
   constructor(
     MAX_ROW: number,
@@ -30,7 +30,7 @@ export class GomokuSolution {
     this.stateCompressor = new GomokuStateCompressor(BigInt(context.TOTAL_POS))
     this.stateCache = new Map()
     this.scoreForPlayer = -1
-    this.bestMoveId = -1
+    this.bestMoveId = null
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
@@ -53,7 +53,7 @@ export class GomokuSolution {
 
     this.stateCache.clear()
     this.scoreForPlayer = currentPlayer
-    this.bestMoveId = -1
+    this.bestMoveId = null
     this.alphaBeta(
       currentPlayer,
       Number.NEGATIVE_INFINITY,
@@ -64,8 +64,9 @@ export class GomokuSolution {
     )
 
     /* istanbul ignore next */
-    const bestMoveId: number = this.bestMoveId < 0 ? this.state.randomMove() : this.bestMoveId
-    const [r, c] = this.context.revIdx(bestMoveId)
+    const bestMoveId: number = this.bestMoveId ?? this.state.randomMove()
+    /* istanbul ignore next */
+    const [r, c] = bestMoveId < 0 ? [-1, -1] : this.context.revIdx(bestMoveId)
     return [r, c]
   }
 
