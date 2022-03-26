@@ -13,25 +13,52 @@ export class GomokuContext {
   public readonly NEXT_MOVER_MAX_BUFFER: number
   public readonly TOTAL_POS: number
   public readonly TOTAL_PLAYERS: number
+  protected readonly gomokuDirections: Readonly<Int32Array>
   protected readonly idxMap: ReadonlyArray<Readonly<[r: number, c: number]>>
+  protected readonly idxMaxMoveMap: ReadonlyArray<Readonly<Int32Array>>
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, NEXT_MOVER_MAX_BUFFER = 0.4) {
-    const TOTAL_POS = MAX_ROW * MAX_COL
-    const idxMap: Array<Readonly<[r: number, c: number]>> = new Array(TOTAL_POS)
+    const _TOTAL_POS: number = MAX_ROW * MAX_COL
+    const _TOTAL_PLAYERS = 2
+    const _NEXT_MOVER_MAX_BUFFER = Math.max(0.1, Math.min(0.9, NEXT_MOVER_MAX_BUFFER))
+    const _gomokuDirections = new Int32Array(gomokuDirections.map(([dr, dc]) => dr * MAX_ROW + dc))
+
+    const _idxMap: Array<Readonly<[r: number, c: number]>> = new Array(_TOTAL_POS)
     for (let r = 0; r < MAX_ROW; ++r) {
       for (let c = 0; c < MAX_COL; ++c) {
         const id: number = r * MAX_ROW + c
-        idxMap[id] = [r, c]
+        _idxMap[id] = [r, c]
       }
+    }
+
+    const _idxMaxMoveMap: Array<Readonly<Int32Array>> = new Array(gomokuDirectionTypes.length)
+    for (const dirType of gomokuDirectionTypes) {
+      const maxMoveMap = new Int32Array(_TOTAL_POS)
+      const [dr, dc] = gomokuDirections[dirType]
+      for (let r = 0; r < MAX_ROW; ++r) {
+        for (let c = 0; c < MAX_COL; ++c) {
+          let steps = 1
+          for (let r2 = r, c2 = c; ; ++steps) {
+            r2 += dr
+            c2 += dc
+            if (r2 < 0 || r2 >= MAX_ROW || c2 < 0 || c2 >= MAX_COL) break
+          }
+          const id: number = r * MAX_ROW + c
+          maxMoveMap[id] = steps
+        }
+      }
+      _idxMaxMoveMap[dirType] = maxMoveMap
     }
 
     this.MAX_ROW = MAX_ROW
     this.MAX_COL = MAX_COL
     this.MAX_INLINE = MAX_INLINE
-    this.TOTAL_POS = TOTAL_POS
-    this.TOTAL_PLAYERS = 2
-    this.NEXT_MOVER_MAX_BUFFER = Math.max(0.1, Math.min(0.9, NEXT_MOVER_MAX_BUFFER))
-    this.idxMap = idxMap
+    this.TOTAL_POS = _TOTAL_POS
+    this.TOTAL_PLAYERS = _TOTAL_PLAYERS
+    this.NEXT_MOVER_MAX_BUFFER = _NEXT_MOVER_MAX_BUFFER
+    this.gomokuDirections = _gomokuDirections
+    this.idxMap = _idxMap
+    this.idxMaxMoveMap = _idxMaxMoveMap
   }
 
   public idx(r: number, c: number): number {
@@ -42,6 +69,11 @@ export class GomokuContext {
     return this.isValidPos(r, c) ? r * this.MAX_ROW + c : -1
   }
 
+  /**
+   * Parse coordinate from pos id.
+   * @param id      Should be a valid pos id.
+   * @returns
+   */
   public revIdx(id: number): Readonly<[r: number, c: number]> {
     return this.idxMap[id]
   }
@@ -54,25 +86,50 @@ export class GomokuContext {
     return r < 0 || r >= this.MAX_ROW || c < 0 || c >= this.MAX_COL
   }
 
-  public move(
-    r: number,
-    c: number,
-    dirType: GomokuDirectionType,
-    step: number,
-  ): [r2: number, c2: number] {
-    const [dr, dc] = gomokuDirections[dirType]
-    const r2: number = r + dr * step
-    const c2: number = c + dc * step
-    return [r2, c2]
+  /**
+   *
+   * @param id      !!!Should be a valid pos id.
+   * @param dirType Moving direction.
+   * @param step    !!!Should be a non-negative integer.
+   * @returns
+   */
+  public safeMove(id: number, dirType: GomokuDirectionType, step: number): number | -1 {
+    return step < this.idxMaxMoveMap[dirType][id] ? id + this.gomokuDirections[dirType] * step : -1
   }
 
-  public *validNeighbors(
-    r: number,
-    c: number,
-  ): Iterable<[r2: number, c2: number, dirType: GomokuDirectionType]> {
+  /**
+   *
+   * @param id      !!!Should be a valid pos id.
+   * @param dirType Moving direction.
+   * @returns
+   */
+  public safeMoveOneStep(id: number, dirType: GomokuDirectionType): number | -1 {
+    return 1 < this.idxMaxMoveMap[dirType][id] ? id + this.gomokuDirections[dirType] : -1
+  }
+
+  /**
+   * Calculate the pos id after the move.
+   * @param id      !!!Should be a valid pos id.
+   * @param dirType Moving direction.
+   * @param step    Number of steps to move.
+   */
+  public fastMove(id: number, dirType: GomokuDirectionType, step: number): number {
+    return id + this.gomokuDirections[dirType] * step
+  }
+
+  /**
+   * Calculate the pos id after move one step.
+   * @param id      !!!Should be a valid pos id.
+   * @param dirType Moving directions.
+   */
+  public fastMoveOneStep(id: number, dirType: GomokuDirectionType): number {
+    return id + this.gomokuDirections[dirType]
+  }
+
+  public *validNeighbors(id: number): Iterable<[id2: number, dirType: GomokuDirectionType]> {
     for (const dirType of gomokuDirectionTypes) {
-      const [r2, c2] = this.move(r, c, dirType, 1)
-      if (this.isValidPos(r2, c2)) yield [r2, c2, dirType]
+      const id2: number = this.safeMoveOneStep(id, dirType)
+      if (id2 >= 0) yield [id2, dirType]
     }
   }
 
@@ -80,34 +137,22 @@ export class GomokuContext {
    * Traverse in the recursive order.
    * @param handle
    */
-  public traverseAllDirections(
-    handle: (r: number, c: number, dirType: GomokuDirectionType) => void,
-  ): void {
+  public traverseAllDirections(handle: (id: number, dirType: GomokuDirectionType) => void): void {
     this.traverseLeftDirections(handle)
     this.traverseRightDirections(handle)
   }
 
-  public traverseLeftDirections(
-    handle: (r: number, c: number, dirType: GomokuDirectionType) => void,
-  ): void {
-    const { MAX_ROW, MAX_COL } = this
+  public traverseLeftDirections(handle: (id: number, dirType: GomokuDirectionType) => void): void {
+    const { TOTAL_POS } = this
     for (const dirType of leftHalfGomokuDirectionTypes) {
-      for (let r = 0; r < MAX_ROW; ++r) {
-        for (let c = 0; c < MAX_COL; ++c) handle(r, c, dirType)
-      }
+      for (let id = 0; id < TOTAL_POS; ++id) handle(id, dirType)
     }
   }
 
-  public traverseRightDirections(
-    handle: (r: number, c: number, dirType: GomokuDirectionType) => void,
-  ): void {
-    const { MAX_ROW, MAX_COL } = this
-    const R: number = MAX_ROW - 1
-    const C: number = MAX_COL - 1
+  public traverseRightDirections(handle: (id: number, dirType: GomokuDirectionType) => void): void {
+    const { TOTAL_POS } = this
     for (const dirType of rightHalfGomokuDirectionTypes) {
-      for (let r = R; r >= 0; --r) {
-        for (let c = C; c >= 0; --c) handle(r, c, dirType)
-      }
+      for (let id = TOTAL_POS - 1; id >= 0; --id) handle(id, dirType)
     }
   }
 }

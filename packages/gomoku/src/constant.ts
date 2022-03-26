@@ -11,7 +11,7 @@ export enum GomokuDirectionType {
 
 // Canvas x-arias direction.
 // Directions in canvas coordinates.
-export const gomokuDirections: Array<[dr: number, dc: number]> = Array.from(
+export const gomokuDirections: ReadonlyArray<[dr: number, dc: number]> = Array.from(
   Object.entries({
     [GomokuDirectionType.TOP]: [-1, 0],
     [GomokuDirectionType.TOP_RIGHT]: [-1, 1],
@@ -28,20 +28,19 @@ export const gomokuDirections: Array<[dr: number, dc: number]> = Array.from(
   }, []),
 )
 
-export const leftHalfGomokuDirectionTypes: GomokuDirectionType[] = [
+export const leftHalfGomokuDirectionTypes: ReadonlyArray<GomokuDirectionType> = [
   GomokuDirectionType.LEFT,
   GomokuDirectionType.TOP_LEFT,
   GomokuDirectionType.TOP,
   GomokuDirectionType.TOP_RIGHT,
 ]
 
-export const rightHalfGomokuDirectionTypes: GomokuDirectionType[] = [
+export const rightHalfGomokuDirectionTypes: ReadonlyArray<GomokuDirectionType> = [
   GomokuDirectionType.RIGHT,
   GomokuDirectionType.BOTTOM_RIGHT,
   GomokuDirectionType.BOTTOM,
   GomokuDirectionType.BOTTOM_LEFT,
 ]
 
-export const gomokuDirectionTypes = leftHalfGomokuDirectionTypes.concat(
-  rightHalfGomokuDirectionTypes,
-)
+export const gomokuDirectionTypes: ReadonlyArray<GomokuDirectionType> =
+  leftHalfGomokuDirectionTypes.concat(rightHalfGomokuDirectionTypes)

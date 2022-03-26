@@ -37,45 +37,39 @@ export class GomokuCountMap {
     const { context, board, dirCountMap } = this
 
     // Initialize dirCountMap.
-    context.traverseAllDirections((r, c, dirType) => {
-      const id: number = context.idx(r, c)
+    context.traverseAllDirections((id, dirType) => {
       const player: number = board[id]
       if (player >= 0) {
-        const [r2, c2] = context.move(r, c, dirType, 1)
-        const id2: number = context.idxIfValid(r2, c2)
+        const id2: number = context.safeMoveOneStep(id, dirType)
         const countMap = dirCountMap[dirType]
         countMap[id] = id2 >= 0 && board[id2] === player ? countMap[id2] + 1 : 1
       }
     })
 
     // Initialize conShapeCountMap.
-    context.traverseLeftDirections((r, c, dirType) => {
-      const id: number = context.idx(r, c)
+    context.traverseLeftDirections((id, dirType) => {
       const player: number = board[id]
       if (player >= 0 && dirCountMap[dirType][id] === 1) {
         const revDirType: GomokuDirectionType = dirType ^ 1
-        this.updateConShapeCountMap(r, c, revDirType, 1)
+        this.updateConShapeCountMap(id, revDirType, 1)
       }
     })
 
     // Initialize gapShapeCountMap.
-    context.traverseLeftDirections((r, c, dirType) => {
-      const id: number = context.idx(r, c)
+    context.traverseLeftDirections((id, dirType) => {
       const revDirType: GomokuDirectionType = dirType ^ 1
       if (board[id] < 0) {
-        const [r0, c0] = context.move(r, c, revDirType, 1)
-        const id0: number = context.idxIfValid(r0, c0)
+        const id0: number = context.safeMoveOneStep(id, revDirType)
         if (id0 < 0 || board[id0] < 0) return
 
         const player: number = board[id0]
-        const [r2, c2] = context.move(r, c, dirType, 1)
-        const id2: number = context.idxIfValid(r2, c2)
+        const id2: number = context.safeMoveOneStep(id, dirType)
         if (id2 < 0 || board[id2] !== player) return
 
         const lftCnt: number = dirCountMap[revDirType][id0]
         const rhtCnt: number = dirCountMap[dirType][id2]
-        const [startR, startC] = context.move(r, c, revDirType, lftCnt)
-        this.updateGapShapeCountMap(player, startR, startC, lftCnt, rhtCnt, dirType, 1)
+        const startId: number = context.fastMove(id, revDirType, lftCnt)
+        this.updateGapShapeCountMap(player, startId, lftCnt, rhtCnt, dirType, 1)
       }
     })
   }
@@ -100,21 +94,17 @@ export class GomokuCountMap {
     // Update dirCountMap.
     {
       for (const dirType of gomokuDirectionTypes) {
-        const [r2, c2] = context.move(r, c, dirType, 1)
-        const id2: number = context.idxIfValid(r2, c2)
+        const id2: number = context.safeMoveOneStep(id, dirType)
         const countMap = dirCountMap[dirType]
         countMap[id] = id2 >= 0 && board[id2] === player ? countMap[id2] + 1 : 1
       }
 
       for (const dirType of gomokuDirectionTypes) {
-        const [dr, dc] = gomokuDirections[dirType]
+        const revDirType = dirType ^ 1
         const countMap = dirCountMap[dirType]
         const cnt: number = countMap[id]
-        for (let r2: number = r, c2: number = c; ; ) {
-          r2 = r2 - dr
-          c2 = c2 - dc
-          if (context.isInvalidPos(r2, c2)) break
-          const id2: number = context.idx(r2, c2)
+        for (let id2: number = id; ; ) {
+          id2 = context.safeMoveOneStep(id2, revDirType)
           if (board[id2] !== player) break
           countMap[id2] += cnt
         }
@@ -151,14 +141,12 @@ export class GomokuCountMap {
     // Update dirCountMap.
     {
       for (const dirType of gomokuDirectionTypes) {
-        const [dr, dc] = gomokuDirections[dirType]
+        const revDirType = dirType ^ 1
         const countMap = dirCountMap[dirType]
         const cnt: number = countMap[id]
-        for (let r2: number = r, c2: number = c; ; ) {
-          r2 = r2 - dr
-          c2 = c2 - dc
-          const id2: number = context.idxIfValid(r2, c2)
-          if (id2 < 0 || board[id2] !== player) break
+        for (let id2: number = id; ; ) {
+          id2 = context.safeMoveOneStep(id2, revDirType)
+          if (board[id2] !== player) break
           countMap[id2] -= cnt
         }
       }
@@ -251,10 +239,10 @@ export class GomokuCountMap {
       const cnt: number = dirCountMap[dirType][id]
       if (steps === 0) {
         const rhtCnt: number = dirCountMap[dirType][id]
-        const [r2, c2] = context.move(r, c, dirType, rhtCnt - 1)
-        this.updateConShapeCountMap(r2, c2, revDirType, v)
+        const id2: number = context.fastMove(id, dirType, rhtCnt - 1)
+        this.updateConShapeCountMap(id2, revDirType, v)
       } else {
-        this.updateConShapeCountMap(r, c, dirType, v)
+        this.updateConShapeCountMap(id, dirType, v)
       }
       r += dr * cnt
       c += dc * cnt
@@ -262,16 +250,10 @@ export class GomokuCountMap {
     }
   }
 
-  protected updateConShapeCountMap(
-    startR: number,
-    startC: number,
-    dirType: GomokuDirectionType,
-    v: number,
-  ): void {
-    const id: number = this.context.idx(startR, startC)
-    const player: number = this.board[id]
-    const cnt: number = this.dirCountMap[dirType][id]
-    const countOfFreeSide: number = this.countFreeSide(player, startR, startC, cnt, dirType)
+  protected updateConShapeCountMap(startId: number, dirType: GomokuDirectionType, v: number): void {
+    const player: number = this.board[startId]
+    const cnt: number = this.dirCountMap[dirType][startId]
+    const countOfFreeSide: number = this.countFreeSide(player, startId, cnt, dirType)
     const normalizedCnt: number = Math.min(cnt, this.context.MAX_INLINE)
     this.conShapeCountMap[player][normalizedCnt][countOfFreeSide] += v
   }
@@ -306,8 +288,8 @@ export class GomokuCountMap {
       const rhtCnt: number = dirCountMap[dirType][id]
 
       if (steps < 2) {
-        const [r2, c2] = context.move(r, c, dirType, rhtCnt - 1)
-        this.detectGapShape(r2, c2, revDirType, v)
+        const id2: number = context.fastMove(id, dirType, rhtCnt - 1)
+        this.detectGapShape(id2, revDirType, v)
       }
 
       r -= dr * (lftCnt - 1)
@@ -328,7 +310,7 @@ export class GomokuCountMap {
         continue
       }
 
-      this.detectGapShape(r, c, dirType, v)
+      this.detectGapShape(id, dirType, v)
       const rhtCnt: number = dirCountMap[dirType][id]
       r += dr * rhtCnt
       c += dc * rhtCnt
@@ -336,27 +318,23 @@ export class GomokuCountMap {
     }
   }
 
-  protected detectGapShape(r: number, c: number, dirType: number, v: number): void {
+  protected detectGapShape(id: number, dirType: number, v: number): void {
     const { context, board, dirCountMap } = this
-    const id: number = context.idx(r, c)
     const lftCnt: number = dirCountMap[dirType][id]
 
-    const [r1, c1] = context.move(r, c, dirType, lftCnt)
-    const id1: number = context.idxIfValid(r1, c1)
+    const id1: number = context.safeMove(id, dirType, lftCnt)
     if (id1 < 0 || board[id1] >= 0) return
 
     const player = board[id]
-    const [r2, c2] = context.move(r1, c1, dirType, 1)
-    const id2: number = context.idxIfValid(r2, c2)
+    const id2: number = context.safeMove(id1, dirType, 1)
     if (id2 < 0 || board[id2] !== player) return
     const rhtCnt: number = dirCountMap[dirType][id2]
-    this.updateGapShapeCountMap(player, r, c, lftCnt, rhtCnt, dirType, v)
+    this.updateGapShapeCountMap(player, id, lftCnt, rhtCnt, dirType, v)
   }
 
   protected updateGapShapeCountMap(
     player: number,
-    startR: number,
-    startC: number,
+    startId: number,
     lftCnt: number,
     rhtCnt: number,
     dirType: GomokuDirectionType,
@@ -365,36 +343,23 @@ export class GomokuCountMap {
     const threshold: number = this.context.MAX_INLINE - 1
     if (lftCnt >= threshold || rhtCnt >= threshold) return
 
-    const countOfFreeSide: number = this.countFreeSide(
-      player,
-      startR,
-      startC,
-      lftCnt + rhtCnt + 1,
-      dirType,
-    )
+    const cnt: number = lftCnt + rhtCnt + 1
+    const countOfFreeSide: number = this.countFreeSide(player, startId, cnt, dirType)
     const normalizedCnt: number = Math.min(lftCnt + rhtCnt, this.context.MAX_INLINE)
     this.gapShapeCountMap[player][normalizedCnt][countOfFreeSide] += v
   }
 
-  protected countFreeSide(
-    player: number,
-    startR: number,
-    startC: number,
-    cnt: number,
-    dirType: number,
-  ): number {
+  protected countFreeSide(player: number, startId: number, cnt: number, dirType: number): number {
     const { context, board } = this
     const { MAX_INLINE } = context
-    const revDirType: GomokuDirectionType = dirType ^ 1
 
     // Left position
-    const [r0, c0] = context.move(startR, startC, revDirType, 1)
-    const id0: number = context.idxIfValid(r0, c0)
+    const revDirType: GomokuDirectionType = dirType ^ 1
+    const id0: number = context.safeMoveOneStep(startId, revDirType)
     const isFreeSide0: 0 | 1 = id0 >= 0 && board[id0] < 0 ? 1 : 0
 
     // Right position
-    const [r2, c2] = context.move(startR, startC, dirType, cnt)
-    const id2: number = context.idxIfValid(r2, c2)
+    const id2: number = context.safeMove(startId, dirType, cnt)
     const isFreeSide2: 0 | 1 = id2 >= 0 && board[id2] < 0 ? 1 : 0
 
     const countOfFreeSide: number = isFreeSide0 + isFreeSide2
@@ -403,21 +368,15 @@ export class GomokuCountMap {
     let maxPossibleCnt: number = cnt + countOfFreeSide
     if (maxPossibleCnt < MAX_INLINE) {
       if (isFreeSide0) {
-        const [dr, dc] = gomokuDirections[revDirType]
-        for (let r = r0, c = c0; maxPossibleCnt < MAX_INLINE; ++maxPossibleCnt) {
-          r += dr
-          c += dc
-          const id: number = context.idxIfValid(r, c)
+        for (let id = id0; maxPossibleCnt < MAX_INLINE; ++maxPossibleCnt) {
+          id = context.safeMoveOneStep(id, revDirType)
           if (id < 0 || (board[id] >= 0 && board[id] !== player)) break
         }
       }
 
       if (isFreeSide2) {
-        const [dr, dc] = gomokuDirections[dirType]
-        for (let r = r2, c = c2; maxPossibleCnt < MAX_INLINE; ++maxPossibleCnt) {
-          r += dr
-          c += dc
-          const id: number = context.idxIfValid(r, c)
+        for (let id = id2; maxPossibleCnt < MAX_INLINE; ++maxPossibleCnt) {
+          id = context.safeMoveOneStep(id, dirType)
           if (id < 0 || (board[id] >= 0 && board[id] !== player)) break
         }
       }

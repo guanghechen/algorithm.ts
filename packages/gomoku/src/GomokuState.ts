@@ -27,8 +27,7 @@ export class GomokuState {
       const id: number = context.idx(r, c)
       board[id] = p
       candidateSet.delete(id)
-      for (const [r2, c2] of context.validNeighbors(r, c)) {
-        const id2: number = context.idx(r2, c2)
+      for (const [id2] of context.validNeighbors(id)) {
         if (board[id2] < 0) candidateSet.add(id2)
       }
     }
@@ -48,8 +47,7 @@ export class GomokuState {
       this.placedCount += 1
       board[id] = player
       candidateSet.delete(id)
-      for (const [r2, c2] of context.validNeighbors(r, c)) {
-        const id2: number = context.idx(r2, c2)
+      for (const [id2] of context.validNeighbors(id)) {
         if (board[id2] < 0) candidateSet.add(id2)
       }
     }
@@ -67,10 +65,9 @@ export class GomokuState {
     {
       this.placedCount -= 1
       board[id] = -1
-      if (this.hasPlacedNeighbors(r, c)) candidateSet.add(id)
-      for (const [r2, c2] of context.validNeighbors(r, c)) {
-        const id2: number = context.idx(r2, c2)
-        if (board[id2] >= 0 || !this.hasPlacedNeighbors(r2, c2)) {
+      if (this.hasPlacedNeighbors(id)) candidateSet.add(id)
+      for (const [id2] of context.validNeighbors(id)) {
+        if (board[id2] >= 0 || !this.hasPlacedNeighbors(id2)) {
           candidateSet.delete(id2)
         }
       }
@@ -119,19 +116,19 @@ export class GomokuState {
   public randomMove(): [r: number, c: number] {
     const { context, board, candidateSet } = this
     for (const id of candidateSet) {
-      const [r, c] = context.revIdx(id)
-      for (const [r2, c2] of context.validNeighbors(r, c)) {
-        const id2: number = context.idx(r2, c2)
-        if (board[id2] < 0) return [r2, c2]
+      for (const [id2] of context.validNeighbors(id)) {
+        if (board[id2] < 0) {
+          const [r2, c2] = context.revIdx(id2)
+          return [r2, c2]
+        }
       }
     }
     return [-1, -1]
   }
 
-  protected hasPlacedNeighbors(r: number, c: number): boolean {
+  protected hasPlacedNeighbors(id: number): boolean {
     const { context, board } = this
-    for (const [r2, c2] of context.validNeighbors(r, c)) {
-      const id2: number = context.idx(r2, c2)
+    for (const [id2] of context.validNeighbors(id)) {
       if (board[id2] >= 0) return true
     }
     return false
