@@ -35,9 +35,9 @@ class TesterHelper {
     const id: number = context.idx(r, c)
     if (board[id] >= 0) return
 
-    countMap.beforeForward(r, c)
+    countMap.beforeForward(id)
     board[id] = p
-    countMap.afterForward(r, c)
+    countMap.afterForward(id)
   }
 
   public rollback(r: number, c: number): void {
@@ -46,9 +46,9 @@ class TesterHelper {
     if (board[id] < 0) return
 
     const p: number = board[id]
-    countMap.beforeRollback(r, c)
+    countMap.beforeRollback(id)
     board[id] = -1
-    countMap.afterRollback(r, c, p)
+    countMap.afterRollback(id, p)
   }
 
   public snapshot(): ReturnType<GomokuCountMap['toJSON']> {

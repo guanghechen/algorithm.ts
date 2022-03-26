@@ -116,6 +116,33 @@ describe('15x15', () => {
     }
   })
 
+  test('maxMove', () => {
+    for (const dirType of gomokuDirectionTypes) {
+      const [dr, dc] = gomokuDirections[dirType]
+      for (let id = 0; id < context.TOTAL_POS; ++id) {
+        const [r, c] = context.revIdx(id)
+        let step = 0
+
+        for (let r2 = r, c2 = c; ; ++step, r2 += dr, c2 += dc) {
+          if (context.isInvalidPos(r2 + dr, c2 + dc)) break
+        }
+
+        const message = `[r, c, dirType, step]: ${[r, c, dirType, step].join(', ')}`
+        {
+          let r2: number = r + dr * step
+          let c2: number = c + dc * step
+          expect([message, context.isValidPos(r2, c2)]).toEqual([message, true])
+
+          r2 += dr
+          c2 += dc
+          expect([message, context.isInvalidPos(r2, c2)]).toEqual([message, true])
+        }
+
+        expect([message, context.maxMovableSteps(id, dirType)]).toEqual([message, step])
+      }
+    }
+  })
+
   test('isValidPos', () => {
     expect(context.isValidPos(0, 0)).toEqual(true)
     expect(context.isValidPos(14, 14)).toEqual(true)

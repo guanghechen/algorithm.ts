@@ -37,7 +37,7 @@ export class GomokuContext {
       const [dr, dc] = gomokuDirections[dirType]
       for (let r = 0; r < MAX_ROW; ++r) {
         for (let c = 0; c < MAX_COL; ++c) {
-          let steps = 1
+          let steps = 0
           for (let r2 = r, c2 = c; ; ++steps) {
             r2 += dr
             c2 += dc
@@ -94,7 +94,7 @@ export class GomokuContext {
    * @returns
    */
   public safeMove(id: number, dirType: GomokuDirectionType, step: number): number | -1 {
-    return step < this.idxMaxMoveMap[dirType][id] ? id + this.gomokuDirections[dirType] * step : -1
+    return step <= this.idxMaxMoveMap[dirType][id] ? id + this.gomokuDirections[dirType] * step : -1
   }
 
   /**
@@ -104,7 +104,7 @@ export class GomokuContext {
    * @returns
    */
   public safeMoveOneStep(id: number, dirType: GomokuDirectionType): number | -1 {
-    return 1 < this.idxMaxMoveMap[dirType][id] ? id + this.gomokuDirections[dirType] : -1
+    return 1 <= this.idxMaxMoveMap[dirType][id] ? id + this.gomokuDirections[dirType] : -1
   }
 
   /**
@@ -124,6 +124,10 @@ export class GomokuContext {
    */
   public fastMoveOneStep(id: number, dirType: GomokuDirectionType): number {
     return id + this.gomokuDirections[dirType]
+  }
+
+  public maxMovableSteps(id: number, dirType: GomokuDirectionType): number {
+    return this.idxMaxMoveMap[dirType][id]
   }
 
   public *validNeighbors(id: number): Iterable<[id2: number, dirType: GomokuDirectionType]> {
