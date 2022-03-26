@@ -19,7 +19,7 @@ export const createScoreMap = (MAX_INLINE: number): IScoreMap => {
 
   maxValue /= 8
   for (; cnt > 0; --cnt, maxValue /= 8) {
-    continuously[cnt] = [0, maxValue / 4, maxValue / 2]
+    continuously[cnt] = [0, maxValue / 4, maxValue]
     gap[cnt] = [0, maxValue / 8, maxValue / 4]
   }
   return { continuously, gap }

@@ -176,7 +176,7 @@ export class GomokuCountMap {
       const [x, y, z] = scoreMap.continuously[cnt]
       score += a * x + b * y + c * z
     }
-    for (let cnt = 1; cnt <= context.MAX_INLINE; ++cnt) {
+    for (let cnt = 1; cnt < context.MAX_INLINE; ++cnt) {
       const [a, b, c] = gapCountMap[cnt]
       const [x, y, z] = scoreMap.gap[cnt]
       score += a * x + b * y + c * z
