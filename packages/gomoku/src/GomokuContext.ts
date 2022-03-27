@@ -11,19 +11,18 @@ export class GomokuContext {
   public readonly MAX_ROW: number
   public readonly MAX_COL: number
   public readonly MAX_INLINE: number
-  public readonly NEXT_MOVER_MAX_BUFFER: number
+  public readonly MAX_NEXT_MOVER_BUFFER: number
   public readonly TOTAL_POS: number
-  public readonly TOTAL_PLAYERS: number
   public readonly board: Readonly<IGomokuBoard>
   protected readonly _gomokuDirections: Readonly<Int32Array>
   protected readonly _idxMap: ReadonlyArray<Readonly<[r: number, c: number]>>
   protected readonly _idxMaxMoveMap: ReadonlyArray<Readonly<Int32Array>>
   protected _placedCount: number
+  protected _nextMoverBuffer: number
 
-  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, NEXT_MOVER_MAX_BUFFER = 0.4) {
+  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, MAX_NEXT_MOVER_BUFFER = 0.4) {
     const _TOTAL_POS: number = MAX_ROW * MAX_COL
-    const _TOTAL_PLAYERS = 2
-    const _NEXT_MOVER_MAX_BUFFER = Math.max(0.1, Math.min(0.9, NEXT_MOVER_MAX_BUFFER))
+    const _MAX_NEXT_MOVER_BUFFER = Math.max(0, Math.min(1, MAX_NEXT_MOVER_BUFFER))
     const _gomokuDirections = new Int32Array(gomokuDirections.map(([dr, dc]) => dr * MAX_ROW + dc))
     const board: IGomokuBoard = new Int32Array(_TOTAL_POS)
 
@@ -58,17 +57,25 @@ export class GomokuContext {
     this.MAX_COL = MAX_COL
     this.MAX_INLINE = MAX_INLINE
     this.TOTAL_POS = _TOTAL_POS
-    this.TOTAL_PLAYERS = _TOTAL_PLAYERS
-    this.NEXT_MOVER_MAX_BUFFER = _NEXT_MOVER_MAX_BUFFER
+    this.MAX_NEXT_MOVER_BUFFER = _MAX_NEXT_MOVER_BUFFER
     this.board = board
     this._gomokuDirections = _gomokuDirections
     this._idxMap = _idxMap
     this._idxMaxMoveMap = _idxMaxMoveMap
     this._placedCount = 0
+    this._nextMoverBuffer = 0
   }
 
   public get placedCount(): number {
     return this._placedCount
+  }
+
+  public get nextMoverBuffer(): number {
+    return this._nextMoverBuffer
+  }
+
+  public reRandNextMoverBuffer(): void {
+    this._nextMoverBuffer = Math.random() * this.MAX_NEXT_MOVER_BUFFER
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {

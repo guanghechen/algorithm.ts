@@ -15,10 +15,10 @@ export class GomokuCountMap {
     this.dirCountMap = new Array(gomokuDirections.length)
       .fill([])
       .map(() => new Uint32Array(context.TOTAL_POS))
-    this.conShapeCountMap = new Array(context.TOTAL_PLAYERS)
+    this.conShapeCountMap = new Array(2)
       .fill([])
       .map(() => new Array(context.MAX_INLINE + 1).fill([]).map(() => [0, 0, 0]))
-    this.gapShapeCountMap = new Array(context.TOTAL_PLAYERS)
+    this.gapShapeCountMap = new Array(2)
       .fill([])
       .map(() => new Array(context.MAX_INLINE + 1).fill([]).map(() => [0, 0, 0]))
     this.scoreMap = scoreMap

@@ -18,10 +18,10 @@ export class GomokuSolution {
     MAX_COL: number,
     MAX_INLINE = 5,
     MAX_DEPTH = 3,
-    NEXT_MOVER_MAX_BUFFER?: number,
+    MAX_NEXT_MOVER_BUFFER?: number,
     scoreMap?: IScoreMap,
   ) {
-    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE, NEXT_MOVER_MAX_BUFFER)
+    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE, MAX_NEXT_MOVER_BUFFER)
     const _scoreMap: IScoreMap = scoreMap ?? createScoreMap(context.MAX_INLINE)
 
     this.MAX_DEPTH = Math.max(1, Math.round(MAX_DEPTH))
@@ -54,6 +54,8 @@ export class GomokuSolution {
     this.stateCache.clear()
     this.scoreForPlayer = currentPlayer
     this.bestMoveId = null
+
+    this.context.reRandNextMoverBuffer()
     this.alphaBeta(
       currentPlayer,
       Number.NEGATIVE_INFINITY,
@@ -95,7 +97,7 @@ export class GomokuSolution {
       let gamma = stateCache.get(nextState)
       if (gamma === undefined) {
         state.forward(id, player)
-        gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, nextState, score)
+        gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, nextState, stateScore + score)
         state.rollback(id)
         stateCache.set(nextState, gamma)
       }
