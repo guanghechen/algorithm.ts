@@ -33,12 +33,6 @@ export class GomokuState {
         }
       }
     }
-
-    // Always regard the middle position of the board as a candidate.
-    const midId: number = context.TOTAL_POS >> 1
-    if (context.board[midId] < 0 && !candidateMap.has(midId)) {
-      candidateMap.set(midId, this._scoreForCandidate(stateScore0, stateScore1, midId))
-    }
   }
 
   public forward(id: number, player: number): void {
@@ -66,9 +60,13 @@ export class GomokuState {
     context.rollback(id)
     this._afterRollback(id)
 
-    if (context.hasPlacedNeighbors(id)) candidateMap.set(id, [0, 0, 0, 0])
+    if (context.hasPlacedNeighbors(id)) {
+      candidateMap.set(id, [0, 0, 0, 0])
+    }
     for (const [id2] of context.validNeighbors(id)) {
-      if (context.board[id2] >= 0 || !context.hasPlacedNeighbors(id2)) candidateMap.delete(id2)
+      if (context.board[id2] >= 0 || !context.hasPlacedNeighbors(id2)) {
+        candidateMap.delete(id2)
+      }
     }
     const stateScore0: number = this.countMap.score(0)
     const stateScore1: number = this.countMap.score(1)
@@ -81,6 +79,17 @@ export class GomokuState {
     const player0: number = (nextPlayer << 1) | scoreForPlayer
     const player1: number = player0 ^ 1
     const candidates: IGomokuCandidateState[] = []
+
+    // Always regard the middle position of the board as a candidate.
+    if (context.board[context.MIDDLE_POS] < 0 && !candidateMap.has(context.MIDDLE_POS)) {
+      const stateScore0: number = this.countMap.score(0)
+      const stateScore1: number = this.countMap.score(1)
+      candidateMap.set(
+        context.MIDDLE_POS,
+        this._scoreForCandidate(stateScore0, stateScore1, context.MIDDLE_POS),
+      )
+    }
+
     for (const [id, candidateScore] of candidateMap.entries()) {
       /* istanbul ignore next */
       if (context.board[id] >= 0) continue

@@ -12,7 +12,9 @@ export class GomokuContext {
   public readonly MAX_COL: number
   public readonly MAX_INLINE: number
   public readonly MAX_NEXT_MOVER_BUFFER: number
+  public readonly MAX_DISTANCE_OF_NEIGHBOR: number
   public readonly TOTAL_POS: number
+  public readonly MIDDLE_POS: number
   public readonly board: Readonly<IGomokuBoard>
   protected readonly _gomokuDirections: Readonly<Int32Array>
   protected readonly _idxMap: ReadonlyArray<Readonly<[r: number, c: number]>>
@@ -20,7 +22,13 @@ export class GomokuContext {
   protected _placedCount: number
   protected _nextMoverBuffer: number
 
-  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number, MAX_NEXT_MOVER_BUFFER = 0.4) {
+  constructor(
+    MAX_ROW: number,
+    MAX_COL: number,
+    MAX_INLINE: number,
+    MAX_NEXT_MOVER_BUFFER = 0.4,
+    MAX_DISTANCE_OF_NEIGHBOR = 2,
+  ) {
     const _TOTAL_POS: number = MAX_ROW * MAX_COL
     const _MAX_NEXT_MOVER_BUFFER = Math.max(0, Math.min(1, MAX_NEXT_MOVER_BUFFER))
     const _gomokuDirections = new Int32Array(gomokuDirections.map(([dr, dc]) => dr * MAX_ROW + dc))
@@ -57,7 +65,9 @@ export class GomokuContext {
     this.MAX_COL = MAX_COL
     this.MAX_INLINE = MAX_INLINE
     this.TOTAL_POS = _TOTAL_POS
+    this.MIDDLE_POS = _TOTAL_POS >> 1
     this.MAX_NEXT_MOVER_BUFFER = _MAX_NEXT_MOVER_BUFFER
+    this.MAX_DISTANCE_OF_NEIGHBOR = MAX_DISTANCE_OF_NEIGHBOR
     this.board = board
     this._gomokuDirections = _gomokuDirections
     this._idxMap = _idxMap
@@ -172,16 +182,20 @@ export class GomokuContext {
   }
 
   public *validNeighbors(id: number): Iterable<[id2: number, dirType: GomokuDirectionType]> {
+    const { MAX_DISTANCE_OF_NEIGHBOR } = this
     for (const dirType of gomokuDirectionTypes) {
-      const id2: number = this.safeMoveOneStep(id, dirType)
-      if (id2 >= 0) yield [id2, dirType]
+      let id2: number = id
+      for (let step = 0; step < MAX_DISTANCE_OF_NEIGHBOR; ++step) {
+        id2 = this.safeMoveOneStep(id2, dirType)
+        if (id2 < 0) break
+        yield [id2, dirType]
+      }
     }
   }
 
   public hasPlacedNeighbors(id: number): boolean {
     const { board } = this
-    for (const dirType of gomokuDirectionTypes) {
-      const id2: number = this.safeMoveOneStep(id, dirType)
+    for (const [id2] of this.validNeighbors(id)) {
       if (id2 >= 0 && board[id2] >= 0) return true
     }
     return false

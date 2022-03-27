@@ -27,7 +27,7 @@ export const createScoreMap = (TOTAL_POS: number, MAX_INLINE: number): IScoreMap
   for (let cnt = 1; cnt < MAX_INLINE; ++cnt) {
     gap[cnt] = [0, baseValue / 2, baseValue]
     con[cnt] = [0, baseValue, baseValue * 2]
-    const scale: number = Math.min(4, Math.round((TOTAL_POS / cnt) * cnt))
+    const scale: number = Math.max(4, Math.round(TOTAL_POS / (cnt * cnt)))
     baseValue *= scale
   }
 

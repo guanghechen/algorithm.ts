@@ -8,7 +8,7 @@ import {
 } from '../src'
 
 describe('15x15', () => {
-  const context = new GomokuContext(15, 15, 5)
+  const context = new GomokuContext(15, 15, 5, 0, 2)
 
   test('idx', () => {
     for (let r = 0; r < context.MAX_ROW; ++r) {
@@ -165,19 +165,30 @@ describe('15x15', () => {
     }
     expect(collect(0, 0)).toEqual([
       [0, 1, GomokuDirectionType.RIGHT],
+      [0, 2, GomokuDirectionType.RIGHT],
       [1, 1, GomokuDirectionType.BOTTOM_RIGHT],
+      [2, 2, GomokuDirectionType.BOTTOM_RIGHT],
       [1, 0, GomokuDirectionType.BOTTOM],
+      [2, 0, GomokuDirectionType.BOTTOM],
     ])
 
     expect(collect(7, 6)).toEqual([
       [7, 5, GomokuDirectionType.LEFT],
+      [7, 4, GomokuDirectionType.LEFT],
       [6, 5, GomokuDirectionType.TOP_LEFT],
+      [5, 4, GomokuDirectionType.TOP_LEFT],
       [6, 6, GomokuDirectionType.TOP],
+      [5, 6, GomokuDirectionType.TOP],
       [6, 7, GomokuDirectionType.TOP_RIGHT],
+      [5, 8, GomokuDirectionType.TOP_RIGHT],
       [7, 7, GomokuDirectionType.RIGHT],
+      [7, 8, GomokuDirectionType.RIGHT],
       [8, 7, GomokuDirectionType.BOTTOM_RIGHT],
+      [9, 8, GomokuDirectionType.BOTTOM_RIGHT],
       [8, 6, GomokuDirectionType.BOTTOM],
+      [9, 6, GomokuDirectionType.BOTTOM],
       [8, 5, GomokuDirectionType.BOTTOM_LEFT],
+      [9, 4, GomokuDirectionType.BOTTOM_LEFT],
     ])
   })
 
