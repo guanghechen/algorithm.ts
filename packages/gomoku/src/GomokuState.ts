@@ -78,7 +78,7 @@ export class GomokuState {
   public expand(nextPlayer: number, scoreForPlayer: number): IGomokuCandidateState[] {
     const { context, candidateMap } = this
     const nextMoverFac: number = 1 + context.nextMoverBuffer
-    const player0: number = (1 << nextPlayer) | scoreForPlayer
+    const player0: number = (nextPlayer << 1) | scoreForPlayer
     const player1: number = player0 ^ 1
     const candidates: IGomokuCandidateState[] = []
     for (const [id, candidateScore] of candidateMap.entries()) {
