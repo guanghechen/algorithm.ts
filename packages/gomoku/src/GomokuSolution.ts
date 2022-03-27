@@ -1,6 +1,5 @@
 import { GomokuContext } from './GomokuContext'
 import { GomokuState } from './GomokuState'
-import { GomokuStateCompressor } from './GomokuStateCompressor'
 import type { IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
 import { createScoreMap } from './util'
 
@@ -8,7 +7,6 @@ export class GomokuSolution {
   protected readonly MAX_DEPTH: number
   protected readonly context: GomokuContext
   protected readonly state: GomokuState
-  protected readonly stateCompressor: GomokuStateCompressor
   protected readonly stateCache: Map<bigint, number>
   protected scoreForPlayer: number
   protected bestMoveId: number | null
@@ -27,7 +25,6 @@ export class GomokuSolution {
     this.MAX_DEPTH = Math.max(1, Math.round(MAX_DEPTH))
     this.context = context
     this.state = new GomokuState(context, _scoreMap)
-    this.stateCompressor = new GomokuStateCompressor(BigInt(context.TOTAL_POS))
     this.stateCache = new Map()
     this.scoreForPlayer = -1
     this.bestMoveId = null
@@ -61,7 +58,6 @@ export class GomokuSolution {
       Number.NEGATIVE_INFINITY,
       Number.POSITIVE_INFINITY,
       0,
-      this.stateCompressor.INITIAL_STATE,
       this.state.score(currentPlayer ^ 1, currentPlayer),
     )
 
@@ -76,10 +72,9 @@ export class GomokuSolution {
     alpha: number,
     beta: number,
     cur: number,
-    prevState: bigint,
     stateScore: number,
   ): number {
-    const { state, stateCompressor, stateCache, scoreForPlayer } = this
+    const { state, scoreForPlayer } = this
     if (cur === this.MAX_DEPTH || state.isFinal()) return stateScore
 
     const candidates: IGomokuCandidateState[] = state.expand(player, scoreForPlayer)
@@ -93,14 +88,9 @@ export class GomokuSolution {
 
     if (cur === 0) this.bestMoveId = candidates[0].id
     for (const { id, score } of candidates) {
-      const nextState: bigint = stateCompressor.compress(cur, prevState, BigInt(id))
-      let gamma = stateCache.get(nextState)
-      if (gamma === undefined) {
-        state.forward(id, player)
-        gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, nextState, stateScore + score)
-        state.rollback(id)
-        stateCache.set(nextState, gamma)
-      }
+      state.forward(id, player)
+      const gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, stateScore + score)
+      state.rollback(id)
 
       if (player === scoreForPlayer) {
         if (alpha < gamma) {
