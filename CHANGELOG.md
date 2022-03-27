@@ -1,5 +1,40 @@
 # Changelog
 
+<a name="2.0.7-alpha.0"></a>
+## 2.0.7-alpha.0 (2022-03-27)
+
+### Added
+
+- ✅ test(gomoku): update tests [[a967c8b](https://github.com/guanghechen/algorithm.ts/commit/a967c8b2394674b2b2653792696dec8e49c1bbb6)]
+- ✅ test(gomoku): update snapshots [[2dfd446](https://github.com/guanghechen/algorithm.ts/commit/2dfd44692a05dfa8e733ea8026420d130d475ea1)]
+
+### Changed
+
+- ⚡ improve(gomoku): revert state cache [[54c7363](https://github.com/guanghechen/algorithm.ts/commit/54c73632acdf7e7c057e02c5976dde6f7b172056)]
+- 🎨 improve(gomoku): default search neighbors within 2-steps as candidates [[8a9512e](https://github.com/guanghechen/algorithm.ts/commit/8a9512e3b27f60e01cf1581ba58989ae94aa242d)]
+- ⚡ improve(gomoku): tweak score map [[52c48b1](https://github.com/guanghechen/algorithm.ts/commit/52c48b18be4e7d6fad7f7543bdf34c7c62911e63)]
+- ⚡ improve(gomoku): tweak score map [[2dae96c](https://github.com/guanghechen/algorithm.ts/commit/2dae96cb64dc341f144456d3606cbc4e241c42be)]
+- ⚡ improve: only re-calc related candidate scores [[f7d3b43](https://github.com/guanghechen/algorithm.ts/commit/f7d3b436c64bb59e3cb69ee440d4b57e63b11521)]
+- 🎨 refactor(gomoku): refactor score func [[c8976b3](https://github.com/guanghechen/algorithm.ts/commit/c8976b3161c9d7553231df9153773babef05bdda)]
+- 🎨 refactor: move placedCount from GomokuState to GomokuContext [[69f7648](https://github.com/guanghechen/algorithm.ts/commit/69f76481b63c00abbc9797dd4f0ab69c644a4b47)]
+- 🎨 refactor: move board from GomokuState to GomokuContext [[40810bb](https://github.com/guanghechen/algorithm.ts/commit/40810bb88d1c965a022e3b3a91a9a6cca0d5d535)]
+
+### Removed
+
+- 🔥 improve: remove dead codes [[1f3772f](https://github.com/guanghechen/algorithm.ts/commit/1f3772f20e21759625c0a53b62b10958b6aa693c)]
+- 🔥 improve: remove unused vars [[670d209](https://github.com/guanghechen/algorithm.ts/commit/670d20930e890786868d962e615d39310e8ec20a)]
+
+### Fixed
+
+- 🐛 fix: fix incorrectly result in &#x27;_reAppriseCandidates&#x27; [[0e7e820](https://github.com/guanghechen/algorithm.ts/commit/0e7e8205641068918e53ddd8659642765d4230dd)]
+- 🐛 fix: add the center pos as initial candidate [[496ceb5](https://github.com/guanghechen/algorithm.ts/commit/496ceb52518896c2b3ea686fb95715b0cdcc140a)]
+- 🐛 fix(gomoku): avoid to parse a invalid pos id [[c19a328](https://github.com/guanghechen/algorithm.ts/commit/c19a32884c884de5eec2b953caa754f9a145f9f6)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[ad52739](https://github.com/guanghechen/algorithm.ts/commit/ad52739bd9b68679170edfe107e4853c72dbaa38)]
+
+
 <a name="2.0.6"></a>
 ## 2.0.6 (2022-03-26)
 
