@@ -22,7 +22,7 @@ export class GomokuSolution {
     scoreMap?: IScoreMap,
   ) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE, MAX_NEXT_MOVER_BUFFER)
-    const _scoreMap: IScoreMap = scoreMap ?? createScoreMap(context.MAX_INLINE)
+    const _scoreMap: IScoreMap = scoreMap ?? createScoreMap(context.TOTAL_POS, context.MAX_INLINE)
 
     this.MAX_DEPTH = Math.max(1, Math.round(MAX_DEPTH))
     this.context = context

@@ -170,7 +170,7 @@ export class GomokuCountMap {
     let score = 0
     for (let cnt = 1; cnt < context.MAX_INLINE; ++cnt) {
       const [a, b, c] = conCountMap[cnt]
-      const [x, y, z] = scoreMap.continuously[cnt]
+      const [x, y, z] = scoreMap.con[cnt]
       score += a * x + b * y + c * z
     }
     for (let cnt = 1; cnt < context.MAX_INLINE; ++cnt) {

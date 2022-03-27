@@ -12,7 +12,7 @@ class TesterHelper {
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
     const context: GomokuContext = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
-    const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE)
+    const scoreMap: IScoreMap = createScoreMap(context.TOTAL_POS, context.MAX_INLINE)
     const countMap: GomokuCountMap = new GomokuCountMap(context, scoreMap)
 
     this.context = context

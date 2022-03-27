@@ -7,8 +7,8 @@ class TesterHelper {
   protected readonly scoreMap: IScoreMap
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
-    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
-    const scoreMap: IScoreMap = createScoreMap(context.MAX_INLINE)
+    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE, 0)
+    const scoreMap: IScoreMap = createScoreMap(context.TOTAL_POS, context.MAX_INLINE)
     const state = new GomokuState(context, scoreMap)
 
     this.context = context

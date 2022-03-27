@@ -16,7 +16,7 @@ export type IShapeCount = [
 ]
 
 export interface IScoreMap {
-  continuously: IShapeCount[]
+  con: IShapeCount[]
   gap: IShapeCount[]
 }
 
