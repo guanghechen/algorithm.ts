@@ -6,7 +6,7 @@ export interface IGomokuPiece {
 
 export interface IGomokuCandidateState {
   id: number // The value after encoding the coordinates of the piece.
-  score: number // score for the state when placing a piece on r-th row and c-th column.
+  score: number // Diff score for first player
 }
 
 export type IShapeCount = [

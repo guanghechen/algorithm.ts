@@ -160,15 +160,12 @@ export class GomokuCountMap {
   }
 
   public score(scoreForPlayer: number): number {
-    if (this.hasReachedTheLimit(scoreForPlayer)) return Number.POSITIVE_INFINITY
-    if (this.hasReachedTheLimit(scoreForPlayer ^ 1)) return Number.NEGATIVE_INFINITY
-
     const { context, conShapeCountMap, gapShapeCountMap, scoreMap } = this
     const conCountMap = conShapeCountMap[scoreForPlayer]
     const gapCountMap = gapShapeCountMap[scoreForPlayer]
 
     let score = 0
-    for (let cnt = 1; cnt < context.MAX_INLINE; ++cnt) {
+    for (let cnt = 1; cnt <= context.MAX_INLINE; ++cnt) {
       const [a, b, c] = conCountMap[cnt]
       const [x, y, z] = scoreMap.con[cnt]
       score += a * x + b * y + c * z
@@ -183,8 +180,8 @@ export class GomokuCountMap {
 
   // Check if it's endgame.
   public hasReachedTheLimit(player: number): boolean {
-    const { context, conShapeCountMap } = this
-    return conShapeCountMap[player][context.MAX_INLINE].some(x => x > 0)
+    const con = this.conShapeCountMap[player][this.context.MAX_INLINE]
+    return con[0] > 0 || con[1] > 0 || con[2] > 0
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

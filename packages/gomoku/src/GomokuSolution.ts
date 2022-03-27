@@ -45,21 +45,15 @@ export class GomokuSolution {
     this.state.rollback(id)
   }
 
-  public minimaxSearch(currentPlayer: number): [r: number, c: number] {
+  public minimaxSearch(nextPlayer: number): [r: number, c: number] {
     if (this.state.isFinal()) return [-1, -1]
 
     this.stateCache.clear()
-    this.scoreForPlayer = currentPlayer
+    this.scoreForPlayer = nextPlayer
     this.bestMoveId = null
 
     this.context.reRandNextMoverBuffer()
-    this.alphaBeta(
-      currentPlayer,
-      Number.NEGATIVE_INFINITY,
-      Number.POSITIVE_INFINITY,
-      0,
-      this.state.score(currentPlayer ^ 1, currentPlayer),
-    )
+    this.alphaBeta(nextPlayer, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, 0, 0)
 
     /* istanbul ignore next */
     if (!this.bestMoveId) return [-1, -1]
@@ -75,7 +69,9 @@ export class GomokuSolution {
     stateScore: number,
   ): number {
     const { state, scoreForPlayer } = this
-    if (cur === this.MAX_DEPTH || state.isFinal()) return stateScore
+    if (state.isWin(this.scoreForPlayer)) return Number.POSITIVE_INFINITY
+    if (state.isWin(this.scoreForPlayer ^ 1)) return Number.NEGATIVE_INFINITY
+    if (cur === this.MAX_DEPTH || state.isDraw()) return stateScore
 
     const candidates: IGomokuCandidateState[] = state.expand(player, scoreForPlayer)
     if (player === scoreForPlayer) {
@@ -89,7 +85,7 @@ export class GomokuSolution {
     if (cur === 0) this.bestMoveId = candidates[0].id
     for (const { id, score } of candidates) {
       state.forward(id, player)
-      const gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, stateScore + score)
+      const gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, score)
       state.rollback(id)
 
       if (player === scoreForPlayer) {
