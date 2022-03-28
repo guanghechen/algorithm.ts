@@ -8,8 +8,10 @@ export interface IPriorityQueue<T> {
   /**
    * Initialize priority queue with initial elements.
    * @param elements
+   * @param startIndex
+   * @param endIndex
    */
-  init(elements?: ReadonlyArray<T>): void
+  init(elements?: ReadonlyArray<T>, startIndex?: number, endIndex?: number): void
   /**
    * Drop a element into the priority queue.
    */
@@ -66,16 +68,22 @@ export function createPriorityQueue<T>(
 
   /**
    * Build Priority Queue in O(N) time complexity.
-   * @param elements
-   * @returns
    */
-  function init(elements?: ReadonlyArray<T>): void {
-    _size = elements == null ? 0 : Math.max(0, elements.length)
+  function init(elements?: ReadonlyArray<T>, startIndex?: number, endIndex?: number): void {
+    if (!elements) {
+      _size = 0
+      _tree.length = _size + 1
+      return
+    }
+
+    const sIdx: number = Math.max(0, Math.min(elements.length, startIndex ?? 0))
+    const tIdx: number = Math.max(sIdx, Math.min(elements.length, endIndex ?? elements.length))
+
+    _size = tIdx - sIdx
     if (_tree.length <= _size) _tree.length = _size + 1
-    if (elements == null) return
 
     // Build the heap with the initial elements.
-    for (let i = 0; i < _size; ++i) _tree[i + 1] = elements[i]
+    for (let i = sIdx, k = 1; i < tIdx; ++i, ++k) _tree[k] = elements[i]
     for (let q = _size; q > 1; q -= 2) _down(q >> 1)
   }
 
