@@ -1,3 +1,5 @@
+import type { IPriorityQueue } from '@algorithm.ts/priority-queue'
+import { createPriorityQueue } from '@algorithm.ts/priority-queue'
 import { GomokuContext } from './GomokuContext'
 import { GomokuState } from './GomokuState'
 import type { IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
@@ -7,7 +9,8 @@ export class GomokuSolution {
   protected readonly MAX_DEPTH: number
   protected readonly context: GomokuContext
   protected readonly state: GomokuState
-  protected readonly stateCache: Map<bigint, number>
+  protected readonly queues: Array<IPriorityQueue<IGomokuCandidateState>>
+  protected readonly candidates: IGomokuCandidateState[]
   protected scoreForPlayer: number
   protected bestMoveId: number | null
 
@@ -21,18 +24,23 @@ export class GomokuSolution {
   ) {
     const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE, MAX_NEXT_MOVER_BUFFER)
     const _scoreMap: IScoreMap = scoreMap ?? createScoreMap(context.TOTAL_POS, context.MAX_INLINE)
+    const _MAX_DEPTH: number = Math.max(1, Math.round(MAX_DEPTH))
+    const _queues = new Array(_MAX_DEPTH)
+    for (let cur = 0; cur < _MAX_DEPTH; ++cur) {
+      _queues[cur] = createPriorityQueue<IGomokuCandidateState>((x, y) => x.score - y.score)
+    }
 
-    this.MAX_DEPTH = Math.max(1, Math.round(MAX_DEPTH))
+    this.MAX_DEPTH = _MAX_DEPTH
     this.context = context
     this.state = new GomokuState(context, _scoreMap)
-    this.stateCache = new Map()
+    this.queues = _queues
+    this.candidates = []
     this.scoreForPlayer = -1
     this.bestMoveId = null
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
     this.state.init(pieces)
-    this.stateCache.clear()
   }
 
   public forward(r: number, c: number, p: number): void {
@@ -48,12 +56,10 @@ export class GomokuSolution {
   public minimaxSearch(nextPlayer: number): [r: number, c: number] {
     if (this.state.isFinal()) return [-1, -1]
 
-    this.stateCache.clear()
     this.scoreForPlayer = nextPlayer
     this.bestMoveId = null
-
     this.context.reRandNextMoverBuffer()
-    this.alphaBeta(nextPlayer, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, 0, 0)
+    this.alphaBeta(nextPlayer, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, 0)
 
     /* istanbul ignore next */
     if (!this.bestMoveId) return [-1, -1]
@@ -61,31 +67,27 @@ export class GomokuSolution {
     return [r, c]
   }
 
-  protected alphaBeta(
-    player: number,
-    alpha: number,
-    beta: number,
-    cur: number,
-    stateScore: number,
-  ): number {
+  protected alphaBeta(player: number, alpha: number, beta: number, cur: number): number {
     const { state, scoreForPlayer } = this
-    if (state.isWin(this.scoreForPlayer)) return Number.POSITIVE_INFINITY
-    if (state.isWin(this.scoreForPlayer ^ 1)) return Number.NEGATIVE_INFINITY
-    if (cur === this.MAX_DEPTH || state.isDraw()) return stateScore
+    if (state.isWin(scoreForPlayer)) return Number.POSITIVE_INFINITY
+    if (state.isWin(scoreForPlayer ^ 1)) return Number.NEGATIVE_INFINITY
+    if (cur === this.MAX_DEPTH || state.isDraw()) return state.score(player ^ 1, scoreForPlayer)
 
-    const candidates: IGomokuCandidateState[] = state.expand(player, scoreForPlayer)
-    if (player === scoreForPlayer) {
-      // Higher score items common first.
-      candidates.sort((x, y) => y.score - x.score)
-    } else {
-      // Lower score items common first.
-      candidates.sort((x, y) => x.score - y.score)
-    }
+    const _size: number = state.expand(player, this.candidates)
+    const Q = this.queues[cur]
+    Q.init(this.candidates, 0, _size)
 
-    if (cur === 0) this.bestMoveId = candidates[0].id
-    for (const { id, score } of candidates) {
+    const visited = new Set()
+    for (;;) {
+      const candidate = Q.dequeue()
+      if (candidate === undefined) break
+
+      const id = candidate.id
+      if (visited.has(id)) continue
+
+      visited.add(id)
       state.forward(id, player)
-      const gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1, score)
+      const gamma = this.alphaBeta(player ^ 1, alpha, beta, cur + 1)
       state.rollback(id)
 
       if (player === scoreForPlayer) {
@@ -103,6 +105,7 @@ export class GomokuSolution {
       }
       if (beta <= alpha) break
     }
+    visited.clear()
 
     return player === scoreForPlayer ? alpha : beta
   }

@@ -133,7 +133,9 @@ describe('15x15', function () {
   test('pieces.1', async function () {
     const pieces = await import('./fixtures/15x15/pieces.1.json')
     helper.init(pieces.default)
-    const candidates = helper.state.expand(0, 0)
+
+    const candidates: IGomokuCandidateState[] = []
+    expect(helper.state.expand(candidates)).toEqual(53)
     expect(candidates.length).toEqual(53)
   })
 
@@ -152,7 +154,9 @@ describe('15x15', function () {
       player ^= 1
     }
 
-    expect(helper.state.expand(0, 0)).toEqual([])
+    const candidates: IGomokuCandidateState[] = []
+    expect(candidates).toEqual([])
+    expect(helper.state.expand(candidates)).toEqual(0)
     expect(helper.state.isFinal()).toEqual(true)
 
     {

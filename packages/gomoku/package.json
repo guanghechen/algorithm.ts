@@ -40,5 +40,8 @@
     "prebuild": "rimraf lib/ && tsc -p tsconfig.src.json --emitDeclarationOnly",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
+  },
+  "dependencies": {
+    "@algorithm.ts/priority-queue": "2.0.7-alpha.0"
   }
 }

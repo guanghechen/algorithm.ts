@@ -178,6 +178,50 @@ export class GomokuCountMap {
     return score
   }
 
+  public scoreForCandidate(nextPlayer: number, id: number): number {
+    const { context, dirCountMap } = this
+    const { board, MAX_INLINE } = context
+    const MAX_VALUE: number = Number.MAX_SAFE_INTEGER
+
+    let score = 0
+    for (const dirType of leftHalfGomokuDirectionTypes) {
+      const revDirType = dirType ^ 1
+      const id0: number = context.safeMoveOneStep(id, revDirType)
+      const id2: number = context.safeMoveOneStep(id, dirType)
+
+      let friendCnt = 1
+      let enemyCnt = 0
+      if (id0 >= 0 && board[id0] >= 0) {
+        if (board[id0] === nextPlayer) friendCnt += dirCountMap[revDirType][id0]
+        else enemyCnt += dirCountMap[revDirType][id0]
+      }
+
+      if (id2 >= 0 && board[id2] >= 0) {
+        if (board[id2] === nextPlayer) friendCnt += dirCountMap[revDirType][id2]
+        else enemyCnt += dirCountMap[revDirType][id2]
+      }
+
+      if (friendCnt >= MAX_INLINE) return MAX_VALUE
+      else score += MAX_VALUE / 4 ** (MAX_INLINE - friendCnt)
+
+      if (enemyCnt >= MAX_INLINE - 1) score -= MAX_VALUE / 4
+      else score -= MAX_VALUE / 4 ** (MAX_INLINE - enemyCnt)
+    }
+
+    for (const dirType of gomokuDirectionTypes) {
+      const id2: number = context.safeMoveOneStep(id, dirType)
+      if (id2 < 0 || board[id2] >= 0) continue
+
+      const id22: number = context.safeMoveOneStep(id2, dirType)
+      if (id22 < 0 || board[id22] < 0) continue
+
+      const cnt: number = board[id22][dirType]
+      if (nextPlayer === board[id22]) score += MAX_VALUE / 4 ** (MAX_INLINE - cnt)
+      else score -= MAX_VALUE / 4 ** (MAX_INLINE - cnt + 1)
+    }
+    return score
+  }
+
   // Check if it's endgame.
   public hasReachedTheLimit(player: number): boolean {
     const con = this.conShapeCountMap[player][this.context.MAX_INLINE]
