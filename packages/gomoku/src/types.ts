@@ -1,3 +1,5 @@
+import type { GomokuDirectionType } from './constant'
+
 export interface IGomokuPiece {
   r: number // row number
   c: number // column number
@@ -21,3 +23,5 @@ export interface IScoreMap {
 }
 
 export type IGomokuBoard = Int32Array
+
+export type INeighbor = [posId: number, dirType: GomokuDirectionType]
