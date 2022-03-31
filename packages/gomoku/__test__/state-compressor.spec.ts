@@ -6,8 +6,13 @@ class TesterHelper {
   public readonly context: GomokuContext
   public readonly compressor: GomokuStateCompressor
 
-  constructor(MAX_ROW: number, MAX_COL: number, MAX_INLINE: number) {
-    const context = new GomokuContext(MAX_ROW, MAX_COL, MAX_INLINE)
+  constructor(MAX_ROW: number, MAX_COL: number, MAX_ADJACENT: number) {
+    const context = new GomokuContext({
+      MAX_ROW,
+      MAX_COL,
+      MAX_ADJACENT,
+      MAX_DISTANCE_OF_NEIGHBOR: 2,
+    })
     const compressor = new GomokuStateCompressor(BigInt(context.TOTAL_POS))
     this.context = context
     this.compressor = compressor

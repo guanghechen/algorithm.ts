@@ -1,5 +1,5 @@
 import type { GomokuDirectionType } from './constant'
-import type { IGomokuBoard, IGomokuPiece, INeighbor } from './types'
+import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './types'
 
 export interface IGomokuContext {
   /**
@@ -133,7 +133,7 @@ export interface IGomokuContext {
   /**
    * All accessible neighbor positions.
    */
-  accessibleNeighbors(posId: number): Iterable<INeighbor>
+  accessibleNeighbors(posId: number): Iterable<number>
 
   /**
    *
@@ -153,6 +153,11 @@ export interface IGomokuContext {
    * @param dirType
    */
   getStartPosSet(dirType: GomokuDirectionType): Iterable<number>
+
+  /**
+   *
+   */
+  getDirCounters(startPosId: number, dirType: GomokuDirectionType): ReadonlyArray<IDirCounter>
 
   /**
    *

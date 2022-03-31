@@ -23,13 +23,14 @@ export interface IGomokuState {
    * @param nextPlayer
    * @param candidates
    */
-  expand(nextPlayer: number, candidates: IGomokuCandidateState[]): number
+  expand(nextPlayer: number, candidates: IGomokuCandidateState[]): void
 
   /**
    *
    * @param currentPlayer
+   * @param scoreForPlayer
    */
-  score(currentPlayer: number): number
+  score(currentPlayer: number, scoreForPlayer: number): number
 
   /**
    *
