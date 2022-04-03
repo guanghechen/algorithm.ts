@@ -209,8 +209,8 @@ describe('15x15', function () {
 
   test('candidates -- init all', async function () {
     tester.init([])
-    expect(tester.expand(0)).toEqual([{ id: tester.context.MIDDLE_POS, score: 96 }])
-    expect(tester.expand(1)).toEqual([{ id: tester.context.MIDDLE_POS, score: 96 }])
+    expect(tester.expand(0)).toEqual([{ id: tester.context.MIDDLE_POS, score: 24 }])
+    expect(tester.expand(1)).toEqual([{ id: tester.context.MIDDLE_POS, score: 24 }])
 
     for (const { filepath } of filepaths) {
       const pieces = await fs.readJSON(filepath)

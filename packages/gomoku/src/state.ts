@@ -4,7 +4,7 @@ import type { IGomokuContext } from './context.type'
 import { GomokuCountMap } from './count-map'
 import type { IGomokuCountMap } from './count-map.type'
 import type { IGomokuState } from './state.type'
-import type { IDirCounter, IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
+import type { IDirCounter, IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
@@ -14,7 +14,7 @@ type IStateScores = [score0: number, score1: number]
 
 export interface IGomokuStateProps {
   context: IGomokuContext
-  scoreMap: IScoreMap
+  scoreMap: IShapeScoreMap
   MAX_NEXT_MOVER_BUFFER: number
 }
 
@@ -22,7 +22,7 @@ export class GomokuState implements IGomokuState {
   public readonly MAX_NEXT_MOVER_BUFFER: number
   public readonly context: IGomokuContext
   protected readonly _countMap: IGomokuCountMap
-  protected readonly _scoreMap: IScoreMap
+  protected readonly _scoreMap: IShapeScoreMap
   protected readonly _countOfReachLimits: ICountOfReachLimits
   protected readonly _countOfReachLimitsDirMap: number[][][] // [dirType][startPosId][playerId]
   protected readonly _stateScoreMap: IStateScores

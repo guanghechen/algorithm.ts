@@ -40,6 +40,7 @@ export class GomokuCountMap implements IGomokuCountMap {
     // update _rightHalfDirCountMap
     const { _rightHalfDirCountMap } = this
     for (const dirType of halfDirectionTypes) {
+      const countMap = dirCountMap[dirType]
       for (const startPosId of context.getStartPosSet(dirType)) {
         const counters = _rightHalfDirCountMap[dirType][startPosId]
 
@@ -51,9 +52,15 @@ export class GomokuCountMap implements IGomokuCountMap {
           i = i2, posId = posId2
         ) {
           const playerId: number = board[posId]
-          for (i2 = i + 1, posId2 = posId; i2 < maxSteps; ++i2) {
-            posId2 = context.fastMoveOneStep(posId2, dirType)
-            if (board[posId2] !== playerId) break
+          if (playerId >= 0) {
+            const cnt = countMap[posId]
+            i2 = i + cnt
+            posId2 = context.fastMove(posId, dirType, cnt)
+          } else {
+            for (i2 = i + 1, posId2 = posId; i2 < maxSteps; ++i2) {
+              posId2 = context.fastMoveOneStep(posId2, dirType)
+              if (board[posId2] !== playerId) break
+            }
           }
           // eslint-disable-next-line no-plusplus
           counters[index++] = { playerId, count: i2 - i }

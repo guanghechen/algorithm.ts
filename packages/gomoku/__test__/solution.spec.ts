@@ -136,7 +136,7 @@ describe('15x15 -- 3', function () {
     const pieces = await import('./fixtures/15x15/pieces.11.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(0)
-    expect([r, c]).toEqual([8, 4])
+    expect([r, c]).toEqual([8, 2])
 
     const [r1, c1] = solution.minimaxSearch(1)
     expect([r1, c1]).toEqual([8, 2])

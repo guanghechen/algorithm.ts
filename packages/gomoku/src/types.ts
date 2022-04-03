@@ -15,9 +15,11 @@ export type IShapeCount = [
   twoSideAvailable: number,
 ]
 
-export interface IScoreMap {
-  con: IShapeCount[]
-  gap: IShapeCount[]
+export type IShapeCountScore = IShapeCount[]
+
+export interface IShapeScoreMap {
+  con: IShapeCountScore
+  gap: IShapeCountScore
 }
 
 export type IGomokuBoard = number[]

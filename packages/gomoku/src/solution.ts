@@ -3,7 +3,7 @@ import type { IGomokuContext } from './context.type'
 import { GomokuState } from './state'
 import { GomokuStateCache } from './state-cache'
 import type { IGomokuState } from './state.type'
-import type { IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
+import type { IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types'
 import { createScoreMap } from './util'
 
 const cmpCandidate = (x: IGomokuCandidateState, y: IGomokuCandidateState): number =>
@@ -17,7 +17,7 @@ export interface IGomokuSolutionProps {
   MAX_DISTANCE_OF_NEIGHBOR?: number
   MAX_NEXT_MOVER_BUFFER?: number
   POSSIBILITY_SEARCH_EQUIV_CANDIDATE?: number
-  scoreMap?: IScoreMap
+  scoreMap?: IShapeScoreMap
 }
 
 export class GomokuSolution {

@@ -1,6 +1,6 @@
-import type { IScoreMap, IShapeCount } from './types'
+import type { IShapeCountScore, IShapeScoreMap } from './types'
 
-// const baseScoreMap: IScoreMap = {
+// const baseScoreMap: IShapeScoreMap = {
 //   continuously: [
 //     [0, 0, 0], // 0
 //     [0, 1, 2], // 1
@@ -19,20 +19,19 @@ import type { IScoreMap, IShapeCount } from './types'
 //   ]
 // }
 
-export const createScoreMap = (MAX_ADJACENT: number): IScoreMap => {
-  const gap: IShapeCount[] = new Array(MAX_ADJACENT + 1).fill([]).map(() => [0, 0, 0])
-  const con: IShapeCount[] = new Array(MAX_ADJACENT + 1).fill([]).map(() => [0, 0, 0])
+export const createScoreMap = (MAX_ADJACENT: number): IShapeScoreMap => {
+  const con: IShapeCountScore = new Array(MAX_ADJACENT + 1).fill([]).map(() => [0, 0, 0])
+  const gap: IShapeCountScore = new Array(MAX_ADJACENT + 1).fill([]).map(() => [0, 0, 0])
 
-  const BASE_VALUE = 2
-  let baseValue = BASE_VALUE
-  for (let cnt = 1; cnt < MAX_ADJACENT; ++cnt) {
-    gap[cnt] = [0, baseValue - BASE_VALUE, baseValue * 2 - BASE_VALUE]
-    con[cnt] = [0, baseValue * 2, baseValue * 4]
-    baseValue *= 8
+  let BASE_VALUE = 2
+  for (let cnt = 1; cnt < MAX_ADJACENT; ++cnt, BASE_VALUE *= 16) {
+    con[cnt] = [0, BASE_VALUE, BASE_VALUE * 2]
+    con[cnt] = [0, BASE_VALUE / 2, BASE_VALUE]
   }
 
   const _v: number = con[MAX_ADJACENT - 1][1]
-  gap[MAX_ADJACENT] = [_v, _v, _v]
-  con[MAX_ADJACENT] = [baseValue, baseValue, baseValue]
+  gap[MAX_ADJACENT - 1] = [_v, _v, _v]
+  con[MAX_ADJACENT] = [_v, _v, _v]
+  con[MAX_ADJACENT] = [BASE_VALUE, BASE_VALUE, BASE_VALUE]
   return { con, gap }
 }
