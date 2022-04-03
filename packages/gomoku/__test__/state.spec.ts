@@ -69,22 +69,22 @@ class TestHelper extends GomokuState {
       }
 
       let score0 = 0
-      context.forward(posId, 0)
+      this._forward(posId, 0)
       for (const dirType of halfDirectionTypes) {
         const startPosId: number = context.getStartPosId(posId, dirType)
         const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
         score0 += scores[0]
       }
-      context.revert(posId)
+      this._revert(posId)
 
       let score1 = 0
-      context.forward(posId, 1)
+      this._forward(posId, 1)
       for (const dirType of halfDirectionTypes) {
         const startPosId: number = context.getStartPosId(posId, dirType)
         const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
         score1 += scores[1]
       }
-      context.revert(posId)
+      this.revert(posId)
 
       const deltaScore0: number = score0 - prevScore0
       const deltaScore1: number = score1 - prevScore1

@@ -1,6 +1,8 @@
 import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
 import type { GomokuDirectionType } from './constant'
 import type { IGomokuContext } from './context.type'
+import { GomokuCountMap } from './count-map'
+import type { IGomokuCountMap } from './count-map.type'
 import type { IGomokuState } from './state.type'
 import type { IDirCounter, IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
 
@@ -8,7 +10,6 @@ const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirect
 const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
 
 type ICountOfReachLimits = [count0: number, count1: number]
-type ICountOfReachLimitsDirMap = number[][][] // [playerId][dirType][startPosId]
 type IStateScores = [score0: number, score1: number]
 
 export interface IGomokuStateProps {
@@ -20,6 +21,7 @@ export interface IGomokuStateProps {
 export class GomokuState implements IGomokuState {
   public readonly MAX_NEXT_MOVER_BUFFER: number
   public readonly context: IGomokuContext
+  protected readonly _countMap: IGomokuCountMap
   protected readonly _scoreMap: IScoreMap
   protected readonly _countOfReachLimits: ICountOfReachLimits
   protected readonly _countOfReachLimitsDirMap: number[][][] // [dirType][startPosId][playerId]
@@ -52,6 +54,7 @@ export class GomokuState implements IGomokuState {
 
     this.MAX_NEXT_MOVER_BUFFER = _MAX_NEXT_MOVER_BUFFER
     this.context = context
+    this._countMap = new GomokuCountMap(context)
     this._scoreMap = scoreMap
     this._countOfReachLimits = [0, 0]
     this._countOfReachLimitsDirMap = _countOfReachLimitsDirMap
@@ -75,6 +78,7 @@ export class GomokuState implements IGomokuState {
       _candidateScoreExpired,
     } = this
 
+    this._countMap.init()
     _countOfReachLimits.fill(0)
     _stateScoreMap.fill(0)
     for (const dirType of halfDirectionTypes) {
@@ -109,6 +113,7 @@ export class GomokuState implements IGomokuState {
   }
 
   public forward(posId: number): void {
+    this._countMap.forward(posId)
     const { context, _candidateSet } = this
     _candidateSet.delete(posId)
     for (const posId2 of context.accessibleNeighbors(posId)) {
@@ -119,6 +124,7 @@ export class GomokuState implements IGomokuState {
   }
 
   public revert(posId: number): void {
+    this._countMap.revert(posId)
     const { context, _candidateSet } = this
     if (context.hasPlacedNeighbors(posId)) _candidateSet.add(posId)
     for (const posId2 of context.accessibleNeighbors(posId)) {
@@ -229,7 +235,7 @@ export class GomokuState implements IGomokuState {
       }
 
       let score0 = 0
-      context.forward(posId, 0)
+      this._forward(posId, 0)
       for (const dirType of halfDirectionTypes) {
         if ((1 << dirType) & expiredBitset) {
           const startPosId: number = context.getStartPosId(posId, dirType)
@@ -240,10 +246,10 @@ export class GomokuState implements IGomokuState {
           score0 += _candidateScoreDirMap[dirType][posId][0]
         }
       }
-      context.revert(posId)
+      this._revert(posId)
 
       let score1 = 0
-      context.forward(posId, 1)
+      this._forward(posId, 1)
       for (const dirType of halfDirectionTypes) {
         if ((1 << dirType) & expiredBitset) {
           const startPosId: number = context.getStartPosId(posId, dirType)
@@ -254,7 +260,7 @@ export class GomokuState implements IGomokuState {
           score1 += _candidateScoreDirMap[dirType][posId][1]
         }
       }
-      context.revert(posId)
+      this._revert(posId)
 
       const deltaScore0: number = score0 - prevScore0
       const deltaScore1: number = score1 - prevScore1
@@ -270,14 +276,12 @@ export class GomokuState implements IGomokuState {
     startPosId: number,
     dirType: GomokuDirectionType,
   ): { scores: IStateScores; countOfReachLimits: ICountOfReachLimits } {
-    const {
-      context,
-      _scoreMap: { con, gap },
-    } = this
+    const { context } = this
+    const { con, gap } = this._scoreMap
     const { MAX_ADJACENT } = context
     const THRESHOLD: number = MAX_ADJACENT - 1
 
-    const counters: ReadonlyArray<IDirCounter> = context.getDirCounters(startPosId, dirType)
+    const counters: ReadonlyArray<IDirCounter> = this._countMap.getDirCounters(startPosId, dirType)
     const _size = counters.length
 
     const scores: IStateScores = [0, 0]
@@ -331,5 +335,15 @@ export class GomokuState implements IGomokuState {
       }
     }
     return { scores, countOfReachLimits }
+  }
+
+  protected _forward(posId: number, playerId: number): void {
+    this.context.forward(posId, playerId)
+    this._countMap.forward(posId)
+  }
+
+  protected _revert(posId: number): void {
+    this.context.revert(posId)
+    this._countMap.revert(posId)
   }
 }

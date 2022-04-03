@@ -152,6 +152,13 @@ describe('15x15 -- 3', function () {
     ]).toContainEqual([r, c])
   })
 
+  test.skip('pieces.13', async function () {
+    const pieces = await import('./fixtures/15x15/pieces.13.json')
+    solution.init(pieces.default)
+    const [r, c] = solution.minimaxSearch(0)
+    expect([[6, 8]]).toContainEqual([r, c])
+  })
+
   test('edge case', function () {
     solution.init([])
     const [r, c] = solution.minimaxSearch(0)

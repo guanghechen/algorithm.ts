@@ -6784,3 +6784,388 @@ Array [
   },
 ]
 `;
+
+exports[`15x15 overview: pieces.13 1`] = `
+Array [
+  Object {
+    "currentPlayer": 0,
+    "score": 0,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 0,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 0,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 0,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 32,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -32,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 32,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -32,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 0,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 0,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 0,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 0,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 80,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -80,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 80,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -80,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 48,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -48,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 48,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -48,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 128,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -128,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 128,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -128,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 0,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 0,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 0,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 0,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 472,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -472,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 472,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -472,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 372,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -372,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 372,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -372,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 508,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -508,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 508,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -508,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 474,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -474,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 474,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -474,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 554,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -554,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 554,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -554,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 278,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -278,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 278,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -278,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 546,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -546,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 546,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -546,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 262,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -262,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 262,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -262,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 2078,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -2078,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 2078,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -2078,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 6,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -6,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 6,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -6,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 450,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -450,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 450,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -450,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -232,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 232,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -232,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 232,
+    "scoreForPlayer": 1,
+  },
+]
+`;

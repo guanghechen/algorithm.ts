@@ -1,6 +1,7 @@
 export * from './constant'
 export * from './context'
 export * from './context.type'
+export * from './count-map'
 export * from './solution'
 export * from './state'
 export * from './state-cache'
