@@ -126,6 +126,7 @@ export class GomokuSolution {
 
     const _size: number = candidates.length
     const shouldCache: boolean = cur > 1 && cur + 1 < MAX_DEPTH
+    if (cur === 0) this._bestMoveId = candidates[0].id
     for (let i = 0, prevCandidateScore = -1; i < _size; ++i) {
       let candidate = candidates[i]
       if (candidate.score === prevCandidateScore) {
@@ -168,8 +169,6 @@ export class GomokuSolution {
       }
       if (beta <= alpha) break
     }
-
-    if (cur === 0 && this._bestMoveId < 0) this._bestMoveId = candidates[0].id
     return player === _mainPlayerId ? alpha : beta
   }
 

@@ -1,13 +1,15 @@
-import { gomokuDirectionTypes, leftHalfGomokuDirectionTypes } from './constant'
+import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
 import type { GomokuDirectionType } from './constant'
 import type { IGomokuContext } from './context.type'
 import type { IGomokuState } from './state.type'
 import type { IDirCounter, IGomokuCandidateState, IGomokuPiece, IScoreMap } from './types'
 
+const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
+const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
+
 type ICountOfReachLimits = [count0: number, count1: number]
 type ICountOfReachLimitsDirMap = number[][][] // [playerId][dirType][startPosId]
 type IStateScores = [score0: number, score1: number]
-type IStateScoresDirMap = number[][][] // [playerId][dirType][startPosId]
 
 export interface IGomokuStateProps {
   context: IGomokuContext
@@ -20,38 +22,45 @@ export class GomokuState implements IGomokuState {
   public readonly context: IGomokuContext
   protected readonly _scoreMap: IScoreMap
   protected readonly _countOfReachLimits: ICountOfReachLimits
-  protected readonly _countOfReachLimitsDirMap: ICountOfReachLimitsDirMap
-  protected readonly _stateScores: IStateScores
-  protected readonly _stateScoresDirMap: IStateScoresDirMap
+  protected readonly _countOfReachLimitsDirMap: number[][][] // [dirType][startPosId][playerId]
+  protected readonly _stateScoreMap: IStateScores
+  protected readonly _stateScoreDirMap: number[][][] // [dirType][startPosId][playerId]
   protected readonly _candidateSet: Set<number>
+  protected readonly _candidateScoreMap: number[][] // [posId][playerId]
+  protected readonly _candidateScoreDirMap: number[][][] // [dirType][posId][playerId]
+  protected readonly _candidateScoreExpired: number[] // [posId]  => expired direction set.
   protected _nextMoverBufferFac: number
 
   constructor(props: IGomokuStateProps) {
     const { context, scoreMap, MAX_NEXT_MOVER_BUFFER } = props
     const _MAX_NEXT_MOVER_BUFFER = Math.max(0, Math.min(1, MAX_NEXT_MOVER_BUFFER))
-    const _countOfReachLimitsDirMap: ICountOfReachLimitsDirMap = new Array<number[][]>(2)
+    const _countOfReachLimitsDirMap: number[][][] = new Array<number[]>(fullDirectionTypes.length)
       .fill([])
-      .map(() =>
-        new Array<number[]>(gomokuDirectionTypes.length)
-          .fill([])
-          .map(() => new Array<number>(context.TOTAL_POS)),
-      )
-    const _dirStateScoreMap: IStateScoresDirMap = new Array<number[][]>(2)
+      .map(() => new Array(context.TOTAL_POS).fill([]).map(() => [0, 0]))
+    const _stateScoreDirMap: number[][][] = new Array<number[]>(fullDirectionTypes.length)
       .fill([])
-      .map(() =>
-        new Array<number[]>(gomokuDirectionTypes.length)
-          .fill([])
-          .map(() => new Array<number>(context.TOTAL_POS)),
-      )
+      .map(() => new Array(context.TOTAL_POS).fill([]).map(() => [0, 0]))
+    const _candidateScoreMap: number[][] = new Array<number[]>(context.TOTAL_POS)
+      .fill([])
+      .map(() => [0, 0])
+    const _candidateScoreDirMap: number[][][] = new Array<number[]>(fullDirectionTypes.length)
+      .fill([])
+      .map(() => new Array(context.TOTAL_POS).fill([]).map(() => [0, 0]))
+    const _candidateScoreExpired: number[] = new Array<number>(context.TOTAL_POS).fill(
+      allDirectionTypeBitset,
+    )
 
     this.MAX_NEXT_MOVER_BUFFER = _MAX_NEXT_MOVER_BUFFER
     this.context = context
     this._scoreMap = scoreMap
     this._countOfReachLimits = [0, 0]
     this._countOfReachLimitsDirMap = _countOfReachLimitsDirMap
-    this._stateScores = [0, 0]
-    this._stateScoresDirMap = _dirStateScoreMap
+    this._stateScoreMap = [0, 0]
+    this._stateScoreDirMap = _stateScoreDirMap
     this._candidateSet = new Set<number>()
+    this._candidateScoreMap = _candidateScoreMap
+    this._candidateScoreDirMap = _candidateScoreDirMap
+    this._candidateScoreExpired = _candidateScoreExpired
     this._nextMoverBufferFac = 1
   }
 
@@ -60,31 +69,27 @@ export class GomokuState implements IGomokuState {
       context,
       _countOfReachLimits,
       _countOfReachLimitsDirMap,
-      _stateScores,
-      _stateScoresDirMap,
+      _stateScoreMap,
+      _stateScoreDirMap,
       _candidateSet,
+      _candidateScoreExpired,
     } = this
 
     _countOfReachLimits.fill(0)
-    _stateScores.fill(0)
-    for (const dirType of leftHalfGomokuDirectionTypes) {
-      _countOfReachLimitsDirMap[0][dirType].fill(0)
-      _countOfReachLimitsDirMap[1][dirType].fill(0)
-      _stateScoresDirMap[0][dirType].fill(0)
-      _stateScoresDirMap[1][dirType].fill(0)
-
+    _stateScoreMap.fill(0)
+    for (const dirType of halfDirectionTypes) {
       for (const startPosId of context.getStartPosSet(dirType)) {
         const { scores, countOfReachLimits } = this._evaluateScoreInDirection(startPosId, dirType)
 
         _countOfReachLimits[0] += countOfReachLimits[0]
         _countOfReachLimits[1] += countOfReachLimits[1]
-        _countOfReachLimitsDirMap[0][dirType][startPosId] = countOfReachLimits[0]
-        _countOfReachLimitsDirMap[1][dirType][startPosId] = countOfReachLimits[1]
+        _countOfReachLimitsDirMap[dirType][startPosId][0] = countOfReachLimits[0]
+        _countOfReachLimitsDirMap[dirType][startPosId][1] = countOfReachLimits[1]
 
-        _stateScores[0] += scores[0]
-        _stateScores[1] += scores[1]
-        _stateScoresDirMap[0][dirType][startPosId] = scores[0]
-        _stateScoresDirMap[1][dirType][startPosId] = scores[1]
+        _stateScoreMap[0] += scores[0]
+        _stateScoreMap[1] += scores[1]
+        _stateScoreDirMap[dirType][startPosId][0] = scores[0]
+        _stateScoreDirMap[dirType][startPosId][1] = scores[1]
       }
     }
 
@@ -96,27 +101,34 @@ export class GomokuState implements IGomokuState {
         if (context.board[posId2] < 0) _candidateSet.add(posId2)
       }
     }
+
+    // Initialize candidateScoreExpired
+    for (let posId = 0; posId < context.TOTAL_POS; ++posId) {
+      _candidateScoreExpired[posId] = allDirectionTypeBitset
+    }
   }
 
   public forward(posId: number): void {
     const { context, _candidateSet } = this
-    this._updateStateScore(posId)
     _candidateSet.delete(posId)
     for (const posId2 of context.accessibleNeighbors(posId)) {
       if (context.board[posId2] < 0) _candidateSet.add(posId2)
     }
+    this._updateStateScore(posId)
+    this._expireCandidates(posId)
   }
 
   public revert(posId: number): void {
     const { context, _candidateSet } = this
-    this._updateStateScore(posId)
     if (context.hasPlacedNeighbors(posId)) _candidateSet.add(posId)
     for (const posId2 of context.accessibleNeighbors(posId)) {
-      if (context.board[posId2] >= 0) _candidateSet.delete(posId2)
+      if (!context.hasPlacedNeighbors(posId2)) _candidateSet.delete(posId2)
     }
+    this._updateStateScore(posId)
+    this._expireCandidates(posId)
   }
 
-  public expand(nextPlayer: number, candidates: IGomokuCandidateState[]): void {
+  public expand(nextPlayerId: number, candidates: IGomokuCandidateState[]): void {
     const { context, _candidateSet } = this
     if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(this.context.MIDDLE_POS)
 
@@ -125,7 +137,7 @@ export class GomokuState implements IGomokuState {
 
     let i = 0
     for (const posId of _candidateSet) {
-      const score = this._evaluateCandidate(nextPlayer, posId)
+      const score = this._evaluateCandidate(posId, nextPlayerId)
       // eslint-disable-next-line no-param-reassign
       candidates[i] = { id: posId, score }
       i += 1
@@ -134,8 +146,8 @@ export class GomokuState implements IGomokuState {
 
   public score(currentPlayer: number, scoreForPlayer: number): number {
     const nextMoverFac: number = this._nextMoverBufferFac
-    const score0: number = this._stateScores[scoreForPlayer]
-    const score1: number = this._stateScores[scoreForPlayer ^ 1]
+    const score0: number = this._stateScoreMap[scoreForPlayer]
+    const score1: number = this._stateScoreMap[scoreForPlayer ^ 1]
     return currentPlayer === scoreForPlayer
       ? score0 - score1 * nextMoverFac
       : score0 * nextMoverFac - score1
@@ -169,50 +181,93 @@ export class GomokuState implements IGomokuState {
       context,
       _countOfReachLimits,
       _countOfReachLimitsDirMap,
-      _stateScores,
-      _stateScoresDirMap,
+      _stateScoreMap,
+      _stateScoreDirMap,
     } = this
 
-    for (const dirType of leftHalfGomokuDirectionTypes) {
+    for (const dirType of halfDirectionTypes) {
       const startPosId: number = context.getStartPosId(posId, dirType)
       const {
         scores: [score0, score1],
         countOfReachLimits: [count0, count1],
       } = this._evaluateScoreInDirection(startPosId, dirType)
-      _countOfReachLimits[0] += count0 - _countOfReachLimitsDirMap[0][dirType][startPosId]
-      _countOfReachLimits[1] += count1 - _countOfReachLimitsDirMap[1][dirType][startPosId]
-      _countOfReachLimitsDirMap[0][dirType][startPosId] = count0
-      _countOfReachLimitsDirMap[1][dirType][startPosId] = count1
+      _countOfReachLimits[0] += count0 - _countOfReachLimitsDirMap[dirType][startPosId][0]
+      _countOfReachLimits[1] += count1 - _countOfReachLimitsDirMap[dirType][startPosId][1]
+      _countOfReachLimitsDirMap[dirType][startPosId][0] = count0
+      _countOfReachLimitsDirMap[dirType][startPosId][1] = count1
 
-      _stateScores[0] += score0 - _stateScoresDirMap[0][dirType][startPosId]
-      _stateScores[1] += score1 - _stateScoresDirMap[1][dirType][startPosId]
-      _stateScoresDirMap[0][dirType][startPosId] = score0
-      _stateScoresDirMap[1][dirType][startPosId] = score1
+      _stateScoreMap[0] += score0 - _stateScoreDirMap[dirType][startPosId][0]
+      _stateScoreMap[1] += score1 - _stateScoreDirMap[dirType][startPosId][1]
+      _stateScoreDirMap[dirType][startPosId][0] = score0
+      _stateScoreDirMap[dirType][startPosId][1] = score1
     }
   }
 
-  protected _evaluateCandidate(playerId: number, posId: number): number {
-    const { context, _stateScoresDirMap, _nextMoverBufferFac } = this
+  protected _expireCandidates(posId: number): void {
+    const { context, _candidateScoreExpired } = this
 
-    let score0 = 0
-    let score1 = 0
-    for (const dirType of leftHalfGomokuDirectionTypes) {
+    for (const dirType of halfDirectionTypes) {
       const startPosId: number = context.getStartPosId(posId, dirType)
-      score0 -= _stateScoresDirMap[playerId][dirType][startPosId]
-      score1 -= _stateScoresDirMap[playerId ^ 1][dirType][startPosId]
+      const maxSteps: number = context.maxMovableSteps(startPosId, dirType)
+      const bitMark: number = 1 << dirType
+      for (let id = startPosId, step = 0; ; ++step) {
+        _candidateScoreExpired[id] |= bitMark
+        if (step === maxSteps) break
+        id = context.fastMoveOneStep(id, dirType)
+      }
     }
+  }
 
-    context.forward(posId, playerId)
-    for (const dirType of leftHalfGomokuDirectionTypes) {
-      const startPosId: number = context.getStartPosId(posId, dirType)
-      const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
-      score0 += scores[playerId]
-      score1 += scores[playerId ^ 1]
+  protected _evaluateCandidate(posId: number, nextPlayerId: number): number {
+    const { _candidateScoreExpired, _candidateScoreMap } = this
+    const expiredBitset: number = _candidateScoreExpired[posId]
+    if (expiredBitset > 0) {
+      const { context, _candidateScoreDirMap, _stateScoreDirMap } = this
+
+      let prevScore0 = 0
+      let prevScore1 = 0
+      for (const dirType of halfDirectionTypes) {
+        const startPosId: number = context.getStartPosId(posId, dirType)
+        prevScore0 += _stateScoreDirMap[dirType][startPosId][0]
+        prevScore1 += _stateScoreDirMap[dirType][startPosId][1]
+      }
+
+      let score0 = 0
+      context.forward(posId, 0)
+      for (const dirType of halfDirectionTypes) {
+        if ((1 << dirType) & expiredBitset) {
+          const startPosId: number = context.getStartPosId(posId, dirType)
+          const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
+          _candidateScoreDirMap[dirType][posId][0] = scores[0]
+          score0 += scores[0]
+        } else {
+          score0 += _candidateScoreDirMap[dirType][posId][0]
+        }
+      }
+      context.revert(posId)
+
+      let score1 = 0
+      context.forward(posId, 1)
+      for (const dirType of halfDirectionTypes) {
+        if ((1 << dirType) & expiredBitset) {
+          const startPosId: number = context.getStartPosId(posId, dirType)
+          const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
+          _candidateScoreDirMap[dirType][posId][1] = scores[1]
+          score1 += scores[1]
+        } else {
+          score1 += _candidateScoreDirMap[dirType][posId][1]
+        }
+      }
+      context.revert(posId)
+
+      const deltaScore0: number = score0 - prevScore0
+      const deltaScore1: number = score1 - prevScore1
+      const baseScore: number = deltaScore0 + deltaScore1
+      _candidateScoreMap[posId][0] = baseScore + deltaScore0
+      _candidateScoreMap[posId][1] = baseScore + deltaScore1
+      _candidateScoreExpired[posId] = 0
     }
-    context.revert(posId)
-
-    const score: number = score0 - score1 * _nextMoverBufferFac
-    return score
+    return _candidateScoreMap[posId][nextPlayerId]
   }
 
   protected _evaluateScoreInDirection(

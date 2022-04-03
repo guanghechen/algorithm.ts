@@ -26,14 +26,12 @@ export const createScoreMap = (MAX_ADJACENT: number): IScoreMap => {
   const BASE_VALUE = 2
   let baseValue = BASE_VALUE
   for (let cnt = 1; cnt < MAX_ADJACENT; ++cnt) {
-    gap[cnt] = [0, baseValue, baseValue * 2]
+    gap[cnt] = [0, baseValue - BASE_VALUE, baseValue * 2 - BASE_VALUE]
     con[cnt] = [0, baseValue * 2, baseValue * 4]
     baseValue *= 8
   }
 
   const _v: number = con[MAX_ADJACENT - 1][1]
-  con[MAX_ADJACENT - 1][2] = _v + con[MAX_ADJACENT - 2][2]
-  gap[MAX_ADJACENT - 1] = [_v, _v, _v]
   gap[MAX_ADJACENT] = [_v, _v, _v]
   con[MAX_ADJACENT] = [baseValue, baseValue, baseValue]
   return { con, gap }

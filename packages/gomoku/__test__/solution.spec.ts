@@ -39,6 +39,24 @@ describe('15x15 -- 3', function () {
     expect(Math.abs(c - 7)).toBeLessThanOrEqual(2)
   })
 
+  test('pieces.0', async function () {
+    const pieces = await import('./fixtures/15x15/pieces.0.json')
+    solution.init(pieces.default)
+
+    const [r0, c0] = solution.minimaxSearch(0)
+    expect([
+      [4, 7],
+      [8, 7],
+    ]).toContainEqual([r0, c0])
+
+    solution.init(pieces.default)
+    const [r1, c1] = solution.minimaxSearch(1)
+    expect([
+      [4, 7],
+      [8, 7],
+    ]).toContainEqual([r1, c1])
+  })
+
   test('pieces.3', async function () {
     const pieces = await import('./fixtures/15x15/pieces.3.json')
     solution.init(pieces.default)
@@ -75,8 +93,17 @@ describe('15x15 -- 3', function () {
   test('pieces.8', async function () {
     const pieces = await import('./fixtures/15x15/pieces.8.json')
     solution.init(pieces.default)
-    const [r, c] = solution.minimaxSearch(0)
-    expect([r, c]).toEqual([12, 11])
+    const [r0, c0] = solution.minimaxSearch(0)
+    expect([
+      [11, 4],
+      [12, 3],
+      [12, 10],
+      [11, 11],
+      [12, 11],
+    ]).toContainEqual([r0, c0])
+
+    const [r1, c1] = solution.minimaxSearch(1)
+    expect([r1, c1]).toEqual([12, 11])
   })
 
   test('pieces.9', async function () {

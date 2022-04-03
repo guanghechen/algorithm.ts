@@ -11,7 +11,7 @@ export enum GomokuDirectionType {
 
 // Canvas x-arias direction.
 // Directions in canvas coordinates.
-export const gomokuDirections: ReadonlyArray<[dr: number, dc: number]> = Array.from(
+export const GomokuDirections: ReadonlyArray<[dr: number, dc: number]> = Array.from(
   Object.entries({
     [GomokuDirectionType.TOP]: [-1, 0],
     [GomokuDirectionType.TOP_RIGHT]: [-1, 1],
@@ -28,19 +28,33 @@ export const gomokuDirections: ReadonlyArray<[dr: number, dc: number]> = Array.f
   }, []),
 )
 
-export const leftHalfGomokuDirectionTypes: ReadonlyArray<GomokuDirectionType> = [
-  GomokuDirectionType.LEFT,
-  GomokuDirectionType.TOP_LEFT,
-  GomokuDirectionType.TOP,
-  GomokuDirectionType.TOP_RIGHT,
-]
+export const GomokuDirectionTypes = {
+  full: [
+    GomokuDirectionType.LEFT,
+    GomokuDirectionType.TOP_LEFT,
+    GomokuDirectionType.TOP,
+    GomokuDirectionType.TOP_RIGHT,
+    GomokuDirectionType.RIGHT,
+    GomokuDirectionType.BOTTOM_RIGHT,
+    GomokuDirectionType.BOTTOM,
+    GomokuDirectionType.BOTTOM_LEFT,
+  ] as ReadonlyArray<GomokuDirectionType>,
+  leftHalf: [
+    GomokuDirectionType.LEFT,
+    GomokuDirectionType.TOP_LEFT,
+    GomokuDirectionType.TOP,
+    GomokuDirectionType.TOP_RIGHT,
+  ] as ReadonlyArray<GomokuDirectionType>,
+  rightHalf: [
+    GomokuDirectionType.RIGHT,
+    GomokuDirectionType.BOTTOM_RIGHT,
+    GomokuDirectionType.BOTTOM,
+    GomokuDirectionType.BOTTOM_LEFT,
+  ] as ReadonlyArray<GomokuDirectionType>,
+}
 
-export const rightHalfGomokuDirectionTypes: ReadonlyArray<GomokuDirectionType> = [
-  GomokuDirectionType.RIGHT,
-  GomokuDirectionType.BOTTOM_RIGHT,
-  GomokuDirectionType.BOTTOM,
-  GomokuDirectionType.BOTTOM_LEFT,
-]
-
-export const gomokuDirectionTypes: ReadonlyArray<GomokuDirectionType> =
-  leftHalfGomokuDirectionTypes.concat(rightHalfGomokuDirectionTypes)
+export const GomokuDirectionTypeBitset = {
+  full: GomokuDirectionTypes.full.reduce((acc, dirType) => acc | (1 << dirType), 0),
+  leftHalf: GomokuDirectionTypes.leftHalf.reduce((acc, dirType) => acc | (1 << dirType), 0),
+  rightHalf: GomokuDirectionTypes.rightHalf.reduce((acc, dirType) => acc | (1 << dirType), 0),
+}

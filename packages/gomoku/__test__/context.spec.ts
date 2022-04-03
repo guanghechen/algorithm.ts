@@ -1,12 +1,9 @@
 import fs from 'fs-extra'
 import type { GomokuDirectionType, IDirCounter } from '../src'
-import {
-  GomokuContext,
-  gomokuDirectionTypes,
-  gomokuDirections,
-  leftHalfGomokuDirectionTypes,
-} from '../src'
+import { GomokuContext, GomokuDirectionTypes, GomokuDirections } from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths, stringify } from './util'
+
+const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
 class TesterHelper extends GomokuContext {
   public idxIfValid(r: number, c: number): number {
@@ -150,8 +147,8 @@ describe('15x15', () => {
 
   test('safeMove', () => {
     const MAX_STEPS: number = Math.max(tester.MAX_ROW, tester.MAX_COL)
-    for (const dirType of gomokuDirectionTypes) {
-      const [dr, dc] = gomokuDirections[dirType]
+    for (const dirType of fullDirectionTypes) {
+      const [dr, dc] = GomokuDirections[dirType]
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
         const [r, c] = tester.revIdx(id)
         for (let step = 0; step <= MAX_STEPS; ++step) {
@@ -168,8 +165,8 @@ describe('15x15', () => {
   })
 
   test('safeMoveOnStep', () => {
-    for (const dirType of gomokuDirectionTypes) {
-      const [dr, dc] = gomokuDirections[dirType]
+    for (const dirType of fullDirectionTypes) {
+      const [dr, dc] = GomokuDirections[dirType]
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
         const [r, c] = tester.revIdx(id)
         const r2: number = r + dr
@@ -183,8 +180,8 @@ describe('15x15', () => {
 
   test('fastMove', () => {
     const MAX_STEPS: number = Math.max(tester.MAX_ROW, tester.MAX_COL)
-    for (const dirType of gomokuDirectionTypes) {
-      const [dr, dc] = gomokuDirections[dirType]
+    for (const dirType of fullDirectionTypes) {
+      const [dr, dc] = GomokuDirections[dirType]
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
         const [r, c] = tester.revIdx(id)
         for (let step = 0; step <= MAX_STEPS; ++step) {
@@ -203,8 +200,8 @@ describe('15x15', () => {
   })
 
   test('fastMoveOnStep', () => {
-    for (const dirType of gomokuDirectionTypes) {
-      const [dr, dc] = gomokuDirections[dirType]
+    for (const dirType of fullDirectionTypes) {
+      const [dr, dc] = GomokuDirections[dirType]
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
         const [r, c] = tester.revIdx(id)
         const r2: number = r + dr
@@ -219,8 +216,8 @@ describe('15x15', () => {
   })
 
   test('maxMovableSteps', () => {
-    for (const dirType of gomokuDirectionTypes) {
-      const [dr, dc] = gomokuDirections[dirType]
+    for (const dirType of fullDirectionTypes) {
+      const [dr, dc] = GomokuDirections[dirType]
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
         const [r, c] = tester.revIdx(id)
         let step = 0
@@ -251,7 +248,7 @@ describe('15x15', () => {
     const cmp = (x: INeighbor, y: INeighbor): number => x - y
     const getValidNeighbors = (posId: number): INeighbor[] => {
       const result: INeighbor[] = []
-      for (const dirType of gomokuDirectionTypes) {
+      for (const dirType of fullDirectionTypes) {
         let posId2: number = posId
         for (let step = 0; step < MAX_DISTANCE_OF_NEIGHBOR; ++step) {
           posId2 = tester.safeMoveOneStep(posId2, dirType)
@@ -290,7 +287,7 @@ describe('15x15', () => {
   })
 
   test('getFirstPosId', () => {
-    for (const dirType of gomokuDirectionTypes) {
+    for (const dirType of fullDirectionTypes) {
       const revDirType: GomokuDirectionType = dirType ^ 1
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
         let id2: number = id
@@ -306,7 +303,7 @@ describe('15x15', () => {
 
   test('getStartPosSet', () => {
     const cmp = (x: number, y: number): number => x - y
-    for (const dirType of gomokuDirectionTypes) {
+    for (const dirType of fullDirectionTypes) {
       const revDirType: GomokuDirectionType = dirType ^ 1
       const startPosSet: Set<number> = new Set()
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
@@ -328,7 +325,7 @@ describe('15x15', () => {
     for (const { filepath, title } of filepaths) {
       const pieces = await fs.readJSON(filepath)
       tester.init(pieces)
-      for (const dirType of leftHalfGomokuDirectionTypes) {
+      for (const dirType of halfDirectionTypes) {
         for (const startPosId of tester.getStartPosSet(dirType)) {
           const message = `${title} [dirType, startPosId]: ${[dirType, startPosId].join(', ')}`
           expect([message, tester.getDirCounters(startPosId, dirType)]).toEqual([
@@ -347,7 +344,7 @@ describe('15x15', () => {
       for (const { r, c, p } of pieces) {
         const posId = tester.idx(r, c)
         tester.forward(posId, p)
-        for (const dirType of leftHalfGomokuDirectionTypes) {
+        for (const dirType of halfDirectionTypes) {
           for (const startPosId of tester.getStartPosSet(dirType)) {
             const message = `${title} [dirType, r, c, startPosId]: ${[
               dirType,
@@ -362,6 +359,21 @@ describe('15x15', () => {
           }
         }
       }
+
+      for (let id = 0; id < tester.TOTAL_POS; ++id) {
+        tester.revIdx(id)
+        const [r, c] = tester.revIdx(id)
+        for (const dirType of halfDirectionTypes) {
+          const startPosId = tester.getStartPosId(id, dirType)
+          const message = `${title} [dirType, r, c, startPosId]: ${[dirType, r, c, startPosId].join(
+            ', ',
+          )}`
+          expect([message, stringify(tester.getDirCounters(startPosId, dirType))]).toEqual([
+            message,
+            stringify(tester.$getDirCounters(startPosId, dirType)),
+          ])
+        }
+      }
     }
   })
 
@@ -373,7 +385,7 @@ describe('15x15', () => {
     }
 
     const data = collect() as any[]
-    expect(data.length).toEqual(tester.TOTAL_POS * gomokuDirectionTypes.length)
+    expect(data.length).toEqual(tester.TOTAL_POS * fullDirectionTypes.length)
 
     const countMap1: Record<number, number> = {}
     const countMap2: Record<GomokuDirectionType, number> = {} as any
@@ -382,13 +394,13 @@ describe('15x15', () => {
       countMap2[dirType] = (countMap2[dirType] ?? 0) + 1
     }
 
-    expect(gomokuDirectionTypes.every(dirType => countMap2[dirType] === tester.TOTAL_POS)).toEqual(
+    expect(fullDirectionTypes.every(dirType => countMap2[dirType] === tester.TOTAL_POS)).toEqual(
       true,
     )
     expect(
       new Array(tester.TOTAL_POS)
         .fill(0)
-        .every((_v, idx) => countMap1[idx] === gomokuDirectionTypes.length),
+        .every((_v, idx) => countMap1[idx] === fullDirectionTypes.length),
     ).toEqual(true)
   })
 })

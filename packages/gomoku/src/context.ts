@@ -1,12 +1,9 @@
-import {
-  gomokuDirectionTypes,
-  gomokuDirections,
-  leftHalfGomokuDirectionTypes,
-  rightHalfGomokuDirectionTypes,
-} from './constant'
+import { GomokuDirectionTypes, GomokuDirections } from './constant'
 import type { GomokuDirectionType } from './constant'
 import type { IGomokuContext } from './context.type'
 import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './types'
+
+const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
 type IGomokuDirections = number[]
 type IIdxMap = Array<Readonly<[r: number, c: number]>>
@@ -34,7 +31,7 @@ export class GomokuContext implements IGomokuContext {
   protected readonly _dirStartPosSet: number[][] // [dirType] => <start posIds>
   protected readonly _dirNeighborSet: number[][] // [posId] => <neighbors of posId>
   protected readonly _neighborPlacedCount: number[]
-  protected readonly _leftHalfDirCounterMap: IDirCounter[][][] // [dirType][startPosId] => <Counters>
+  protected readonly _rightHalfDirCountMap: IDirCounter[][][] // [dirType][startPosId] => <Counters>
   protected _placedCount: number
 
   constructor(props: IGomokuContextProps) {
@@ -63,22 +60,20 @@ export class GomokuContext implements IGomokuContext {
       }
     }
 
-    const _gomokuDirections: IGomokuDirections = gomokuDirections.map(
+    const _gomokuDirections: IGomokuDirections = GomokuDirections.map(
       ([dr, dc]) => dr * MAX_ROW + dc,
     )
 
-    const _maxMovableMap: number[][] = new Array(gomokuDirectionTypes.length)
+    const _maxMovableMap: number[][] = new Array(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array(_TOTAL_POS).fill(0))
-    const _dirStartPosSet: number[][] = new Array(gomokuDirectionTypes.length)
-      .fill([])
-      .map(() => [])
-    const _dirStartPosMap: number[][] = new Array(gomokuDirectionTypes.length)
+    const _dirStartPosSet: number[][] = new Array(fullDirectionTypes.length).fill([]).map(() => [])
+    const _dirStartPosMap: number[][] = new Array(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array(_TOTAL_POS).fill(0))
     this.traverseAllDirections(dirType => {
       const revDirType: GomokuDirectionType = dirType ^ 1
-      const [dr, dc] = gomokuDirections[dirType]
+      const [dr, dc] = GomokuDirections[dirType]
       return posId => {
         const [r, c] = _idxMap[posId]
         const r2 = r + dr
@@ -99,7 +94,7 @@ export class GomokuContext implements IGomokuContext {
     for (let posId = 0; posId < _TOTAL_POS; ++posId) {
       const neighbors: number[] = []
       _neighborMap[posId] = neighbors
-      for (const dirType of gomokuDirectionTypes) {
+      for (const dirType of fullDirectionTypes) {
         let posId2: number = posId
         for (let step = 0; step < _MAX_DISTANCE_OF_NEIGHBOR; ++step) {
           if (1 > _maxMovableMap[dirType][posId2]) break
@@ -109,9 +104,7 @@ export class GomokuContext implements IGomokuContext {
       }
     }
 
-    const _leftHalfDirCounterMap: IDirCounter[][][] = new Array<IDirCounter[][]>(
-      gomokuDirectionTypes.length,
-    )
+    const _rightHalfDirCountMap: IDirCounter[][][] = new Array(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array<IDirCounter[]>(_TOTAL_POS).fill([]).map(() => []))
 
@@ -122,7 +115,7 @@ export class GomokuContext implements IGomokuContext {
     this._dirStartPosSet = _dirStartPosSet
     this._dirNeighborSet = _neighborMap
     this._neighborPlacedCount = new Array(_TOTAL_POS).fill(0)
-    this._leftHalfDirCounterMap = _leftHalfDirCounterMap
+    this._rightHalfDirCountMap = _rightHalfDirCountMap
     this._placedCount = 0
   }
 
@@ -149,11 +142,11 @@ export class GomokuContext implements IGomokuContext {
       }
     }
 
-    // update _leftHalfDirCounterMap
-    const { _leftHalfDirCounterMap } = this
-    for (const dirType of leftHalfGomokuDirectionTypes) {
+    // update _rightHalfDirCountMap
+    const { _rightHalfDirCountMap } = this
+    for (const dirType of halfDirectionTypes) {
       for (const startPosId of this.getStartPosSet(dirType)) {
-        const counters = _leftHalfDirCounterMap[dirType][startPosId]
+        const counters = _rightHalfDirCountMap[dirType][startPosId]
 
         let index = 0
         const maxSteps: number = this.maxMovableSteps(startPosId, dirType) + 1
@@ -187,8 +180,8 @@ export class GomokuContext implements IGomokuContext {
       this._neighborPlacedCount[neighborId] += 1
     }
 
-    // update _leftHalfDirCounterMap
-    for (const dirType of leftHalfGomokuDirectionTypes) {
+    // update _rightHalfDirCountMap
+    for (const dirType of halfDirectionTypes) {
       this._updateHalfDirCounter(playerId, posId, dirType)
     }
 
@@ -207,8 +200,8 @@ export class GomokuContext implements IGomokuContext {
       this._neighborPlacedCount[neighborId] -= 1
     }
 
-    // update _leftHalfDirCounterMap
-    for (const dirType of leftHalfGomokuDirectionTypes) {
+    // update _rightHalfDirCountMap
+    for (const dirType of halfDirectionTypes) {
       this._updateHalfDirCounter(-1, posId, dirType)
     }
 
@@ -265,18 +258,19 @@ export class GomokuContext implements IGomokuContext {
     startPosId: number,
     dirType: GomokuDirectionType,
   ): ReadonlyArray<IDirCounter> {
-    return this._leftHalfDirCounterMap[dirType][startPosId]
+    return this._rightHalfDirCountMap[dirType][startPosId]
   }
 
   public traverseAllDirections(
     handle: (dirType: GomokuDirectionType) => (posId: number) => void,
   ): void {
     const { TOTAL_POS } = this
-    for (const dirType of leftHalfGomokuDirectionTypes) {
+    const { leftHalf, rightHalf } = GomokuDirectionTypes
+    for (const dirType of leftHalf) {
       const h = handle(dirType)
       for (let posId = 0; posId < TOTAL_POS; ++posId) h(posId)
     }
-    for (const dirType of rightHalfGomokuDirectionTypes) {
+    for (const dirType of rightHalf) {
       const h = handle(dirType)
       for (let posId = TOTAL_POS - 1; posId >= 0; --posId) h(posId)
     }
@@ -289,7 +283,7 @@ export class GomokuContext implements IGomokuContext {
   ): void {
     const revDirType: GomokuDirectionType = dirType ^ 1
     const startPosId = this.getStartPosId(posId, dirType)
-    const counters = this._leftHalfDirCounterMap[dirType][startPosId]
+    const counters = this._rightHalfDirCountMap[dirType][startPosId]
 
     let index = 0
     let remain: number = this._maxMovableMap[revDirType][posId] + 1
