@@ -16,12 +16,14 @@ export interface IGomokuSolutionProps {
   MIN_DEPTH?: number
   MAX_DEPTH?: number
   MAX_DISTANCE_OF_NEIGHBOR?: number
+  POSSIBILITY_SEARCH_EQUIV_CANDIDATE?: number
   scoreMap?: IShapeScoreMap
 }
 
 export class GomokuSolution {
   public readonly MIN_DEPTH: number
   public readonly MAX_DEPTH: number
+  public readonly POSSIBILITY_SEARCH_EQUIV_CANDIDATE: number
   public readonly context: IGomokuContext
   public readonly state: IGomokuState
   protected readonly _cache: GomokuStateCache
@@ -37,6 +39,7 @@ export class GomokuSolution {
       MIN_DEPTH = 3,
       MAX_DEPTH = 7,
       MAX_DISTANCE_OF_NEIGHBOR = 2,
+      POSSIBILITY_SEARCH_EQUIV_CANDIDATE = 0.98,
     } = props
     const _context = new GomokuContext({ MAX_ROW, MAX_COL, MAX_ADJACENT, MAX_DISTANCE_OF_NEIGHBOR })
     const _state = new GomokuState({
@@ -46,10 +49,15 @@ export class GomokuSolution {
 
     const _MIN_DEPTH: number = Math.max(1, Math.round(MIN_DEPTH))
     const _MAX_DEPTH: number = Math.max(_MIN_DEPTH, Math.round(MAX_DEPTH))
+    const _POSSIBILITY_SEARCH_EQUIV_CANDIDATE: number = Math.min(
+      1,
+      Math.max(0, POSSIBILITY_SEARCH_EQUIV_CANDIDATE),
+    )
     const _queues = new Array(_MAX_DEPTH).fill([]).map(() => [])
 
     this.MIN_DEPTH = _MIN_DEPTH
     this.MAX_DEPTH = _MAX_DEPTH
+    this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE = _POSSIBILITY_SEARCH_EQUIV_CANDIDATE
     this.context = _context
     this.state = _state
     this._cache = new GomokuStateCache(BigInt(_context.TOTAL_POS))
@@ -120,10 +128,25 @@ export class GomokuSolution {
     const MAX_CANDIDATE_SCORE: number = candidates[0].score
     const _size = cur >= MIN_DEPTH ? Math.min(8, candidates.length) : candidates.length
     const shouldCache: boolean = cur > 1 && cur + 1 < MAX_DEPTH
+    const POSS_SEARCH_EQUIV: number = this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE
     if (cur === 0) this._bestMoveId = candidates[0].id
 
-    for (let i = 0; i < _size; ++i) {
-      const candidate = candidates[i]
+    for (let i = 0, prevCandidateScore = -1, possibility = POSS_SEARCH_EQUIV; i < _size; ++i) {
+      let candidate = candidates[i]
+      if (candidate.score === prevCandidateScore) {
+        for (; Math.random() >= possibility; possibility *= POSS_SEARCH_EQUIV) {
+          i += 1
+          if (i === _size) break
+          candidate = candidates[i]
+        }
+        if (i === _size) break
+      }
+
+      if (prevCandidateScore !== candidate.score) {
+        prevCandidateScore = candidate.score
+        possibility = POSS_SEARCH_EQUIV
+      }
+
       const posId = candidate.id
       const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
