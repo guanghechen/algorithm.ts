@@ -1,3 +1,5 @@
+import type { IPriorityQueue } from '@algorithm.ts/priority-queue'
+import { createPriorityQueue } from '@algorithm.ts/priority-queue'
 import { GomokuContext } from './context'
 import type { IGomokuContext } from './context.type'
 import { GomokuState } from './state'
@@ -6,8 +8,7 @@ import type { IGomokuState } from './state.type'
 import type { IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types'
 import { createScoreMap } from './util'
 
-const cmpCandidate = (x: IGomokuCandidateState, y: IGomokuCandidateState): number =>
-  y.score - x.score
+const tmpCandidates: IGomokuCandidateState[] = []
 
 export interface IGomokuSolutionProps {
   MAX_ROW: number
@@ -27,7 +28,7 @@ export class GomokuSolution {
   public readonly context: IGomokuContext
   public readonly state: IGomokuState
   protected readonly _cache: GomokuStateCache
-  protected readonly _queues: IGomokuCandidateState[][]
+  protected readonly _queues: Array<IPriorityQueue<IGomokuCandidateState>>
   protected _bestMoveId: number
   protected _mainPlayerId: number
 
@@ -53,7 +54,9 @@ export class GomokuSolution {
       1,
       Math.max(0, POSSIBILITY_SEARCH_EQUIV_CANDIDATE),
     )
-    const _queues = new Array(_MAX_DEPTH).fill([]).map(() => [])
+    const _queues = new Array(_MAX_DEPTH)
+      .fill([])
+      .map(() => createPriorityQueue<IGomokuCandidateState>((x, y) => x.score - y.score))
 
     this.MIN_DEPTH = _MIN_DEPTH
     this.MAX_DEPTH = _MAX_DEPTH
@@ -121,23 +124,25 @@ export class GomokuSolution {
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (cur === MAX_DEPTH || state.isDraw()) return state.score(player ^ 1, _mainPlayerId)
 
-    const candidates = this._queues[cur]
-    state.expand(player, candidates)
-    candidates.sort(cmpCandidate)
+    const Q = this._queues[cur]
+    let _size: number = state.expand(player, tmpCandidates)
+    Q.init(tmpCandidates, 0, _size)
 
-    const MAX_CANDIDATE_SCORE: number = candidates[0].score
-    const _size = cur >= MIN_DEPTH ? Math.min(8, candidates.length) : candidates.length
-    const shouldCache: boolean = cur > 1 && cur + 1 < MAX_DEPTH
+    const firstCandidate: IGomokuCandidateState = Q.top()!
+    const MAX_CANDIDATE_SCORE: number = firstCandidate.score
     const POSS_SEARCH_EQUIV: number = this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE
-    if (cur === 0) this._bestMoveId = candidates[0].id
+    const shouldCache: boolean = cur > 1 && cur + 1 < MAX_DEPTH
+
+    if (cur === 0) this._bestMoveId = firstCandidate.id
+    if (cur >= MIN_DEPTH && _size > 8) _size = 8
 
     for (let i = 0, prevCandidateScore = -1, possibility = POSS_SEARCH_EQUIV; i < _size; ++i) {
-      let candidate = candidates[i]
+      let candidate = Q.dequeue()!
       if (candidate.score === prevCandidateScore) {
         for (; Math.random() >= possibility; possibility *= POSS_SEARCH_EQUIV) {
           i += 1
           if (i === _size) break
-          candidate = candidates[i]
+          candidate = Q.dequeue()!
         }
         if (i === _size) break
       }

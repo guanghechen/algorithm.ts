@@ -129,12 +129,9 @@ export class GomokuState implements IGomokuState {
     this._expireCandidates(posId)
   }
 
-  public expand(nextPlayerId: number, candidates: IGomokuCandidateState[]): void {
+  public expand(nextPlayerId: number, candidates: IGomokuCandidateState[]): number {
     const { context, _candidateSet } = this
     if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(this.context.MIDDLE_POS)
-
-    // eslint-disable-next-line no-param-reassign
-    candidates.length = _candidateSet.size
 
     let i = 0
     for (const posId of _candidateSet) {
@@ -143,6 +140,7 @@ export class GomokuState implements IGomokuState {
       candidates[i] = { id: posId, score }
       i += 1
     }
+    return _candidateSet.size
   }
 
   public score(currentPlayer: number, scoreForPlayer: number): number {
