@@ -20,4 +20,9 @@ export interface IScoreMap {
   gap: IShapeCount[]
 }
 
-export type IGomokuBoard = Int32Array
+export type IGomokuBoard = number[]
+
+export interface IDirCounter {
+  playerId: number
+  count: number
+}

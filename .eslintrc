@@ -30,9 +30,15 @@
       }
     },
     {
-      "files": ["**/__test__/*.spec.ts", "jest.setup.ts"],
+      "files": [
+        "**/__test__/*.spec.ts",
+        "**/__test__/util.ts",
+        "**/__test__/*.util.ts",
+        "jest.setup.ts"
+      ],
       "extends": ["@guanghechen", "@guanghechen/ts", "plugin:jest/recommended", "prettier"],
       "rules": {
+        "@typescript-eslint/ban-ts-comment": 0,
         "import/no-extraneous-dependencies": 0,
         "jest/expect-expect": 0
       }

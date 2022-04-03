@@ -68,12 +68,10 @@ describe('basic', function () {
     expect(Q.collect().sort((x, y) => x - y)).toEqual(randomValues.slice().sort((x, y) => x - y))
   })
 
-  test('init', function () {
+  test('init - 1', function () {
     for (let n = N; n <= N + 20; ++n) {
       const randomValues: number[] = new Array(n)
-      for (let i = 0; i < n; ++i) {
-        randomValues[i] = Math.random()
-      }
+      for (let i = 0; i < n; ++i) randomValues[i] = Math.random()
 
       let compareCnt = 0
       const Q = createPriorityQueue<number>((x, y) => {
@@ -95,6 +93,31 @@ describe('basic', function () {
     }
   })
 
+  test('init - 2', function () {
+    for (let n = N; n <= N + 20; ++n) {
+      const randomValues: number[] = new Array(n)
+      for (let i = 0; i < n; ++i) randomValues[i] = Math.random()
+
+      let compareCnt = 0
+      const Q = createPriorityQueue<number>((x, y) => {
+        compareCnt += 1
+        return x - y
+      })
+
+      const bakRandomValues: number[] = randomValues.slice()
+      Q.init(randomValues, 3, N)
+
+      expect(randomValues).toEqual(bakRandomValues)
+      expect(compareCnt).toBeLessThanOrEqual((N - 3) << 2)
+
+      const output: number[] = []
+      while (!Q.isEmpty()) output.push(Q.dequeue()!)
+
+      const answer: number[] = randomValues.slice(3, N).sort((x, y) => y - x)
+      expect(output).toEqual(answer)
+    }
+  })
+
   test('edge case', function () {
     const Q = createPriorityQueue<number>((x, y) => x - y)
     Q.init()
@@ -107,6 +130,9 @@ describe('basic', function () {
     expect(Q.dequeue()).toEqual(0)
     expect(Q.size()).toEqual(0)
     expect(Q.dequeue()).toEqual(undefined)
+    expect(Q.size()).toEqual(0)
+
+    Q.init(undefined, 0, 1)
     expect(Q.size()).toEqual(0)
   })
 })

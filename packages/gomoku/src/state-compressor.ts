@@ -1,7 +1,7 @@
 export class GomokuStateCompressor {
-  public readonly MOVE_STEP_BIT_BASE
-  public readonly MOVE_STEP_MASK
-  public readonly MOVE_STEP_MINIMUM_FLAG
+  public readonly MOVE_STEP_BIT_BASE: bigint
+  public readonly MOVE_STEP_MASK: bigint
+  public readonly MOVE_STEP_MINIMUM_FLAG: bigint
   public readonly INITIAL_STATE = 1n
 
   constructor(TOTAL_POS: bigint) {
