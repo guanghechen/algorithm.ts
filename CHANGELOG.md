@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="2.0.7-alpha.1"></a>
+## 2.0.7-alpha.1 (2022-04-03)
+
+### Changed
+
+- 🎨 improve(gomoku): add GomokuCountMap [[9e326dd](https://github.com/guanghechen/algorithm.ts/commit/9e326dd0cb6f7272810f950ff41f0ef2bfc7433d)]
+- ⚡ improve(gomoku): cache candidate score per position and direction [[41bbb77](https://github.com/guanghechen/algorithm.ts/commit/41bbb774787e1664dc6137c95672ff743d710bb6)]
+- 🎨 improve(gomoku): refactor codes [[0099728](https://github.com/guanghechen/algorithm.ts/commit/0099728355348226b20ce49ff7ee17897f12e28a)]
+- 🎨 improve(gomoku): refactor codes [[93f2517](https://github.com/guanghechen/algorithm.ts/commit/93f25177c9b9861f66cf0fe64bc948fbdd3a6a63)]
+- 🎨 refactor(gomoku): refactor algorithm [[e79b67f](https://github.com/guanghechen/algorithm.ts/commit/e79b67f58cb28d1df7979d0874a10570da503c27)]
+- 🎨 feat(priority-queue): support to specify the startIndex and endIndex of the initial elements [[e83506f](https://github.com/guanghechen/algorithm.ts/commit/e83506f53da6d119a1ebaea6abdaf8cc67708a3e)]
+
+### Fixed
+
+- 🐛 fix: tweak initial constants [[a69f372](https://github.com/guanghechen/algorithm.ts/commit/a69f37202943db235c77cabcba05c9f80c9d8dd5)]
+
+### Miscellaneous
+
+-  Merge branch &#x27;develop-gomoku&#x27; [[4105827](https://github.com/guanghechen/algorithm.ts/commit/41058273e74ced3d15cdc4892d1299c064da93fb)]
+- 📝 docs: update CHANGELOG [[634026a](https://github.com/guanghechen/algorithm.ts/commit/634026a03a6f997c2a4a8a1f73f99e7ab2edc3f2)]
+
+
 <a name="2.0.7-alpha.0"></a>
 ## 2.0.7-alpha.0 (2022-03-27)
 
