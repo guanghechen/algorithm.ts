@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="2.0.7"></a>
+## 2.0.7 (2022-04-03)
+
+### Changed
+
+- ⚡ improve: improve with priority-queue [[8cfe922](https://github.com/guanghechen/algorithm.ts/commit/8cfe92262a6bafca9811e8aac519427325eda5ec)]
+- ⚡ improve(gomoku): tweak scoreMap [[af85d27](https://github.com/guanghechen/algorithm.ts/commit/af85d27bf4fcc935810ad80c969b8795ddab087c)]
+
+### Removed
+
+- 🔥 improve: remove unused codes [[36ce18f](https://github.com/guanghechen/algorithm.ts/commit/36ce18f416f01468ed7c171a17e8bdfdf142835e)]
+
+### Miscellaneous
+
+-  improve: add POSSIBILITY_SEARCH_EQUIV_CANDIDATE [[88ea7ec](https://github.com/guanghechen/algorithm.ts/commit/88ea7ecd4c2e6fd3ae5eb52df78a6de6b9dd711a)]
+-  improve: tweak algorithm [[fd90575](https://github.com/guanghechen/algorithm.ts/commit/fd9057574c51ab2c9aa82274c032d749753e7ddf)]
+- 📝 docs: update CHANGELOG [[f4b1e6d](https://github.com/guanghechen/algorithm.ts/commit/f4b1e6db157d0d119082d906feef3e3019c2f288)]
+
+
 <a name="2.0.7-alpha.1"></a>
 ## 2.0.7-alpha.1 (2022-04-03)
 
