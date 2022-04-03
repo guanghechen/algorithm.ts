@@ -14,7 +14,7 @@ class TestHelper extends GomokuState {
       MAX_ADJACENT: 5,
       MAX_DISTANCE_OF_NEIGHBOR: 2,
     })
-    super({ context, MAX_NEXT_MOVER_BUFFER: 0, scoreMap: createScoreMap(context.MAX_ADJACENT) })
+    super({ context, scoreMap: createScoreMap(context.MAX_ADJACENT) })
   }
 
   public override init(pieces: ReadonlyArray<IGomokuPiece>): void {

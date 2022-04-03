@@ -15,12 +15,11 @@ type IStateScores = [score0: number, score1: number]
 export interface IGomokuStateProps {
   context: IGomokuContext
   scoreMap: IShapeScoreMap
-  MAX_NEXT_MOVER_BUFFER: number
 }
 
 export class GomokuState implements IGomokuState {
-  public readonly MAX_NEXT_MOVER_BUFFER: number
   public readonly context: IGomokuContext
+  protected readonly NEXT_MOVER_BUFFER = 2
   protected readonly _countMap: IGomokuCountMap
   protected readonly _scoreMap: IShapeScoreMap
   protected readonly _countOfReachLimits: ICountOfReachLimits
@@ -31,11 +30,9 @@ export class GomokuState implements IGomokuState {
   protected readonly _candidateScoreMap: number[][] // [posId][playerId]
   protected readonly _candidateScoreDirMap: number[][][] // [dirType][posId][playerId]
   protected readonly _candidateScoreExpired: number[] // [posId]  => expired direction set.
-  protected _nextMoverBufferFac: number
 
   constructor(props: IGomokuStateProps) {
-    const { context, scoreMap, MAX_NEXT_MOVER_BUFFER } = props
-    const _MAX_NEXT_MOVER_BUFFER = Math.max(0, Math.min(1, MAX_NEXT_MOVER_BUFFER))
+    const { context, scoreMap } = props
     const _countOfReachLimitsDirMap: number[][][] = new Array<number[]>(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array(context.TOTAL_POS).fill([]).map(() => [0, 0]))
@@ -52,7 +49,6 @@ export class GomokuState implements IGomokuState {
       allDirectionTypeBitset,
     )
 
-    this.MAX_NEXT_MOVER_BUFFER = _MAX_NEXT_MOVER_BUFFER
     this.context = context
     this._countMap = new GomokuCountMap(context)
     this._scoreMap = scoreMap
@@ -64,7 +60,6 @@ export class GomokuState implements IGomokuState {
     this._candidateScoreMap = _candidateScoreMap
     this._candidateScoreDirMap = _candidateScoreDirMap
     this._candidateScoreExpired = _candidateScoreExpired
-    this._nextMoverBufferFac = 1
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
@@ -151,16 +146,12 @@ export class GomokuState implements IGomokuState {
   }
 
   public score(currentPlayer: number, scoreForPlayer: number): number {
-    const nextMoverFac: number = this._nextMoverBufferFac
     const score0: number = this._stateScoreMap[scoreForPlayer]
     const score1: number = this._stateScoreMap[scoreForPlayer ^ 1]
+    const nextMoverFac = this.NEXT_MOVER_BUFFER
     return currentPlayer === scoreForPlayer
       ? score0 - score1 * nextMoverFac
       : score0 * nextMoverFac - score1
-  }
-
-  public reRandNextMoverBuffer(): void {
-    this._nextMoverBufferFac = 1 + Math.random() * this.MAX_NEXT_MOVER_BUFFER
   }
 
   public isWin(currentPlayer: number): boolean {

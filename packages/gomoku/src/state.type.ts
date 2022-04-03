@@ -34,11 +34,6 @@ export interface IGomokuState {
 
   /**
    *
-   */
-  reRandNextMoverBuffer(): void
-
-  /**
-   *
    * @param currentPlayer
    */
   isWin(currentPlayer: number): boolean

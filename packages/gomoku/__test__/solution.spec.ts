@@ -3,7 +3,8 @@ import { GomokuSolution } from '../src'
 describe('construction', () => {
   test('default', () => {
     const solution = new GomokuSolution({ MAX_ROW: 15, MAX_COL: 15 })
-    expect(solution.MAX_DEPTH).toEqual(3)
+    expect(solution.MIN_DEPTH).toEqual(3)
+    expect(solution.MAX_DEPTH).toEqual(7)
     expect(solution.context.MAX_ROW).toEqual(15)
     expect(solution.context.MAX_COL).toEqual(15)
     expect(solution.context.TOTAL_POS).toEqual(15 * 15)
@@ -12,16 +13,16 @@ describe('construction', () => {
   })
 })
 
-describe('15x15 -- 3', function () {
+describe('15x15', function () {
   class Solution extends GomokuSolution {
     constructor() {
       super({
         MAX_ROW: 15,
         MAX_COL: 15,
         MAX_ADJACENT: 5,
-        MAX_DEPTH: 5,
+        MIN_DEPTH: 3,
+        MAX_DEPTH: 7,
         MAX_DISTANCE_OF_NEIGHBOR: 2,
-        POSSIBILITY_SEARCH_EQUIV_CANDIDATE: 0.98,
       })
     }
   }
@@ -76,6 +77,7 @@ describe('15x15 -- 3', function () {
     const pieces = await import('./fixtures/15x15/pieces.4.json')
     solution.init([])
     for (const { r, c, p } of pieces.default) solution.forward(r, c, p)
+    expect(solution.state.isFinal()).toEqual(true)
     const [r, c] = solution.minimaxSearch(1)
     expect([[-1, -1]]).toContainEqual([r, c])
   })
@@ -136,7 +138,10 @@ describe('15x15 -- 3', function () {
     const pieces = await import('./fixtures/15x15/pieces.11.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(0)
-    expect([r, c]).toEqual([8, 2])
+    expect([
+      [8, 2],
+      [8, 4],
+    ]).toContainEqual([r, c])
 
     const [r1, c1] = solution.minimaxSearch(1)
     expect([r1, c1]).toEqual([8, 2])
@@ -153,11 +158,11 @@ describe('15x15 -- 3', function () {
     ]).toContainEqual([r, c])
   })
 
-  test.skip('pieces.13', async function () {
+  test('pieces.13', async function () {
     const pieces = await import('./fixtures/15x15/pieces.13.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(0)
-    expect([[6, 8]]).toContainEqual([r, c])
+    expect([[6, 9]]).toContainEqual([r, c])
   })
 
   test('edge case', function () {
