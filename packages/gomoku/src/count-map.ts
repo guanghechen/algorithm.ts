@@ -8,39 +8,22 @@ const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirect
 
 export class GomokuCountMap implements IGomokuCountMap {
   public readonly context: Readonly<IGomokuContext>
-  public readonly dirCountMap: number[][]
   protected readonly _rightHalfDirCountMap: IDirCounter[][][] // [dirType][startPosId] => <Counters>
 
   constructor(context: Readonly<IGomokuContext>) {
     this.context = context
-    this.dirCountMap = new Array(fullDirectionTypes.length)
-      .fill([])
-      .map(() => new Array(context.TOTAL_POS).fill(0))
-
     this._rightHalfDirCountMap = new Array(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array<IDirCounter[]>(context.TOTAL_POS).fill([]).map(() => []))
   }
 
   public init(): void {
-    const { context, dirCountMap } = this
+    const { context } = this
     const { board } = context
-
-    // Initialize dirCountMap.
-    dirCountMap.forEach(idMap => idMap.fill(0))
-    context.traverseAllDirections(dirType => posId => {
-      const player: number = board[posId]
-      if (player < 0) return
-
-      const id2: number = context.safeMoveOneStep(posId, dirType)
-      const countMap = dirCountMap[dirType]
-      countMap[posId] = id2 >= 0 && board[id2] === player ? countMap[id2] + 1 : 1
-    })
 
     // update _rightHalfDirCountMap
     const { _rightHalfDirCountMap } = this
     for (const dirType of halfDirectionTypes) {
-      const countMap = dirCountMap[dirType]
       for (const startPosId of context.getStartPosSet(dirType)) {
         const counters = _rightHalfDirCountMap[dirType][startPosId]
 
@@ -52,15 +35,9 @@ export class GomokuCountMap implements IGomokuCountMap {
           i = i2, posId = posId2
         ) {
           const playerId: number = board[posId]
-          if (playerId >= 0) {
-            const cnt = countMap[posId]
-            i2 = i + cnt
-            posId2 = context.fastMove(posId, dirType, cnt)
-          } else {
-            for (i2 = i + 1, posId2 = posId; i2 < maxSteps; ++i2) {
-              posId2 = context.fastMoveOneStep(posId2, dirType)
-              if (board[posId2] !== playerId) break
-            }
+          for (i2 = i + 1, posId2 = posId; i2 < maxSteps; ++i2) {
+            posId2 = context.fastMoveOneStep(posId2, dirType)
+            if (board[posId2] !== playerId) break
           }
           // eslint-disable-next-line no-plusplus
           counters[index++] = { playerId, count: i2 - i }
@@ -71,54 +48,14 @@ export class GomokuCountMap implements IGomokuCountMap {
   }
 
   public forward(posId: number): void {
-    const { context, dirCountMap } = this
-    const { board } = context
-    const playerId: number = board[posId]
-
-    // Update dirCountMap.
-    {
-      for (const dirType of fullDirectionTypes) {
-        const id2: number = context.safeMoveOneStep(posId, dirType)
-        const countMap = dirCountMap[dirType]
-        countMap[posId] = id2 >= 0 && board[id2] === playerId ? countMap[id2] + 1 : 1
-      }
-
-      for (const dirType of fullDirectionTypes) {
-        const revDirType = dirType ^ 1
-        const lftCnt: number = dirCountMap[revDirType][posId]
-        const rhtCnt: number = dirCountMap[dirType][posId]
-        const countMap = dirCountMap[dirType]
-        for (let id2: number = posId, i = 1; i < lftCnt; ++i) {
-          id2 = context.fastMoveOneStep(id2, revDirType)
-          countMap[id2] += rhtCnt
-        }
-      }
-    }
-
     // update _rightHalfDirCountMap
+    const playerId: number = this.context.board[posId]
     for (const dirType of halfDirectionTypes) {
       this._updateHalfDirCounter(playerId, posId, dirType)
     }
   }
 
   public revert(posId: number): void {
-    const { context, dirCountMap } = this
-
-    // Update dirCountMap.
-    {
-      for (const dirType of fullDirectionTypes) {
-        const revDirType = dirType ^ 1
-        const lftCnt: number = dirCountMap[revDirType][posId]
-        const rhtCnt: number = dirCountMap[dirType][posId]
-        const countMap = dirCountMap[dirType]
-        for (let posId2: number = posId, i = 1; i < lftCnt; ++i) {
-          posId2 = context.fastMoveOneStep(posId2, revDirType)
-          countMap[posId2] -= rhtCnt
-        }
-      }
-      for (const dirType of fullDirectionTypes) dirCountMap[dirType][posId] = 0
-    }
-
     // update _rightHalfDirCountMap
     for (const dirType of halfDirectionTypes) {
       this._updateHalfDirCounter(-1, posId, dirType)

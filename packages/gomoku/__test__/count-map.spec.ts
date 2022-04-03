@@ -1,11 +1,9 @@
 import fs from 'fs-extra'
-import { locateFixtures } from 'jest.setup'
-import path from 'path'
 import type { GomokuDirectionType, IDirCounter, IGomokuContextProps, IGomokuPiece } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionTypes } from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths, stringify } from './util'
 
-const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
+const { rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
 class TesterHelper extends GomokuCountMap {
   constructor(props: IGomokuContextProps) {
@@ -51,23 +49,6 @@ class TesterHelper extends GomokuCountMap {
     }
     return counters
   }
-
-  public $getDirCountMap(): GomokuCountMap['dirCountMap'] {
-    const { context } = this
-    const { board } = context
-    const dirCountMap: number[][] = new Array(fullDirectionTypes.length)
-      .fill([])
-      .map(() => new Array(context.TOTAL_POS).fill(0))
-    context.traverseAllDirections(dirType => posId => {
-      const player: number = board[posId]
-      if (player < 0) return
-
-      const id2: number = context.safeMoveOneStep(posId, dirType)
-      const countMap = dirCountMap[dirType]
-      countMap[posId] = id2 >= 0 && board[id2] === player ? countMap[id2] + 1 : 1
-    })
-    return dirCountMap
-  }
 }
 
 describe('15x15', () => {
@@ -80,31 +61,6 @@ describe('15x15', () => {
   })
   beforeEach(() => {
     tester.init([])
-  })
-
-  test('overview', async function () {
-    const filepaths = fs
-      .readdirSync(locateFixtures('15x15'))
-      .filter(filename => /pieces\.\d+?\.json$/.test(filename))
-      .map(filename => locateFixtures('15x15', filename))
-      .filter(filepath => fs.statSync(filepath).isFile())
-    expect(filepaths.length).toBeGreaterThan(0)
-    for (const filepath of filepaths) {
-      const pieces = await fs.readJSON(filepath)
-      tester.init([])
-      for (let i = 0; i < pieces.length; ++i) {
-        const { r, c, p } = pieces[i]
-        const posId = tester.context.idx(r, c)
-        if (i > 0 && Math.random() > 0.8) {
-          tester.revert(posId)
-          i -= 2
-        } else {
-          tester.forward(posId, p)
-        }
-        expect(tester.dirCountMap).toEqual(tester.$getDirCountMap())
-      }
-      expect(tester.dirCountMap).toEqual(tester.$getDirCountMap())
-    }
   })
 
   test('getDirCounters -- init', async () => {
