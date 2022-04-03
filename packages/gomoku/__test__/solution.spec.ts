@@ -21,7 +21,7 @@ describe('15x15 -- 3', function () {
         MAX_ADJACENT: 5,
         MAX_DEPTH: 5,
         MAX_DISTANCE_OF_NEIGHBOR: 2,
-        POSSIBILITY_SKIP_CANDIDATE: 0.98,
+        POSSIBILITY_SEARCH_EQUIV_CANDIDATE: 0.98,
       })
     }
   }
@@ -140,6 +140,16 @@ describe('15x15 -- 3', function () {
 
     const [r1, c1] = solution.minimaxSearch(1)
     expect([r1, c1]).toEqual([8, 2])
+  })
+
+  test('pieces.12', async function () {
+    const pieces = await import('./fixtures/15x15/pieces.12.json')
+    solution.init(pieces.default)
+    const [r, c] = solution.minimaxSearch(0)
+    expect([
+      [9, 8],
+      [10, 4],
+    ]).toContainEqual([r, c])
   })
 
   test('edge case', function () {

@@ -162,11 +162,7 @@ export class GomokuState implements IGomokuState {
   }
 
   public isDraw(): boolean {
-    return (
-      this.context.placedCount === this.context.TOTAL_POS &&
-      this._countOfReachLimits[0] <= 0 &&
-      this._countOfReachLimits[1] <= 0
-    )
+    return this.context.placedCount === this.context.TOTAL_POS
   }
 
   public isFinal(): boolean {

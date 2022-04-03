@@ -16,13 +16,13 @@ export interface IGomokuSolutionProps {
   MAX_DEPTH?: number
   MAX_DISTANCE_OF_NEIGHBOR?: number
   MAX_NEXT_MOVER_BUFFER?: number
-  POSSIBILITY_SKIP_CANDIDATE?: number
+  POSSIBILITY_SEARCH_EQUIV_CANDIDATE?: number
   scoreMap?: IScoreMap
 }
 
 export class GomokuSolution {
   public readonly MAX_DEPTH: number
-  public readonly POSSIBILITY_SKIP_CANDIDATE: number
+  public readonly POSSIBILITY_SEARCH_EQUIV_CANDIDATE: number
   public readonly context: IGomokuContext
   public readonly state: IGomokuState
   protected readonly _cache: GomokuStateCache
@@ -37,8 +37,8 @@ export class GomokuSolution {
       MAX_ADJACENT = 5,
       MAX_DEPTH = 3,
       MAX_DISTANCE_OF_NEIGHBOR = 2,
-      MAX_NEXT_MOVER_BUFFER = 0.4,
-      POSSIBILITY_SKIP_CANDIDATE = 0.8,
+      MAX_NEXT_MOVER_BUFFER = 1,
+      POSSIBILITY_SEARCH_EQUIV_CANDIDATE = 0.8,
     } = props
     const _context = new GomokuContext({ MAX_ROW, MAX_COL, MAX_ADJACENT, MAX_DISTANCE_OF_NEIGHBOR })
     const _state = new GomokuState({
@@ -48,14 +48,14 @@ export class GomokuSolution {
     })
 
     const _MAX_DEPTH: number = Math.max(1, Math.round(MAX_DEPTH))
-    const _MAX_POSSIBILITY_SKIP_CANDIDATE: number = Math.min(
+    const _POSSIBILITY_SEARCH_EQUIV_CANDIDATE: number = Math.min(
       1,
-      Math.max(0, POSSIBILITY_SKIP_CANDIDATE),
+      Math.max(0, POSSIBILITY_SEARCH_EQUIV_CANDIDATE),
     )
     const _queues = new Array(_MAX_DEPTH).fill([]).map(() => [])
 
     this.MAX_DEPTH = _MAX_DEPTH
-    this.POSSIBILITY_SKIP_CANDIDATE = _MAX_POSSIBILITY_SKIP_CANDIDATE
+    this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE = _POSSIBILITY_SEARCH_EQUIV_CANDIDATE
     this.context = _context
     this.state = _state
     this._cache = new GomokuStateCache(BigInt(_context.TOTAL_POS))
@@ -115,7 +115,7 @@ export class GomokuSolution {
     cur: number,
     prevState: bigint,
   ): number {
-    const { MAX_DEPTH, POSSIBILITY_SKIP_CANDIDATE, state, _cache, _mainPlayerId } = this
+    const { MAX_DEPTH, state, _cache, _mainPlayerId } = this
     if (state.isWin(_mainPlayerId)) return Number.POSITIVE_INFINITY
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (cur === MAX_DEPTH || state.isDraw()) return state.score(player ^ 1, _mainPlayerId)
@@ -126,15 +126,14 @@ export class GomokuSolution {
 
     const _size: number = candidates.length
     const shouldCache: boolean = cur > 1 && cur + 1 < MAX_DEPTH
+    const POSS_SEARCH_EQUIV: number = this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE
+    const MAX_CANDIDATE_SCORE: number = candidates[0].score
     if (cur === 0) this._bestMoveId = candidates[0].id
-    for (let i = 0, prevCandidateScore = -1; i < _size; ++i) {
+
+    for (let i = 0, prevCandidateScore = -1, possibility = POSS_SEARCH_EQUIV; i < _size; ++i) {
       let candidate = candidates[i]
       if (candidate.score === prevCandidateScore) {
-        for (
-          let possibility = POSSIBILITY_SKIP_CANDIDATE;
-          Math.random() < possibility;
-          possibility *= POSSIBILITY_SKIP_CANDIDATE
-        ) {
+        for (; Math.random() >= possibility; possibility *= POSS_SEARCH_EQUIV) {
           i += 1
           if (i === _size) break
           candidate = candidates[i]
@@ -142,12 +141,18 @@ export class GomokuSolution {
         if (i === _size) break
       }
 
-      prevCandidateScore = candidate.score
+      if (prevCandidateScore !== candidate.score) {
+        prevCandidateScore = candidate.score
+        possibility = POSS_SEARCH_EQUIV
+      }
+
       const posId = candidate.id
       const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
       let gamma: number | undefined = _cache.get(nextState)
       if (gamma === undefined) {
+        if (candidate.score ** 2 < MAX_CANDIDATE_SCORE) continue
+
         this._forward(posId, player)
         gamma = this._alphaBeta(player ^ 1, alpha, beta, cur + 1, nextState)
         this._revert(posId)
