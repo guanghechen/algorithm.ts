@@ -5,6 +5,7 @@ export interface IGomokuPiece {
 }
 
 export interface IGomokuCandidateState {
+  $id: number // uuid
   posId: number // The value after encoding the coordinates of the piece.
   score: number // Diff score for first player
 }

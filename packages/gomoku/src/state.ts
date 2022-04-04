@@ -1,3 +1,5 @@
+import type { IPriorityQueue } from '@algorithm.ts/priority-queue'
+import { createPriorityQueue } from '@algorithm.ts/priority-queue'
 import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
 import type { GomokuDirectionType } from './constant'
 import type { IGomokuContext } from './context.type'
@@ -27,21 +29,28 @@ export class GomokuState implements IGomokuState {
   protected readonly _stateScoreMap: IStateScores
   protected readonly _stateScoreDirMap: number[][][] // [dirType][startPosId][playerId]
   protected readonly _candidateSet: Set<number>
-  protected readonly _candidateScoreMap: number[][] // [posId][playerId]
+  protected readonly _candidateQueues: Array<IPriorityQueue<IGomokuCandidateState>> // [playerId] ==> queue
+  protected readonly _candidateLatestIdMap: number[] // [posId] ==> <uuid>
   protected readonly _candidateScoreDirMap: number[][][] // [dirType][posId][playerId]
   protected readonly _candidateScoreExpired: number[] // [posId]  => expired direction set.
+  protected _candidateUuid: number
 
   constructor(props: IGomokuStateProps) {
     const { context, scoreMap } = props
+
+    const _candidateQueues = new Array(2)
+      .fill([])
+      .map(() => createPriorityQueue<IGomokuCandidateState>((x, y) => x.score - y.score))
+    _candidateQueues.forEach(Q => Q.init())
+
+    const _candidateLatestIdMap = new Array(context.TOTAL_POS).fill(0)
+
     const _countOfReachLimitsDirMap: number[][][] = new Array<number[]>(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array(context.TOTAL_POS).fill([]).map(() => [0, 0]))
     const _stateScoreDirMap: number[][][] = new Array<number[]>(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array(context.TOTAL_POS).fill([]).map(() => [0, 0]))
-    const _candidateScoreMap: number[][] = new Array<number[]>(context.TOTAL_POS)
-      .fill([])
-      .map(() => [0, 0])
     const _candidateScoreDirMap: number[][][] = new Array<number[]>(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array(context.TOTAL_POS).fill([]).map(() => [0, 0]))
@@ -50,14 +59,16 @@ export class GomokuState implements IGomokuState {
     )
 
     this.context = context
+    this._candidateUuid = 0
     this._countMap = new GomokuCountMap(context)
     this._scoreMap = scoreMap
     this._countOfReachLimits = [0, 0]
     this._countOfReachLimitsDirMap = _countOfReachLimitsDirMap
     this._stateScoreMap = [0, 0]
     this._stateScoreDirMap = _stateScoreDirMap
+    this._candidateQueues = _candidateQueues
+    this._candidateLatestIdMap = _candidateLatestIdMap
     this._candidateSet = new Set<number>()
-    this._candidateScoreMap = _candidateScoreMap
     this._candidateScoreDirMap = _candidateScoreDirMap
     this._candidateScoreExpired = _candidateScoreExpired
   }
@@ -130,17 +141,37 @@ export class GomokuState implements IGomokuState {
   }
 
   public expand(nextPlayerId: number, candidates: IGomokuCandidateState[]): number {
-    const { context, _candidateSet } = this
+    const { context, _candidateQueues, _candidateLatestIdMap, _candidateSet } = this
     if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(this.context.MIDDLE_POS)
 
-    let i = 0
     for (const posId of _candidateSet) {
-      const score = this._evaluateCandidate(posId, nextPlayerId)
-      // eslint-disable-next-line no-param-reassign
-      candidates[i] = { posId, score }
-      i += 1
+      this._reEvaluateCandidate(posId)
     }
-    return _candidateSet.size
+
+    const Q = _candidateQueues[nextPlayerId]
+    const _size: number = _candidateSet.size
+    for (let i = 0, item: IGomokuCandidateState; i < _size; ++i) {
+      for (item = Q.dequeue()!; ; item = Q.dequeue()!) {
+        if (_candidateSet.has(item.posId) && _candidateLatestIdMap[item.posId] === item.$id) break
+      }
+      // eslint-disable-next-line no-param-reassign
+      candidates[i] = item
+    }
+
+    Q.init(candidates, 0, _size)
+    return _size
+  }
+
+  public topCandidate(nextPlayerId: number): IGomokuCandidateState | undefined {
+    const { _candidateSet, _candidateLatestIdMap } = this
+    const Q = this._candidateQueues[nextPlayerId]
+    for (let item: IGomokuCandidateState | undefined; ; Q.dequeue()) {
+      item = Q.top()
+      if (item === undefined) return undefined
+      if (_candidateSet.has(item.posId) && _candidateLatestIdMap[item.posId] === item.$id) {
+        return item
+      }
+    }
   }
 
   public score(currentPlayer: number, scoreForPlayer: number): number {
@@ -209,11 +240,17 @@ export class GomokuState implements IGomokuState {
     }
   }
 
-  protected _evaluateCandidate(posId: number, nextPlayerId: number): number {
-    const { _candidateScoreExpired, _candidateScoreMap } = this
+  protected _reEvaluateCandidate(posId: number): void {
+    const { _candidateScoreExpired } = this
     const expiredBitset: number = _candidateScoreExpired[posId]
     if (expiredBitset > 0) {
-      const { context, _candidateScoreDirMap, _stateScoreDirMap } = this
+      const {
+        context,
+        _candidateQueues,
+        _candidateLatestIdMap,
+        _candidateScoreDirMap,
+        _stateScoreDirMap,
+      } = this
 
       let prevScore0 = 0
       let prevScore1 = 0
@@ -254,11 +291,16 @@ export class GomokuState implements IGomokuState {
       const deltaScore0: number = score0 - prevScore0
       const deltaScore1: number = score1 - prevScore1
       const baseScore: number = deltaScore0 + deltaScore1
-      _candidateScoreMap[posId][0] = baseScore + deltaScore0
-      _candidateScoreMap[posId][1] = baseScore + deltaScore1
+      const candidateScore0: number = baseScore + deltaScore0
+      const candidateScore1: number = baseScore + deltaScore1
+
+      // eslint-disable-next-line no-plusplus
+      const uuid: number = ++this._candidateUuid
+      _candidateLatestIdMap[posId] = uuid
+      _candidateQueues[0].enqueue({ $id: uuid, posId, score: candidateScore0 })
+      _candidateQueues[1].enqueue({ $id: uuid, posId, score: candidateScore1 })
       _candidateScoreExpired[posId] = 0
     }
-    return _candidateScoreMap[posId][nextPlayerId]
   }
 
   protected _evaluateScoreInDirection(

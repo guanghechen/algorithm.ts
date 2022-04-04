@@ -32,7 +32,6 @@ export class GomokuSolution {
   protected readonly _CANDIDATE_SCORE_WIDE_MIN: number
   protected readonly _CANDIDATE_SCORE_DEEP_MIN: number
   protected readonly _cache: GomokuStateCache
-  protected readonly _queues: Array<IPriorityQueue<IGomokuCandidateState>>
   protected readonly _candidatesList: IGomokuCandidateState[][] = []
   protected _bestMoveId: number
   protected _mainPlayerId: number
@@ -59,9 +58,6 @@ export class GomokuSolution {
       1,
       Math.max(0, POSSIBILITY_SEARCH_EQUIV_CANDIDATE),
     )
-    const _queues = new Array(context.TOTAL_POS + 1)
-      .fill([])
-      .map(() => createPriorityQueue<IGomokuCandidateState>((x, y) => x.score - y.score))
     const _candidatesList: IGomokuCandidateState[][] = new Array(context.TOTAL_POS + 1)
       .fill([])
       .map(() => [])
@@ -77,7 +73,6 @@ export class GomokuSolution {
     this._CANDIDATE_SCORE_DEEP_MIN = scoreMap.con[MAX_ADJACENT - 1][1]
     this._CANDIDATE_SCORE_DEEP_MAX = scoreMap.con[MAX_ADJACENT][2]
     this._cache = new GomokuStateCache(BigInt(context.TOTAL_POS))
-    this._queues = _queues
     this._candidatesList = _candidatesList
     this._mainPlayerId = -1
     this._bestMoveId = -1
@@ -149,31 +144,28 @@ export class GomokuSolution {
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (state.isDraw()) return Number.MAX_VALUE
 
-    const tmpCandidates = this._candidatesList[cur]
-    const Q = this._queues[cur]
-    let _size: number = state.expand(playerId, tmpCandidates)
-    Q.init(tmpCandidates, 0, _size)
+    const candidates = this._candidatesList[cur]
+    let _size: number = state.expand(playerId, candidates)
 
-    const firstCandidate: IGomokuCandidateState = Q.top()!
+    const firstCandidate: IGomokuCandidateState = candidates[0]
     const MAX_CANDIDATE_SCORE: number = firstCandidate.score
-
     if (cur === 0) this._bestMoveId = firstCandidate.posId
+
     if (MAX_CANDIDATE_SCORE < this._CANDIDATE_SCORE_WIDE_MIN) {
-      const candidate = this._selectOneCandidate(tmpCandidates, _size)
-      tmpCandidates[0] = candidate
-      Q.init(tmpCandidates, 0, 1)
+      const candidate = this._selectOneCandidate(candidates, _size)
+      candidates[0] = candidate
       _size = 1
     }
 
     const shouldCache: boolean = cur > 1
     const POSS_SEARCH_EQUIV: number = this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE
     for (let i = 0, prevCandidateScore = -1, possibility = POSS_SEARCH_EQUIV; i < _size; ++i) {
-      let candidate = Q.dequeue()!
+      let candidate = candidates[i]
       if (candidate.score === prevCandidateScore) {
         for (; Math.random() >= possibility; possibility *= POSS_SEARCH_EQUIV) {
-          i += 1
-          if (i === _size) break
-          candidate = Q.dequeue()!
+          // eslint-disable-next-line no-plusplus
+          if (++i === _size) break
+          candidate = candidates[i]
         }
         if (i === _size) break
       }
@@ -228,14 +220,12 @@ export class GomokuSolution {
 
     const candidates = this._candidatesList[cur]
     const countOfCandidates: number = state.expand(playerId, candidates)
-    const Q = this._queues[cur]
-    Q.init(candidates, 0, countOfCandidates)
+    const _size: number = countOfCandidates < 8 ? countOfCandidates : 8
 
-    const firstCandidate: IGomokuCandidateState = Q.top()!
+    const firstCandidate: IGomokuCandidateState = candidates[0]
     const MAX_CANDIDATE_SCORE: number = firstCandidate.score
-    const _size: number = Math.min(8, countOfCandidates)
     for (let i = 0; i < _size; ++i) {
-      const candidate = Q.dequeue()!
+      const candidate = candidates[i]
       const posId = candidate.posId
       const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
@@ -269,16 +259,7 @@ export class GomokuSolution {
 
     const candidates = this._candidatesList[cur]
     const countOfCandidates: number = state.expand(playerId, candidates)
-    const Q = this._queues[cur]
-    Q.init(candidates, 0, countOfCandidates)
-
-    let _size = 0
-    for (_size = 0; _size < 2; ++_size) {
-      const candidate = Q.dequeue()
-      if (candidate === undefined) break
-      candidates[_size] = candidate
-    }
-
+    const _size: number = countOfCandidates < 2 ? countOfCandidates : 2
     for (let i = 0; i < _size; ++i) {
       const candidate = candidates[i]
       const posId = candidate.posId

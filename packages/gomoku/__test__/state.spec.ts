@@ -5,8 +5,8 @@ import { PieceDataDirName, locatePieceDataFilepaths } from './util'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
-const compareCandidate = (x: IGomokuCandidateState, y: IGomokuCandidateState): number =>
-  x.posId - y.posId
+type IGomokuCandidate = Omit<IGomokuCandidateState, '$id'>
+const compareCandidate = (x: IGomokuCandidate, y: IGomokuCandidate): number => x.posId - y.posId
 class TestHelper extends GomokuState {
   constructor(MAX_ROW: number, MAX_COL: number) {
     const context = new GomokuContext({
@@ -37,10 +37,10 @@ class TestHelper extends GomokuState {
   }
 
   // @ts-ignore
-  public override expand(nextPlayer: number): IGomokuCandidateState[] {
+  public override expand(nextPlayer: number): IGomokuCandidate[] {
     const candidates: IGomokuCandidateState[] = []
     super.expand(nextPlayer, candidates)
-    return candidates
+    return candidates.map(({ posId, score }) => ({ posId, score }))
   }
 
   public $getCandidateIds(): number[] {
@@ -55,15 +55,15 @@ class TestHelper extends GomokuState {
     return Array.from(candidateSet).sort((x, y) => x - y)
   }
 
-  public $getCandidates(nextPlayerId: number): IGomokuCandidateState[] {
+  public $getCandidates(nextPlayerId: number): IGomokuCandidate[] {
     const { context } = this
-    const candidates: IGomokuCandidateState[] = this.expand(nextPlayerId)
-    for (const candidate of candidates) {
-      const posId: number = candidate.posId
+    const candidateIds: number[] = this.$getCandidateIds()
+    const candidates: IGomokuCandidate[] = []
+    for (const posId of candidateIds) {
       let prevScore0 = 0
       let prevScore1 = 0
       for (const dirType of halfDirectionTypes) {
-        const startPosId: number = context.getStartPosId(candidate.posId, dirType)
+        const startPosId: number = context.getStartPosId(posId, dirType)
         const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
         prevScore0 += scores[0]
         prevScore1 += scores[1]
@@ -91,7 +91,7 @@ class TestHelper extends GomokuState {
       const deltaScore1: number = score1 - prevScore1
       const score: number =
         nextPlayerId === 0 ? deltaScore0 * 2 + deltaScore1 : deltaScore0 + deltaScore1 * 2
-      candidate.score = score
+      candidates.push({ posId, score })
     }
     return candidates
   }
@@ -101,7 +101,11 @@ describe('15x15', function () {
   const tester = new TestHelper(15, 15)
   const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
   const checkCandidates = (nextPlayerId: number): void => {
-    expect(tester.expand(nextPlayerId).sort(compareCandidate)).toEqual(
+    const candidates = tester.expand(nextPlayerId)
+    for (let i = 1; i < candidates.length; ++i) {
+      expect(candidates[i].score).toBeLessThanOrEqual(candidates[i - 1].score)
+    }
+    expect(candidates.sort(compareCandidate)).toEqual(
       tester.$getCandidates(nextPlayerId).sort(compareCandidate),
     )
   }

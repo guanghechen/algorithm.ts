@@ -26,6 +26,12 @@ export interface IGomokuState {
   expand(nextPlayer: number, candidates: IGomokuCandidateState[]): number
 
   /**
+   * Get top candidate
+   * @param nextPlayerId
+   */
+  topCandidate(nextPlayerId: number): IGomokuCandidateState | undefined
+
+  /**
    *
    * @param currentPlayer
    * @param scoreForPlayer
