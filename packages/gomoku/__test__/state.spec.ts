@@ -5,7 +5,8 @@ import { PieceDataDirName, locatePieceDataFilepaths } from './util'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
-const compareCandidate = (x: IGomokuCandidateState, y: IGomokuCandidateState): number => x.id - y.id
+const compareCandidate = (x: IGomokuCandidateState, y: IGomokuCandidateState): number =>
+  x.posId - y.posId
 class TestHelper extends GomokuState {
   constructor(MAX_ROW: number, MAX_COL: number) {
     const context = new GomokuContext({
@@ -58,11 +59,11 @@ class TestHelper extends GomokuState {
     const { context } = this
     const candidates: IGomokuCandidateState[] = this.expand(nextPlayerId)
     for (const candidate of candidates) {
-      const posId: number = candidate.id
+      const posId: number = candidate.posId
       let prevScore0 = 0
       let prevScore1 = 0
       for (const dirType of halfDirectionTypes) {
-        const startPosId: number = context.getStartPosId(candidate.id, dirType)
+        const startPosId: number = context.getStartPosId(candidate.posId, dirType)
         const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
         prevScore0 += scores[0]
         prevScore1 += scores[1]
@@ -176,7 +177,7 @@ describe('15x15', function () {
       return tester
         .expand(nextPlayer)
         .sort(compareCandidate)
-        .map(candidate => candidate.id)
+        .map(candidate => candidate.posId)
     }
 
     for (const { filepath, title } of filepaths) {
@@ -209,8 +210,8 @@ describe('15x15', function () {
 
   test('candidates -- init all', async function () {
     tester.init([])
-    expect(tester.expand(0)).toEqual([{ id: tester.context.MIDDLE_POS, score: 24 }])
-    expect(tester.expand(1)).toEqual([{ id: tester.context.MIDDLE_POS, score: 24 }])
+    expect(tester.expand(0)).toEqual([{ posId: tester.context.MIDDLE_POS, score: 24 }])
+    expect(tester.expand(1)).toEqual([{ posId: tester.context.MIDDLE_POS, score: 24 }])
 
     for (const { filepath } of filepaths) {
       const pieces = await fs.readJSON(filepath)

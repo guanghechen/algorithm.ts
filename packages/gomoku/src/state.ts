@@ -137,7 +137,7 @@ export class GomokuState implements IGomokuState {
     for (const posId of _candidateSet) {
       const score = this._evaluateCandidate(posId, nextPlayerId)
       // eslint-disable-next-line no-param-reassign
-      candidates[i] = { id: posId, score }
+      candidates[i] = { posId, score }
       i += 1
     }
     return _candidateSet.size

@@ -157,7 +157,7 @@ export class GomokuSolution {
     const firstCandidate: IGomokuCandidateState = Q.top()!
     const MAX_CANDIDATE_SCORE: number = firstCandidate.score
 
-    if (cur === 0) this._bestMoveId = firstCandidate.id
+    if (cur === 0) this._bestMoveId = firstCandidate.posId
     if (MAX_CANDIDATE_SCORE < this._CANDIDATE_SCORE_WIDE_MIN) {
       const candidate = this._selectOneCandidate(tmpCandidates, _size)
       tmpCandidates[0] = candidate
@@ -183,7 +183,7 @@ export class GomokuSolution {
         possibility = POSS_SEARCH_EQUIV
       }
 
-      const posId = candidate.id
+      const posId = candidate.posId
       const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
       let gamma: number | undefined = _cache.get(nextState)
@@ -236,7 +236,7 @@ export class GomokuSolution {
     const _size: number = Math.min(8, countOfCandidates)
     for (let i = 0; i < _size; ++i) {
       const candidate = Q.dequeue()!
-      const posId = candidate.id
+      const posId = candidate.posId
       const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
       let gamma: number | undefined = _cache.get(nextState)
@@ -281,7 +281,7 @@ export class GomokuSolution {
 
     for (let i = 0; i < _size; ++i) {
       const candidate = candidates[i]
-      const posId = candidate.id
+      const posId = candidate.posId
       this._forward(posId, playerId)
       const gamma = this._searchTightSpace(playerId ^ 1, alpha, beta, cur + 1)
       this._revert(posId)
@@ -318,9 +318,9 @@ export class GomokuSolution {
       return state.score(playerId ^ 1, _mainPlayerId)
     }
 
-    this._forward(candidate.id, playerId)
+    this._forward(candidate.posId, playerId)
     const result: number = this._searchDeepSpace(playerId ^ 1, cur + 1)
-    this._revert(candidate.id)
+    this._revert(candidate.posId)
     return result
   }
 
