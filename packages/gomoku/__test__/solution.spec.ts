@@ -105,7 +105,10 @@ describe('15x15', function () {
     ]).toContainEqual([r0, c0])
 
     const [r1, c1] = solution.minimaxSearch(1)
-    expect([r1, c1]).toEqual([12, 11])
+    expect([
+      [7, 10],
+      [12, 11],
+    ]).toContainEqual([r1, c1])
   })
 
   test('pieces.9', async function () {
@@ -155,6 +158,7 @@ describe('15x15', function () {
       [9, 4],
       [9, 8],
       [10, 4],
+      [11, 3],
     ]).toContainEqual([r, c])
   })
 
