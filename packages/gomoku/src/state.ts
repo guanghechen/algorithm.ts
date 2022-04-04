@@ -80,11 +80,16 @@ export class GomokuState implements IGomokuState {
       _countOfReachLimitsDirMap,
       _stateScoreMap,
       _stateScoreDirMap,
+      _candidateLatestIdMap,
+      _candidateQueues,
       _candidateSet,
       _candidateScoreExpired,
     } = this
 
+    this._candidateUuid = 0
     this._countMap.init()
+    _candidateLatestIdMap.fill(0)
+    _candidateQueues.forEach(Q => Q.init())
     _countOfReachLimits.fill(0)
     _stateScoreMap.fill(0)
     for (const dirType of halfDirectionTypes) {
@@ -140,7 +145,11 @@ export class GomokuState implements IGomokuState {
     this._expireCandidates(posId)
   }
 
-  public expand(nextPlayerId: number, candidates: IGomokuCandidateState[]): number {
+  public expand(
+    nextPlayerId: number,
+    candidates: IGomokuCandidateState[],
+    MAX_SIZE?: number,
+  ): number {
     const { context, _candidateQueues, _candidateLatestIdMap, _candidateSet } = this
     if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(this.context.MIDDLE_POS)
 
@@ -148,8 +157,10 @@ export class GomokuState implements IGomokuState {
       this._reEvaluateCandidate(posId)
     }
 
+    let _size = _candidateSet.size
+    if (MAX_SIZE !== undefined && MAX_SIZE < _size) _size = MAX_SIZE
+
     const Q = _candidateQueues[nextPlayerId]
-    const _size: number = _candidateSet.size
     for (let i = 0, item: IGomokuCandidateState; i < _size; ++i) {
       for (item = Q.dequeue()!; ; item = Q.dequeue()!) {
         if (_candidateSet.has(item.posId) && _candidateLatestIdMap[item.posId] === item.$id) break
@@ -163,11 +174,17 @@ export class GomokuState implements IGomokuState {
   }
 
   public topCandidate(nextPlayerId: number): IGomokuCandidateState | undefined {
-    const { _candidateSet, _candidateLatestIdMap } = this
-    const Q = this._candidateQueues[nextPlayerId]
-    for (let item: IGomokuCandidateState | undefined; ; Q.dequeue()) {
-      item = Q.top()
-      if (item === undefined) return undefined
+    if (this._candidateSet.size <= 0) return undefined
+
+    const { context, _candidateQueues, _candidateLatestIdMap, _candidateSet } = this
+    if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(this.context.MIDDLE_POS)
+    for (const posId of _candidateSet) {
+      this._reEvaluateCandidate(posId)
+    }
+
+    const Q = _candidateQueues[nextPlayerId]
+    for (let item: IGomokuCandidateState; ; Q.dequeue()) {
+      item = Q.top()!
       if (_candidateSet.has(item.posId) && _candidateLatestIdMap[item.posId] === item.$id) {
         return item
       }

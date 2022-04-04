@@ -109,6 +109,11 @@ describe('15x15', function () {
       tester.$getCandidates(nextPlayerId).sort(compareCandidate),
     )
   }
+  const checkTopCandidate = (nextPlayerId: number): void => {
+    const $candidates = tester.$getCandidates(nextPlayerId)
+    const candidate = tester.topCandidate(nextPlayerId)!
+    expect($candidates.every($candidate => $candidate.score <= candidate.score)).toEqual(true)
+  }
 
   beforeEach(() => {
     tester.init([])
@@ -234,6 +239,19 @@ describe('15x15', function () {
         tester.forward(id, p)
         checkCandidates(0)
         checkCandidates(1)
+      }
+    }
+  })
+
+  test('topCandidate', async function () {
+    for (const { filepath } of filepaths) {
+      tester.init([])
+      const pieces = await fs.readJSON(filepath)
+      for (const { r, c, p } of pieces) {
+        const id: number = tester.context.idx(r, c)
+        tester.forward(id, p)
+        checkTopCandidate(0)
+        checkTopCandidate(1)
       }
     }
   })

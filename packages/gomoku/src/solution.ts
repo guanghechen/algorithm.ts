@@ -145,7 +145,7 @@ export class GomokuSolution {
     if (state.isDraw()) return Number.MAX_VALUE
 
     const candidates = this._candidatesList[cur]
-    let _size: number = state.expand(playerId, candidates)
+    let _size: number = state.expand(playerId, candidates, 16)
 
     const firstCandidate: IGomokuCandidateState = candidates[0]
     const MAX_CANDIDATE_SCORE: number = firstCandidate.score
@@ -219,8 +219,7 @@ export class GomokuSolution {
     if (state.isDraw()) return Number.MAX_VALUE
 
     const candidates = this._candidatesList[cur]
-    const countOfCandidates: number = state.expand(playerId, candidates)
-    const _size: number = countOfCandidates < 8 ? countOfCandidates : 8
+    const _size: number = state.expand(playerId, candidates, 8)
 
     const firstCandidate: IGomokuCandidateState = candidates[0]
     const MAX_CANDIDATE_SCORE: number = firstCandidate.score
@@ -258,8 +257,7 @@ export class GomokuSolution {
     if (state.isDraw()) return Number.MAX_VALUE
 
     const candidates = this._candidatesList[cur]
-    const countOfCandidates: number = state.expand(playerId, candidates)
-    const _size: number = countOfCandidates < 2 ? countOfCandidates : 2
+    const _size: number = state.expand(playerId, candidates, 2)
     for (let i = 0; i < _size; ++i) {
       const candidate = candidates[i]
       const posId = candidate.posId
@@ -285,16 +283,7 @@ export class GomokuSolution {
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (state.isDraw()) return Number.MAX_VALUE
 
-    const candidates = this._candidatesList[cur]
-    const countOfCandidates: number = state.expand(playerId, candidates)
-
-    let candidate: IGomokuCandidateState = candidates[0]
-    for (let i = 1; i < countOfCandidates; ++i) {
-      const c = candidates[i]
-      if (c.score < candidate.score) candidate = c
-      if (c.score === candidate.score && Math.random() > 0.5) candidate = c
-    }
-
+    const candidate: IGomokuCandidateState = state.topCandidate(playerId)!
     if (candidate.score < this._CANDIDATE_SCORE_DEEP_MIN) {
       return state.score(playerId ^ 1, _mainPlayerId)
     }

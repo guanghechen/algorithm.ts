@@ -22,8 +22,9 @@ export interface IGomokuState {
    *
    * @param nextPlayer
    * @param candidates
+   * @param MAX_SIZE
    */
-  expand(nextPlayer: number, candidates: IGomokuCandidateState[]): number
+  expand(nextPlayer: number, candidates: IGomokuCandidateState[], MAX_SIZE?: number): number
 
   /**
    * Get top candidate
