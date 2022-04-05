@@ -182,20 +182,11 @@ export class GomokuState implements IGomokuState {
     if (this._candidateSet.size <= 0) return undefined
 
     const { _candidateSet, _countMap } = this
-    if (_countMap.stateCouldReachFinal(nextPlayerId)) {
-      for (const posId of _candidateSet) {
-        if (_countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
-          return { $id: -1, posId, score: Number.MAX_VALUE }
-        }
-      }
+    for (const posId of _countMap.mustDropPos(nextPlayerId)) {
+      return { $id: -1, posId, score: Number.MAX_VALUE }
     }
-    if (_countMap.stateCouldReachFinal(nextPlayerId ^ 1)) {
-      const playerId: number = nextPlayerId ^ 1
-      for (const posId of _candidateSet) {
-        if (_countMap.candidateCouldReachFinal(playerId, posId)) {
-          return { $id: -1, posId, score: Number.MAX_VALUE }
-        }
-      }
+    for (const posId of _countMap.mustDropPos(nextPlayerId ^ 1)) {
+      return { $id: -1, posId, score: Number.MAX_VALUE }
     }
 
     const { context, _candidateQueues, _candidateLatestIdMap } = this

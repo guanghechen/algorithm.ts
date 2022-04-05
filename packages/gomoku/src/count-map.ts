@@ -3,20 +3,19 @@ import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
 import type { IGomokuContext } from './context.type'
 import type { IGomokuCountMap } from './count-map.type'
 import type { IDirCounter } from './types'
-import { bitcount } from './util'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
 
 export class GomokuCountMap implements IGomokuCountMap {
   public readonly context: Readonly<IGomokuContext>
-  protected readonly _stateCouldReachFinal: [number, number] // [playerId0, playerId1]
+  protected readonly _mustDropPosSet: Array<Set<number>> // [playerId] => <must-drop position set>
   protected readonly _candidateCouldReachFinal: number[][] // [posId][playerId]
   protected readonly _rightHalfDirCountMap: IDirCounter[][][] // [dirType][startPosId] => <Counters>
 
   constructor(context: Readonly<IGomokuContext>) {
     this.context = context
-    this._stateCouldReachFinal = [0, 0]
+    this._mustDropPosSet = new Array(2).fill([]).map(() => new Set<number>())
     this._candidateCouldReachFinal = new Array(context.TOTAL_POS).fill([]).map(() => [0, 0])
     this._rightHalfDirCountMap = new Array(fullDirectionTypes.length)
       .fill([])
@@ -24,7 +23,7 @@ export class GomokuCountMap implements IGomokuCountMap {
   }
 
   public init(): void {
-    const { context, _stateCouldReachFinal, _candidateCouldReachFinal } = this
+    const { context, _mustDropPosSet, _candidateCouldReachFinal } = this
     const { TOTAL_POS, board } = context
 
     // update _rightHalfDirCountMap
@@ -53,7 +52,7 @@ export class GomokuCountMap implements IGomokuCountMap {
     }
 
     // Initialize _candidateCouldReachFinal.
-    _stateCouldReachFinal.fill(0)
+    _mustDropPosSet.forEach(set => set.clear())
     _candidateCouldReachFinal.forEach(item => item.fill(0))
     for (let posId = 0; posId < TOTAL_POS; ++posId) {
       if (context.board[posId] >= 0) continue
@@ -66,8 +65,8 @@ export class GomokuCountMap implements IGomokuCountMap {
         if (this._couldReachFinalInDirection(1, posId, dirType)) data1 |= bitFlag
       }
 
-      _stateCouldReachFinal[0] += bitcount(data0)
-      _stateCouldReachFinal[1] += bitcount(data1)
+      if (data0 > 0) _mustDropPosSet[0].add(posId)
+      if (data1 > 0) _mustDropPosSet[1].add(posId)
       _candidateCouldReachFinal[posId][0] = data0
       _candidateCouldReachFinal[posId][1] = data1
     }
@@ -102,8 +101,8 @@ export class GomokuCountMap implements IGomokuCountMap {
     return this._rightHalfDirCountMap[dirType][startPosId]
   }
 
-  public stateCouldReachFinal(playerId: number): boolean {
-    return this._stateCouldReachFinal[playerId] > 0
+  public mustDropPos(playerId: number): Iterable<number> {
+    return this._mustDropPosSet[playerId]
   }
 
   public candidateCouldReachFinal(playerId: number, posId: number): boolean {
@@ -140,19 +139,15 @@ export class GomokuCountMap implements IGomokuCountMap {
 
   protected _updateCouldReachFinal(posId: number, expiredBitset: number): void {
     if (expiredBitset > 0) {
-      const { _stateCouldReachFinal, _candidateCouldReachFinal } = this
+      const { _mustDropPosSet, _candidateCouldReachFinal } = this
       const prevData0 = _candidateCouldReachFinal[posId][0]
       const prevData1 = _candidateCouldReachFinal[posId][1]
+      _mustDropPosSet[0].delete(posId)
+      _mustDropPosSet[1].delete(posId)
 
       if (this.context.board[posId] >= 0) {
-        if (prevData0 > 0) {
-          _stateCouldReachFinal[0] -= bitcount(prevData0)
-          _candidateCouldReachFinal[posId][0] = 0
-        }
-        if (prevData1 > 0) {
-          _stateCouldReachFinal[1] -= bitcount(prevData1)
-          _candidateCouldReachFinal[posId][1] = 0
-        }
+        _candidateCouldReachFinal[posId][0] = 0
+        _candidateCouldReachFinal[posId][1] = 0
         return
       }
 
@@ -169,14 +164,10 @@ export class GomokuCountMap implements IGomokuCountMap {
         }
       }
 
-      if (prevData0 !== nextData0) {
-        _stateCouldReachFinal[0] += bitcount(nextData0) - bitcount(prevData0)
-        _candidateCouldReachFinal[posId][0] = nextData0
-      }
-      if (prevData1 !== nextData1) {
-        _stateCouldReachFinal[1] += bitcount(nextData1) - bitcount(prevData1)
-        _candidateCouldReachFinal[posId][1] = nextData1
-      }
+      _candidateCouldReachFinal[posId][0] = nextData0
+      _candidateCouldReachFinal[posId][1] = nextData1
+      if (nextData0 > 0) _mustDropPosSet[0].add(posId)
+      if (nextData1 > 0) _mustDropPosSet[1].add(posId)
     }
   }
 

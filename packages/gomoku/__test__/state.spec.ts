@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import type { IGomokuCandidateState, IGomokuPiece } from '../src'
+import type { GomokuDirectionType, IGomokuCandidateState, IGomokuPiece } from '../src'
 import { GomokuContext, GomokuDirectionTypes, GomokuState, createScoreMap } from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths } from './util'
 
@@ -43,6 +43,35 @@ class TestHelper extends GomokuState {
     return candidates.map(({ posId, score }) => ({ posId, score }))
   }
 
+  public $candidateCouldReachFinal(playerId: number, posId: number): boolean {
+    const { context } = this
+    const { MAX_ADJACENT, board } = context
+    if (board[posId] >= 0) return false
+
+    for (const dirType of halfDirectionTypes) {
+      const revDirType: GomokuDirectionType = dirType ^ 1
+      if (board[posId] < 0) {
+        let count = 1
+        const maxMovableSteps0: number = context.maxMovableSteps(posId, revDirType)
+        for (let id = posId, step = 0; step < maxMovableSteps0; ++step) {
+          id = context.fastMoveOneStep(id, revDirType)
+          if (board[id] !== playerId) break
+          count += 1
+        }
+
+        const maxMovableSteps2: number = context.maxMovableSteps(posId, dirType)
+        for (let id = posId, step = 0; step < maxMovableSteps2; ++step) {
+          id = context.fastMoveOneStep(id, dirType)
+          if (board[id] !== playerId) break
+          count += 1
+        }
+
+        if (count >= MAX_ADJACENT) return true
+      }
+    }
+    return false
+  }
+
   public $getCandidateIds(nextPlayerId: number): number[] {
     const { context, _countMap, _candidateSet } = this
     const candidateSet: Set<number> = new Set()
@@ -51,14 +80,14 @@ class TestHelper extends GomokuState {
         if (context.hasPlacedNeighbors(id)) candidateSet.add(id)
       }
     }
-    if (_countMap.stateCouldReachFinal(nextPlayerId)) {
+    if (_countMap.mustDropPos(nextPlayerId)) {
       for (const posId of _candidateSet) {
         if (_countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
           return [posId]
         }
       }
     }
-    if (_countMap.stateCouldReachFinal(nextPlayerId ^ 1)) {
+    if (_countMap.mustDropPos(nextPlayerId ^ 1)) {
       const playerId: number = nextPlayerId ^ 1
       for (const posId of _candidateSet) {
         if (_countMap.candidateCouldReachFinal(playerId, posId)) {
@@ -109,14 +138,14 @@ class TestHelper extends GomokuState {
       candidates.push({ posId, score })
     }
 
-    if (_countMap.stateCouldReachFinal(nextPlayerId)) {
+    if (_countMap.mustDropPos(nextPlayerId)) {
       for (const posId of _candidateSet) {
         if (_countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
           return [{ posId, score: Number.MAX_VALUE }]
         }
       }
     }
-    if (_countMap.stateCouldReachFinal(nextPlayerId ^ 1)) {
+    if (_countMap.mustDropPos(nextPlayerId ^ 1)) {
       const playerId: number = nextPlayerId ^ 1
       for (const posId of _candidateSet) {
         if (_countMap.candidateCouldReachFinal(playerId, posId)) {
@@ -131,14 +160,42 @@ class TestHelper extends GomokuState {
 describe('15x15', function () {
   const tester = new TestHelper(15, 15)
   const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
+
+  const checkCandidateIds = (message: string, nextPlayerId: number): void => {
+    const candidateIds = tester
+      .expand(nextPlayerId)
+      .sort(compareCandidate)
+      .map(candidate => candidate.posId)
+    const $candidateIds = tester.$getCandidateIds(nextPlayerId)
+
+    if (candidateIds.length === 1 && candidateIds[0] !== $candidateIds[0]) {
+      const posId = candidateIds[0]
+      expect([
+        message,
+        tester.$candidateCouldReachFinal(0, posId) || tester.$candidateCouldReachFinal(1, posId),
+      ]).toEqual([message, true])
+      return
+    }
+
+    expect([message, candidateIds]).toEqual([message, $candidateIds])
+  }
+
   const checkCandidates = (nextPlayerId: number): void => {
     const candidates = tester.expand(nextPlayerId)
+    const $candidates = tester.$getCandidates(nextPlayerId)
+
+    if (candidates.length === 1 && candidates[0].posId !== $candidates[0].posId) {
+      const posId = candidates[0].posId
+      expect(
+        tester.$candidateCouldReachFinal(0, posId) || tester.$candidateCouldReachFinal(1, posId),
+      ).toEqual(true)
+      return
+    }
+
     for (let i = 1; i < candidates.length; ++i) {
       expect(candidates[i].score).toBeLessThanOrEqual(candidates[i - 1].score)
     }
-    expect(candidates.sort(compareCandidate)).toEqual(
-      tester.$getCandidates(nextPlayerId).sort(compareCandidate),
-    )
+    expect(candidates.sort(compareCandidate)).toEqual($candidates.sort(compareCandidate))
   }
   const checkTopCandidate = (nextPlayerId: number): void => {
     const $candidates = tester.$getCandidates(nextPlayerId)
@@ -229,19 +286,19 @@ describe('15x15', function () {
         const id: number = tester.context.idx(r, c)
         tester.forward(id, p)
         const message = `${title} id=${id}`
-        expect([message, getCandidateIds(0)]).toEqual([message, tester.$getCandidateIds(0)])
-        expect([message, getCandidateIds(1)]).toEqual([message, tester.$getCandidateIds(1)])
+        checkCandidateIds(message, 0)
+        checkCandidateIds(message, 1)
         tester.revert(id)
-        expect([message, getCandidateIds(0)]).toEqual([message, tester.$getCandidateIds(0)])
-        expect([message, getCandidateIds(1)]).toEqual([message, tester.$getCandidateIds(1)])
+        checkCandidateIds(message, 0)
+        checkCandidateIds(message, 1)
         tester.forward(id, p)
       }
 
       for (let id = 0; id < tester.context.TOTAL_POS; ++id) {
         const message = `${title} id=${id}`
         tester.revert(id)
-        expect([message, getCandidateIds(0)]).toEqual([message, tester.$getCandidateIds(0)])
-        expect([message, getCandidateIds(1)]).toEqual([message, tester.$getCandidateIds(1)])
+        checkCandidateIds(message, 0)
+        checkCandidateIds(message, 1)
       }
     }
   })

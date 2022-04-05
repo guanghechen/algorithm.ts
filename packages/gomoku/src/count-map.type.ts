@@ -28,7 +28,7 @@ export interface IGomokuCountMap {
    *
    * @param playerId
    */
-  stateCouldReachFinal(playerId: number): boolean
+  mustDropPos(playerId: number): Iterable<number>
 
   /**
    *
