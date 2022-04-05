@@ -1,5 +1,24 @@
 # Changelog
 
+<a name="2.0.8-alpha.0"></a>
+## 2.0.8-alpha.0 (2022-04-05)
+
+### Changed
+
+- ⚡ improve(gomoku): maintain mustDropPos to get the top priority candidate faster [[86113e8](https://github.com/guanghechen/algorithm.ts/commit/86113e8a1c52b3003a28080d2eb85659246069ee)]
+- ⚡ improve(gomoku): improve: detect must-drop position [[3bfbb9e](https://github.com/guanghechen/algorithm.ts/commit/3bfbb9e5c887905ed2a1ede7855d9fc476bc87db)]
+- ⚡ improve(gomoku): tweak search thresholds [[2f03fe1](https://github.com/guanghechen/algorithm.ts/commit/2f03fe14297a54234330da436d101a36642ca10c)]
+- ⚡ improve(gomoku): use topCandidate in searchDeepSpace [[11abb27](https://github.com/guanghechen/algorithm.ts/commit/11abb27468638549be5891577279bb900c184acb)]
+- ⚡ improve(gomoku): use priority_queue to improve GomokuState.expand [[a360ccf](https://github.com/guanghechen/algorithm.ts/commit/a360ccf8cc2c81f4b21e4da5056a9419dc9633e7)]
+- 🎨 refactor(gomoku): rename type fields [[8a6adad](https://github.com/guanghechen/algorithm.ts/commit/8a6adad500505a3ef6cc0c19f652aab282fb223c)]
+- ⚡ improve(gomoku): tweak search thresholds [[a266744](https://github.com/guanghechen/algorithm.ts/commit/a266744f9ab7ab5ce9017ed65e682be11e288ca2)]
+- ⚡ improve(gomoku): hierarchical search [[9db8961](https://github.com/guanghechen/algorithm.ts/commit/9db8961369928c6c22fd4654bdcd5d69cb8f49d4)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGFELOG [[75c5103](https://github.com/guanghechen/algorithm.ts/commit/75c510366b0d3c3524f1f544db12aa959b5020d3)]
+
+
 <a name="2.0.7"></a>
 ## 2.0.7 (2022-04-03)
 
