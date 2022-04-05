@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/calculate",
-  "version": "2.0.7",
+  "version": "2.0.8-alpha.0",
   "description": "A tiny calculator for number arithmetics such as '+-*/()'",
   "author": {
     "name": "guanghechen",

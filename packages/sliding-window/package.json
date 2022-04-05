@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sliding-window",
-  "version": "2.0.7",
+  "version": "2.0.8-alpha.0",
   "description": "Sliding window",
   "author": {
     "name": "guanghechen",
