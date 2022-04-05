@@ -1,5 +1,3 @@
-import type { IPriorityQueue } from '@algorithm.ts/priority-queue'
-import { createPriorityQueue } from '@algorithm.ts/priority-queue'
 import { GomokuContext } from './context'
 import type { IGomokuContext } from './context.type'
 import { GomokuState } from './state'
@@ -15,6 +13,7 @@ export interface IGomokuSolutionProps {
   MAX_DEPTH_WIDE?: number
   MAX_DEPTH_NARROW?: number
   MAX_DEPTH_TIGHT?: number
+  MAX_DEPTH_DEEP?: number
   MAX_DISTANCE_OF_NEIGHBOR?: number
   POSSIBILITY_SEARCH_EQUIV_CANDIDATE?: number
   scoreMap?: IShapeScoreMap
@@ -24,11 +23,13 @@ export class GomokuSolution {
   public readonly MAX_DEPTH_WIDE: number
   public readonly MAX_DEPTH_NARROW: number
   public readonly MAX_DEPTH_TIGHT: number
+  public readonly MAX_DEPTH_DEEP: number
   public readonly POSSIBILITY_SEARCH_EQUIV_CANDIDATE: number
   public readonly context: IGomokuContext
   public readonly state: IGomokuState
   public readonly scoreMap: Readonly<IShapeScoreMap>
   protected readonly _CANDIDATE_SCORE_WIDE_MIN: number
+  protected readonly _CANDIDATE_SCORE_NARROW_MIN: number
   protected readonly _CANDIDATE_SCORE_TIGHT_MIN: number
   protected readonly _CANDIDATE_SCORE_DEEP_MIN: number
   protected readonly _CANDIDATE_SCORE_DEEP_MAX: number
@@ -42,9 +43,10 @@ export class GomokuSolution {
       MAX_ROW,
       MAX_COL,
       MAX_ADJACENT = 5,
-      MAX_DEPTH_WIDE = 3,
+      MAX_DEPTH_WIDE = 5,
       MAX_DEPTH_NARROW = 7,
-      MAX_DEPTH_TIGHT = 11,
+      MAX_DEPTH_TIGHT = 9,
+      MAX_DEPTH_DEEP = 24,
       MAX_DISTANCE_OF_NEIGHBOR = 2,
       POSSIBILITY_SEARCH_EQUIV_CANDIDATE = 0.98,
     } = props
@@ -55,6 +57,7 @@ export class GomokuSolution {
     const _MAX_DEPTH_WIDE: number = Math.max(1, Math.round(MAX_DEPTH_WIDE))
     const _MAX_DEPTH_NARROW: number = Math.max(_MAX_DEPTH_WIDE, Math.round(MAX_DEPTH_NARROW))
     const _MAX_DEPTH_TIGHT: number = Math.max(_MAX_DEPTH_NARROW, Math.round(MAX_DEPTH_TIGHT))
+    const _MAX_DEPTH_DEEP: number = Math.max(_MAX_DEPTH_TIGHT, Math.round(MAX_DEPTH_DEEP))
     const _POSSIBILITY_SEARCH_EQUIV_CANDIDATE: number = Math.min(
       1,
       Math.max(0, POSSIBILITY_SEARCH_EQUIV_CANDIDATE),
@@ -66,14 +69,16 @@ export class GomokuSolution {
     this.MAX_DEPTH_WIDE = _MAX_DEPTH_WIDE
     this.MAX_DEPTH_NARROW = _MAX_DEPTH_NARROW
     this.MAX_DEPTH_TIGHT = _MAX_DEPTH_TIGHT
+    this.MAX_DEPTH_DEEP = _MAX_DEPTH_DEEP
     this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE = _POSSIBILITY_SEARCH_EQUIV_CANDIDATE
     this.context = context
     this.state = state
     this.scoreMap = scoreMap
     this._CANDIDATE_SCORE_WIDE_MIN = scoreMap.con[2][2] * 2
-    this._CANDIDATE_SCORE_TIGHT_MIN = scoreMap.con[MAX_ADJACENT - 2][2]
+    this._CANDIDATE_SCORE_NARROW_MIN = scoreMap.con[MAX_ADJACENT - 2][1]
+    this._CANDIDATE_SCORE_TIGHT_MIN = scoreMap.con[MAX_ADJACENT - 2][2] * 2
     this._CANDIDATE_SCORE_DEEP_MIN = scoreMap.con[MAX_ADJACENT - 1][1]
-    this._CANDIDATE_SCORE_DEEP_MAX = scoreMap.con[MAX_ADJACENT][2] * 8
+    this._CANDIDATE_SCORE_DEEP_MAX = scoreMap.con[MAX_ADJACENT][2] * 16
     this._cache = new GomokuStateCache(BigInt(context.TOTAL_POS))
     this._candidatesList = _candidatesList
     this._mainPlayerId = -1
@@ -150,35 +155,16 @@ export class GomokuSolution {
     const candidates = this._candidatesList[cur]
     const _size: number = state.expand(playerId, candidates, 16)
 
-    const firstCandidate: IGomokuCandidateState = candidates[0]
-    const MAX_CANDIDATE_SCORE: number = firstCandidate.score
-    if (cur === 0) this._bestMoveId = firstCandidate.posId
+    if (cur === 0) this._bestMoveId = candidates[0].posId
 
     const shouldCache: boolean = cur > 1
-    const POSS_SEARCH_EQUIV: number = this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE
-    for (let i = 0, prevCandidateScore = -1, possibility = POSS_SEARCH_EQUIV; i < _size; ++i) {
-      let candidate = candidates[i]
-      if (candidate.score === prevCandidateScore) {
-        for (; Math.random() >= possibility; possibility *= POSS_SEARCH_EQUIV) {
-          // eslint-disable-next-line no-plusplus
-          if (++i === _size) break
-          candidate = candidates[i]
-        }
-        if (i === _size) break
-      }
-
-      if (prevCandidateScore !== candidate.score) {
-        prevCandidateScore = candidate.score
-        possibility = POSS_SEARCH_EQUIV
-      }
-
+    for (const candidate of this._selectOneCandidate(candidates, _size)) {
       const shouldSearchDeeper: boolean = candidate.score >= _CANDIDATE_SCORE_WIDE_MIN
       const posId = candidate.posId
       const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
       let gamma: number | undefined = _cache.get(nextState)
       if (gamma === undefined) {
-        if (candidate.score * 16 < MAX_CANDIDATE_SCORE) continue
         this._forward(posId, playerId)
         gamma = shouldSearchDeeper
           ? this._alphaBeta(playerId ^ 1, alpha, beta, cur + 1, nextState)
@@ -212,8 +198,8 @@ export class GomokuSolution {
     cur: number,
     prevState: bigint,
   ): number {
-    const { MAX_DEPTH_NARROW, state, _mainPlayerId, _cache } = this
-    if (cur >= MAX_DEPTH_NARROW) return this._searchTightSpace(playerId, alpha, beta, cur)
+    const { _CANDIDATE_SCORE_WIDE_MIN, state, _mainPlayerId, _cache } = this
+    if (cur >= this.MAX_DEPTH_NARROW) return this._searchTightSpace(playerId, alpha, beta, cur)
     if (state.isWin(_mainPlayerId)) return Number.POSITIVE_INFINITY
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (state.isDraw()) return Number.MAX_VALUE
@@ -221,18 +207,18 @@ export class GomokuSolution {
     const candidates = this._candidatesList[cur]
     const _size: number = state.expand(playerId, candidates, 8)
 
-    const firstCandidate: IGomokuCandidateState = candidates[0]
-    const MAX_CANDIDATE_SCORE: number = firstCandidate.score
     for (let i = 0; i < _size; ++i) {
       const candidate = candidates[i]
+      const shouldSearchDeeper: boolean = candidate.score >= _CANDIDATE_SCORE_WIDE_MIN
       const posId = candidate.posId
       const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
       let gamma: number | undefined = _cache.get(nextState)
       if (gamma === undefined) {
-        if (candidate.score * 16 < MAX_CANDIDATE_SCORE) continue
         this._forward(posId, playerId)
-        gamma = this._alphaBeta(playerId ^ 1, alpha, beta, cur + 1, nextState)
+        gamma = shouldSearchDeeper
+          ? this._alphaBeta(playerId ^ 1, alpha, beta, cur + 1, nextState)
+          : this._score(playerId ^ 1)
         this._revert(posId)
         _cache.set(nextState, gamma)
       }
@@ -284,6 +270,7 @@ export class GomokuSolution {
 
   protected _searchDeepSpace(playerId: number, cur: number): number {
     const { state, _mainPlayerId } = this
+    if (cur >= this.MAX_DEPTH_DEEP) return this._score(playerId)
     if (state.isWin(_mainPlayerId)) return Number.POSITIVE_INFINITY
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (state.isDraw()) return Number.MAX_VALUE
@@ -313,27 +300,25 @@ export class GomokuSolution {
    * @param size
    * @returns
    */
-  protected _selectOneCandidate(
+  protected *_selectOneCandidate(
     candidates: IGomokuCandidateState[] = [],
     size: number,
-  ): IGomokuCandidateState {
-    let result = candidates[0]
+  ): Iterable<IGomokuCandidateState> {
+    const firstCandidate = candidates[0]
+    yield firstCandidate
+
+    const MAX_CANDIDATE_SCORE: number = firstCandidate.score
     let temperature: number = this._CANDIDATE_SCORE_DEEP_MAX
     const TEMPERATURE_DROP_RATE = 0.98
     for (let i = 1; i < size; ++i) {
       const candidate = candidates[i]
-      if (result.score < candidate.score) result = candidate
-      else if (result.score < candidate.score * 16) {
-        const delta: number = candidate.score - result.score
-        const possibility: number = Math.exp(delta / temperature)
-        if (possibility > 1) console.log('possibility:', possibility)
-        if (Math.random() < possibility) {
-          result = candidate
-        }
+      const delta: number = candidate.score - MAX_CANDIDATE_SCORE
+      const possibility: number = Math.exp(delta / temperature)
+      if (Math.random() < possibility) {
+        yield candidate
       }
       temperature *= TEMPERATURE_DROP_RATE
     }
-    return result
   }
 
   protected _forward(posId: number, playerId: number): void {

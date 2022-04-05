@@ -1,25 +1,31 @@
 import type { GomokuDirectionType } from './constant'
-import { GomokuDirectionTypes } from './constant'
+import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
 import type { IGomokuContext } from './context.type'
 import type { IGomokuCountMap } from './count-map.type'
 import type { IDirCounter } from './types'
+import { bitcount } from './util'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
+const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
 
 export class GomokuCountMap implements IGomokuCountMap {
   public readonly context: Readonly<IGomokuContext>
+  protected readonly _stateCouldReachFinal: [number, number] // [playerId0, playerId1]
+  protected readonly _candidateCouldReachFinal: number[][] // [posId][playerId]
   protected readonly _rightHalfDirCountMap: IDirCounter[][][] // [dirType][startPosId] => <Counters>
 
   constructor(context: Readonly<IGomokuContext>) {
     this.context = context
+    this._stateCouldReachFinal = [0, 0]
+    this._candidateCouldReachFinal = new Array(context.TOTAL_POS).fill([]).map(() => [0, 0])
     this._rightHalfDirCountMap = new Array(fullDirectionTypes.length)
       .fill([])
       .map(() => new Array<IDirCounter[]>(context.TOTAL_POS).fill([]).map(() => []))
   }
 
   public init(): void {
-    const { context } = this
-    const { board } = context
+    const { context, _stateCouldReachFinal, _candidateCouldReachFinal } = this
+    const { TOTAL_POS, board } = context
 
     // update _rightHalfDirCountMap
     const { _rightHalfDirCountMap } = this
@@ -45,14 +51,38 @@ export class GomokuCountMap implements IGomokuCountMap {
         counters.length = index
       }
     }
+
+    // Initialize _candidateCouldReachFinal.
+    _stateCouldReachFinal.fill(0)
+    _candidateCouldReachFinal.forEach(item => item.fill(0))
+    for (let posId = 0; posId < TOTAL_POS; ++posId) {
+      if (context.board[posId] >= 0) continue
+
+      let data0 = 0
+      let data1 = 0
+      for (const dirType of halfDirectionTypes) {
+        const bitFlag: number = 1 << dirType
+        if (this._couldReachFinalInDirection(0, posId, dirType)) data0 |= bitFlag
+        if (this._couldReachFinalInDirection(1, posId, dirType)) data1 |= bitFlag
+      }
+
+      _stateCouldReachFinal[0] += bitcount(data0)
+      _stateCouldReachFinal[1] += bitcount(data1)
+      _candidateCouldReachFinal[posId][0] = data0
+      _candidateCouldReachFinal[posId][1] = data1
+    }
   }
 
   public forward(posId: number): void {
-    // update _rightHalfDirCountMap
     const playerId: number = this.context.board[posId]
+
+    // update _rightHalfDirCountMap
     for (const dirType of halfDirectionTypes) {
       this._updateHalfDirCounter(playerId, posId, dirType)
     }
+
+    // Update _candidateCouldReachFinal.
+    this._updateRelatedCouldReachFinal(posId)
   }
 
   public revert(posId: number): void {
@@ -60,6 +90,9 @@ export class GomokuCountMap implements IGomokuCountMap {
     for (const dirType of halfDirectionTypes) {
       this._updateHalfDirCounter(-1, posId, dirType)
     }
+
+    // Update _dirCountMap.
+    this._updateRelatedCouldReachFinal(posId)
   }
 
   public getDirCounters(
@@ -67,6 +100,110 @@ export class GomokuCountMap implements IGomokuCountMap {
     dirType: GomokuDirectionType,
   ): ReadonlyArray<IDirCounter> {
     return this._rightHalfDirCountMap[dirType][startPosId]
+  }
+
+  public stateCouldReachFinal(playerId: number): boolean {
+    return this._stateCouldReachFinal[playerId] > 0
+  }
+
+  public candidateCouldReachFinal(playerId: number, posId: number): boolean {
+    return this._candidateCouldReachFinal[posId][playerId] > 0
+  }
+
+  protected _updateRelatedCouldReachFinal(centerPosId: number): void {
+    const { context } = this
+    const { board } = context
+
+    this._updateCouldReachFinal(centerPosId, allDirectionTypeBitset)
+    for (const dirType of halfDirectionTypes) {
+      const expiredBitset: number = 1 << dirType
+      const revDirType: GomokuDirectionType = dirType ^ 1
+      const maxMovableSteps0: number = context.maxMovableSteps(centerPosId, revDirType)
+      for (let posId = centerPosId, step = 0; step < maxMovableSteps0; ++step) {
+        posId = context.fastMoveOneStep(posId, revDirType)
+        if (board[posId] < 0) {
+          this._updateCouldReachFinal(posId, expiredBitset)
+          break
+        }
+      }
+
+      const maxMovableSteps2: number = context.maxMovableSteps(centerPosId, dirType)
+      for (let posId = centerPosId, step = 0; step < maxMovableSteps2; ++step) {
+        posId = context.fastMoveOneStep(posId, dirType)
+        if (board[posId] < 0) {
+          this._updateCouldReachFinal(posId, expiredBitset)
+          break
+        }
+      }
+    }
+  }
+
+  protected _updateCouldReachFinal(posId: number, expiredBitset: number): void {
+    if (expiredBitset > 0) {
+      const { _stateCouldReachFinal, _candidateCouldReachFinal } = this
+      const prevData0 = _candidateCouldReachFinal[posId][0]
+      const prevData1 = _candidateCouldReachFinal[posId][1]
+
+      if (this.context.board[posId] >= 0) {
+        if (prevData0 > 0) {
+          _stateCouldReachFinal[0] -= bitcount(prevData0)
+          _candidateCouldReachFinal[posId][0] = 0
+        }
+        if (prevData1 > 0) {
+          _stateCouldReachFinal[1] -= bitcount(prevData1)
+          _candidateCouldReachFinal[posId][1] = 0
+        }
+        return
+      }
+
+      let nextData0 = 0
+      let nextData1 = 0
+      for (const dirType of halfDirectionTypes) {
+        const bitFlag: number = 1 << dirType
+        if (bitFlag & expiredBitset) {
+          if (this._couldReachFinalInDirection(0, posId, dirType)) nextData0 |= bitFlag
+          if (this._couldReachFinalInDirection(1, posId, dirType)) nextData1 |= bitFlag
+        } else {
+          nextData0 |= prevData0 & bitFlag
+          nextData1 |= prevData1 & bitFlag
+        }
+      }
+
+      if (prevData0 !== nextData0) {
+        _stateCouldReachFinal[0] += bitcount(nextData0) - bitcount(prevData0)
+        _candidateCouldReachFinal[posId][0] = nextData0
+      }
+      if (prevData1 !== nextData1) {
+        _stateCouldReachFinal[1] += bitcount(nextData1) - bitcount(prevData1)
+        _candidateCouldReachFinal[posId][1] = nextData1
+      }
+    }
+  }
+
+  protected _couldReachFinalInDirection(
+    playerId: number,
+    posId: number,
+    dirType: GomokuDirectionType,
+  ): boolean {
+    const { context } = this
+    const { MAX_ADJACENT, board } = context
+    const revDirType: GomokuDirectionType = dirType ^ 1
+
+    let count = 1
+    const maxMovableSteps0: number = context.maxMovableSteps(posId, revDirType)
+    for (let id = posId, step = 0; step < maxMovableSteps0; ++step) {
+      id = context.fastMoveOneStep(id, revDirType)
+      if (board[id] !== playerId) break
+      count += 1
+    }
+
+    const maxMovableSteps2: number = context.maxMovableSteps(posId, dirType)
+    for (let id = posId, step = 0; step < maxMovableSteps2; ++step) {
+      id = context.fastMoveOneStep(id, dirType)
+      if (board[id] !== playerId) break
+      count += 1
+    }
+    return count >= MAX_ADJACENT
   }
 
   protected _updateHalfDirCounter(

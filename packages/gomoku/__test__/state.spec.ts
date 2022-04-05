@@ -43,12 +43,27 @@ class TestHelper extends GomokuState {
     return candidates.map(({ posId, score }) => ({ posId, score }))
   }
 
-  public $getCandidateIds(): number[] {
-    const { context } = this
+  public $getCandidateIds(nextPlayerId: number): number[] {
+    const { context, _countMap, _candidateSet } = this
     const candidateSet: Set<number> = new Set()
     for (let id = 0; id < context.TOTAL_POS; ++id) {
       if (context.board[id] < 0) {
         if (context.hasPlacedNeighbors(id)) candidateSet.add(id)
+      }
+    }
+    if (_countMap.stateCouldReachFinal(nextPlayerId)) {
+      for (const posId of _candidateSet) {
+        if (_countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
+          return [posId]
+        }
+      }
+    }
+    if (_countMap.stateCouldReachFinal(nextPlayerId ^ 1)) {
+      const playerId: number = nextPlayerId ^ 1
+      for (const posId of _candidateSet) {
+        if (_countMap.candidateCouldReachFinal(playerId, posId)) {
+          return [posId]
+        }
       }
     }
     if (context.board[context.MIDDLE_POS] < 0) candidateSet.add(context.MIDDLE_POS)
@@ -56,9 +71,9 @@ class TestHelper extends GomokuState {
   }
 
   public $getCandidates(nextPlayerId: number): IGomokuCandidate[] {
-    const { context } = this
-    const candidateIds: number[] = this.$getCandidateIds()
+    const { context, _countMap, _candidateSet } = this
     const candidates: IGomokuCandidate[] = []
+    const candidateIds: number[] = this.$getCandidateIds(nextPlayerId)
     for (const posId of candidateIds) {
       let prevScore0 = 0
       let prevScore1 = 0
@@ -92,6 +107,22 @@ class TestHelper extends GomokuState {
       const score: number =
         nextPlayerId === 0 ? deltaScore0 * 2 + deltaScore1 : deltaScore0 + deltaScore1 * 2
       candidates.push({ posId, score })
+    }
+
+    if (_countMap.stateCouldReachFinal(nextPlayerId)) {
+      for (const posId of _candidateSet) {
+        if (_countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
+          return [{ posId, score: Number.MAX_VALUE }]
+        }
+      }
+    }
+    if (_countMap.stateCouldReachFinal(nextPlayerId ^ 1)) {
+      const playerId: number = nextPlayerId ^ 1
+      for (const posId of _candidateSet) {
+        if (_countMap.candidateCouldReachFinal(playerId, posId)) {
+          return [{ posId, score: Number.MAX_VALUE }]
+        }
+      }
     }
     return candidates
   }
@@ -197,22 +228,20 @@ describe('15x15', function () {
       for (const { r, c, p } of pieces) {
         const id: number = tester.context.idx(r, c)
         tester.forward(id, p)
-        const candidateIds: number[] = tester.$getCandidateIds()
         const message = `${title} id=${id}`
-        expect([message, getCandidateIds(0)]).toEqual([message, candidateIds])
-        expect([message, getCandidateIds(1)]).toEqual([message, candidateIds])
+        expect([message, getCandidateIds(0)]).toEqual([message, tester.$getCandidateIds(0)])
+        expect([message, getCandidateIds(1)]).toEqual([message, tester.$getCandidateIds(1)])
         tester.revert(id)
-        expect([message, getCandidateIds(0)]).toEqual([message, tester.$getCandidateIds()])
-        expect([message, getCandidateIds(1)]).toEqual([message, tester.$getCandidateIds()])
+        expect([message, getCandidateIds(0)]).toEqual([message, tester.$getCandidateIds(0)])
+        expect([message, getCandidateIds(1)]).toEqual([message, tester.$getCandidateIds(1)])
         tester.forward(id, p)
       }
 
       for (let id = 0; id < tester.context.TOTAL_POS; ++id) {
         const message = `${title} id=${id}`
         tester.revert(id)
-        const candidateIds: number[] = tester.$getCandidateIds()
-        expect([message, getCandidateIds(0)]).toEqual([message, candidateIds])
-        expect([message, getCandidateIds(1)]).toEqual([message, candidateIds])
+        expect([message, getCandidateIds(0)]).toEqual([message, tester.$getCandidateIds(0)])
+        expect([message, getCandidateIds(1)]).toEqual([message, tester.$getCandidateIds(1)])
       }
     }
   })
@@ -260,7 +289,7 @@ describe('15x15', function () {
     const pieces = await import('./fixtures/15x15/pieces.1.json')
     tester.init(pieces.default)
     const candidates = tester.expand(0)
-    expect(candidates.length).toEqual(53)
+    expect(candidates.length).toEqual(1)
   })
 
   test('edge case', function () {

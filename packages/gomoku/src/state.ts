@@ -151,15 +151,20 @@ export class GomokuState implements IGomokuState {
     MAX_SIZE?: number,
   ): number {
     const { context, _candidateQueues, _candidateLatestIdMap, _candidateSet } = this
+    const topCandidate = this.topCandidate(nextPlayerId)
+    if (topCandidate !== undefined && topCandidate.score === Number.MAX_VALUE) {
+      // eslint-disable-next-line no-param-reassign
+      candidates[0] = topCandidate
+      return 1
+    }
+
     if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(this.context.MIDDLE_POS)
 
     for (const posId of _candidateSet) {
       this._reEvaluateCandidate(posId)
     }
 
-    let _size = _candidateSet.size
-    if (MAX_SIZE !== undefined && MAX_SIZE < _size) _size = MAX_SIZE
-
+    const _size: number = Math.min(_candidateSet.size, MAX_SIZE ?? _candidateSet.size)
     const Q = _candidateQueues[nextPlayerId]
     for (let i = 0, item: IGomokuCandidateState; i < _size; ++i) {
       for (item = Q.dequeue()!; ; item = Q.dequeue()!) {
@@ -176,7 +181,24 @@ export class GomokuState implements IGomokuState {
   public topCandidate(nextPlayerId: number): IGomokuCandidateState | undefined {
     if (this._candidateSet.size <= 0) return undefined
 
-    const { context, _candidateQueues, _candidateLatestIdMap, _candidateSet } = this
+    const { _candidateSet, _countMap } = this
+    if (_countMap.stateCouldReachFinal(nextPlayerId)) {
+      for (const posId of _candidateSet) {
+        if (_countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
+          return { $id: -1, posId, score: Number.MAX_VALUE }
+        }
+      }
+    }
+    if (_countMap.stateCouldReachFinal(nextPlayerId ^ 1)) {
+      const playerId: number = nextPlayerId ^ 1
+      for (const posId of _candidateSet) {
+        if (_countMap.candidateCouldReachFinal(playerId, posId)) {
+          return { $id: -1, posId, score: Number.MAX_VALUE }
+        }
+      }
+    }
+
+    const { context, _candidateQueues, _candidateLatestIdMap } = this
     if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(this.context.MIDDLE_POS)
     for (const posId of _candidateSet) {
       this._reEvaluateCandidate(posId)

@@ -23,4 +23,17 @@ export interface IGomokuCountMap {
    *
    */
   getDirCounters(startPosId: number, dirType: GomokuDirectionType): ReadonlyArray<IDirCounter>
+
+  /**
+   *
+   * @param playerId
+   */
+  stateCouldReachFinal(playerId: number): boolean
+
+  /**
+   *
+   * @param playerId
+   * @param posId
+   */
+  candidateCouldReachFinal(playerId: number, posId: number): boolean
 }

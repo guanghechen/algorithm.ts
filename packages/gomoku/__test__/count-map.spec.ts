@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import { locateFixtures } from 'jest.setup'
 import type { GomokuDirectionType, IDirCounter, IGomokuContextProps, IGomokuPiece } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionTypes } from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths, stringify } from './util'
@@ -49,6 +50,43 @@ class TesterHelper extends GomokuCountMap {
     }
     return counters
   }
+
+  public $stateCouldReachFinal(playerId: number): boolean {
+    const { context } = this
+    for (let posId = 0; posId < context.TOTAL_POS; ++posId) {
+      if (this.$candidateCouldReachFinal(playerId, posId)) return true
+    }
+    return false
+  }
+
+  public $candidateCouldReachFinal(playerId: number, posId: number): boolean {
+    const { context } = this
+    const { MAX_ADJACENT, board } = context
+    if (board[posId] >= 0) return false
+
+    for (const dirType of halfDirectionTypes) {
+      const revDirType: GomokuDirectionType = dirType ^ 1
+      if (board[posId] < 0) {
+        let count = 1
+        const maxMovableSteps0: number = context.maxMovableSteps(posId, revDirType)
+        for (let id = posId, step = 0; step < maxMovableSteps0; ++step) {
+          id = context.fastMoveOneStep(id, revDirType)
+          if (board[id] !== playerId) break
+          count += 1
+        }
+
+        const maxMovableSteps2: number = context.maxMovableSteps(posId, dirType)
+        for (let id = posId, step = 0; step < maxMovableSteps2; ++step) {
+          id = context.fastMoveOneStep(id, dirType)
+          if (board[id] !== playerId) break
+          count += 1
+        }
+
+        if (count >= MAX_ADJACENT) return true
+      }
+    }
+    return false
+  }
 }
 
 describe('15x15', () => {
@@ -61,6 +99,47 @@ describe('15x15', () => {
   })
   beforeEach(() => {
     tester.init([])
+  })
+
+  test('overview', async function () {
+    const filepaths = fs
+      .readdirSync(locateFixtures('15x15'))
+      .filter(filename => /pieces\.\d+?\.json$/.test(filename))
+      .map(filename => locateFixtures('15x15', filename))
+      .filter(filepath => fs.statSync(filepath).isFile())
+    expect(filepaths.length).toBeGreaterThan(0)
+    for (const filepath of filepaths) {
+      const pieces = await fs.readJSON(filepath)
+      tester.init([])
+      for (let i = 0; i < pieces.length; ++i) {
+        const { r, c, p } = pieces[i]
+        const posId = tester.context.idx(r, c)
+        if (i > 0 && Math.random() > 0.8) {
+          tester.revert(posId)
+          i -= 2
+        } else {
+          tester.forward(posId, p)
+        }
+        expect(tester.candidateCouldReachFinal(0, posId)).toEqual(
+          tester.$candidateCouldReachFinal(0, posId),
+        )
+        expect(tester.candidateCouldReachFinal(1, posId)).toEqual(
+          tester.$candidateCouldReachFinal(1, posId),
+        )
+        expect(tester.stateCouldReachFinal(0)).toEqual(tester.$stateCouldReachFinal(0))
+        expect(tester.stateCouldReachFinal(1)).toEqual(tester.$stateCouldReachFinal(1))
+      }
+      for (let posId = 0; posId < tester.context.TOTAL_POS; ++posId) {
+        expect(tester.candidateCouldReachFinal(0, posId)).toEqual(
+          tester.$candidateCouldReachFinal(0, posId),
+        )
+        expect(tester.candidateCouldReachFinal(1, posId)).toEqual(
+          tester.$candidateCouldReachFinal(1, posId),
+        )
+        expect(tester.stateCouldReachFinal(0)).toEqual(tester.$stateCouldReachFinal(0))
+        expect(tester.stateCouldReachFinal(1)).toEqual(tester.$stateCouldReachFinal(1))
+      }
+    }
   })
 
   test('getDirCounters -- init', async () => {

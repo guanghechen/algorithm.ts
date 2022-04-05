@@ -3,7 +3,7 @@ import { GomokuSolution } from '../src'
 describe('construction', () => {
   test('default', () => {
     const solution = new GomokuSolution({ MAX_ROW: 15, MAX_COL: 15 })
-    expect(solution.MAX_DEPTH_WIDE).toEqual(3)
+    expect(solution.MAX_DEPTH_WIDE).toEqual(5)
     expect(solution.MAX_DEPTH_NARROW).toEqual(7)
     expect(solution.context.MAX_ROW).toEqual(15)
     expect(solution.context.MAX_COL).toEqual(15)
@@ -20,8 +20,10 @@ describe('15x15', function () {
         MAX_ROW: 15,
         MAX_COL: 15,
         MAX_ADJACENT: 5,
-        MAX_DEPTH_WIDE: 3,
+        MAX_DEPTH_WIDE: 5,
         MAX_DEPTH_NARROW: 7,
+        MAX_DEPTH_TIGHT: 9,
+        MAX_DEPTH_DEEP: 24,
         MAX_DISTANCE_OF_NEIGHBOR: 2,
       })
     }
