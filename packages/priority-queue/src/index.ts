@@ -14,8 +14,14 @@ export interface IPriorityQueue<T> {
   init(elements?: ReadonlyArray<T>, startIndex?: number, endIndex?: number): void
   /**
    * Drop a element into the priority queue.
+   * @param element
    */
-  enqueue(val: T): void
+  enqueue(element: T): void
+  /**
+   * Drop multiple elements into the priority queue.
+   * @param elements
+   */
+  enqueues(elements: ReadonlyArray<T>, startIndex?: number, endIndex?: number): void
   /**
    * Popup the top element.
    */
@@ -59,11 +65,17 @@ export function createPriorityQueue<T>(
   return {
     init,
     enqueue,
+    enqueues,
     dequeue,
     top,
     collect,
     size: () => _size,
     isEmpty: () => _size < 1,
+  }
+
+  function _fastBuild(): void {
+    // Build the heap with the initial elements.
+    for (let q = _size; q > 1; q -= 2) _down(q >> 1)
   }
 
   /**
@@ -81,16 +93,30 @@ export function createPriorityQueue<T>(
 
     _size = tIdx - sIdx
     if (_tree.length <= _size) _tree.length = _size + 1
-
-    // Build the heap with the initial elements.
     for (let i = sIdx, k = 1; i < tIdx; ++i, ++k) _tree[k] = elements[i]
-    for (let q = _size; q > 1; q -= 2) _down(q >> 1)
+    _fastBuild()
   }
 
-  function enqueue(val: T): void {
+  function enqueue(element: T): void {
     // eslint-disable-next-line no-plusplus
-    _tree[++_size] = val
+    _tree[++_size] = element
     _up(_size)
+  }
+
+  function enqueues(elements: T[], startIndex?: number, endIndex?: number): void {
+    const sIdx: number = Math.max(0, Math.min(elements.length, startIndex ?? 0))
+    const tIdx: number = Math.max(sIdx, Math.min(elements.length, endIndex ?? elements.length))
+    const N: number = tIdx - sIdx
+    if (N < 5) {
+      for (let i = sIdx; i < tIdx; ++i) enqueue(elements[i])
+      return
+    }
+
+    let k = _size + 1
+    _size += N
+    if (_tree.length <= _size) _tree.length = _size + 1
+    for (let i = sIdx; i < tIdx; ++i, ++k) _tree[k] = elements[i]
+    _fastBuild()
   }
 
   function dequeue(): T | undefined {
