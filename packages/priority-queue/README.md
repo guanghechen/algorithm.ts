@@ -82,15 +82,18 @@ complexity of the enqueue and dequeue operations are both $O(\log N)$.
 
 * `IPriorityQueue`
 
-  Member                                                      | Return        |  Description
-  :----------------------------------------------------------:|:-------------:|:---------------------------------------
-  `init(elements?: T[], startPos?: number, endPos?: number)`  | `void`        | Initialize priority queue with initial elements.
-  `enqueue(val: T)`                                           | `void`        | Drop a element into the priority queue.
-  `dequeue()`                                                 | `T|undefined` | Popup the top element.
-  `top()`                                                     | `T|undefined` | Get the top element.
-  `size()`                                                    | `number`      | Return the number of elements of the priority queue.
-  `isEmpty()`                                                 | `boolean`     | Check if the priority queue is empty.
-  `collect()`                                                 | `T[]`         | Return all of the elements of the priority queue.
+  Member                                                                        | Return        |  Description
+  :----------------------------------------------------------------------------:|:-------------:|:---------------------------------------
+  `init(elements?: T[], startPos?: number, endPos?: number)`                    | `void`        | Initialize priority queue with initial elements.
+  `enqueue(val: T)`                                                             | `void`        | Drop a element into the priority queue.
+  `enqueues(elements: T[], startIndex?: number, endIndex?: number)`             | `void`        | Drop multiple elements into the priority queue.
+  `dequeue()`                                                                   | `T|undefined` | Popup the top element.
+  `splice(filter, newElements?: T[], startIndex?: number, endIndex?: number)`   | `void`        | Remove existed elements which is not passed the filter, then enqueues the additional elements.
+  `replaceTop(newElement: T)`                                                   | `void`        | Replace top element with new one. (If the queue is empty, then the newElement will be enqueued.)
+  `top()`                                                                       | `T|undefined` | Get the top element.
+  `size()`                                                                      | `number`      | Return the number of elements of the priority queue.
+  `isEmpty()`                                                                   | `boolean`     | Check if the priority queue is empty.
+  `collect()`                                                                   | `T[]`         | Return all of the elements of the priority queue.
 
 * `createPriorityQueue`
 
