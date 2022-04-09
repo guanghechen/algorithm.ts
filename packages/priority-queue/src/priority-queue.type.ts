@@ -40,6 +40,12 @@ export interface IPriorityQueue<T> {
     endIndex?: number,
   ): void
   /**
+   * Replace top element with new one.
+   * If the queue is empty, then the newElement will be enqueued.
+   * @param newElement
+   */
+  replaceTop(newElement: T): void
+  /**
    * Get the top element.
    */
   top(): T | undefined

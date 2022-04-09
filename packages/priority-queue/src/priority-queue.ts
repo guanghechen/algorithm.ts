@@ -24,6 +24,7 @@ export function createPriorityQueue<T>(
     enqueues,
     dequeue,
     splice,
+    replaceTop,
     top,
     collect,
     size: () => _size,
@@ -110,6 +111,15 @@ export function createPriorityQueue<T>(
 
     _size = i
     _fastBuild()
+  }
+
+  function replaceTop(newElement: T): void {
+    // eslint-disable-next-line no-plusplus
+    if (_size < 1) _tree[++_size] = newElement
+    else {
+      _tree[1] = newElement
+      _down(1)
+    }
   }
 
   function top(): T | undefined {

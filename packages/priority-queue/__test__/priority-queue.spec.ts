@@ -186,6 +186,46 @@ describe('basic', function () {
     expect(Q.collect().sort()).toEqual([1, 2])
   })
 
+  test('replaceTop', function () {
+    const Q = createPriorityQueue<number>((x, y) => x - y)
+
+    Q.init([3, 2, 4, -2, -1, 0])
+    expect(Q.top()).toEqual(4)
+    expect(Q.size()).toEqual(6)
+    expect(
+      Q.collect()
+        .slice()
+        .sort((x, y) => x - y),
+    ).toEqual([-2, -1, 0, 2, 3, 4])
+
+    Q.replaceTop(7)
+    expect(Q.top()).toEqual(7)
+    expect(Q.size()).toEqual(6)
+    expect(
+      Q.collect()
+        .slice()
+        .sort((x, y) => x - y),
+    ).toEqual([-2, -1, 0, 2, 3, 7])
+
+    Q.replaceTop(2)
+    expect(Q.top()).toEqual(3)
+    expect(Q.size()).toEqual(6)
+    expect(
+      Q.collect()
+        .slice()
+        .sort((x, y) => x - y),
+    ).toEqual([-2, -1, 0, 2, 2, 3])
+
+    Q.replaceTop(4)
+    expect(Q.top()).toEqual(4)
+    expect(Q.size()).toEqual(6)
+    expect(
+      Q.collect()
+        .slice()
+        .sort((x, y) => x - y),
+    ).toEqual([-2, -1, 0, 2, 2, 4])
+  })
+
   test('edge case', function () {
     const Q = createPriorityQueue<number>((x, y) => x - y)
     Q.init()
@@ -206,5 +246,14 @@ describe('basic', function () {
     Q.enqueues([1, 2, 3, 4, 5, 6])
     expect(Q.size()).toEqual(6)
     expect(Q.top()).toEqual(6)
+
+    Q.init(undefined)
+    expect(Q.size()).toEqual(0)
+    Q.replaceTop(2)
+    expect(Q.size()).toEqual(1)
+    expect(Q.top()).toEqual(2)
+    Q.replaceTop(1)
+    expect(Q.size()).toEqual(1)
+    expect(Q.top()).toEqual(1)
   })
 })
