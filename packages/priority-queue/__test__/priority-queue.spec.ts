@@ -118,20 +118,8 @@ describe('basic', function () {
     }
   })
 
-  test('edge case', function () {
+  test('enqueues', function () {
     const Q = createPriorityQueue<number>((x, y) => x - y)
-    Q.init()
-    Q.enqueue(0)
-    Q.enqueue(2)
-
-    expect(Q.size()).toEqual(2)
-    expect(Q.dequeue()).toEqual(2)
-    expect(Q.size()).toEqual(1)
-    expect(Q.dequeue()).toEqual(0)
-    expect(Q.size()).toEqual(0)
-    expect(Q.dequeue()).toEqual(undefined)
-    expect(Q.size()).toEqual(0)
-
     Q.enqueue(2)
     expect(Q.size()).toEqual(1)
     expect(Q.top()).toEqual(2)
@@ -164,6 +152,53 @@ describe('basic', function () {
     Q.enqueues([13, 14, 15], 0)
     expect(Q.size()).toEqual(9)
     expect(Q.top()).toEqual(15)
+  })
+
+  test('splice', function () {
+    const Q = createPriorityQueue<number>((x, y) => x - y)
+
+    const initialElements: number[] = [1, 3, 7, 8, 9, 2, 3, 4, -2, -7, -4, 11]
+    const filter1 = (x: number): boolean => x > 0 && x < 10
+    const filter2 = (x: number): boolean => x > 7
+
+    Q.init(initialElements)
+    expect(Q.size()).toEqual(initialElements.length)
+
+    expect(Q.collect().sort()).toEqual(initialElements.slice().sort())
+    Q.splice(filter1)
+    expect(Q.collect().sort()).toEqual(initialElements.filter(filter1).sort())
+
+    const newElements = [-2, 8, 9]
+    Q.splice(filter2, newElements)
+    expect(Q.collect().sort()).toEqual(
+      initialElements.filter(filter1).filter(filter2).concat(newElements).sort(),
+    )
+
+    Q.splice(() => false)
+    expect(Q.size()).toEqual(0)
+    expect(Q.top()).toBe(undefined)
+    expect(Q.dequeue()).toBe(undefined)
+
+    Q.splice(() => true, [1, 2, 3])
+    expect(Q.size()).toEqual(3)
+    expect(Q.top()).toBe(3)
+    expect(Q.dequeue()).toBe(3)
+    expect(Q.collect().sort()).toEqual([1, 2])
+  })
+
+  test('edge case', function () {
+    const Q = createPriorityQueue<number>((x, y) => x - y)
+    Q.init()
+    Q.enqueue(0)
+    Q.enqueue(2)
+
+    expect(Q.size()).toEqual(2)
+    expect(Q.dequeue()).toEqual(2)
+    expect(Q.size()).toEqual(1)
+    expect(Q.dequeue()).toEqual(0)
+    expect(Q.size()).toEqual(0)
+    expect(Q.dequeue()).toEqual(undefined)
+    expect(Q.size()).toEqual(0)
 
     Q.init(undefined, 0, 1)
     expect(Q.size()).toEqual(0)
