@@ -85,11 +85,6 @@ export interface IMinimaxSearcherContext {
    * @param nextPlayerId
    */
   couldReachFinal(nextPlayerId: number): boolean
-
-  /**
-   * Check if we are currently in the endgame.
-   */
-  isFinal(): boolean
 }
 
 export interface IMinimaxSearcher {

@@ -42,9 +42,6 @@ export const createSearchContext = (
     couldReachFinal(nextPlayerId: number): boolean {
       return countMap.mustDropPos(nextPlayerId).size > 0
     },
-    isFinal(): boolean {
-      return state.isFinal()
-    },
   }
   return searchContext
 }
