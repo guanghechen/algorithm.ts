@@ -176,6 +176,7 @@ describe('15x15', function () {
       [10, 4],
       [10, 5],
       [11, 3],
+      [11, 6],
       [6, 9],
     ]).toContainEqual([r, c])
   })
@@ -187,6 +188,7 @@ describe('15x15', function () {
     const [r, c] = solution.minimaxSearch(0)
     expect([
       [5, 2],
+      [5, 6],
       [12, 4],
     ]).toContainEqual([r, c])
   })
