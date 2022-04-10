@@ -68,7 +68,6 @@ class TesterHelper extends GomokuCountMap {
 }
 
 describe('15x15', () => {
-  const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
   const tester = new TesterHelper({
     MAX_ROW: 15,
     MAX_COL: 15,

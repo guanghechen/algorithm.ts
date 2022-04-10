@@ -49,8 +49,6 @@ export class GomokuCountMap implements IGomokuCountMap {
   }
 
   public forward(posId: number): void {
-    const playerId: number = this.context.board[posId]
-
     // Update _candidateCouldReachFinal.
     this._updateRelatedCouldReachFinal(posId)
   }

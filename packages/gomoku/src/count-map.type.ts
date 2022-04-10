@@ -1,6 +1,3 @@
-import type { GomokuDirectionType } from './constant'
-import type { IDirCounter } from './types'
-
 export interface IGomokuCountMap {
   /**
    * Initialize context with given pieces.
