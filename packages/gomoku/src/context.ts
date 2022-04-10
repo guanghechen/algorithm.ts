@@ -100,10 +100,10 @@ export class GomokuContext implements IGomokuContext {
       }
     })
 
-    const _neighborMap: number[][] = new Array(_TOTAL_POS)
+    const _dirNeighborSet: number[][] = new Array(_TOTAL_POS)
     for (let posId = 0; posId < _TOTAL_POS; ++posId) {
       const neighbors: number[] = []
-      _neighborMap[posId] = neighbors
+      _dirNeighborSet[posId] = neighbors
       for (const dirType of fullDirectionTypes) {
         let posId2: number = posId
         for (let step = 0; step < _MAX_DISTANCE_OF_NEIGHBOR; ++step) {
@@ -125,7 +125,7 @@ export class GomokuContext implements IGomokuContext {
     this._maxMovableMap = _maxMovableMap
     this._dirStartPosMap = _dirStartPosMap
     this._dirStartPosSet = _dirStartPosSet
-    this._dirNeighborSet = _neighborMap
+    this._dirNeighborSet = _dirNeighborSet
     this._neighborPlacedCount = new Array(_TOTAL_POS).fill(0)
     this._rightHalfDirCountMap = _rightHalfDirCountMap
     this._placedCount = 0
@@ -143,11 +143,11 @@ export class GomokuContext implements IGomokuContext {
     // Update _neighborPlacedCount
     const { _neighborPlacedCount } = this
     _neighborPlacedCount.fill(0)
-    for (const { r, c, p } of pieces) {
-      const posId: number = this.idx(r, c)
+    for (const piece of pieces) {
+      const posId: number = this.idx(piece.r, piece.c)
       if (board[posId] >= 0) continue
 
-      board[posId] = p
+      board[posId] = piece.p
       this._placedCount += 1
       for (const neighborId of this.accessibleNeighbors(posId)) {
         _neighborPlacedCount[neighborId] += 1

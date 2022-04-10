@@ -31,12 +31,10 @@ describe('15x15', function () {
     }
   }
 
-  const solution = new Solution()
-  beforeEach(() => {
-    solution.init([])
-  })
+  const getSolution = (): Solution => new Solution()
 
   test('basic', async function () {
+    const solution = getSolution()
     solution.init([])
     solution.forward(7, 7, 0)
     const [r, c] = solution.minimaxSearch(1)
@@ -45,6 +43,7 @@ describe('15x15', function () {
   })
 
   test('pieces.0', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.0.json')
     solution.init(pieces.default)
 
@@ -63,6 +62,7 @@ describe('15x15', function () {
   })
 
   test('pieces.3', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.3.json')
     solution.init(pieces.default)
 
@@ -78,6 +78,7 @@ describe('15x15', function () {
   })
 
   test('pieces.4', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.4.json')
     solution.init([])
     for (const { r, c, p } of pieces.default) solution.forward(r, c, p)
@@ -87,6 +88,7 @@ describe('15x15', function () {
   })
 
   test('pieces.5', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.5.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(1)
@@ -98,8 +100,10 @@ describe('15x15', function () {
   })
 
   test('pieces.8', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.8.json')
     solution.init(pieces.default)
+
     const [r0, c0] = solution.minimaxSearch(0)
     expect([
       [11, 4],
@@ -117,6 +121,7 @@ describe('15x15', function () {
   })
 
   test('pieces.9', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.9.json')
     solution.init(pieces.default)
 
@@ -136,6 +141,7 @@ describe('15x15', function () {
   })
 
   test('pieces.10', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.10.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(1)
@@ -143,6 +149,7 @@ describe('15x15', function () {
   })
 
   test('pieces.11', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.11.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(0)
@@ -156,6 +163,7 @@ describe('15x15', function () {
   })
 
   test('pieces.12', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.12.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(0)
@@ -168,23 +176,41 @@ describe('15x15', function () {
   })
 
   test('pieces.13', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.13.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(0)
     expect([
       [10, 5],
+      [11, 3],
       [6, 9],
     ]).toContainEqual([r, c])
   })
 
   test('pieces.15', async function () {
+    const solution = getSolution()
     const pieces = await import('./fixtures/15x15/pieces.15.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(0)
-    expect([[5, 2]]).toContainEqual([r, c])
+    expect([
+      [5, 2],
+      [12, 4],
+    ]).toContainEqual([r, c])
+  })
+
+  test('pieces.16', async function () {
+    const solution = getSolution()
+    const pieces = await import('./fixtures/15x15/pieces.16.json')
+    solution.init(pieces.default)
+    const [r, c] = solution.minimaxSearch(0)
+    expect([
+      [4, 4],
+      [8, 8],
+    ]).toContainEqual([r, c])
   })
 
   test('edge case', function () {
+    const solution = getSolution()
     solution.init([])
     const [r, c] = solution.minimaxSearch(0)
     expect([r, c]).toEqual([7, 7])

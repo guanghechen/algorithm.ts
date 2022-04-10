@@ -31,7 +31,6 @@ export class GomokuState implements IGomokuState {
   protected readonly _stateScoreDirMap: number[][][] // [playerId][posId][dirType] => score
   protected readonly _countOfReachFinal: number[] // [playerId] => <count of reach final>
   protected readonly _countOfReachFinalDirMap: number[][][] // [playerId][startPosId][dirType]
-  protected _candidateUuid: number
 
   constructor(props: IGomokuStateProps) {
     const { context, countMap, scoreMap } = props
@@ -69,7 +68,6 @@ export class GomokuState implements IGomokuState {
     this.context = context
     this.countMap = countMap
     this.scoreMap = scoreMap
-    this._candidateUuid = 0
     this._candidateQueue = createPriorityQueue<IGomokuCandidateState>((x, y) => y.score - x.score)
     this._candidateSet = new Set()
     this._candidateScore = _candidateScore
@@ -82,7 +80,6 @@ export class GomokuState implements IGomokuState {
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
-    this._candidateUuid = 0
     this._candidateSet.clear()
     this._candidateScoreExpired.fill(allDirectionTypeBitset)
     this._stateScore.fill(0)
@@ -116,8 +113,8 @@ export class GomokuState implements IGomokuState {
 
     // Initialize candidates.
     const { _candidateSet } = this
-    for (const { r, c } of pieces) {
-      const centerPosId: number = context.idx(r, c)
+    for (const piece of pieces) {
+      const centerPosId: number = context.idx(piece.r, piece.c)
       for (const posId of context.accessibleNeighbors(centerPosId)) {
         if (context.board[posId] < 0) _candidateSet.add(posId)
       }

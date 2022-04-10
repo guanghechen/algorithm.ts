@@ -8499,3 +8499,188 @@ Array [
   },
 ]
 `;
+
+exports[`15x15 overview: pieces.16 1`] = `
+Array [
+  Object {
+    "currentPlayer": 0,
+    "score": 0,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 0,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 0,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 0,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 92,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -92,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 736,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -736,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -523,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 523,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 541,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -541,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -394,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 394,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 1195,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -1195,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -2654,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 2654,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 692,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -692,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -2082,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 2082,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 3756,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -3756,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -2770,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 2770,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 2662,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -2662,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 1433,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -1433,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 35530,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -35530,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": -29755,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 0,
+    "score": 29755,
+    "scoreForPlayer": 1,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": 31600,
+    "scoreForPlayer": 0,
+  },
+  Object {
+    "currentPlayer": 1,
+    "score": -31600,
+    "scoreForPlayer": 1,
+  },
+]
+`;

@@ -190,57 +190,61 @@ class TestHelper extends GomokuState {
         : deltaScore0 + deltaScore1 * NEXT_MOVER_BUFFER
     return score
   }
-}
 
-describe('15x15', function () {
-  const tester = new TestHelper(15, 15)
-  const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
-
-  const checkCandidateIds = (message: string, nextPlayerId: number): void => {
-    const candidates = tester.expand(nextPlayerId, 16)
+  public $checkCandidateIds(message: string, nextPlayerId: number): void {
+    const candidates = this.expand(nextPlayerId, 16)
     const candidateIds = candidates.map(candidate => candidate.posId).sort((x, y) => x - y)
-    const $candidateIds = tester.$getCandidateIds(nextPlayerId, 16).sort((x, y) => x - y)
+    const $candidateIds = this.$getCandidateIds(nextPlayerId, 16).sort((x, y) => x - y)
 
     if (candidateIds.length === 1 && candidateIds[0] !== $candidateIds[0]) {
       const posId = candidateIds[0]
+      // eslint-disable-next-line jest/no-standalone-expect
       expect([
         message,
-        tester.$candidateCouldReachFinal(0, posId) || tester.$candidateCouldReachFinal(1, posId),
+        this.$candidateCouldReachFinal(0, posId) || this.$candidateCouldReachFinal(1, posId),
       ]).toEqual([message, true])
       return
     }
 
+    // eslint-disable-next-line jest/no-standalone-expect
     expect([message, candidateIds]).toEqual([message, $candidateIds])
   }
 
-  const checkCandidates = (nextPlayerId: number): void => {
-    const candidates = tester.expand(nextPlayerId, 16)
-    const $candidates = tester.$getCandidates(nextPlayerId, 16)
+  public $checkCandidates(nextPlayerId: number): void {
+    const candidates = this.expand(nextPlayerId, 16)
+    const $candidates = this.$getCandidates(nextPlayerId, 16)
 
     if (candidates.length === 1 && candidates[0].posId !== $candidates[0].posId) {
       const posId = candidates[0].posId
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(
-        tester.$candidateCouldReachFinal(0, posId) || tester.$candidateCouldReachFinal(1, posId),
+        this.$candidateCouldReachFinal(0, posId) || this.$candidateCouldReachFinal(1, posId),
       ).toEqual(true)
       return
     }
 
     for (let i = 1; i < candidates.length; ++i) {
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(candidates[i].score).toBeLessThanOrEqual(candidates[i - 1].score)
     }
+    // eslint-disable-next-line jest/no-standalone-expect
     expect(candidates.sort(compareCandidate)).toEqual($candidates.sort(compareCandidate))
   }
-  const checkTopCandidate = (nextPlayerId: number): void => {
-    const $candidates = tester.$getCandidates(nextPlayerId, Number.MAX_SAFE_INTEGER)
-    const candidate = tester.topCandidate(nextPlayerId)!
+
+  public $checkTopCandidate(nextPlayerId: number): void {
+    const $candidates = this.$getCandidates(nextPlayerId, Number.MAX_SAFE_INTEGER)
+    const candidate = this.topCandidate(nextPlayerId)!
+    // eslint-disable-next-line jest/no-standalone-expect
     expect($candidates.every($candidate => $candidate.score <= candidate.score)).toEqual(true)
   }
+}
 
-  beforeEach(() => {
-    tester.init([])
-  })
+describe('15x15', function () {
+  const getTester = (): TestHelper => new TestHelper(15, 15)
+  const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
 
   test('overview', async function () {
+    const tester = getTester()
     for (const { filepath, title } of filepaths) {
       const pieces = await fs.readJSON(filepath)
       const result: Array<{ currentPlayer: number; scoreForPlayer: number; score: number }> = []
@@ -264,6 +268,7 @@ describe('15x15', function () {
   })
 
   test('isFinal', () => {
+    const tester = getTester()
     const posId0 = tester.context.idx(6, 6)
     for (const dirType of fullDirectionTypes) {
       const posId1: number = tester.context.fastMove(posId0, dirType, 1)
@@ -325,6 +330,7 @@ describe('15x15', function () {
   })
 
   test('candidate ids', async function () {
+    const tester = getTester()
     const getCandidateIds = (nextPlayer: number): number[] => {
       return tester
         .expand(nextPlayer, Number.MAX_SAFE_INTEGER)
@@ -341,24 +347,25 @@ describe('15x15', function () {
         const id: number = tester.context.idx(r, c)
         tester.forward(id, p)
         const message = `${title} id=${id}`
-        checkCandidateIds(message, 0)
-        checkCandidateIds(message, 1)
+        tester.$checkCandidateIds(message, 0)
+        tester.$checkCandidateIds(message, 1)
         tester.revert(id)
-        checkCandidateIds(message, 0)
-        checkCandidateIds(message, 1)
+        tester.$checkCandidateIds(message, 0)
+        tester.$checkCandidateIds(message, 1)
         tester.forward(id, p)
       }
 
       for (let id = 0; id < tester.context.TOTAL_POS; ++id) {
         const message = `${title} id=${id}`
         tester.revert(id)
-        checkCandidateIds(message, 0)
-        checkCandidateIds(message, 1)
+        tester.$checkCandidateIds(message, 0)
+        tester.$checkCandidateIds(message, 1)
       }
     }
   })
 
   test('candidates -- init all', async function () {
+    const tester = getTester()
     tester.init([])
     expect(tester.expand(0, Number.MAX_SAFE_INTEGER)).toEqual([
       { posId: tester.context.MIDDLE_POS, score: 828 },
@@ -370,38 +377,60 @@ describe('15x15', function () {
     for (const { filepath } of filepaths) {
       const pieces = await fs.readJSON(filepath)
       tester.init(pieces)
-      checkCandidates(0)
-      checkCandidates(1)
+      tester.$checkCandidates(0)
+      tester.$checkCandidates(1)
     }
   })
 
   test('candidates -- step by step', async function () {
+    const tester = getTester()
     for (const { filepath } of filepaths) {
       tester.init([])
       const pieces = await fs.readJSON(filepath)
       for (const { r, c, p } of pieces) {
         const id: number = tester.context.idx(r, c)
         tester.forward(id, p)
-        checkCandidates(0)
-        checkCandidates(1)
+        tester.$checkCandidates(0)
+        tester.$checkCandidates(1)
+      }
+    }
+  })
+
+  test('candidate -- forward/revert', async function () {
+    const tester = getTester()
+    for (const { filepath } of filepaths) {
+      const pieces = await fs.readJSON(filepath)
+      tester.init(pieces)
+      for (const { r, c } of pieces.slice()) {
+        const id: number = tester.context.idx(r, c)
+        tester.revert(id)
+        tester.$checkCandidates(0)
+        tester.$checkCandidates(1)
+
+        const randomPos: number = Math.round(Math.random() * tester.context.TOTAL_POS)
+        tester.revert(Math.min(0, Math.max(tester.context.TOTAL_POS - 1, randomPos)))
+        tester.$checkCandidates(0)
+        tester.$checkCandidates(1)
       }
     }
   })
 
   test('topCandidate', async function () {
+    const tester = getTester()
     for (const { filepath } of filepaths) {
       tester.init([])
       const pieces = await fs.readJSON(filepath)
       for (const { r, c, p } of pieces) {
         const id: number = tester.context.idx(r, c)
         tester.forward(id, p)
-        checkTopCandidate(0)
-        checkTopCandidate(1)
+        tester.$checkTopCandidate(0)
+        tester.$checkTopCandidate(1)
       }
     }
   })
 
   test('pieces.1', async function () {
+    const tester = getTester()
     const pieces = await import('./fixtures/15x15/pieces.1.json')
     tester.init(pieces.default)
     const candidates = tester.expand(0, Number.MAX_SAFE_INTEGER)
@@ -409,6 +438,7 @@ describe('15x15', function () {
   })
 
   test('edge case', function () {
+    const tester = getTester()
     tester.init([])
     {
       const board = Array.from(tester.context.board)

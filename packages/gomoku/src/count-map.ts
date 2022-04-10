@@ -23,12 +23,13 @@ export class GomokuCountMap implements IGomokuCountMap {
   }
 
   public init(): void {
+    this._mustDropPosSet.forEach(set => set.clear())
+    this._candidateCouldReachFinal.forEach(item => item.fill(0))
+
     const { context, _mustDropPosSet, _candidateCouldReachFinal } = this
     const { TOTAL_POS } = context
 
     // Initialize _candidateCouldReachFinal.
-    _mustDropPosSet.forEach(set => set.clear())
-    _candidateCouldReachFinal.forEach(item => item.fill(0))
     for (let posId = 0; posId < TOTAL_POS; ++posId) {
       if (context.board[posId] >= 0) continue
 
