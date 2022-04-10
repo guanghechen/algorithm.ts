@@ -1,5 +1,27 @@
 # Changelog
 
+<a name="2.0.9"></a>
+## 2.0.9 (2022-04-10)
+
+### Added
+
+- ✅ test(gomoku): update tests [[062fa3d](https://github.com/guanghechen/algorithm.ts/commit/062fa3d24fc652a6b9e09a7ed97bbcac91884313)]
+
+### Changed
+
+- 🎨 improve(gomoku): tweak constants [[8ffd74a](https://github.com/guanghechen/algorithm.ts/commit/8ffd74a9ddc79356ca957cf4be9cd5b241883e9f)]
+- 🔧 chore: upgrade dependencies [[c4d720c](https://github.com/guanghechen/algorithm.ts/commit/c4d720cffcb4fa422c072da6a1175ae1cfdacf19)]
+- 🚨 style: fix lint warnings [[e478cc1](https://github.com/guanghechen/algorithm.ts/commit/e478cc19dc3390070101a0f321bfa744ffb6a81a)]
+
+### Fixed
+
+- 🐛 fix(gomoku): fix unreasonable scoreMap [[475cc20](https://github.com/guanghechen/algorithm.ts/commit/475cc208ee144d90cc1acaa6901c7d2d4ed78ffe)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[8fbba14](https://github.com/guanghechen/algorithm.ts/commit/8fbba14d131725aeeb6f2819fe30dc74f746730a)]
+
+
 <a name="2.0.8"></a>
 ## 2.0.8 (2022-04-10)
 
