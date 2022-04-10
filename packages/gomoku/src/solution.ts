@@ -29,6 +29,7 @@ export class GomokuSolution {
   public readonly MAX_DEPTH_NARROW: number
   public readonly MAX_DEPTH_TIGHT: number
   public readonly MAX_DEPTH_DEEP: number
+  public readonly MAX_CANDIDATE_FIRST_STEP: number
   public readonly MAX_CANDIDATE_WIDE: number
   public readonly MAX_CANDIDATE_NARROW: number
   public readonly MAX_CANDIDATE_TIGHT: number
@@ -53,13 +54,13 @@ export class GomokuSolution {
       MAX_ROW,
       MAX_COL,
       MAX_ADJACENT = 5,
-      MAX_DEPTH_WIDE = 2,
-      MAX_DEPTH_NARROW = 4,
-      MAX_DEPTH_TIGHT = 8,
-      MAX_DEPTH_DEEP = 16,
-      MAX_CANDIDATE_WIDE = 16,
-      MAX_CANDIDATE_NARROW = 8,
-      MAX_CANDIDATE_TIGHT = 4,
+      MAX_DEPTH_WIDE = 3,
+      MAX_DEPTH_NARROW = 5,
+      MAX_DEPTH_TIGHT = 9,
+      MAX_DEPTH_DEEP = 32,
+      MAX_CANDIDATE_WIDE = 8,
+      MAX_CANDIDATE_NARROW = 4,
+      MAX_CANDIDATE_TIGHT = 2,
       MAX_CANDIDATE_DEEP = 1,
       MAX_DISTANCE_OF_NEIGHBOR = 2,
       POSSIBILITY_SEARCH_EQUIV_CANDIDATE = 0.98,
@@ -90,6 +91,7 @@ export class GomokuSolution {
     this.MAX_DEPTH_NARROW = _MAX_DEPTH_NARROW
     this.MAX_DEPTH_TIGHT = _MAX_DEPTH_TIGHT
     this.MAX_DEPTH_DEEP = _MAX_DEPTH_DEEP
+    this.MAX_CANDIDATE_FIRST_STEP = _MAX_CANDIDATE_WIDE * 2
     this.MAX_CANDIDATE_WIDE = _MAX_CANDIDATE_WIDE
     this.MAX_CANDIDATE_NARROW = _MAX_CANDIDATE_NARROW
     this.MAX_CANDIDATE_TIGHT = _MAX_CANDIDATE_TIGHT
@@ -147,7 +149,34 @@ export class GomokuSolution {
   }
 
   protected _alphaBeta(playerId: number, alpha: number, beta: number, cur: number): void {
-    this._searchWideSpace(playerId, alpha, beta, cur)
+    if (this.state.isFinal()) return
+
+    const candidates = this._candidatesList[cur]
+    const _size: number = this.state.expand(
+      playerId,
+      candidates,
+      this.MIN_MULTIPLE_OF_TOP_SCORE,
+      this.MAX_CANDIDATE_FIRST_STEP,
+    )
+    this._bestMoveId = candidates[0].posId
+    if (_size < 2) return
+
+    for (let i = 0; i < _size; ++i) {
+      const candidate = candidates[i]
+      const posId = candidate.posId
+
+      this._forward(posId, playerId)
+      const gamma = this._searchWideSpace(playerId ^ 1, alpha, beta, cur + 1)
+      this._revert(posId)
+
+      if (alpha < gamma) {
+        // eslint-disable-next-line no-param-reassign
+        alpha = gamma
+        // Update answer.
+        this._bestMoveId = posId
+      }
+      if (beta <= alpha) break
+    }
   }
 
   protected _searchWideSpace(playerId: number, alpha: number, beta: number, cur: number): number {
@@ -165,12 +194,8 @@ export class GomokuSolution {
       this.MAX_CANDIDATE_WIDE,
     )
 
-    if (cur === 0) {
-      this._bestMoveId = candidates[0].posId
-      if (_size === 1) return 0
-    }
-
-    for (const candidate of candidates) {
+    for (let i = 0; i < _size; ++i) {
+      const candidate = candidates[i]
       const shouldSearchDeeper: boolean = candidate.score >= _CANDIDATE_SCORE_WIDE_MIN
       const posId = candidate.posId
 
@@ -181,17 +206,11 @@ export class GomokuSolution {
       this._revert(posId)
 
       if (playerId === _mainPlayerId) {
-        if (alpha < gamma) {
-          // eslint-disable-next-line no-param-reassign
-          alpha = gamma
-          // Update answer.
-          if (cur === 0) this._bestMoveId = posId
-        }
+        // eslint-disable-next-line no-param-reassign
+        if (alpha < gamma) alpha = gamma
       } else {
-        if (beta > gamma) {
-          // eslint-disable-next-line no-param-reassign
-          beta = gamma
-        }
+        // eslint-disable-next-line no-param-reassign
+        if (beta > gamma) beta = gamma
       }
       if (beta <= alpha) break
     }
