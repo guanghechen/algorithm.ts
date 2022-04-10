@@ -23,7 +23,7 @@ export interface IGomokuCountMap {
    *
    * @param playerId
    */
-  mustDropPos(playerId: number): Iterable<number>
+  mustDropPos(playerId: number): Iterable<number> & { size: number }
 
   /**
    *

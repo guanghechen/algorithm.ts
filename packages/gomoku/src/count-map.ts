@@ -2,7 +2,7 @@ import type { GomokuDirectionType } from './constant'
 import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
 import type { IGomokuContext } from './context.type'
 import type { IGomokuCountMap } from './count-map.type'
-import { createHighDimensionArray } from './util'
+import { createHighDimensionArray } from './util/createHighDimensionArray'
 
 const { rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
@@ -60,7 +60,7 @@ export class GomokuCountMap implements IGomokuCountMap {
     this._updateRelatedCouldReachFinal(posId)
   }
 
-  public mustDropPos(playerId: number): Iterable<number> {
+  public mustDropPos(playerId: number): Iterable<number> & { size: number } {
     return this._mustDropPosSet[playerId]
   }
 

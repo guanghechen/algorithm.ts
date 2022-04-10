@@ -6,7 +6,7 @@ import type { IGomokuContext } from './context.type'
 import type { IGomokuCountMap } from './count-map.type'
 import type { IGomokuState } from './state.type'
 import type { IDirCounter, IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types'
-import { createHighDimensionArray } from './util'
+import { createHighDimensionArray } from './util/createHighDimensionArray'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
@@ -184,11 +184,15 @@ export class GomokuState implements IGomokuState {
 
   public topCandidate(nextPlayerId: number): IGomokuCandidateState | undefined {
     const { countMap } = this
-    for (const posId of countMap.mustDropPos(nextPlayerId)) {
-      return { posId, score: Number.MAX_VALUE }
+
+    const mustDropPos0 = countMap.mustDropPos(nextPlayerId)
+    if (mustDropPos0.size > 0) {
+      for (const posId of mustDropPos0) return { posId, score: Number.MAX_VALUE }
     }
-    for (const posId of countMap.mustDropPos(nextPlayerId ^ 1)) {
-      return { posId, score: Number.MAX_VALUE }
+
+    const mustDropPos1 = countMap.mustDropPos(nextPlayerId ^ 1)
+    if (mustDropPos1.size > 0) {
+      for (const posId of mustDropPos1) return { posId, score: Number.MAX_VALUE }
     }
 
     let item: IGomokuCandidateState | undefined

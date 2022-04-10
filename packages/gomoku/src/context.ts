@@ -2,7 +2,7 @@ import { GomokuDirectionTypes, GomokuDirections } from './constant'
 import type { GomokuDirectionType } from './constant'
 import type { IGomokuContext } from './context.type'
 import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './types'
-import { createHighDimensionArray } from './util'
+import { createHighDimensionArray } from './util/createHighDimensionArray'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
