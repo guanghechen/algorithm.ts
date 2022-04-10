@@ -3,8 +3,14 @@ import { GomokuSolution } from '../src'
 describe('construction', () => {
   test('default', () => {
     const solution = new GomokuSolution({ MAX_ROW: 15, MAX_COL: 15 })
-    expect(solution.MAX_DEPTH_WIDE).toEqual(5)
-    expect(solution.MAX_DEPTH_NARROW).toEqual(7)
+    expect(solution.MAX_DEPTH_WIDE).toEqual(2)
+    expect(solution.MAX_DEPTH_NARROW).toEqual(4)
+    expect(solution.MAX_DEPTH_TIGHT).toEqual(8)
+    expect(solution.MAX_DEPTH_DEEP).toEqual(16)
+    expect(solution.MAX_CANDIDATE_WIDE).toEqual(16)
+    expect(solution.MAX_CANDIDATE_NARROW).toEqual(8)
+    expect(solution.MAX_CANDIDATE_TIGHT).toEqual(4)
+    expect(solution.MAX_CANDIDATE_DEEP).toEqual(1)
     expect(solution.context.MAX_ROW).toEqual(15)
     expect(solution.context.MAX_COL).toEqual(15)
     expect(solution.context.TOTAL_POS).toEqual(15 * 15)
@@ -20,10 +26,6 @@ describe('15x15', function () {
         MAX_ROW: 15,
         MAX_COL: 15,
         MAX_ADJACENT: 5,
-        MAX_DEPTH_WIDE: 5,
-        MAX_DEPTH_NARROW: 7,
-        MAX_DEPTH_TIGHT: 9,
-        MAX_DEPTH_DEEP: 24,
         MAX_DISTANCE_OF_NEIGHBOR: 2,
       })
     }
@@ -89,6 +91,7 @@ describe('15x15', function () {
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(1)
     expect([
+      [5, 10],
       [6, 6],
       [7, 7],
     ]).toContainEqual([r, c])
@@ -168,7 +171,17 @@ describe('15x15', function () {
     const pieces = await import('./fixtures/15x15/pieces.13.json')
     solution.init(pieces.default)
     const [r, c] = solution.minimaxSearch(0)
-    expect([[6, 9]]).toContainEqual([r, c])
+    expect([
+      [10, 5],
+      [6, 9],
+    ]).toContainEqual([r, c])
+  })
+
+  test('pieces.15', async function () {
+    const pieces = await import('./fixtures/15x15/pieces.15.json')
+    solution.init(pieces.default)
+    const [r, c] = solution.minimaxSearch(0)
+    expect([[5, 2]]).toContainEqual([r, c])
   })
 
   test('edge case', function () {

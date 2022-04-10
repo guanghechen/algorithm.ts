@@ -1,11 +1,17 @@
 import fs from 'fs-extra'
 import type { GomokuDirectionType, IGomokuCandidateState, IGomokuPiece } from '../src'
-import { GomokuContext, GomokuDirectionTypes, GomokuState, createScoreMap } from '../src'
+import {
+  GomokuContext,
+  GomokuCountMap,
+  GomokuDirectionTypes,
+  GomokuState,
+  createScoreMap,
+} from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths } from './util'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
-type IGomokuCandidate = Omit<IGomokuCandidateState, '$id'>
+type IGomokuCandidate = IGomokuCandidateState
 const compareCandidate = (x: IGomokuCandidate, y: IGomokuCandidate): number => x.posId - y.posId
 class TestHelper extends GomokuState {
   constructor(MAX_ROW: number, MAX_COL: number) {
@@ -15,31 +21,38 @@ class TestHelper extends GomokuState {
       MAX_ADJACENT: 5,
       MAX_DISTANCE_OF_NEIGHBOR: 2,
     })
-    super({ context, scoreMap: createScoreMap(context.MAX_ADJACENT) })
+    super({
+      context,
+      countMap: new GomokuCountMap(context),
+      scoreMap: createScoreMap(context.MAX_ADJACENT),
+    })
   }
 
   public override init(pieces: ReadonlyArray<IGomokuPiece>): void {
     this.context.init(pieces)
+    this.countMap.init()
     super.init(pieces)
   }
 
   // @ts-ignore
   public override forward(posId: number, playerId: number): void {
     if (this.context.forward(posId, playerId)) {
+      this.countMap.forward(posId)
       super.forward(posId)
     }
   }
 
   public override revert(posId: number): void {
     if (this.context.revert(posId)) {
+      this.countMap.revert(posId)
       super.revert(posId)
     }
   }
 
   // @ts-ignore
-  public override expand(nextPlayer: number): IGomokuCandidate[] {
+  public override expand(nextPlayer: number, minMultipleOfTopScore: number): IGomokuCandidate[] {
     const candidates: IGomokuCandidateState[] = []
-    super.expand(nextPlayer, candidates)
+    super.expand(nextPlayer, candidates, minMultipleOfTopScore)
     return candidates.map(({ posId, score }) => ({ posId, score }))
   }
 
@@ -72,88 +85,110 @@ class TestHelper extends GomokuState {
     return false
   }
 
-  public $getCandidateIds(nextPlayerId: number): number[] {
-    const { context, _countMap, _candidateSet } = this
+  public $getCandidateIds(nextPlayerId: number, minMultipleOfTopScore: number): number[] {
+    const { context, countMap, _candidateSet } = this
     const candidateSet: Set<number> = new Set()
     for (let id = 0; id < context.TOTAL_POS; ++id) {
       if (context.board[id] < 0) {
         if (context.hasPlacedNeighbors(id)) candidateSet.add(id)
       }
     }
-    if (_countMap.mustDropPos(nextPlayerId)) {
+    if (countMap.mustDropPos(nextPlayerId)) {
       for (const posId of _candidateSet) {
-        if (_countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
+        if (countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
           return [posId]
         }
       }
     }
-    if (_countMap.mustDropPos(nextPlayerId ^ 1)) {
+    if (countMap.mustDropPos(nextPlayerId ^ 1)) {
       const playerId: number = nextPlayerId ^ 1
       for (const posId of _candidateSet) {
-        if (_countMap.candidateCouldReachFinal(playerId, posId)) {
+        if (countMap.candidateCouldReachFinal(playerId, posId)) {
           return [posId]
         }
       }
     }
     if (context.board[context.MIDDLE_POS] < 0) candidateSet.add(context.MIDDLE_POS)
-    return Array.from(candidateSet).sort((x, y) => x - y)
+
+    const candidates = Array.from(candidateSet)
+      .map(posId => ({
+        posId,
+        score: this.$evaluateCandidate(nextPlayerId, posId),
+      }))
+      .sort((x, y) => y.score - x.score)
+    if (candidates.length <= 0) return []
+
+    const topCandidate = candidates[0]
+    return candidates
+      .filter(candidate => candidate.score * minMultipleOfTopScore >= topCandidate.score)
+      .map(candidate => candidate.posId)
   }
 
-  public $getCandidates(nextPlayerId: number): IGomokuCandidate[] {
-    const { context, _countMap, _candidateSet } = this
-    const candidates: IGomokuCandidate[] = []
-    const candidateIds: number[] = this.$getCandidateIds(nextPlayerId)
-    for (const posId of candidateIds) {
-      let prevScore0 = 0
-      let prevScore1 = 0
-      for (const dirType of halfDirectionTypes) {
-        const startPosId: number = context.getStartPosId(posId, dirType)
-        const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
-        prevScore0 += scores[0]
-        prevScore1 += scores[1]
-      }
+  public $getCandidates(nextPlayerId: number, minMultipleOfTopScore: number): IGomokuCandidate[] {
+    const { countMap, _candidateSet } = this
 
-      let score0 = 0
-      this._forward(posId, 0)
-      for (const dirType of halfDirectionTypes) {
-        const startPosId: number = context.getStartPosId(posId, dirType)
-        const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
-        score0 += scores[0]
-      }
-      this._revert(posId)
-
-      let score1 = 0
-      this._forward(posId, 1)
-      for (const dirType of halfDirectionTypes) {
-        const startPosId: number = context.getStartPosId(posId, dirType)
-        const { scores } = this._evaluateScoreInDirection(startPosId, dirType)
-        score1 += scores[1]
-      }
-      this.revert(posId)
-
-      const deltaScore0: number = score0 - prevScore0
-      const deltaScore1: number = score1 - prevScore1
-      const score: number =
-        nextPlayerId === 0 ? deltaScore0 * 2 + deltaScore1 : deltaScore0 + deltaScore1 * 2
-      candidates.push({ posId, score })
-    }
-
-    if (_countMap.mustDropPos(nextPlayerId)) {
+    if (countMap.mustDropPos(nextPlayerId)) {
       for (const posId of _candidateSet) {
-        if (_countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
+        if (countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
           return [{ posId, score: Number.MAX_VALUE }]
         }
       }
     }
-    if (_countMap.mustDropPos(nextPlayerId ^ 1)) {
+    if (countMap.mustDropPos(nextPlayerId ^ 1)) {
       const playerId: number = nextPlayerId ^ 1
       for (const posId of _candidateSet) {
-        if (_countMap.candidateCouldReachFinal(playerId, posId)) {
+        if (countMap.candidateCouldReachFinal(playerId, posId)) {
           return [{ posId, score: Number.MAX_VALUE }]
         }
       }
     }
+
+    const candidates: IGomokuCandidate[] = []
+    const candidateIds: number[] = this.$getCandidateIds(nextPlayerId, minMultipleOfTopScore)
+    for (const posId of candidateIds) {
+      const score = this.$evaluateCandidate(nextPlayerId, posId)
+      candidates.push({ posId, score })
+    }
     return candidates
+  }
+
+  public $evaluateCandidate(nextPlayerId: number, posId: number): number {
+    const { NEXT_MOVER_BUFFER, context } = this
+    let prevScore0 = 0
+    let prevScore1 = 0
+    for (const dirType of halfDirectionTypes) {
+      const startPosId: number = context.getStartPosId(posId, dirType)
+      const { score: score0 } = this._evaluateScoreInDirection(0, startPosId, dirType)
+      const { score: score1 } = this._evaluateScoreInDirection(1, startPosId, dirType)
+      prevScore0 += score0
+      prevScore1 += score1
+    }
+
+    let score0 = 0
+    this._temporaryForward(posId, 0)
+    for (const dirType of halfDirectionTypes) {
+      const startPosId: number = context.getStartPosId(posId, dirType)
+      const { score } = this._evaluateScoreInDirection(0, startPosId, dirType)
+      score0 += score
+    }
+    this._temporaryRevert(posId)
+
+    let score1 = 0
+    this._temporaryForward(posId, 1)
+    for (const dirType of halfDirectionTypes) {
+      const startPosId: number = context.getStartPosId(posId, dirType)
+      const { score } = this._evaluateScoreInDirection(1, startPosId, dirType)
+      score1 += score
+    }
+    this._temporaryRevert(posId)
+
+    const deltaScore0: number = score0 - prevScore0
+    const deltaScore1: number = score1 - prevScore1
+    const score: number =
+      nextPlayerId === 0
+        ? deltaScore0 * NEXT_MOVER_BUFFER + deltaScore1
+        : deltaScore0 + deltaScore1 * NEXT_MOVER_BUFFER
+    return score
   }
 }
 
@@ -162,11 +197,9 @@ describe('15x15', function () {
   const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
 
   const checkCandidateIds = (message: string, nextPlayerId: number): void => {
-    const candidateIds = tester
-      .expand(nextPlayerId)
-      .sort(compareCandidate)
-      .map(candidate => candidate.posId)
-    const $candidateIds = tester.$getCandidateIds(nextPlayerId)
+    const candidates = tester.expand(nextPlayerId, 16)
+    const candidateIds = candidates.map(candidate => candidate.posId).sort((x, y) => x - y)
+    const $candidateIds = tester.$getCandidateIds(nextPlayerId, 16).sort((x, y) => x - y)
 
     if (candidateIds.length === 1 && candidateIds[0] !== $candidateIds[0]) {
       const posId = candidateIds[0]
@@ -181,8 +214,8 @@ describe('15x15', function () {
   }
 
   const checkCandidates = (nextPlayerId: number): void => {
-    const candidates = tester.expand(nextPlayerId)
-    const $candidates = tester.$getCandidates(nextPlayerId)
+    const candidates = tester.expand(nextPlayerId, 16)
+    const $candidates = tester.$getCandidates(nextPlayerId, 16)
 
     if (candidates.length === 1 && candidates[0].posId !== $candidates[0].posId) {
       const posId = candidates[0].posId
@@ -198,7 +231,7 @@ describe('15x15', function () {
     expect(candidates.sort(compareCandidate)).toEqual($candidates.sort(compareCandidate))
   }
   const checkTopCandidate = (nextPlayerId: number): void => {
-    const $candidates = tester.$getCandidates(nextPlayerId)
+    const $candidates = tester.$getCandidates(nextPlayerId, Number.MAX_SAFE_INTEGER)
     const candidate = tester.topCandidate(nextPlayerId)!
     expect($candidates.every($candidate => $candidate.score <= candidate.score)).toEqual(true)
   }
@@ -238,6 +271,28 @@ describe('15x15', function () {
       const posId3: number = tester.context.fastMove(posId0, dirType, 3)
       const posId4: number = tester.context.fastMove(posId0, dirType, 4)
       const posId5: number = tester.context.fastMove(posId0, dirType, 5)
+
+      for (let playerId = 0; playerId < 2; ++playerId) {
+        const message = `[dirType, playerId]: ${[dirType, playerId].join(', ')}`
+        tester.init([
+          { r: tester.context.revIdx(posId0)[0], c: tester.context.revIdx(posId0)[1], p: playerId },
+          { r: tester.context.revIdx(posId1)[0], c: tester.context.revIdx(posId1)[1], p: playerId },
+          { r: tester.context.revIdx(posId2)[0], c: tester.context.revIdx(posId2)[1], p: playerId },
+          { r: tester.context.revIdx(posId3)[0], c: tester.context.revIdx(posId3)[1], p: playerId },
+          { r: tester.context.revIdx(posId4)[0], c: tester.context.revIdx(posId4)[1], p: playerId },
+        ])
+        expect(tester.isFinal()).toEqual(true)
+
+        tester.init([
+          { r: tester.context.revIdx(posId0)[0], c: tester.context.revIdx(posId0)[1], p: playerId },
+          { r: tester.context.revIdx(posId1)[0], c: tester.context.revIdx(posId1)[1], p: playerId },
+          { r: tester.context.revIdx(posId2)[0], c: tester.context.revIdx(posId2)[1], p: playerId },
+          { r: tester.context.revIdx(posId3)[0], c: tester.context.revIdx(posId3)[1], p: playerId },
+        ])
+        tester.forward(posId4, playerId)
+        expect([message, tester.isFinal()]).toEqual([message, true])
+      }
+
       for (let playerId = 0; playerId < 2; ++playerId) {
         const message = `[dirType, playerId]: ${[dirType, playerId].join(', ')}`
         tester.init([])
@@ -272,7 +327,7 @@ describe('15x15', function () {
   test('candidate ids', async function () {
     const getCandidateIds = (nextPlayer: number): number[] => {
       return tester
-        .expand(nextPlayer)
+        .expand(nextPlayer, Number.MAX_SAFE_INTEGER)
         .sort(compareCandidate)
         .map(candidate => candidate.posId)
     }
@@ -305,8 +360,12 @@ describe('15x15', function () {
 
   test('candidates -- init all', async function () {
     tester.init([])
-    expect(tester.expand(0)).toEqual([{ posId: tester.context.MIDDLE_POS, score: 24 }])
-    expect(tester.expand(1)).toEqual([{ posId: tester.context.MIDDLE_POS, score: 24 }])
+    expect(tester.expand(0, Number.MAX_SAFE_INTEGER)).toEqual([
+      { posId: tester.context.MIDDLE_POS, score: 828 },
+    ])
+    expect(tester.expand(1, Number.MAX_SAFE_INTEGER)).toEqual([
+      { posId: tester.context.MIDDLE_POS, score: 828 },
+    ])
 
     for (const { filepath } of filepaths) {
       const pieces = await fs.readJSON(filepath)
@@ -345,7 +404,7 @@ describe('15x15', function () {
   test('pieces.1', async function () {
     const pieces = await import('./fixtures/15x15/pieces.1.json')
     tester.init(pieces.default)
-    const candidates = tester.expand(0)
+    const candidates = tester.expand(0, Number.MAX_SAFE_INTEGER)
     expect(candidates.length).toEqual(1)
   })
 
@@ -364,7 +423,7 @@ describe('15x15', function () {
       player ^= 1
     }
 
-    expect(tester.expand(0)).toEqual([])
+    expect(tester.expand(0, Number.MAX_SAFE_INTEGER)).toEqual([])
     expect(tester.isFinal()).toEqual(true)
 
     {

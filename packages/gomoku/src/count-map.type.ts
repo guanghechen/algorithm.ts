@@ -21,11 +21,6 @@ export interface IGomokuCountMap {
 
   /**
    *
-   */
-  getDirCounters(startPosId: number, dirType: GomokuDirectionType): ReadonlyArray<IDirCounter>
-
-  /**
-   *
    * @param playerId
    */
   mustDropPos(playerId: number): Iterable<number>

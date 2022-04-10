@@ -1,8 +1,8 @@
 import fs from 'fs-extra'
 import { locateFixtures } from 'jest.setup'
-import type { GomokuDirectionType, IDirCounter, IGomokuContextProps, IGomokuPiece } from '../src'
+import type { GomokuDirectionType, IGomokuContextProps, IGomokuPiece } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionTypes } from '../src'
-import { PieceDataDirName, locatePieceDataFilepaths, stringify } from './util'
+import { PieceDataDirName, locatePieceDataFilepaths } from './util'
 
 const { rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
@@ -26,29 +26,6 @@ class TesterHelper extends GomokuCountMap {
   // @ts-ignore
   public override revert(posId: number): void {
     if (this.context.revert(posId)) super.revert(posId)
-  }
-
-  public $getDirCounters(
-    startPosId: number,
-    dirType: GomokuDirectionType,
-  ): ReadonlyArray<IDirCounter> {
-    const { context } = this
-    const { board } = context
-    const maxSteps: number = context.maxMovableSteps(startPosId, dirType) + 1
-    const counters: IDirCounter[] = []
-    for (
-      let i = 0, posId = startPosId, i2: number, posId2: number;
-      i < maxSteps;
-      i = i2, posId = posId2
-    ) {
-      const playerId: number = board[posId]
-      for (i2 = i + 1, posId2 = posId; i2 < maxSteps; ++i2) {
-        posId2 = context.fastMoveOneStep(posId2, dirType)
-        if (board[posId2] !== playerId) break
-      }
-      counters.push({ playerId, count: i2 - i })
-    }
-    return counters
   }
 
   public $stateCouldReachFinal(playerId: number): number {
@@ -139,62 +116,6 @@ describe('15x15', () => {
         )
         expect(Array.from(tester.mustDropPos(0)).length).toEqual(tester.$stateCouldReachFinal(0))
         expect(Array.from(tester.mustDropPos(1)).length).toEqual(tester.$stateCouldReachFinal(1))
-      }
-    }
-  })
-
-  test('getDirCounters -- init', async () => {
-    for (const { filepath, title } of filepaths) {
-      const pieces = await fs.readJSON(filepath)
-      tester.init(pieces)
-      for (const dirType of halfDirectionTypes) {
-        for (const startPosId of tester.context.getStartPosSet(dirType)) {
-          const message = `${title} [dirType, startPosId]: ${[dirType, startPosId].join(', ')}`
-          expect([message, tester.getDirCounters(startPosId, dirType)]).toEqual([
-            message,
-            tester.$getDirCounters(startPosId, dirType),
-          ])
-        }
-      }
-    }
-  })
-
-  test('getDirCounters -- step by step', async () => {
-    for (const { filepath, title } of filepaths) {
-      const pieces = await fs.readJSON(filepath)
-      tester.init([])
-      for (const { r, c, p } of pieces) {
-        const posId = tester.context.idx(r, c)
-        tester.forward(posId, p)
-        for (const dirType of halfDirectionTypes) {
-          for (const startPosId of tester.context.getStartPosSet(dirType)) {
-            const message = `${title} [dirType, r, c, startPosId]: ${[
-              dirType,
-              r,
-              c,
-              startPosId,
-            ].join(', ')}`
-            expect([message, stringify(tester.getDirCounters(startPosId, dirType))]).toEqual([
-              message,
-              stringify(tester.$getDirCounters(startPosId, dirType)),
-            ])
-          }
-        }
-      }
-
-      for (let id = 0; id < tester.context.TOTAL_POS; ++id) {
-        tester.context.revIdx(id)
-        const [r, c] = tester.context.revIdx(id)
-        for (const dirType of halfDirectionTypes) {
-          const startPosId = tester.context.getStartPosId(id, dirType)
-          const message = `${title} [dirType, r, c, startPosId]: ${[dirType, r, c, startPosId].join(
-            ', ',
-          )}`
-          expect([message, stringify(tester.getDirCounters(startPosId, dirType))]).toEqual([
-            message,
-            stringify(tester.$getDirCounters(startPosId, dirType)),
-          ])
-        }
       }
     }
   })

@@ -19,12 +19,17 @@ export interface IGomokuState {
   revert(posId: number): void
 
   /**
-   *
-   * @param nextPlayer
+   * @param nextPlayerId
    * @param candidates
+   * @param minMultipleOfTopScore
    * @param MAX_SIZE
    */
-  expand(nextPlayer: number, candidates: IGomokuCandidateState[], MAX_SIZE?: number): number
+  expand(
+    nextPlayerId: number,
+    candidates: IGomokuCandidateState[],
+    minMultipleOfTopScore: number,
+    MAX_SIZE?: number,
+  ): number
 
   /**
    * Get top candidate

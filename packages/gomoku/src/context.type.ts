@@ -1,5 +1,5 @@
 import type { GomokuDirectionType } from './constant'
-import type { IGomokuBoard, IGomokuPiece } from './types'
+import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './types'
 
 export interface IGomokuContext {
   /**
@@ -21,6 +21,11 @@ export interface IGomokuContext {
    * The distance to the farthest neighbor to the current position.
    */
   readonly MAX_DISTANCE_OF_NEIGHBOR: number
+
+  /**
+   * Total player.
+   */
+  readonly TOTAL_PLAYER: number
 
   /**
    * The total number of valid positions on the board.
@@ -153,6 +158,11 @@ export interface IGomokuContext {
    * @param dirType
    */
   getStartPosSet(dirType: GomokuDirectionType): Iterable<number>
+
+  /**
+   *
+   */
+  getDirCounters(startPosId: number, dirType: GomokuDirectionType): ReadonlyArray<IDirCounter>
 
   /**
    *

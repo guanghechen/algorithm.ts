@@ -1,7 +1,8 @@
 import { GomokuContext } from './context'
 import type { IGomokuContext } from './context.type'
+import { GomokuCountMap } from './count-map'
+import type { IGomokuCountMap } from './count-map.type'
 import { GomokuState } from './state'
-import { GomokuStateCache } from './state-cache'
 import type { IGomokuState } from './state.type'
 import type { IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types'
 import { createScoreMap } from './util'
@@ -14,6 +15,10 @@ export interface IGomokuSolutionProps {
   MAX_DEPTH_NARROW?: number
   MAX_DEPTH_TIGHT?: number
   MAX_DEPTH_DEEP?: number
+  MAX_CANDIDATE_WIDE?: number
+  MAX_CANDIDATE_NARROW?: number
+  MAX_CANDIDATE_TIGHT?: number
+  MAX_CANDIDATE_DEEP?: number
   MAX_DISTANCE_OF_NEIGHBOR?: number
   POSSIBILITY_SEARCH_EQUIV_CANDIDATE?: number
   scoreMap?: IShapeScoreMap
@@ -24,16 +29,21 @@ export class GomokuSolution {
   public readonly MAX_DEPTH_NARROW: number
   public readonly MAX_DEPTH_TIGHT: number
   public readonly MAX_DEPTH_DEEP: number
+  public readonly MAX_CANDIDATE_WIDE: number
+  public readonly MAX_CANDIDATE_NARROW: number
+  public readonly MAX_CANDIDATE_TIGHT: number
+  public readonly MAX_CANDIDATE_DEEP: number
+  public readonly MIN_MULTIPLE_OF_TOP_SCORE: number
   public readonly POSSIBILITY_SEARCH_EQUIV_CANDIDATE: number
-  public readonly context: IGomokuContext
-  public readonly state: IGomokuState
+  public readonly context: Readonly<IGomokuContext>
+  public readonly countMap: Readonly<IGomokuCountMap>
+  public readonly state: Readonly<IGomokuState>
   public readonly scoreMap: Readonly<IShapeScoreMap>
   protected readonly _CANDIDATE_SCORE_WIDE_MIN: number
   protected readonly _CANDIDATE_SCORE_NARROW_MIN: number
   protected readonly _CANDIDATE_SCORE_TIGHT_MIN: number
   protected readonly _CANDIDATE_SCORE_DEEP_MIN: number
   protected readonly _CANDIDATE_SCORE_DEEP_MAX: number
-  protected readonly _cache: GomokuStateCache
   protected readonly _candidatesList: IGomokuCandidateState[][] = []
   protected _bestMoveId: number
   protected _mainPlayerId: number
@@ -43,21 +53,31 @@ export class GomokuSolution {
       MAX_ROW,
       MAX_COL,
       MAX_ADJACENT = 5,
-      MAX_DEPTH_WIDE = 5,
-      MAX_DEPTH_NARROW = 7,
-      MAX_DEPTH_TIGHT = 9,
-      MAX_DEPTH_DEEP = 24,
+      MAX_DEPTH_WIDE = 2,
+      MAX_DEPTH_NARROW = 4,
+      MAX_DEPTH_TIGHT = 8,
+      MAX_DEPTH_DEEP = 16,
+      MAX_CANDIDATE_WIDE = 16,
+      MAX_CANDIDATE_NARROW = 8,
+      MAX_CANDIDATE_TIGHT = 4,
+      MAX_CANDIDATE_DEEP = 1,
       MAX_DISTANCE_OF_NEIGHBOR = 2,
       POSSIBILITY_SEARCH_EQUIV_CANDIDATE = 0.98,
     } = props
     const context = new GomokuContext({ MAX_ROW, MAX_COL, MAX_ADJACENT, MAX_DISTANCE_OF_NEIGHBOR })
+    const countMap = new GomokuCountMap(context)
     const scoreMap = props.scoreMap ?? createScoreMap(context.MAX_ADJACENT)
-    const state = new GomokuState({ context, scoreMap })
+    const state = new GomokuState({ context, countMap, scoreMap })
 
     const _MAX_DEPTH_WIDE: number = Math.max(1, Math.round(MAX_DEPTH_WIDE))
     const _MAX_DEPTH_NARROW: number = Math.max(_MAX_DEPTH_WIDE, Math.round(MAX_DEPTH_NARROW))
     const _MAX_DEPTH_TIGHT: number = Math.max(_MAX_DEPTH_NARROW, Math.round(MAX_DEPTH_TIGHT))
     const _MAX_DEPTH_DEEP: number = Math.max(_MAX_DEPTH_TIGHT, Math.round(MAX_DEPTH_DEEP))
+    const _MAX_CANDIDATE_WIDE: number = Math.max(1, MAX_CANDIDATE_WIDE)
+    const _MAX_CANDIDATE_NARROW: number = Math.max(1, MAX_CANDIDATE_NARROW)
+    const _MAX_CANDIDATE_TIGHT: number = Math.max(1, MAX_CANDIDATE_TIGHT)
+    const _MAX_CANDIDATE_DEEP: number = Math.max(1, MAX_CANDIDATE_DEEP)
+
     const _POSSIBILITY_SEARCH_EQUIV_CANDIDATE: number = Math.min(
       1,
       Math.max(0, POSSIBILITY_SEARCH_EQUIV_CANDIDATE),
@@ -70,16 +90,21 @@ export class GomokuSolution {
     this.MAX_DEPTH_NARROW = _MAX_DEPTH_NARROW
     this.MAX_DEPTH_TIGHT = _MAX_DEPTH_TIGHT
     this.MAX_DEPTH_DEEP = _MAX_DEPTH_DEEP
+    this.MAX_CANDIDATE_WIDE = _MAX_CANDIDATE_WIDE
+    this.MAX_CANDIDATE_NARROW = _MAX_CANDIDATE_NARROW
+    this.MAX_CANDIDATE_TIGHT = _MAX_CANDIDATE_TIGHT
+    this.MAX_CANDIDATE_DEEP = _MAX_CANDIDATE_DEEP
+    this.MIN_MULTIPLE_OF_TOP_SCORE = 8
     this.POSSIBILITY_SEARCH_EQUIV_CANDIDATE = _POSSIBILITY_SEARCH_EQUIV_CANDIDATE
     this.context = context
+    this.countMap = countMap
     this.state = state
     this.scoreMap = scoreMap
-    this._CANDIDATE_SCORE_WIDE_MIN = scoreMap.con[2][2] * 2
+    this._CANDIDATE_SCORE_WIDE_MIN = scoreMap.con[MAX_ADJACENT - 3][2] * 2
     this._CANDIDATE_SCORE_NARROW_MIN = scoreMap.con[MAX_ADJACENT - 2][1]
     this._CANDIDATE_SCORE_TIGHT_MIN = scoreMap.con[MAX_ADJACENT - 2][2] * 2
     this._CANDIDATE_SCORE_DEEP_MIN = scoreMap.con[MAX_ADJACENT - 1][1]
     this._CANDIDATE_SCORE_DEEP_MAX = scoreMap.con[MAX_ADJACENT][2] * 16
-    this._cache = new GomokuStateCache(BigInt(context.TOTAL_POS))
     this._candidatesList = _candidatesList
     this._mainPlayerId = -1
     this._bestMoveId = -1
@@ -87,8 +112,8 @@ export class GomokuSolution {
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
     this.context.init(pieces)
+    this.countMap.init()
     this.state.init(pieces)
-    this._cache.clear()
   }
 
   public forward(r: number, c: number, playerId: number): void {
@@ -108,16 +133,9 @@ export class GomokuSolution {
   public minimaxSearch(nextPlayer: number): [r: number, c: number] {
     if (this.state.isFinal()) return [-1, -1]
 
-    this._cache.clear()
     this._bestMoveId = -1
     this._mainPlayerId = nextPlayer
-    this._alphaBeta(
-      nextPlayer,
-      Number.NEGATIVE_INFINITY,
-      Number.POSITIVE_INFINITY,
-      0,
-      this._cache.INITIAL_STATE,
-    )
+    this._alphaBeta(nextPlayer, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, 0)
 
     /* istanbul ignore next */
     if (this._bestMoveId < 0) {
@@ -128,50 +146,39 @@ export class GomokuSolution {
     return [r, c]
   }
 
-  protected _alphaBeta(
-    playerId: number,
-    alpha: number,
-    beta: number,
-    cur: number,
-    prevState: bigint,
-  ): number {
-    return this._searchWideSpace(playerId, alpha, beta, cur, prevState)
+  protected _alphaBeta(playerId: number, alpha: number, beta: number, cur: number): void {
+    this._searchWideSpace(playerId, alpha, beta, cur)
   }
 
-  protected _searchWideSpace(
-    playerId: number,
-    alpha: number,
-    beta: number,
-    cur: number,
-    prevState: bigint,
-  ): number {
-    const { _CANDIDATE_SCORE_WIDE_MIN, state, _cache, _mainPlayerId } = this
-    if (cur >= this.MAX_DEPTH_WIDE)
-      return this._searchNarrowSpace(playerId, alpha, beta, cur, prevState)
+  protected _searchWideSpace(playerId: number, alpha: number, beta: number, cur: number): number {
+    const { _CANDIDATE_SCORE_WIDE_MIN, state, _mainPlayerId } = this
+    if (cur >= this.MAX_DEPTH_WIDE) return this._searchNarrowSpace(playerId, alpha, beta, cur)
     if (state.isWin(_mainPlayerId)) return Number.POSITIVE_INFINITY
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (state.isDraw()) return Number.MAX_VALUE
 
     const candidates = this._candidatesList[cur]
-    const _size: number = state.expand(playerId, candidates, 16)
+    const _size: number = state.expand(
+      playerId,
+      candidates,
+      this.MIN_MULTIPLE_OF_TOP_SCORE,
+      this.MAX_CANDIDATE_WIDE,
+    )
 
-    if (cur === 0) this._bestMoveId = candidates[0].posId
+    if (cur === 0) {
+      this._bestMoveId = candidates[0].posId
+      if (_size === 1) return 0
+    }
 
-    const shouldCache: boolean = cur > 1
-    for (const candidate of this._selectOneCandidate(candidates, _size)) {
+    for (const candidate of candidates) {
       const shouldSearchDeeper: boolean = candidate.score >= _CANDIDATE_SCORE_WIDE_MIN
       const posId = candidate.posId
-      const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
-      let gamma: number | undefined = _cache.get(nextState)
-      if (gamma === undefined) {
-        this._forward(posId, playerId)
-        gamma = shouldSearchDeeper
-          ? this._alphaBeta(playerId ^ 1, alpha, beta, cur + 1, nextState)
-          : this._score(playerId ^ 1)
-        this._revert(posId)
-        if (shouldCache) _cache.set(nextState, gamma)
-      }
+      this._forward(posId, playerId)
+      const gamma = shouldSearchDeeper
+        ? this._searchWideSpace(playerId ^ 1, alpha, beta, cur + 1)
+        : this._score(playerId ^ 1)
+      this._revert(posId)
 
       if (playerId === _mainPlayerId) {
         if (alpha < gamma) {
@@ -191,37 +198,31 @@ export class GomokuSolution {
     return playerId === _mainPlayerId ? alpha : beta
   }
 
-  protected _searchNarrowSpace(
-    playerId: number,
-    alpha: number,
-    beta: number,
-    cur: number,
-    prevState: bigint,
-  ): number {
-    const { _CANDIDATE_SCORE_WIDE_MIN, state, _mainPlayerId, _cache } = this
+  protected _searchNarrowSpace(playerId: number, alpha: number, beta: number, cur: number): number {
+    const { _CANDIDATE_SCORE_WIDE_MIN, state, _mainPlayerId } = this
     if (cur >= this.MAX_DEPTH_NARROW) return this._searchTightSpace(playerId, alpha, beta, cur)
     if (state.isWin(_mainPlayerId)) return Number.POSITIVE_INFINITY
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (state.isDraw()) return Number.MAX_VALUE
 
     const candidates = this._candidatesList[cur]
-    const _size: number = state.expand(playerId, candidates, 8)
+    const _size: number = state.expand(
+      playerId,
+      candidates,
+      this.MIN_MULTIPLE_OF_TOP_SCORE,
+      this.MAX_CANDIDATE_NARROW,
+    )
 
     for (let i = 0; i < _size; ++i) {
       const candidate = candidates[i]
       const shouldSearchDeeper: boolean = candidate.score >= _CANDIDATE_SCORE_WIDE_MIN
       const posId = candidate.posId
-      const nextState: bigint = _cache.calcNextState(cur, prevState, posId)
 
-      let gamma: number | undefined = _cache.get(nextState)
-      if (gamma === undefined) {
-        this._forward(posId, playerId)
-        gamma = shouldSearchDeeper
-          ? this._alphaBeta(playerId ^ 1, alpha, beta, cur + 1, nextState)
-          : this._score(playerId ^ 1)
-        this._revert(posId)
-        _cache.set(nextState, gamma)
-      }
+      this._forward(posId, playerId)
+      const gamma = shouldSearchDeeper
+        ? this._searchNarrowSpace(playerId ^ 1, alpha, beta, cur + 1)
+        : this._score(playerId ^ 1)
+      this._revert(posId)
 
       if (playerId === _mainPlayerId) {
         // eslint-disable-next-line no-param-reassign
@@ -243,7 +244,12 @@ export class GomokuSolution {
     if (state.isDraw()) return Number.MAX_VALUE
 
     const candidates = this._candidatesList[cur]
-    const _size: number = state.expand(playerId, candidates, 2)
+    const _size: number = state.expand(
+      playerId,
+      candidates,
+      this.MIN_MULTIPLE_OF_TOP_SCORE,
+      this.MAX_CANDIDATE_TIGHT,
+    )
 
     for (let i = 0; i < _size; ++i) {
       const candidate = candidates[i]
@@ -270,13 +276,12 @@ export class GomokuSolution {
 
   protected _searchDeepSpace(playerId: number, cur: number): number {
     const { state, _mainPlayerId } = this
-    if (cur >= this.MAX_DEPTH_DEEP) return this._score(playerId)
     if (state.isWin(_mainPlayerId)) return Number.POSITIVE_INFINITY
     if (state.isWin(_mainPlayerId ^ 1)) return Number.NEGATIVE_INFINITY
     if (state.isDraw()) return Number.MAX_VALUE
 
     const candidate: IGomokuCandidateState = state.topCandidate(playerId)!
-    if (candidate.score < this._CANDIDATE_SCORE_DEEP_MIN) {
+    if (cur >= this.MAX_DEPTH_DEEP && candidate.score < this._CANDIDATE_SCORE_DEEP_MIN) {
       return state.score(playerId ^ 1, _mainPlayerId)
     }
 
@@ -322,12 +327,16 @@ export class GomokuSolution {
   }
 
   protected _forward(posId: number, playerId: number): void {
-    this.context.forward(posId, playerId)
-    this.state.forward(posId)
+    if (this.context.forward(posId, playerId)) {
+      this.countMap.forward(posId)
+      this.state.forward(posId)
+    }
   }
 
   protected _revert(posId: number): void {
-    this.context.revert(posId)
-    this.state.revert(posId)
+    if (this.context.revert(posId)) {
+      this.countMap.revert(posId)
+      this.state.revert(posId)
+    }
   }
 }
