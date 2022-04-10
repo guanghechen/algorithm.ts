@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/bipartite-graph-matching",
-  "version": "2.0.8-alpha.0",
+  "version": "2.0.8",
   "description": "The algorithm to find the maximum matching of the bipartite graph.",
   "author": {
     "name": "guanghechen",
