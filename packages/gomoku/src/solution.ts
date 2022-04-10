@@ -6,6 +6,7 @@ import { AlphaBetaSearcher } from './search/alpha-beta'
 import { GomokuState } from './state'
 import type { IGomokuState } from './state.type'
 import type {
+  IGomokuCandidateState,
   IGomokuPiece,
   IMinimaxSearcher,
   IMinimaxSearcherContext,
@@ -26,6 +27,7 @@ export interface IGomokuSolutionProps {
 }
 
 export class GomokuSolution {
+  public readonly MIN_MULTIPLE_OF_TOP_SCORE: number
   public readonly context: Readonly<IGomokuContext>
   public readonly countMap: Readonly<IGomokuCountMap>
   public readonly state: Readonly<IGomokuState>
@@ -58,6 +60,7 @@ export class GomokuSolution {
         }),
     })
 
+    this.MIN_MULTIPLE_OF_TOP_SCORE = MIN_MULTIPLE_OF_TOP_SCORE
     this.context = context
     this.countMap = countMap
     this.state = state
@@ -92,6 +95,15 @@ export class GomokuSolution {
 
   public minimaxSearch(nextPlayerId: number): [r: number, c: number] {
     if (this.state.isFinal()) return [-1, -1]
+
+    if (this.context.placedCount < 3) {
+      const _candidates: IGomokuCandidateState[] = []
+      const _size = this.state.expand(nextPlayerId, _candidates, 1.2)
+      const index: number = Math.min(_size - 1, Math.round(Math.random() * _size))
+      const bestMoveId = _candidates[index].posId
+      const [r, c] = this.context.revIdx(bestMoveId)
+      return [r, c]
+    }
 
     const { bestMoveId } = this._alphaBeta.search(
       nextPlayerId,

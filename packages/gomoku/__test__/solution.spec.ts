@@ -32,6 +32,14 @@ describe('15x15', function () {
     const [r, c] = solution.minimaxSearch(1)
     expect(Math.abs(r - 7)).toBeLessThanOrEqual(2)
     expect(Math.abs(c - 7)).toBeLessThanOrEqual(2)
+
+    solution.forward(6, 6, 1)
+    expect(Math.abs(r - 7)).toBeLessThanOrEqual(3)
+    expect(Math.abs(c - 7)).toBeLessThanOrEqual(3)
+
+    solution.forward(6, 7, 0)
+    expect(Math.abs(r - 7)).toBeLessThanOrEqual(3)
+    expect(Math.abs(c - 7)).toBeLessThanOrEqual(3)
   })
 
   test('pieces.0', async function () {

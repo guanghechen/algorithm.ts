@@ -52,14 +52,14 @@ export const createDefaultMinimaxSearcher = (
       MIN_MULTIPLE_OF_TOP_SCORE,
     },
     {
-      MAX_SEARCH_DEPTH: 9,
+      MAX_SEARCH_DEPTH: 11,
       MAX_CANDIDATE_COUNT: 2,
       MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 2][2] * 2,
       MIN_MULTIPLE_OF_TOP_SCORE,
     },
   ]
   const deepSearcherOption: IDeepSearcherOption = {
-    MAX_SEARCH_DEPTH: 32,
+    MAX_SEARCH_DEPTH: 24,
     MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 1][1],
   }
   return createMinimaxSearcher({ narrowSearcherOptions, deepSearcherOption, searchContext })

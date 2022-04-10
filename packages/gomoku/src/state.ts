@@ -18,7 +18,7 @@ export interface IGomokuStateProps {
 }
 
 export class GomokuState implements IGomokuState {
-  public readonly NEXT_MOVER_BUFFER = 8
+  public readonly NEXT_MOVER_BUFFER = 4
   public readonly context: Readonly<IGomokuContext>
   public readonly countMap: Readonly<IGomokuCountMap>
   public readonly scoreMap: Readonly<IShapeScoreMap>
@@ -363,9 +363,8 @@ export class GomokuState implements IGomokuState {
               const rightPossibleCnt: number = maxPossibleCnt - leftPossibleCnt - middleCnt
               const isFreeSide2: 0 | 1 = k + 3 < j ? 1 : 0
               const normalizedCnt: number = Math.min(cnt1 + cnt2, THRESHOLD)
-              score +=
-                gap[normalizedCnt][isFreeSide0 + isFreeSide2] +
-                Math.min(leftPossibleCnt, rightPossibleCnt)
+              const baseScore: number = gap[normalizedCnt][isFreeSide0 + isFreeSide2]
+              if (baseScore > 0) score += baseScore + Math.min(leftPossibleCnt, rightPossibleCnt)
               usedK = k + 2
             }
           }
@@ -378,9 +377,8 @@ export class GomokuState implements IGomokuState {
             }
             const isFreeSide2: 0 | 1 = k + 1 < j ? 1 : 0
             const rightPossibleCnt: number = maxPossibleCnt - leftPossibleCnt - cnt1
-            score +=
-              con[normalizedCnt][isFreeSide0 + isFreeSide2] +
-              Math.min(leftPossibleCnt, rightPossibleCnt)
+            const baseScore: number = con[normalizedCnt][isFreeSide0 + isFreeSide2]
+            if (baseScore > 0) score += baseScore + Math.min(leftPossibleCnt, rightPossibleCnt)
           }
           leftPossibleCnt += cnt1
         }
