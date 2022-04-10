@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dinic",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "The dinic algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",
@@ -43,6 +43,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/circular-queue": "^2.0.8"
+    "@algorithm.ts/circular-queue": "^2.0.9"
   }
 }
