@@ -1,5 +1,32 @@
 # Changelog
 
+<a name="2.0.8"></a>
+## 2.0.8 (2022-04-10)
+
+### Added
+
+- ✅ test(gomoku): update tests [[aa2c739](https://github.com/guanghechen/algorithm.ts/commit/aa2c7393306df404a6b72515ef9fa9d0a2d457bb)]
+- ✅ test(gomoku): update tests [[963bea8](https://github.com/guanghechen/algorithm.ts/commit/963bea8e8a362dac50ce7ba29873eac6d9bd0644)]
+- ✨ feat(priority-queue): support new method &#x27;replaceTop&#x27; [[cf9bede](https://github.com/guanghechen/algorithm.ts/commit/cf9bedec642e0303f0f211795ef8d94f83fefc13)]
+- ✨ feat(priority-queue): support new method &#x60;splice&#x60; [[1bf5b7b](https://github.com/guanghechen/algorithm.ts/commit/1bf5b7b1b71917692e4585476776f7719d87a8d0)]
+- ✨ feat: support enqueues multiple elements [[f5f8d23](https://github.com/guanghechen/algorithm.ts/commit/f5f8d2351c0d709b2d61fe9acb75bef07cabc260)]
+
+### Changed
+
+- 🎨 refactor(gomoku): refactor code -- separate minimax-searcher for different layers [[4ba6af6](https://github.com/guanghechen/algorithm.ts/commit/4ba6af64e2960c529ca0cb51f236810ad9330c38)]
+- ⚡ improve(gomoku): improve performance [[2bcb90a](https://github.com/guanghechen/algorithm.ts/commit/2bcb90ac5e63de80ffd3cebb5a49d6a70adb34b4)]
+- 🎨 refactor(gomoku): refactor codes [[3d8fa39](https://github.com/guanghechen/algorithm.ts/commit/3d8fa390cf06cc6c02dae546fba3a2434f71db92)]
+
+### Removed
+
+- 🔥 improve(gomoku): remove unused codes [[7dadeca](https://github.com/guanghechen/algorithm.ts/commit/7dadeca0f58363ec5f915a6f612e5b237958888b)]
+
+### Miscellaneous
+
+- 📝 docs(priority-queue): update README [[67a0eeb](https://github.com/guanghechen/algorithm.ts/commit/67a0eebc992c0d75b33980d2db63abed31ce0288)]
+- 📝 docs: update CHANGELOG [[0c575e5](https://github.com/guanghechen/algorithm.ts/commit/0c575e5f8c339c050905e02f64c13db571efaac8)]
+
+
 <a name="2.0.8-alpha.0"></a>
 ## 2.0.8-alpha.0 (2022-04-05)
 
