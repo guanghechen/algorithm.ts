@@ -30,8 +30,6 @@ export class AlphaBetaSearcher {
     searchContext.init(ownPlayerId)
 
     let bestMoveId = -1
-    if (searchContext.isFinal()) return { bestMoveId }
-
     const candidates: IGomokuCandidateState[] = this._candidateCache
     const _size: number = searchContext.expand(
       ownPlayerId,
