@@ -368,10 +368,10 @@ describe('15x15', function () {
     const tester = getTester()
     tester.init([])
     expect(tester.expand(0, Number.MAX_SAFE_INTEGER)).toEqual([
-      { posId: tester.context.MIDDLE_POS, score: 1404 },
+      { posId: tester.context.MIDDLE_POS, score: 780 },
     ])
     expect(tester.expand(1, Number.MAX_SAFE_INTEGER)).toEqual([
-      { posId: tester.context.MIDDLE_POS, score: 1404 },
+      { posId: tester.context.MIDDLE_POS, score: 780 },
     ])
 
     for (const { filepath } of filepaths) {
