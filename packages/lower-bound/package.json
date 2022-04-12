@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/lower-bound",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "Find the index of first elements which greater or equals than the target element.",
   "author": {
     "name": "guanghechen",
