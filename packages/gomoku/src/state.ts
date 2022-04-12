@@ -22,7 +22,8 @@ export class GomokuState implements IGomokuState {
   public readonly context: Readonly<IGomokuContext>
   public readonly countMap: Readonly<IGomokuCountMap>
   public readonly scoreMap: Readonly<IShapeScoreMap>
-  protected readonly _candidateQueue: IPriorityQueue<IGomokuCandidateState>
+  protected readonly _candidateQueues: Array<IPriorityQueue<IGomokuCandidateState>>
+  protected readonly _candidateInqSets: Array<Array<Set<number>>>
   protected readonly _candidateSet: Set<number>
   protected readonly _candidateScore: number[][] // [playerId][postId] => <candidate score>
   protected readonly _candidateScoreDirMap: number[][][] // [playerId][posId][dirType] => <score>
@@ -35,6 +36,16 @@ export class GomokuState implements IGomokuState {
   constructor(props: IGomokuStateProps) {
     const { context, countMap, scoreMap } = props
 
+    const _candidateQueues: Array<IPriorityQueue<IGomokuCandidateState>> = createHighDimensionArray(
+      () => createPriorityQueue<IGomokuCandidateState>((x, y) => x.score - y.score),
+      context.TOTAL_PLAYER, // playerId
+    )
+    const _candidateInqSets: Array<Array<Set<number>>> = createHighDimensionArray(
+      () => new Set(),
+      context.TOTAL_PLAYER, // playerId
+      context.TOTAL_POS, // posId
+    )
+    const _candidateSet: Set<number> = new Set()
     const _candidateScore: number[][] = createHighDimensionArray(
       () => 0,
       context.TOTAL_PLAYER, // playerId
@@ -68,8 +79,9 @@ export class GomokuState implements IGomokuState {
     this.context = context
     this.countMap = countMap
     this.scoreMap = scoreMap
-    this._candidateQueue = createPriorityQueue<IGomokuCandidateState>((x, y) => y.score - x.score)
-    this._candidateSet = new Set()
+    this._candidateQueues = _candidateQueues
+    this._candidateInqSets = _candidateInqSets
+    this._candidateSet = _candidateSet
     this._candidateScore = _candidateScore
     this._candidateScoreDirMap = _candidateScoreDirMap
     this._candidateScoreExpired = _candidateScoreExpired
@@ -80,6 +92,8 @@ export class GomokuState implements IGomokuState {
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
+    this._candidateQueues.forEach(Q => Q.init())
+    this._candidateInqSets.forEach(inqSets => inqSets.forEach(inqSet => inqSet.clear()))
     this._candidateSet.clear()
     this._candidateScoreExpired.fill(allDirectionTypeBitset)
     this._stateScore.fill(0)
@@ -120,6 +134,7 @@ export class GomokuState implements IGomokuState {
       }
     }
     if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(context.MIDDLE_POS)
+    for (const posId of _candidateSet) this._reEvaluateCandidate(posId)
   }
 
   public forward(posId: number): void {
@@ -138,10 +153,14 @@ export class GomokuState implements IGomokuState {
     for (const posId2 of context.accessibleNeighbors(posId)) {
       if (!context.hasPlacedNeighbors(posId2)) _candidateSet.delete(posId2)
     }
-    if (context.board[context.MIDDLE_POS] < 0) _candidateSet.add(context.MIDDLE_POS)
 
     this._updateStateScore(posId)
     this._expireCandidates(posId)
+
+    if (context.board[context.MIDDLE_POS] < 0 && !_candidateSet.has(context.MIDDLE_POS)) {
+      _candidateSet.add(context.MIDDLE_POS)
+      this._reEvaluateCandidate(context.MIDDLE_POS)
+    }
   }
 
   public expand(
@@ -158,33 +177,41 @@ export class GomokuState implements IGomokuState {
       return 1
     }
 
-    const Q = this._candidateQueue
-    Q.init()
+    const topScore: number = topCandidate.score
+    const { _candidateSet, _candidateScoreExpired } = this
+    const Q = this._candidateQueues[nextPlayerId]
+    const inqSets: Array<Set<number>> = this._candidateInqSets[nextPlayerId]
+    const candidateScores = this._candidateScore[nextPlayerId]
 
     let _size = 0
-    const { _candidateSet } = this
-    for (const posId of _candidateSet) {
-      const score: number = this._reEvaluateCandidate(nextPlayerId, posId)
-      if (score * minMultipleOfTopScore < topCandidate.score) continue
+    let item: IGomokuCandidateState | undefined
+    for (; _size < MAX_SIZE; ) {
+      item = Q.dequeue()
+      if (item === undefined) break
 
-      if (_size < MAX_SIZE) {
-        Q.enqueue({ posId, score })
-        _size += 1
-      } else {
-        const item = Q.top()!
-        item.score = score
-        Q.replaceTop(item)
+      inqSets[item.posId].delete(item.score)
+      if (
+        _candidateScoreExpired[item.posId] === 0 &&
+        _candidateSet.has(item.posId) &&
+        item.score === candidateScores[item.posId]
+      ) {
+        // eslint-disable-next-line no-param-reassign, no-plusplus
+        candidates[_size++] = item
+        if (item.score * minMultipleOfTopScore < topScore) break
       }
     }
 
-    // eslint-disable-next-line no-param-reassign
-    for (let i = _size - 1; i >= 0; --i) candidates[i] = Q.dequeue()!
+    Q.enqueues(candidates, 0, _size)
+    for (let i = 0; i < _size; ++i) {
+      const candidate = candidates[i]
+      inqSets[candidate.posId].add(candidate.score)
+    }
+    if (item !== undefined && item.score * minMultipleOfTopScore < topScore) _size -= 1
     return _size
   }
 
   public topCandidate(nextPlayerId: number): IGomokuCandidateState | undefined {
     const { countMap } = this
-
     const mustDropPos0 = countMap.mustDropPos(nextPlayerId)
     if (mustDropPos0.size > 0) {
       for (const posId of mustDropPos0) return { posId, score: Number.MAX_VALUE }
@@ -195,12 +222,29 @@ export class GomokuState implements IGomokuState {
       for (const posId of mustDropPos1) return { posId, score: Number.MAX_VALUE }
     }
 
+    const { _candidateSet, _candidateScoreExpired } = this
+    const Q = this._candidateQueues[nextPlayerId]
+    const inqSets: Array<Set<number>> = this._candidateInqSets[nextPlayerId]
+    const candidateScores = this._candidateScore[nextPlayerId]
+
     let item: IGomokuCandidateState | undefined
-    const { _candidateSet } = this
-    for (const posId of _candidateSet) {
-      const score: number = this._reEvaluateCandidate(nextPlayerId, posId)
-      if (item === undefined) item = { posId, score }
-      else if (item.score < score) item.score = score
+    for (;;) {
+      item = Q.dequeue()
+      if (item === undefined) break
+
+      inqSets[item.posId].delete(item.score)
+      if (
+        _candidateScoreExpired[item.posId] === 0 &&
+        _candidateSet.has(item.posId) &&
+        item.score === candidateScores[item.posId]
+      ) {
+        break
+      }
+    }
+
+    if (item !== undefined) {
+      Q.enqueue(item)
+      inqSets[item.posId].add(item.score)
     }
     return item
   }
@@ -258,21 +302,30 @@ export class GomokuState implements IGomokuState {
   }
 
   protected _expireCandidates(centerPosId: number): void {
-    const { context, _candidateScoreExpired } = this
+    const { context, _candidateSet, _candidateScoreExpired } = this
     for (const dirType of halfDirectionTypes) {
       const startPosId: number = context.getStartPosId(centerPosId, dirType)
       const maxSteps: number = context.maxMovableSteps(startPosId, dirType)
       const bitMark: number = 1 << dirType
       for (let posId = startPosId, step = 0; ; ++step) {
         _candidateScoreExpired[posId] |= bitMark
+        if (posId !== centerPosId && _candidateSet.has(posId)) {
+          this._reEvaluateCandidate(posId)
+        }
+
         if (step === maxSteps) break
         posId = context.fastMoveOneStep(posId, dirType)
       }
     }
+
+    if (_candidateSet.has(centerPosId)) {
+      this._reEvaluateCandidate(centerPosId)
+    }
   }
 
-  protected _reEvaluateCandidate(nextPlayerId: number, posId: number): number {
-    const { NEXT_MOVER_BUFFER, _candidateScore, _candidateScoreExpired } = this
+  protected _reEvaluateCandidate(posId: number): void {
+    const { NEXT_MOVER_BUFFER, _candidateScoreExpired } = this
+    const [cScore0, cScore1] = this._candidateScore
     const expiredBitset = _candidateScoreExpired[posId]
 
     if (expiredBitset > 0) {
@@ -312,11 +365,24 @@ export class GomokuState implements IGomokuState {
 
       const deltaScore0: number = score0 - prevScore0
       const deltaScore1: number = score1 - prevScore1
-      _candidateScore[0][posId] = deltaScore0 * NEXT_MOVER_BUFFER + deltaScore1
-      _candidateScore[1][posId] = deltaScore0 + deltaScore1 * NEXT_MOVER_BUFFER
-      _candidateScoreExpired[posId] = 0
+      cScore0[posId] = deltaScore0 * NEXT_MOVER_BUFFER + deltaScore1
+      cScore1[posId] = deltaScore0 + deltaScore1 * NEXT_MOVER_BUFFER
     }
-    return _candidateScore[nextPlayerId][posId]
+
+    const candidateScore0: number = cScore0[posId]
+    const inq0: Set<number> = this._candidateInqSets[0][posId]
+    if (!inq0.has(candidateScore0)) {
+      inq0.add(candidateScore0)
+      this._candidateQueues[0].enqueue({ posId, score: candidateScore0 })
+    }
+
+    const candidateScore1: number = cScore1[posId]
+    const inq1: Set<number> = this._candidateInqSets[1][posId]
+    if (!inq1.has(candidateScore1)) {
+      inq1.add(candidateScore1)
+      this._candidateQueues[1].enqueue({ posId, score: candidateScore1 })
+    }
+    _candidateScoreExpired[posId] = 0
   }
 
   protected _evaluateScoreInDirection(

@@ -52,7 +52,8 @@ class TestHelper extends GomokuState {
   // @ts-ignore
   public override expand(nextPlayer: number, minMultipleOfTopScore: number): IGomokuCandidate[] {
     const candidates: IGomokuCandidateState[] = []
-    super.expand(nextPlayer, candidates, minMultipleOfTopScore)
+    const _size: number = super.expand(nextPlayer, candidates, minMultipleOfTopScore)
+    candidates.length = _size
     return candidates.map(({ posId, score }) => ({ posId, score }))
   }
 
@@ -345,8 +346,10 @@ describe('15x15', function () {
       const pieces = await fs.readJSON(filepath)
       for (const { r, c, p } of pieces) {
         const id: number = tester.context.idx(r, c)
-        tester.forward(id, p)
         const message = `${title} id=${id}`
+        tester.$checkCandidateIds(message, 0)
+        tester.$checkCandidateIds(message, 1)
+        tester.forward(id, p)
         tester.$checkCandidateIds(message, 0)
         tester.$checkCandidateIds(message, 1)
         tester.revert(id)

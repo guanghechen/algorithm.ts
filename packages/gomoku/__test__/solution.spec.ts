@@ -116,6 +116,7 @@ describe('15x15', function () {
     const [r1, c1] = solution.minimaxSearch(1)
     expect([
       [7, 10],
+      [7, 12],
       [12, 11],
     ]).toContainEqual([r1, c1])
   })
