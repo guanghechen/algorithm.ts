@@ -96,9 +96,9 @@ export class GomokuSolution {
   public minimaxSearch(nextPlayerId: number): [r: number, c: number] {
     if (this.state.isFinal()) return [-1, -1]
 
-    if (this.context.placedCount < 3) {
+    if (this.context.placedCount < this.context.MAX_ADJACENT) {
       const _candidates: IGomokuCandidateState[] = []
-      const _size = this.state.expand(nextPlayerId, _candidates, 1.2)
+      const _size = this.state.expand(nextPlayerId, _candidates, 1.5)
       const index: number = Math.min(_size - 1, Math.round(Math.random() * _size))
       const bestMoveId = _candidates[index].posId
       const [r, c] = this.context.revIdx(bestMoveId)

@@ -42,19 +42,19 @@ export const createDefaultMinimaxSearcher = (
     {
       MAX_SEARCH_DEPTH: 3,
       MAX_CANDIDATE_COUNT: 8,
-      MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 3][2] * 2,
+      MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 3][2] * 4,
       MIN_MULTIPLE_OF_TOP_SCORE,
     },
     {
       MAX_SEARCH_DEPTH: 5,
       MAX_CANDIDATE_COUNT: 4,
-      MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 2][1],
+      MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 2][1] * 2,
       MIN_MULTIPLE_OF_TOP_SCORE,
     },
     {
       MAX_SEARCH_DEPTH: 11,
       MAX_CANDIDATE_COUNT: 2,
-      MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 2][2] * 2,
+      MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 2][2] * 4,
       MIN_MULTIPLE_OF_TOP_SCORE,
     },
   ]
