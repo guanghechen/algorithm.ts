@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="2.0.10"></a>
+## 2.0.10 (2022-04-12)
+
+### Changed
+
+- ⚡ improve(gomoku): optimize unnecessary operations on maintaining candidates [[db9374f](https://github.com/guanghechen/algorithm.ts/commit/db9374f52e3cd6d95a81e29e10733d600773b6fe)]
+- ⚡ improve(gomoku): maintain candidates in priority-queue cross state changes [[595490b](https://github.com/guanghechen/algorithm.ts/commit/595490b16d5df845f5d2e4afa7614d3db4871992)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[8d3876a](https://github.com/guanghechen/algorithm.ts/commit/8d3876a9b0bc0178875bedeeb6af070686eb4e20)]
+
+
 <a name="2.0.9"></a>
 ## 2.0.9 (2022-04-10)
 
