@@ -1,6 +1,7 @@
 import type { ICircularQueue } from '@algorithm.ts/circular-queue'
 import { createCircularQueue } from '@algorithm.ts/circular-queue'
 import type { IEdge, IGraph } from './types'
+import { getShortestPath } from './util'
 
 export interface IOptions {
   /**
@@ -43,6 +44,10 @@ export interface IContext {
    * An array recording the shortest distance to the source point.
    */
   dist: ReadonlyArray<number>
+  /**
+   * Get shortest path from the source point to the given target point.
+   */
+  getShortestPathTo(target: number): number[]
 }
 
 export class BellmanFord {
@@ -53,7 +58,7 @@ export class BellmanFord {
   protected readonly inq: boolean[]
   protected readonly inqTimes: number[]
   protected readonly Q: ICircularQueue<number>
-  protected solved: boolean
+  protected resolved: boolean
 
   constructor(options: IOptions = {}) {
     this.INF = options.INF ?? Math.floor(Number.MAX_SAFE_INTEGER / 2)
@@ -63,10 +68,14 @@ export class BellmanFord {
     this.inq = options.inq ?? []
     this.inqTimes = options.inqTimes ?? []
     this.Q = createCircularQueue<number>()
-    this.solved = false
+    this.resolved = false
   }
 
-  public bellmanFord(graph: IGraph, options: IOptions = {}): boolean {
+  public bellmanFord(
+    graph: IGraph,
+    options: IOptions = {},
+    onResolved?: (context: IContext) => void,
+  ): boolean {
     const { ZERO, Q } = this
     const { N, source, edges, G } = graph
     const {
@@ -82,15 +91,17 @@ export class BellmanFord {
     inq.length = N
     inqTimes.length = N
 
+    bestFrom.fill(-1, 0, N)
     dist.fill(INF, 0, N)
     inq.fill(false, 0, N)
     inqTimes.fill(0, 0, N)
 
+    bestFrom[source] = source
+    dist[source] = ZERO
     Q.init(N + 1)
     Q.enqueue(source)
-    dist[source] = ZERO
 
-    this.solved = false
+    this.resolved = false
     while (Q.size() > 0) {
       const o: number = Q.dequeue()!
       inq[o] = false
@@ -100,7 +111,7 @@ export class BellmanFord {
         const edge: IEdge = edges[x]
         if (dist[edge.to] > dist[o] + edge.cost) {
           dist[edge.to] = dist[o] + edge.cost
-          bestFrom[edge.to] = x
+          bestFrom[edge.to] = o
 
           if (!inq[edge.to]) {
             Q.enqueue(edge.to)
@@ -113,34 +124,18 @@ export class BellmanFord {
       }
     }
 
-    this.solved = true
+    if (onResolved) {
+      const getShortestPathTo = (target: number): number[] =>
+        getShortestPath(bestFrom, source, target)
+      const context: IContext = {
+        INF: this.INF,
+        bestFrom: this.bestFrom,
+        dist: this.dist,
+        getShortestPathTo,
+      }
+      onResolved(context)
+    }
+
     return true
-  }
-
-  /**
-   * Only worked when
-   * @param fn
-   */
-  public solve(fn: (context: IContext) => void): void {
-    if (this.solved) {
-      const context: IContext = { INF: this.INF, bestFrom: this.bestFrom, dist: this.dist }
-      fn(context)
-    }
-  }
-
-  /**
-   *
-   * @param bestFrom
-   * @param source
-   * @param target
-   * @returns
-   */
-  public static shortestPath(bestFrom: Readonly<number>, source: number, target: number): number[] {
-    const path: number[] = [target]
-    for (let x = target, parent: number; x !== source; x = parent) {
-      parent = bestFrom[x]
-      path.push(parent)
-    }
-    return path.reverse()
   }
 }
