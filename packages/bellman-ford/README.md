@@ -127,6 +127,44 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
 ### Example
 
+* Get shortest path.
+
+  ```typescript
+  import bellmanFord from '@algorithm.ts/bellman-ford'
+
+  const A = 0
+  const B = 1
+  const C = 2
+  const D = 3
+
+  const graph: IGraph = {
+    N: 4,
+    source: A,
+    edges: [
+      // Nodes: [A, B, C, D]
+      { to: B, cost: 1 },       // A-B (1)
+      { to: A, cost: -1 },      // B-A (-1)
+      { to: C, cost: 0.87 },    // B-C (0.87)
+      { to: B, cost: -0.87 },   // C-B (-0.87)
+      { to: D, cost: 5 },       // C-D (5)
+      { to: C, cost: -5 },      // D-C (-5)
+    ],
+    G: [[0], [1, 2], [3, 4], [5]],
+  }
+
+  const noNegativeCycle: boolean = bellmanFord(graph, undefined, context => {
+    const a2aPath: number[] = context.getShortestPathTo(A)
+    const a2bPath: number[] = context.getShortestPathTo(B)
+    const a2cPath: number[] = context.getShortestPathTo(C)
+    const a2dPath: number[] = context.getShortestPathTo(D)
+
+    a2aPath // => [0]
+    a2bPath // => [0, 1]
+    a2cPath // => [0, 1, 2]
+    a2dPath // => [0, 1, 2, 3]
+  })
+  ```
+
 * A solution for leetcode "Number of Ways to Arrive at Destination"
   (https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/):
 

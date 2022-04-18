@@ -58,7 +58,6 @@ export class BellmanFord {
   protected readonly inq: boolean[]
   protected readonly inqTimes: number[]
   protected readonly Q: ICircularQueue<number>
-  protected resolved: boolean
 
   constructor(options: IOptions = {}) {
     this.INF = options.INF ?? Math.floor(Number.MAX_SAFE_INTEGER / 2)
@@ -68,7 +67,6 @@ export class BellmanFord {
     this.inq = options.inq ?? []
     this.inqTimes = options.inqTimes ?? []
     this.Q = createCircularQueue<number>()
-    this.resolved = false
   }
 
   public bellmanFord(
@@ -101,7 +99,6 @@ export class BellmanFord {
     Q.init(N + 1)
     Q.enqueue(source)
 
-    this.resolved = false
     while (Q.size() > 0) {
       const o: number = Q.dequeue()!
       inq[o] = false
