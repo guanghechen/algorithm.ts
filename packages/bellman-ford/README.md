@@ -80,7 +80,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * deno
 
   ```typescript
-  import bellman-ford from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/bellman-ford/src/index.ts'
+  import bellmanFord, { BellmanFord } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/bellman-ford/src/index.ts'
   ```
 
 ## Usage
@@ -91,7 +91,6 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   import type { IGraph } from '@algorithm.ts/bellman-ford'
   import bellmanFord from '@algorithm.ts/bellman-ford'
 
-  const dist: number[] = []
   const graph: IGraph = {
     N: 4,
     source: 0,
@@ -102,11 +101,10 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
       { to: 3, cost: 1 },
     ],
     G: [[0], [1, 2], [3], []],
-    dist: [],
   }
-
-  bellmanFord(graph) // => true, which means there is no negative-cycle.
-  graph.dist
+  const dist: number[] = []
+  bellmanFord(graph, { dist }) // => true, which means there is no negative-cycle.
+  dist
   // => [0, 2, 4, 4]
   // 
   //    Which means:
@@ -121,6 +119,8 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   Name        | Type        | Required  | Description
   :----------:|:-----------:|:---------:|:----------------
   `INF`       | `number`    | `false`   | A big number, representing the unreachable cost.
+  `from`      | `number[]`  | `false`   | Record the shortest path parent source point to the specified point.
+  `dist`      | `number[]`  | `false`   | An array recording the shortest distance to the source point.
   `inq`       | `boolean`   | `false`   | Used to check if an element is already in the queue.
   `inqTimes`  | `number[]`  | `false`   | Record the number of times an element is enqueued, used to check whether there is a negative cycle.
 
@@ -149,15 +149,9 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
     const source = 0
     const target = N - 1
-    const graph: IGraph = {
-      N,
-      source: target,
-      edges,
-      G,
-      dist: customDist ?? [],
-    }
-    bellmanFord(graph, { INF: 1e12 })
-    const { dist } = graph
+    const graph: IGraph = { N, source: target, edges, G }
+    const dist: number[] = customDist ?? []
+    bellmanFord.bellmanFord(graph, { INF: 1e12, dist })
 
     const dp: number[] = new Array(N).fill(-1)
     return dfs(source)

@@ -1,6 +1,6 @@
 import { testOjCodes } from 'jest.setup'
 import type { IGraph } from '../src'
-import bellmanFord from '../src'
+import { bellmanFord } from '../src'
 
 describe('basic', function () {
   test('no negative cycle', function () {
@@ -14,14 +14,15 @@ describe('basic', function () {
         { to: 3, cost: 1 },
       ],
       G: [[0], [1, 2], [3], []],
-      dist: [],
     }
+    const dist: number[] = []
 
-    expect(bellmanFord(graph)).toEqual(true)
-    expect(graph.dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
+    expect(bellmanFord(graph, { dist })).toEqual(true)
+    expect(dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
   })
 
   test('negative cycle', function () {
+    const dist: number[] = []
     const graph: IGraph = {
       N: 4,
       source: 0,
@@ -32,10 +33,8 @@ describe('basic', function () {
         { to: 3, cost: 1 },
       ],
       G: [[0], [1, 2], [3], []],
-      dist: [],
     }
-
-    expect(bellmanFord(graph)).toEqual(false)
+    expect(bellmanFord(graph, { dist })).toEqual(false)
   })
 })
 

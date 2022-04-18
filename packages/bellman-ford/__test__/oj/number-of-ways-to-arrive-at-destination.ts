@@ -1,5 +1,5 @@
 import type { IEdge, IGraph } from '../../src'
-import bellmanFord from '../../src'
+import { bellmanFord } from '../../src'
 
 export default countPaths
 
@@ -18,16 +18,9 @@ export function countPaths(N: number, roads: number[][]): number {
 
   const source = 0
   const target = N - 1
-  const graph: IGraph = {
-    N,
-    source: target,
-    edges,
-    G,
-    dist: [],
-  }
-
-  bellmanFord(graph, { INF: 1e12 })
-  const { dist } = graph
+  const graph: IGraph = { N, source: target, edges, G }
+  const dist: number[] = []
+  bellmanFord(graph, { INF: 1e12, dist })
 
   const dp: number[] = new Array(N).fill(-1)
   return dfs(source)
