@@ -77,12 +77,6 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   yarn add @algorithm.ts/bellman-ford
   ```
 
-* deno
-
-  ```typescript
-  import bellmanFord, { BellmanFord } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/bellman-ford/src/index.ts'
-  ```
-
 ## Usage
 
 * Simple

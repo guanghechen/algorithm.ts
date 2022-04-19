@@ -1,6 +1,6 @@
 import type { ICircularQueue } from '@algorithm.ts/circular-queue'
 import { createCircularQueue } from '@algorithm.ts/circular-queue'
-import type { IEdge, IGraph } from './types'
+import type { IBellmanFordEdge, IBellmanFordGraph } from './types'
 import { getShortestPath } from './util'
 
 export interface IOptions {
@@ -70,7 +70,7 @@ export class BellmanFord {
   }
 
   public bellmanFord(
-    graph: IGraph,
+    graph: IBellmanFordGraph,
     options: IOptions = {},
     onResolved?: (context: IContext) => void,
   ): boolean {
@@ -105,7 +105,7 @@ export class BellmanFord {
 
       for (let i = 0, g = G[o], _size = g.length; i < _size; ++i) {
         const x: number = g[i]
-        const edge: IEdge = edges[x]
+        const edge: IBellmanFordEdge = edges[x]
         if (dist[edge.to] > dist[o] + edge.cost) {
           dist[edge.to] = dist[o] + edge.cost
           bestFrom[edge.to] = o

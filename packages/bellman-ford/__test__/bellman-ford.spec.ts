@@ -1,10 +1,11 @@
+import { buildEdgeMap } from '@algorithm.ts/graph'
 import { testOjCodes } from 'jest.setup'
-import type { IGraph } from '../src'
+import type { IBellmanFordGraph } from '../src'
 import { bellmanFord } from '../src'
 
 describe('basic', function () {
   test('no negative cycle', function () {
-    const graph: IGraph = {
+    const graph: IBellmanFordGraph = {
       N: 4,
       source: 0,
       edges: [
@@ -23,7 +24,7 @@ describe('basic', function () {
 
   test('negative cycle', function () {
     const dist: number[] = []
-    const graph: IGraph = {
+    const graph: IBellmanFordGraph = {
       N: 4,
       source: 0,
       edges: [
@@ -38,24 +39,30 @@ describe('basic', function () {
   })
 
   test('shortest path', function () {
-    const A = 0
-    const B = 1
-    const C = 2
-    const D = 3
+    enum Nodes {
+      A = 0,
+      B = 1,
+      C = 2,
+      D = 3,
+    }
 
-    const graph: IGraph = {
-      N: 4,
-      source: A,
-      edges: [
-        // Nodes: [A, B, C, D]
-        { to: B, cost: 1 }, // A-B (1)
-        { to: A, cost: -1 }, // B-A (-1)
-        { to: C, cost: 0.87 }, // B-C (0.87)
-        { to: B, cost: -0.87 }, // C-B (-0.87)
-        { to: D, cost: 5 }, // C-D (5)
-        { to: C, cost: -5 }, // D-C (-5)
-      ],
-      G: [[0], [1, 2], [3, 4], [5]],
+    const N = 4
+    const edges = [
+      { from: Nodes.A, to: Nodes.B, cost: 1 },
+      { from: Nodes.B, to: Nodes.A, cost: -1 },
+      { from: Nodes.B, to: Nodes.C, cost: 0.87 },
+      { from: Nodes.B, to: Nodes.D, cost: -1 },
+      { from: Nodes.C, to: Nodes.B, cost: -0.87 },
+      { from: Nodes.C, to: Nodes.D, cost: 5 },
+      { from: Nodes.D, to: Nodes.C, cost: -5 },
+      { from: Nodes.D, to: Nodes.B, cost: 1 },
+    ]
+
+    const graph: IBellmanFordGraph = {
+      N,
+      source: Nodes.A,
+      edges,
+      G: buildEdgeMap(N, edges),
     }
 
     let a2aPath: number[] | undefined
@@ -63,17 +70,17 @@ describe('basic', function () {
     let a2cPath: number[] | undefined
     let a2dPath: number[] | undefined
     const noNegativeCycle: boolean = bellmanFord(graph, undefined, context => {
-      a2aPath = context.getShortestPathTo(A)
-      a2bPath = context.getShortestPathTo(B)
-      a2cPath = context.getShortestPathTo(C)
-      a2dPath = context.getShortestPathTo(D)
+      a2aPath = context.getShortestPathTo(Nodes.A)
+      a2bPath = context.getShortestPathTo(Nodes.B)
+      a2cPath = context.getShortestPathTo(Nodes.C)
+      a2dPath = context.getShortestPathTo(Nodes.D)
     })
 
     expect(noNegativeCycle).toEqual(true)
-    expect(a2aPath).toEqual([A])
-    expect(a2bPath).toEqual([A, B])
-    expect(a2cPath).toEqual([A, B, C])
-    expect(a2dPath).toEqual([A, B, C, D])
+    expect(a2aPath).toEqual([Nodes.A])
+    expect(a2bPath).toEqual([Nodes.A, Nodes.B])
+    expect(a2cPath).toEqual([Nodes.A, Nodes.B, Nodes.C])
+    expect(a2dPath).toEqual([Nodes.A, Nodes.B, Nodes.C, Nodes.D])
   })
 })
 

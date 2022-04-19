@@ -1,6 +1,6 @@
 import type { IContext, IOptions } from './BellmanFord'
 import { BellmanFord } from './BellmanFord'
-import type { IGraph } from './types'
+import type { IBellmanFordGraph } from './types'
 
 /**
  * The bellman-ford algorithm, optimized with queue.
@@ -9,7 +9,7 @@ import type { IGraph } from './types'
  * @param options
  */
 export function bellmanFord(
-  graph: IGraph,
+  graph: IBellmanFordGraph,
   options: IOptions = {},
   onResolved?: (context: IContext) => void,
 ): boolean {
