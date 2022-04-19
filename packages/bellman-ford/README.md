@@ -77,12 +77,6 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   yarn add @algorithm.ts/bellman-ford
   ```
 
-* deno
-
-  ```typescript
-  import bellman-ford from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/bellman-ford/src/index.ts'
-  ```
-
 ## Usage
 
 * Simple
@@ -91,7 +85,6 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   import type { IGraph } from '@algorithm.ts/bellman-ford'
   import bellmanFord from '@algorithm.ts/bellman-ford'
 
-  const dist: number[] = []
   const graph: IGraph = {
     N: 4,
     source: 0,
@@ -102,11 +95,10 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
       { to: 3, cost: 1 },
     ],
     G: [[0], [1, 2], [3], []],
-    dist: [],
   }
-
-  bellmanFord(graph) // => true, which means there is no negative-cycle.
-  graph.dist
+  const dist: number[] = []
+  bellmanFord(graph, { dist }) // => true, which means there is no negative-cycle.
+  dist
   // => [0, 2, 4, 4]
   // 
   //    Which means:
@@ -121,11 +113,51 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   Name        | Type        | Required  | Description
   :----------:|:-----------:|:---------:|:----------------
   `INF`       | `number`    | `false`   | A big number, representing the unreachable cost.
+  `from`      | `number[]`  | `false`   | Record the shortest path parent source point to the specified point.
+  `dist`      | `number[]`  | `false`   | An array recording the shortest distance to the source point.
   `inq`       | `boolean`   | `false`   | Used to check if an element is already in the queue.
   `inqTimes`  | `number[]`  | `false`   | Record the number of times an element is enqueued, used to check whether there is a negative cycle.
 
 
 ### Example
+
+* Get shortest path.
+
+  ```typescript
+  import bellmanFord from '@algorithm.ts/bellman-ford'
+
+  const A = 0
+  const B = 1
+  const C = 2
+  const D = 3
+
+  const graph: IGraph = {
+    N: 4,
+    source: A,
+    edges: [
+      // Nodes: [A, B, C, D]
+      { to: B, cost: 1 },       // A-B (1)
+      { to: A, cost: -1 },      // B-A (-1)
+      { to: C, cost: 0.87 },    // B-C (0.87)
+      { to: B, cost: -0.87 },   // C-B (-0.87)
+      { to: D, cost: 5 },       // C-D (5)
+      { to: C, cost: -5 },      // D-C (-5)
+    ],
+    G: [[0], [1, 2], [3, 4], [5]],
+  }
+
+  const noNegativeCycle: boolean = bellmanFord(graph, undefined, context => {
+    const a2aPath: number[] = context.getShortestPathTo(A)
+    const a2bPath: number[] = context.getShortestPathTo(B)
+    const a2cPath: number[] = context.getShortestPathTo(C)
+    const a2dPath: number[] = context.getShortestPathTo(D)
+
+    a2aPath // => [0]
+    a2bPath // => [0, 1]
+    a2cPath // => [0, 1, 2]
+    a2dPath // => [0, 1, 2, 3]
+  })
+  ```
 
 * A solution for leetcode "Number of Ways to Arrive at Destination"
   (https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/):
@@ -149,15 +181,9 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
     const source = 0
     const target = N - 1
-    const graph: IGraph = {
-      N,
-      source: target,
-      edges,
-      G,
-      dist: customDist ?? [],
-    }
-    bellmanFord(graph, { INF: 1e12 })
-    const { dist } = graph
+    const graph: IGraph = { N, source: target, edges, G }
+    const dist: number[] = customDist ?? []
+    bellmanFord.bellmanFord(graph, { INF: 1e12, dist })
 
     const dp: number[] = new Array(N).fill(-1)
     return dfs(source)

@@ -66,6 +66,7 @@ Package                                     | Description
 [@algorithm.ts/dlx][]                       | DLX algorithm.
 [@algorithm.ts/findset][]                   | Find set.
 [@algorithm.ts/gcd][]                       | Greatest Common Divisor (GCD) and extended Euclidean algorithm.
+[@algorithm.ts/graph][]                     | Types and utils from solving graph problems.
 [@algorithm.ts/huffman][]                   | A [Huffman][wiki-huffman] coding implementation.
 [@algorithm.ts/isap][]                      | ISAP algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/knuth-shuffle][]             | Knuth-Shuffle algorithm.
@@ -105,6 +106,7 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/
 [@algorithm.ts/dlx]: ./packages/dlx
 [@algorithm.ts/findset]: ./packages/findset
 [@algorithm.ts/gcd]: ./packages/gcd
+[@algorithm.ts/graph]: ./packages/graph
 [@algorithm.ts/huffman]: ./packages/huffman
 [@algorithm.ts/isap]: ./packages/isap
 [@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle

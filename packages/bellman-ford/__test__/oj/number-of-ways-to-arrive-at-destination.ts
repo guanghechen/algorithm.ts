@@ -1,11 +1,11 @@
-import type { IEdge, IGraph } from '../../src'
-import bellmanFord from '../../src'
+import type { IBellmanFordEdge, IBellmanFordGraph } from '../../src'
+import { bellmanFord } from '../../src'
 
 export default countPaths
 
 const MOD = 1e9 + 7
 export function countPaths(N: number, roads: number[][]): number {
-  const edges: IEdge[] = []
+  const edges: IBellmanFordEdge[] = []
   const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
   for (const [from, to, cost] of roads) {
@@ -18,16 +18,9 @@ export function countPaths(N: number, roads: number[][]): number {
 
   const source = 0
   const target = N - 1
-  const graph: IGraph = {
-    N,
-    source: target,
-    edges,
-    G,
-    dist: [],
-  }
-
-  bellmanFord(graph, { INF: 1e12 })
-  const { dist } = graph
+  const graph: IBellmanFordGraph = { N, source: target, edges, G }
+  const dist: number[] = []
+  bellmanFord(graph, { INF: 1e12, dist })
 
   const dp: number[] = new Array(N).fill(-1)
   return dfs(source)
@@ -41,7 +34,7 @@ export function countPaths(N: number, roads: number[][]): number {
     answer = 0
     const d = dist[o]
     for (const idx of G[o]) {
-      const e: IEdge = edges[idx]
+      const e: IBellmanFordEdge = edges[idx]
       if (dist[e.to] + e.cost === d) {
         const t = dfs(e.to)
         answer = modAdd(answer, t)

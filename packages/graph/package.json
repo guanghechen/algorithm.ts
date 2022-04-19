@@ -1,7 +1,7 @@
 {
-  "name": "@algorithm.ts/bellman-ford",
+  "name": "@algorithm.ts/graph",
   "version": "2.0.10",
-  "description": "Bellman-ford algorithm.",
+  "description": "Types and utils from solving graph problems.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,14 +9,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/algorithm.ts.git",
-    "directory": "packages/bellman-ford"
+    "directory": "packages/graph"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/main/packages/bellman-ford#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/main/packages/graph#readme",
   "keywords": [
     "algorithm",
-    "bellman-ford",
-    "shortest path",
-    "single source shortest path"
+    "graph"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
@@ -42,7 +40,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/circular-queue": "^2.0.10",
-    "@algorithm.ts/graph": "^2.0.10"
+    "@algorithm.ts/circular-queue": "^2.0.10"
   }
 }
