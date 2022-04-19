@@ -51,11 +51,9 @@ describe('basic', function () {
       { from: Nodes.A, to: Nodes.B, cost: 1 },
       { from: Nodes.B, to: Nodes.A, cost: -1 },
       { from: Nodes.B, to: Nodes.C, cost: 0.87 },
-      { from: Nodes.B, to: Nodes.D, cost: -1 },
       { from: Nodes.C, to: Nodes.B, cost: -0.87 },
       { from: Nodes.C, to: Nodes.D, cost: 5 },
       { from: Nodes.D, to: Nodes.C, cost: -5 },
-      { from: Nodes.D, to: Nodes.B, cost: 1 },
     ]
 
     const graph: IBellmanFordGraph = {
