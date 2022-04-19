@@ -1,11 +1,11 @@
-import type { IEdge } from '../../src'
+import type { IDijkstraEdge } from '../../src'
 import { dijkstra } from '../../src'
 
 export default countPaths
 
 const MOD = 1e9 + 7
 export function countPaths(N: number, roads: number[][]): number {
-  const edges: IEdge[] = []
+  const edges: IDijkstraEdge[] = []
   const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
   for (const [from, to, cost] of roads) {
@@ -32,7 +32,7 @@ export function countPaths(N: number, roads: number[][]): number {
     answer = 0
     const d = dist[o]
     for (const idx of G[o]) {
-      const e: IEdge = edges[idx]
+      const e: IDijkstraEdge = edges[idx]
       if (dist[e.to] + e.cost === d) {
         const t = dfs(e.to)
         answer = modAdd(answer, t)

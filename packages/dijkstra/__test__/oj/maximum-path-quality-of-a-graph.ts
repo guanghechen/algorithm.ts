@@ -1,4 +1,4 @@
-import type { IEdge } from '../../src'
+import type { IDijkstraEdge } from '../../src'
 import { dijkstra } from '../../src'
 
 export default maximalPathQuality
@@ -11,7 +11,7 @@ export function maximalPathQuality(
   const T: number = maxTime
   const N: number = values.length
 
-  const edges: IEdge[] = new Array(N)
+  const edges: IDijkstraEdge[] = new Array(N)
   const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
   for (const [u, v, w] of originalEdges) {
