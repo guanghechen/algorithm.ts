@@ -1,5 +1,26 @@
 # Changelog
 
+<a name="2.0.11"></a>
+## 2.0.11 (2022-04-19)
+
+### Added
+
+- ✅ test(bellman-ford): update tests [[bfd07c6](https://github.com/guanghechen/algorithm.ts/commit/bfd07c6b3b34d3160e071919200bd8ec130233aa)]
+- ✨ feat(graph): implement @algorithm.ts/graph [[eafa1e9](https://github.com/guanghechen/algorithm.ts/commit/eafa1e90aadac2019eb40662727de1929f199d94)]
+
+### Changed
+
+- 🎨 improve(bellman-ford): use @algorithm.ts/graph to simplify codes [[fe5e069](https://github.com/guanghechen/algorithm.ts/commit/fe5e069fa84f9d2c6c0c2eebb6ef7d3a4707dfbd)]
+- 🎨 refactor([#1](https://github.com/guanghechen/algorithm.ts/issues/1)): refactor bellman-ford &amp; update tests [[a1e6268](https://github.com/guanghechen/algorithm.ts/commit/a1e62681ef7edd1012026434f59c95cc487d2556)]
+- 🎨 refactor([#1](https://github.com/guanghechen/algorithm.ts/issues/1)): refactor bellman-ford to support obtaining a specific shortest path [[ad78413](https://github.com/guanghechen/algorithm.ts/commit/ad7841355c7752aaca58ad0e73193453fb9b0cc1)]
+
+### Miscellaneous
+
+-  Merge pull request [#2](https://github.com/guanghechen/algorithm.ts/issues/2) from guanghechen/develop [[aeb83d1](https://github.com/guanghechen/algorithm.ts/commit/aeb83d1fd878b2f9dd7cc4f5316436f318f94548)]
+- 📝 docs([#1](https://github.com/guanghechen/algorithm.ts/issues/1)): update README and tests [[eee875c](https://github.com/guanghechen/algorithm.ts/commit/eee875cd9be2e12f5e4023244cfd9fb4b8ed2a65)]
+- 📝 docs: update CHANGELOG [[24da53e](https://github.com/guanghechen/algorithm.ts/commit/24da53e057391276f188225e5dafff491efc9d4e)]
+
+
 <a name="2.0.10"></a>
 ## 2.0.10 (2022-04-12)
 
