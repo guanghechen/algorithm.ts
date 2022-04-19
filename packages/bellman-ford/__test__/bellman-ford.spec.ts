@@ -1,7 +1,7 @@
 import { buildEdgeMap } from '@algorithm.ts/graph'
 import { testOjCodes } from 'jest.setup'
 import type { IBellmanFordGraph } from '../src'
-import { bellmanFord } from '../src'
+import { BellmanFord, bellmanFord } from '../src'
 
 describe('basic', function () {
   test('no negative cycle', function () {
@@ -37,8 +37,10 @@ describe('basic', function () {
     }
     expect(bellmanFord(graph, { dist })).toEqual(false)
   })
+})
 
-  test('shortest path', function () {
+describe('shortest path', function () {
+  test('without negative cycle', function () {
     enum Nodes {
       A = 0,
       B = 1,
@@ -67,7 +69,9 @@ describe('basic', function () {
     let a2bPath: number[] | undefined
     let a2cPath: number[] | undefined
     let a2dPath: number[] | undefined
-    const noNegativeCycle: boolean = bellmanFord(graph, undefined, context => {
+
+    const _bellmanFord = new BellmanFord()
+    const noNegativeCycle: boolean = _bellmanFord.bellmanFord(graph, undefined, context => {
       a2aPath = context.getShortestPathTo(Nodes.A)
       a2bPath = context.getShortestPathTo(Nodes.B)
       a2cPath = context.getShortestPathTo(Nodes.C)
@@ -79,6 +83,37 @@ describe('basic', function () {
     expect(a2bPath).toEqual([Nodes.A, Nodes.B])
     expect(a2cPath).toEqual([Nodes.A, Nodes.B, Nodes.C])
     expect(a2dPath).toEqual([Nodes.A, Nodes.B, Nodes.C, Nodes.D])
+  })
+
+  test('with negative cycle', function () {
+    enum Nodes {
+      A = 0,
+      B = 1,
+      C = 2,
+      D = 3,
+    }
+
+    const N = 4
+    const edges = [
+      { from: Nodes.A, to: Nodes.B, cost: 1 },
+      { from: Nodes.B, to: Nodes.A, cost: -1 },
+      { from: Nodes.B, to: Nodes.C, cost: 0.87 },
+      { from: Nodes.B, to: Nodes.D, cost: -1 },
+      { from: Nodes.C, to: Nodes.B, cost: -0.87 },
+      { from: Nodes.C, to: Nodes.D, cost: 5 },
+      { from: Nodes.D, to: Nodes.C, cost: -5 },
+      { from: Nodes.D, to: Nodes.B, cost: 1 },
+    ]
+
+    const graph: IBellmanFordGraph = {
+      N,
+      source: Nodes.A,
+      edges,
+      G: buildEdgeMap(N, edges),
+    }
+
+    const noNegativeCycle: boolean = bellmanFord(graph)
+    expect(noNegativeCycle).toEqual(false)
   })
 })
 
