@@ -1,5 +1,5 @@
 import type { IEdge, IGraph } from '../src'
-import { buildEdgeMap } from '../src'
+import { buildEdgeMap, getShortestPath } from '../src'
 
 describe('util', function () {
   test('buildEdgeMap', function () {
@@ -29,5 +29,13 @@ describe('util', function () {
         expect(edge.from).toEqual(from)
       }
     }
+  })
+
+  test('getShortestPath', function () {
+    const bestFrom: number[] = [-1, 0, 1, 2]
+    expect(getShortestPath(bestFrom, 0, 0)).toEqual([0])
+    expect(getShortestPath(bestFrom, 0, 1)).toEqual([0, 1])
+    expect(getShortestPath(bestFrom, 0, 2)).toEqual([0, 1, 2])
+    expect(getShortestPath(bestFrom, 0, 3)).toEqual([0, 1, 2, 3])
   })
 })

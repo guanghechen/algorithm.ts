@@ -78,6 +78,8 @@ Types and utils from solving graph problems.
 * `buildEdgeMap`
 
   ```typescript {17}
+  import { buildEdgeMap } from '@algorithm.ts/graph'
+
   const Nodes = {
     A: 0,
     B: 1,
@@ -97,6 +99,19 @@ Types and utils from solving graph problems.
   const G: number[][] = buildEdgeMap(N, edges)
 
   const graph: IGraph = { N, edges, G }
+  ```
+
+* `getShortestPath`
+
+  ```typescript {17}
+  import { getShortestPath } from '@algorithm.ts/graph'
+
+  /**
+   * @param bestFrom  Record the shortest path parent source point to the specified point.
+   * @param source    The source node on the shortest path.
+   * @param target    The target node on the shortest path.
+   */
+  getShortestPath(bestFrom: number[], source: number, target: number): number[] // nodes 
   ```
 
 

@@ -1,7 +1,7 @@
 import type { ICircularQueue } from '@algorithm.ts/circular-queue'
 import { createCircularQueue } from '@algorithm.ts/circular-queue'
+import { getShortestPath } from '@algorithm.ts/graph'
 import type { IBellmanFordEdge, IBellmanFordGraph } from './types'
-import { getShortestPath } from './util'
 
 export interface IOptions {
   /**
@@ -94,7 +94,6 @@ export class BellmanFord {
     inq.fill(false, 0, N)
     inqTimes.fill(0, 0, N)
 
-    bestFrom[source] = source
     dist[source] = ZERO
     Q.init(N + 1)
     Q.enqueue(source)
