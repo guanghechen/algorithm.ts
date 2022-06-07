@@ -94,14 +94,14 @@ class TestHelper extends GomokuState {
         if (context.hasPlacedNeighbors(id)) candidateSet.add(id)
       }
     }
-    if (countMap.mustDropPos(nextPlayerId)) {
+    if (countMap.mustWinPosSet(nextPlayerId).size > 0) {
       for (const posId of _candidateSet) {
         if (countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
           return [posId]
         }
       }
     }
-    if (countMap.mustDropPos(nextPlayerId ^ 1)) {
+    if (countMap.mustWinPosSet(nextPlayerId ^ 1).size > 0) {
       const playerId: number = nextPlayerId ^ 1
       for (const posId of _candidateSet) {
         if (countMap.candidateCouldReachFinal(playerId, posId)) {
@@ -128,14 +128,14 @@ class TestHelper extends GomokuState {
   public $getCandidates(nextPlayerId: number, minMultipleOfTopScore: number): IGomokuCandidate[] {
     const { countMap, _candidateSet } = this
 
-    if (countMap.mustDropPos(nextPlayerId)) {
+    if (countMap.mustWinPosSet(nextPlayerId).size > 0) {
       for (const posId of _candidateSet) {
         if (countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
           return [{ posId, score: Number.MAX_VALUE }]
         }
       }
     }
-    if (countMap.mustDropPos(nextPlayerId ^ 1)) {
+    if (countMap.mustWinPosSet(nextPlayerId ^ 1).size > 0) {
       const playerId: number = nextPlayerId ^ 1
       for (const posId of _candidateSet) {
         if (countMap.candidateCouldReachFinal(playerId, posId)) {

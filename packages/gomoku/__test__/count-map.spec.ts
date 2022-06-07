@@ -2,7 +2,6 @@ import fs from 'fs-extra'
 import { locateFixtures } from 'jest.setup'
 import type { GomokuDirectionType, IGomokuContextProps, IGomokuPiece } from '../src'
 import { GomokuContext, GomokuCountMap, GomokuDirectionTypes } from '../src'
-import { PieceDataDirName, locatePieceDataFilepaths } from './util'
 
 const { rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
@@ -103,8 +102,8 @@ describe('15x15', () => {
         expect(tester.candidateCouldReachFinal(1, posId)).toEqual(
           tester.$candidateCouldReachFinal(1, posId),
         )
-        expect(Array.from(tester.mustDropPos(0)).length).toEqual(tester.$stateCouldReachFinal(0))
-        expect(Array.from(tester.mustDropPos(1)).length).toEqual(tester.$stateCouldReachFinal(1))
+        expect(Array.from(tester.mustWinPosSet(0)).length).toEqual(tester.$stateCouldReachFinal(0))
+        expect(Array.from(tester.mustWinPosSet(1)).length).toEqual(tester.$stateCouldReachFinal(1))
       }
       for (let posId = 0; posId < tester.context.TOTAL_POS; ++posId) {
         expect(tester.candidateCouldReachFinal(0, posId)).toEqual(
@@ -113,8 +112,8 @@ describe('15x15', () => {
         expect(tester.candidateCouldReachFinal(1, posId)).toEqual(
           tester.$candidateCouldReachFinal(1, posId),
         )
-        expect(Array.from(tester.mustDropPos(0)).length).toEqual(tester.$stateCouldReachFinal(0))
-        expect(Array.from(tester.mustDropPos(1)).length).toEqual(tester.$stateCouldReachFinal(1))
+        expect(Array.from(tester.mustWinPosSet(0)).length).toEqual(tester.$stateCouldReachFinal(0))
+        expect(Array.from(tester.mustWinPosSet(1)).length).toEqual(tester.$stateCouldReachFinal(1))
       }
     }
   })

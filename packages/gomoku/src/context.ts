@@ -1,7 +1,7 @@
 import { GomokuDirectionTypes, GomokuDirections } from './constant'
 import type { GomokuDirectionType } from './constant'
-import type { IGomokuContext } from './context.type'
-import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './types'
+import type { IGomokuContext } from './types/context'
+import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './types/misc'
 import { createHighDimensionArray } from './util/createHighDimensionArray'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
@@ -25,7 +25,6 @@ export class GomokuContext implements IGomokuContext {
   public readonly TOTAL_POS: number
   public readonly MIDDLE_POS: number
   public readonly board: Readonly<IGomokuBoard>
-  public readonly idx: (r: number, c: number) => number
   protected readonly _idxMap: Readonly<IIdxMap>
   protected readonly _gomokuDirections: Readonly<IGomokuDirections>
   protected readonly _maxMovableMap: number[][] // [dirType][posId] => MAX_MOVABLE_STEPS
@@ -44,7 +43,6 @@ export class GomokuContext implements IGomokuContext {
     const _MAX_DISTANCE_OF_NEIGHBOR: number = Math.max(1, MAX_DISTANCE_OF_NEIGHBOR)
     const _TOTAL_PLAYER = 2
     const _TOTAL_POS: number = _MAX_ROW * _MAX_COL
-    const idx = (r: number, c: number): number => r * _MAX_ROW + c
 
     this.MAX_ROW = _MAX_ROW
     this.MAX_COL = _MAX_COL
@@ -54,12 +52,11 @@ export class GomokuContext implements IGomokuContext {
     this.TOTAL_POS = _TOTAL_POS
     this.MIDDLE_POS = _TOTAL_POS >> 1
     this.board = new Array(_TOTAL_POS).fill(-1)
-    this.idx = idx
 
     const _idxMap: IIdxMap = new Array(_TOTAL_POS)
     for (let r = 0; r < _MAX_ROW; ++r) {
       for (let c = 0; c < _MAX_COL; ++c) {
-        const posId: number = idx(r, c)
+        const posId: number = this.idx(r, c)
         _idxMap[posId] = [r, c]
       }
     }
@@ -93,7 +90,7 @@ export class GomokuContext implements IGomokuContext {
           _dirStartPosMap[revDirType][posId] = posId
           _dirStartPosSet[revDirType].push(posId)
         } else {
-          const posId2 = idx(r2, c2)
+          const posId2 = this.idx(r2, c2)
           _maxMovableMap[dirType][posId] = _maxMovableMap[dirType][posId2] + 1
           _dirStartPosMap[revDirType][posId] = _dirStartPosMap[revDirType][posId2]
         }
@@ -218,6 +215,10 @@ export class GomokuContext implements IGomokuContext {
     return true
   }
 
+  public idx(r: number, c: number): number {
+    return r * this.MAX_ROW + c
+  }
+
   public revIdx(posId: number): Readonly<[r: number, c: number]> {
     return this._idxMap[posId]
   }
@@ -254,6 +255,33 @@ export class GomokuContext implements IGomokuContext {
 
   public hasPlacedNeighbors(posId: number): boolean {
     return this._neighborPlacedCount[posId] > 0
+  }
+
+  public couldReachFinalInDirection(
+    playerId: number,
+    posId: number,
+    dirType: GomokuDirectionType,
+  ): boolean {
+    const { MAX_ADJACENT, board } = this
+    const revDirType: GomokuDirectionType = dirType ^ 1
+
+    const maxMovableSteps0: number = this.maxMovableSteps(posId, revDirType)
+    const maxMovableSteps2: number = this.maxMovableSteps(posId, dirType)
+    if (maxMovableSteps0 + maxMovableSteps2 + 1 < MAX_ADJACENT) return false
+
+    let count = 1
+    for (let id = posId, step = 0; step < maxMovableSteps0; ++step) {
+      id = this.fastMoveOneStep(id, revDirType)
+      if (board[id] !== playerId) break
+      count += 1
+    }
+
+    for (let id = posId, step = 0; step < maxMovableSteps2; ++step) {
+      id = this.fastMoveOneStep(id, dirType)
+      if (board[id] !== playerId) break
+      count += 1
+    }
+    return count >= MAX_ADJACENT
   }
 
   public getStartPosId(posId: number, dirType: GomokuDirectionType): number {

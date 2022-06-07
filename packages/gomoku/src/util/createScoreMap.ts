@@ -1,4 +1,4 @@
-import type { IShapeCountScore, IShapeScoreMap } from '../types'
+import type { IShapeCountScore, IShapeScoreMap } from '../types/misc'
 
 export const createScoreMap = (MAX_ADJACENT: number): IShapeScoreMap => {
   const con: IShapeCountScore = new Array(MAX_ADJACENT + 1).fill([]).map(() => [0, 0, 0])

@@ -1,19 +1,21 @@
-import type { IGomokuCandidateState, IMinimaxSearcher, IMinimaxSearcherContext } from '../types'
+import type { IGomokuCandidateState } from '../types/misc'
+import type { IGomokuSearcher } from '../types/searcher'
+import type { IGomokuSearcherContext } from '../types/searcher-context'
 
 export interface IAlphaBetaSearcherProps {
   MAX_CANDIDATE_COUNT: number
   MIN_PROMOTION_SCORE: number
   MIN_MULTIPLE_OF_TOP_SCORE: number
-  searchContext: IMinimaxSearcherContext
-  deeperSearcher: IMinimaxSearcher
+  searchContext: IGomokuSearcherContext
+  deeperSearcher: IGomokuSearcher
 }
 
-export class AlphaBetaSearcher {
+export class AlphaBetaSearcher implements IGomokuSearcher {
   public readonly MAX_CANDIDATE_COUNT: number
   public readonly MIN_PROMOTION_SCORE: number
   public readonly MIN_MULTIPLE_OF_TOP_SCORE: number
-  public readonly searchContext: Readonly<IMinimaxSearcherContext>
-  public readonly deeperSearcher: IMinimaxSearcher
+  public readonly searchContext: Readonly<IGomokuSearcherContext>
+  public readonly deeperSearcher: IGomokuSearcher
   protected readonly _candidateCache: IGomokuCandidateState[]
 
   constructor(props: IAlphaBetaSearcherProps) {
@@ -25,32 +27,29 @@ export class AlphaBetaSearcher {
     this._candidateCache = []
   }
 
-  public search(ownPlayerId: number, alpha: number, beta: number): { bestMoveId: number | -1 } {
-    const { searchContext } = this
-    searchContext.init(ownPlayerId)
-
-    let bestMoveId = -1
-    const candidates: IGomokuCandidateState[] = this._candidateCache
+  public search(rootPlayerId: number, alpha: number, beta: number, cur: number): number | -1 {
+    const { searchContext, _candidateCache: candidates } = this
     const _size: number = searchContext.expand(
-      ownPlayerId,
+      rootPlayerId,
       candidates,
       this.MIN_MULTIPLE_OF_TOP_SCORE,
       this.MAX_CANDIDATE_COUNT,
     )
 
-    bestMoveId = candidates[0].posId
-    if (_size < 2) return { bestMoveId }
+    let bestMoveId = candidates[0].posId ?? -1
+    if (_size < 2) return bestMoveId
 
+    const nextPlayerId = rootPlayerId ^ 1
     const { MIN_PROMOTION_SCORE, deeperSearcher } = this
     for (let i = 0; i < _size; ++i) {
       const candidate = candidates[i]
       const posId: number = candidate.posId
 
-      searchContext.forward(posId, ownPlayerId)
+      searchContext.forward(posId, rootPlayerId)
       const gamma: number =
         candidate.score < MIN_PROMOTION_SCORE
-          ? searchContext.score(ownPlayerId ^ 1)
-          : deeperSearcher.search(ownPlayerId ^ 1, alpha, beta, 2)
+          ? searchContext.score(nextPlayerId)
+          : deeperSearcher.search(nextPlayerId, alpha, beta, cur + 1)
       searchContext.revert(posId)
 
       if (alpha < gamma) {
@@ -61,6 +60,6 @@ export class AlphaBetaSearcher {
       }
       if (beta <= alpha) break
     }
-    return { bestMoveId }
+    return bestMoveId
   }
 }

@@ -1,5 +1,5 @@
-import type { GomokuDirectionType } from './constant'
-import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './types'
+import type { GomokuDirectionType } from '../constant'
+import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './misc'
 
 export interface IGomokuContext {
   /**
@@ -145,6 +145,15 @@ export interface IGomokuContext {
    * @param posId
    */
   hasPlacedNeighbors(posId: number): boolean
+
+  /**
+   * Checks whether it is reached the final situation in the given direction
+   * or its opposite direction if put the piece (by playerId) on the given position.
+   * @param playerId
+   * @param posId
+   * @param dirType
+   */
+  couldReachFinalInDirection(playerId: number, posId: number, dirType: GomokuDirectionType): boolean
 
   /**
    * Get the id of first position in the given direction.

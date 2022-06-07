@@ -1,19 +1,15 @@
 import { GomokuContext } from './context'
-import type { IGomokuContext } from './context.type'
 import { GomokuCountMap } from './count-map'
-import type { IGomokuCountMap } from './count-map.type'
-import { AlphaBetaSearcher } from './search/alpha-beta'
+import { GomokuSearcherContext } from './searcher-context'
+import { AlphaBetaSearcher } from './searcher/alpha-beta'
 import { GomokuState } from './state'
-import type { IGomokuState } from './state.type'
-import type {
-  IGomokuCandidateState,
-  IGomokuPiece,
-  IMinimaxSearcher,
-  IMinimaxSearcherContext,
-  IShapeScoreMap,
-} from './types'
+import type { IGomokuContext } from './types/context'
+import type { IGomokuCountMap } from './types/count-map'
+import type { IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types/misc'
+import type { IGomokuSearcher } from './types/searcher'
+import type { IGomokuSearcherContext } from './types/searcher-context'
+import type { IGomokuState } from './types/state'
 import { createDefaultMinimaxSearcher } from './util/createMinimaxSearcher'
-import { createSearchContext } from './util/createMinimaxSearcherContext'
 import { createScoreMap } from './util/createScoreMap'
 
 export interface IGomokuSolutionProps {
@@ -23,7 +19,7 @@ export interface IGomokuSolutionProps {
   MAX_DISTANCE_OF_NEIGHBOR?: number
   MIN_MULTIPLE_OF_TOP_SCORE?: number
   scoreMap?: IShapeScoreMap
-  deeperSearcher?(searcherContext: IMinimaxSearcherContext): IMinimaxSearcher
+  deeperSearcher?(searcherContext: IGomokuSearcherContext): IGomokuSearcher
 }
 
 export class GomokuSolution {
@@ -31,7 +27,8 @@ export class GomokuSolution {
   public readonly context: Readonly<IGomokuContext>
   public readonly countMap: Readonly<IGomokuCountMap>
   public readonly state: Readonly<IGomokuState>
-  protected readonly _alphaBeta: AlphaBetaSearcher
+  protected readonly _searcherContext: IGomokuSearcherContext
+  protected readonly _searcher: IGomokuSearcher
 
   constructor(props: IGomokuSolutionProps) {
     const {
@@ -46,15 +43,20 @@ export class GomokuSolution {
     const countMap = new GomokuCountMap(context)
     const scoreMap = props.scoreMap ?? createScoreMap(context.MAX_ADJACENT)
     const state = new GomokuState({ context, countMap, scoreMap })
-    const _searchContext = createSearchContext(context, countMap, state)
-    const _alphaBeta = new AlphaBetaSearcher({
+    const _searcherContext = new GomokuSearcherContext({
+      rootPlayerId: -1,
+      context,
+      countMap,
+      state,
+    })
+    const _searcher = new AlphaBetaSearcher({
       MAX_CANDIDATE_COUNT: 16,
       MIN_PROMOTION_SCORE: scoreMap.con[MAX_ADJACENT - 3][1],
       MIN_MULTIPLE_OF_TOP_SCORE,
-      searchContext: _searchContext,
+      searchContext: _searcherContext,
       deeperSearcher:
-        props.deeperSearcher?.(_searchContext) ??
-        createDefaultMinimaxSearcher(scoreMap, _searchContext, {
+        props.deeperSearcher?.(_searcherContext) ??
+        createDefaultMinimaxSearcher(scoreMap, _searcherContext, {
           MAX_ADJACENT: context.MAX_ADJACENT,
           MIN_MULTIPLE_OF_TOP_SCORE,
         }),
@@ -64,7 +66,8 @@ export class GomokuSolution {
     this.context = context
     this.countMap = countMap
     this.state = state
-    this._alphaBeta = _alphaBeta
+    this._searcherContext = _searcherContext
+    this._searcher = _searcher
   }
 
   public init(pieces: ReadonlyArray<IGomokuPiece>): void {
@@ -96,19 +99,21 @@ export class GomokuSolution {
   public minimaxSearch(nextPlayerId: number): [r: number, c: number] {
     if (this.state.isFinal()) return [-1, -1]
 
-    if (this.context.placedCount < this.context.MAX_ADJACENT) {
+    if (this.context.placedCount * 2 < this.context.MAX_ADJACENT) {
       const _candidates: IGomokuCandidateState[] = []
-      const _size = this.state.expand(nextPlayerId, _candidates, 1.5)
+      const _size = Math.min(8, this.state.expand(nextPlayerId, _candidates, 1.5))
       const index: number = Math.min(_size - 1, Math.round(Math.random() * _size))
       const bestMoveId = _candidates[index].posId
       const [r, c] = this.context.revIdx(bestMoveId)
       return [r, c]
     }
 
-    const { bestMoveId } = this._alphaBeta.search(
+    this._searcherContext.init(nextPlayerId)
+    const bestMoveId = this._searcher.search(
       nextPlayerId,
       Number.NEGATIVE_INFINITY,
       Number.POSITIVE_INFINITY,
+      1,
     )
 
     /* istanbul ignore next */

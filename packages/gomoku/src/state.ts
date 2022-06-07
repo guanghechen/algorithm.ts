@@ -2,10 +2,10 @@ import type { IPriorityQueue } from '@algorithm.ts/priority-queue'
 import { createPriorityQueue } from '@algorithm.ts/priority-queue'
 import type { GomokuDirectionType } from './constant'
 import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
-import type { IGomokuContext } from './context.type'
-import type { IGomokuCountMap } from './count-map.type'
-import type { IGomokuState } from './state.type'
-import type { IDirCounter, IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types'
+import type { IGomokuContext } from './types/context'
+import type { IGomokuCountMap } from './types/count-map'
+import type { IDirCounter, IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types/misc'
+import type { IGomokuState } from './types/state'
 import { createHighDimensionArray } from './util/createHighDimensionArray'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
@@ -226,12 +226,12 @@ export class GomokuState implements IGomokuState {
 
   public topCandidate(nextPlayerId: number): IGomokuCandidateState | undefined {
     const { countMap } = this
-    const mustDropPos0 = countMap.mustDropPos(nextPlayerId)
+    const mustDropPos0 = countMap.mustWinPosSet(nextPlayerId)
     if (mustDropPos0.size > 0) {
       for (const posId of mustDropPos0) return { posId, score: Number.MAX_VALUE }
     }
 
-    const mustDropPos1 = countMap.mustDropPos(nextPlayerId ^ 1)
+    const mustDropPos1 = countMap.mustWinPosSet(nextPlayerId ^ 1)
     if (mustDropPos1.size > 0) {
       for (const posId of mustDropPos1) return { posId, score: Number.MAX_VALUE }
     }

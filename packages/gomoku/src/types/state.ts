@@ -1,4 +1,4 @@
-import type { IGomokuCandidateState, IGomokuPiece } from './types'
+import type { IGomokuCandidateState, IGomokuPiece } from './misc'
 
 export interface IGomokuState {
   /**

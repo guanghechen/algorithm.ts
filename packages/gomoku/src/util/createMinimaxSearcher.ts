@@ -1,27 +1,29 @@
-import type { IDeepSearcherProps } from '../search/deep'
-import { DeepSearcher } from '../search/deep'
-import type { INarrowSearcherProps } from '../search/narrow'
-import { NarrowSearcher } from '../search/narrow'
-import type { IMinimaxSearcher, IMinimaxSearcherContext, IShapeScoreMap } from '../types'
+import type { IDeepSearcherProps } from '../searcher/deep'
+import { DeepSearcher } from '../searcher/deep'
+import type { INarrowSearcherProps } from '../searcher/narrow'
+import { NarrowSearcher } from '../searcher/narrow'
+import type { IShapeScoreMap } from '../types/misc'
+import type { IGomokuSearcher } from '../types/searcher'
+import type { IGomokuSearcherContext } from '../types/searcher-context'
 
-export type INarrowSearchOption = Omit<INarrowSearcherProps, 'searchContext' | 'deeperSearcher'>
-export type IDeepSearcherOption = Omit<IDeepSearcherProps, 'searchContext'>
+export type INarrowSearchOption = Omit<INarrowSearcherProps, 'searcherContext' | 'deeperSearcher'>
+export type IDeepSearcherOption = Omit<IDeepSearcherProps, 'searcherContext'>
 
 interface IProps {
   narrowSearcherOptions: INarrowSearchOption[]
   deepSearcherOption: IDeepSearcherOption
-  searchContext: IMinimaxSearcherContext
+  searchContext: IGomokuSearcherContext
 }
 
-export const createMinimaxSearcher = (props: IProps): IMinimaxSearcher => {
+export const createMinimaxSearcher = (props: IProps): IGomokuSearcher => {
   const { narrowSearcherOptions, deepSearcherOption, searchContext } = props
-  const deepSearcher = new DeepSearcher({ ...deepSearcherOption, searchContext })
+  const deepSearcher = new DeepSearcher({ ...deepSearcherOption, searcherContext: searchContext })
   let searcher = deepSearcher
   for (let i = narrowSearcherOptions.length - 1; i >= 0; --i) {
     const option = narrowSearcherOptions[i]
     const narrowSearcher = new NarrowSearcher({
       ...option,
-      searchContext,
+      searcherContext: searchContext,
       deeperSearcher: searcher,
     })
     searcher = narrowSearcher
@@ -31,12 +33,12 @@ export const createMinimaxSearcher = (props: IProps): IMinimaxSearcher => {
 
 export const createDefaultMinimaxSearcher = (
   scoreMap: Readonly<IShapeScoreMap>,
-  searchContext: IMinimaxSearcherContext,
+  searchContext: IGomokuSearcherContext,
   options: {
     MAX_ADJACENT: number
     MIN_MULTIPLE_OF_TOP_SCORE: number
   },
-): IMinimaxSearcher => {
+): IGomokuSearcher => {
   const { MAX_ADJACENT, MIN_MULTIPLE_OF_TOP_SCORE } = options
   const narrowSearcherOptions: INarrowSearchOption[] = [
     {

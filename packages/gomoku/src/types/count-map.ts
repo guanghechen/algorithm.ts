@@ -17,10 +17,10 @@ export interface IGomokuCountMap {
   revert(posId: number): void
 
   /**
-   *
+   * Win position set.
    * @param playerId
    */
-  mustDropPos(playerId: number): Iterable<number> & { size: number }
+  mustWinPosSet(playerId: number): Iterable<number> & { size: number }
 
   /**
    *

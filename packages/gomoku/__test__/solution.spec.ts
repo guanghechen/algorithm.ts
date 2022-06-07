@@ -29,15 +29,17 @@ describe('15x15', function () {
     const solution = getSolution()
     solution.init([])
     solution.forward(7, 7, 0)
-    const [r, c] = solution.minimaxSearch(1)
+    let [r, c] = solution.minimaxSearch(1)
     expect(Math.abs(r - 7)).toBeLessThanOrEqual(2)
     expect(Math.abs(c - 7)).toBeLessThanOrEqual(2)
 
     solution.forward(6, 6, 1)
+    ;[r, c] = solution.minimaxSearch(0)
     expect(Math.abs(r - 7)).toBeLessThanOrEqual(3)
     expect(Math.abs(c - 7)).toBeLessThanOrEqual(3)
 
     solution.forward(6, 7, 0)
+    ;[r, c] = solution.minimaxSearch(1)
     expect(Math.abs(r - 7)).toBeLessThanOrEqual(3)
     expect(Math.abs(c - 7)).toBeLessThanOrEqual(3)
   })
