@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="2.0.12"></a>
+## 2.0.12 (2022-06-07)
+
+### Added
+
+- ✅ test: update tests [[98bbf19](https://github.com/guanghechen/algorithm.ts/commit/98bbf192e599760bb7e4018a7a4c07832eefe7c4)]
+
+### Changed
+
+- 🔧 chore: tweak coverageThreshold [[1caa894](https://github.com/guanghechen/algorithm.ts/commit/1caa89490c360e8f7b4c028609a8094d4220286b)]
+- ⬆️ chore: upgrade devDependencies [[63be840](https://github.com/guanghechen/algorithm.ts/commit/63be840480d09f0aa3cfe1fc8be52cf2aa475e0b)]
+- ⚡ improve: optimize gomoku [[2c839a4](https://github.com/guanghechen/algorithm.ts/commit/2c839a484f5be43bcf2c7b3ebcc1c29191ad0905)]
+- 🎨 improve(dijkstra): refactor codes [[9f2f4e3](https://github.com/guanghechen/algorithm.ts/commit/9f2f4e315d2c2a8939c251f0d63eae4da0a4c4a1)]
+- 🚚 move: migrate getShortestPath from @algorithm.ts/bellman-ford to @algorithm.ts/graph [[682672a](https://github.com/guanghechen/algorithm.ts/commit/682672a1017cf5775051943544b1af394e4509af)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[c79f084](https://github.com/guanghechen/algorithm.ts/commit/c79f0841b8301720c0c51bb719f97188557e80cd)]
+
+
 <a name="2.0.11"></a>
 ## 2.0.11 (2022-04-19)
 
