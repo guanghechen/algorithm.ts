@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/bellman-ford",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "Bellman-ford algorithm.",
   "author": {
     "name": "guanghechen",
@@ -42,7 +42,7 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/circular-queue": "^2.0.11",
-    "@algorithm.ts/graph": "^2.0.11"
+    "@algorithm.ts/circular-queue": "^2.0.12",
+    "@algorithm.ts/graph": "^2.0.12"
   }
 }
