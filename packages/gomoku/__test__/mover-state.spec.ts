@@ -1,10 +1,10 @@
 import fs from 'fs-extra'
 import type { GomokuDirectionType, IGomokuCandidateState, IGomokuPiece } from '../src'
 import {
-  GomokuContext,
-  GomokuCountMap,
   GomokuDirectionTypes,
-  GomokuState,
+  GomokuMoverContext,
+  GomokuMoverCounter,
+  GomokuMoverState,
   createScoreMap,
 } from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths } from './util'
@@ -13,9 +13,9 @@ const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirect
 
 type IGomokuCandidate = IGomokuCandidateState
 const compareCandidate = (x: IGomokuCandidate, y: IGomokuCandidate): number => x.posId - y.posId
-class TestHelper extends GomokuState {
+class TestHelper extends GomokuMoverState {
   constructor(MAX_ROW: number, MAX_COL: number) {
-    const context = new GomokuContext({
+    const context = new GomokuMoverContext({
       MAX_ROW,
       MAX_COL,
       MAX_ADJACENT: 5,
@@ -23,36 +23,40 @@ class TestHelper extends GomokuState {
     })
     super({
       context,
-      countMap: new GomokuCountMap(context),
+      counter: new GomokuMoverCounter(context),
       scoreMap: createScoreMap(context.MAX_ADJACENT),
     })
   }
 
   public override init(pieces: ReadonlyArray<IGomokuPiece>): void {
     this.context.init(pieces)
-    this.countMap.init()
+    this.counter.init(pieces)
     super.init(pieces)
   }
 
   // @ts-ignore
   public override forward(posId: number, playerId: number): void {
-    if (this.context.forward(posId, playerId)) {
-      this.countMap.forward(posId)
+    const { context } = this
+    if (context.isValidIdx(posId) && context.board[posId] < 0) {
+      this.context.forward(posId, playerId)
+      this.counter.forward(posId, playerId)
       super.forward(posId)
     }
   }
 
   public override revert(posId: number): void {
-    if (this.context.revert(posId)) {
-      this.countMap.revert(posId)
+    const { context } = this
+    if (context.isValidIdx(posId) && context.board[posId] >= 0) {
+      this.context.revert(posId)
+      this.counter.revert(posId)
       super.revert(posId)
     }
   }
 
   // @ts-ignore
-  public override expand(nextPlayer: number, minMultipleOfTopScore: number): IGomokuCandidate[] {
+  public override expand(nextPlayer: number, candidateGrowthFactor: number): IGomokuCandidate[] {
     const candidates: IGomokuCandidateState[] = []
-    const _size: number = super.expand(nextPlayer, candidates, minMultipleOfTopScore)
+    const _size: number = super.expand(nextPlayer, candidates, candidateGrowthFactor)
     candidates.length = _size
     return candidates.map(({ posId, score }) => ({ posId, score }))
   }
@@ -86,25 +90,25 @@ class TestHelper extends GomokuState {
     return false
   }
 
-  public $getCandidateIds(nextPlayerId: number, minMultipleOfTopScore: number): number[] {
-    const { context, countMap, _candidateSet } = this
+  public $getCandidateIds(nextPlayerId: number, candidateGrowthFactor: number): number[] {
+    const { context, counter, _candidateSet } = this
     const candidateSet: Set<number> = new Set()
     for (let id = 0; id < context.TOTAL_POS; ++id) {
       if (context.board[id] < 0) {
         if (context.hasPlacedNeighbors(id)) candidateSet.add(id)
       }
     }
-    if (countMap.mustWinPosSet(nextPlayerId).size > 0) {
+    if (counter.mustWinPosSet(nextPlayerId).size > 0) {
       for (const posId of _candidateSet) {
-        if (countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
+        if (counter.candidateCouldReachFinal(nextPlayerId, posId)) {
           return [posId]
         }
       }
     }
-    if (countMap.mustWinPosSet(nextPlayerId ^ 1).size > 0) {
+    if (counter.mustWinPosSet(nextPlayerId ^ 1).size > 0) {
       const playerId: number = nextPlayerId ^ 1
       for (const posId of _candidateSet) {
-        if (countMap.candidateCouldReachFinal(playerId, posId)) {
+        if (counter.candidateCouldReachFinal(playerId, posId)) {
           return [posId]
         }
       }
@@ -121,31 +125,31 @@ class TestHelper extends GomokuState {
 
     const topCandidate = candidates[0]
     return candidates
-      .filter(candidate => candidate.score * minMultipleOfTopScore >= topCandidate.score)
+      .filter(candidate => candidate.score * candidateGrowthFactor >= topCandidate.score)
       .map(candidate => candidate.posId)
   }
 
-  public $getCandidates(nextPlayerId: number, minMultipleOfTopScore: number): IGomokuCandidate[] {
-    const { countMap, _candidateSet } = this
+  public $getCandidates(nextPlayerId: number, candidateGrowthFactor: number): IGomokuCandidate[] {
+    const { counter, _candidateSet } = this
 
-    if (countMap.mustWinPosSet(nextPlayerId).size > 0) {
+    if (counter.mustWinPosSet(nextPlayerId).size > 0) {
       for (const posId of _candidateSet) {
-        if (countMap.candidateCouldReachFinal(nextPlayerId, posId)) {
+        if (counter.candidateCouldReachFinal(nextPlayerId, posId)) {
           return [{ posId, score: Number.MAX_VALUE }]
         }
       }
     }
-    if (countMap.mustWinPosSet(nextPlayerId ^ 1).size > 0) {
+    if (counter.mustWinPosSet(nextPlayerId ^ 1).size > 0) {
       const playerId: number = nextPlayerId ^ 1
       for (const posId of _candidateSet) {
-        if (countMap.candidateCouldReachFinal(playerId, posId)) {
+        if (counter.candidateCouldReachFinal(playerId, posId)) {
           return [{ posId, score: Number.MAX_VALUE }]
         }
       }
     }
 
     const candidates: IGomokuCandidate[] = []
-    const candidateIds: number[] = this.$getCandidateIds(nextPlayerId, minMultipleOfTopScore)
+    const candidateIds: number[] = this.$getCandidateIds(nextPlayerId, candidateGrowthFactor)
     for (const posId of candidateIds) {
       const score = this.$evaluateCandidate(nextPlayerId, posId)
       candidates.push({ posId, score })

@@ -1,13 +1,13 @@
 import type { IGomokuCandidateState } from '../types/misc'
+import type { IGomokuMover } from '../types/mover'
 import type { IGomokuSearcher } from '../types/searcher'
-import type { IGomokuSearcherContext } from '../types/searcher-context'
 
 export interface INarrowSearcherProps {
   MAX_SEARCH_DEPTH: number
   MAX_CANDIDATE_COUNT: number
   MIN_PROMOTION_SCORE: number
-  MIN_MULTIPLE_OF_TOP_SCORE: number
-  searcherContext: IGomokuSearcherContext
+  CANDIDATE_GROWTH_FACTOR: number
+  mover: IGomokuMover
   deeperSearcher: IGomokuSearcher
 }
 
@@ -15,8 +15,8 @@ export class NarrowSearcher implements IGomokuSearcher {
   public readonly MAX_SEARCH_DEPTH: number
   public readonly MAX_CANDIDATE_COUNT: number
   public readonly MIN_PROMOTION_SCORE: number
-  public readonly MIN_MULTIPLE_OF_TOP_SCORE: number
-  public readonly searcherContext: Readonly<IGomokuSearcherContext>
+  public readonly CANDIDATE_GROWTH_FACTOR: number
+  public readonly mover: Readonly<IGomokuMover>
   public readonly deeperSearcher: IGomokuSearcher
   protected readonly _candidatesListCache: Record<number, IGomokuCandidateState[]>
 
@@ -24,29 +24,29 @@ export class NarrowSearcher implements IGomokuSearcher {
     this.MAX_SEARCH_DEPTH = props.MAX_SEARCH_DEPTH
     this.MAX_CANDIDATE_COUNT = props.MAX_CANDIDATE_COUNT
     this.MIN_PROMOTION_SCORE = props.MIN_PROMOTION_SCORE
-    this.MIN_MULTIPLE_OF_TOP_SCORE = props.MIN_MULTIPLE_OF_TOP_SCORE
-    this.searcherContext = props.searcherContext
+    this.CANDIDATE_GROWTH_FACTOR = props.CANDIDATE_GROWTH_FACTOR
+    this.mover = props.mover
     this.deeperSearcher = props.deeperSearcher
     this._candidatesListCache = {}
   }
 
   public search(curPlayerId: number, alpha: number, beta: number, cur: number): number {
-    const { searcherContext, MAX_SEARCH_DEPTH } = this
-    const { rootPlayerId } = searcherContext
-    if (searcherContext.couldReachFinal(curPlayerId)) {
+    const { mover, MAX_SEARCH_DEPTH } = this
+    const { rootPlayerId } = mover
+    if (mover.couldReachFinal(curPlayerId)) {
       return curPlayerId === rootPlayerId ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY
     }
-    if (searcherContext.couldReachFinal(curPlayerId ^ 1)) {
+    if (mover.couldReachFinal(curPlayerId ^ 1)) {
       return curPlayerId === rootPlayerId ? Number.NEGATIVE_INFINITY : Number.POSITIVE_INFINITY
     }
 
-    if (cur > MAX_SEARCH_DEPTH) return searcherContext.score(curPlayerId)
+    if (cur > MAX_SEARCH_DEPTH) return mover.score(curPlayerId)
 
     const candidates: IGomokuCandidateState[] = this._getCandidates(cur)
-    const _size: number = searcherContext.expand(
+    const _size: number = mover.expand(
       curPlayerId,
       candidates,
-      this.MIN_MULTIPLE_OF_TOP_SCORE,
+      this.CANDIDATE_GROWTH_FACTOR,
       this.MAX_CANDIDATE_COUNT,
     )
     if (_size <= 0) return Number.MAX_VALUE // No candidate
@@ -56,12 +56,12 @@ export class NarrowSearcher implements IGomokuSearcher {
       const candidate = candidates[i]
       const posId = candidate.posId
 
-      searcherContext.forward(posId, curPlayerId)
+      mover.forward(posId, curPlayerId)
       const gamma: number =
-        cur === MAX_SEARCH_DEPTH && candidate.score >= MIN_PROMOTION_SCORE
-          ? deeperSearcher.search(curPlayerId ^ 1, alpha, beta, cur + 1)
+        cur >= MAX_SEARCH_DEPTH && candidate.score >= MIN_PROMOTION_SCORE
+          ? deeperSearcher.search(curPlayerId ^ 1, alpha, beta, 1)
           : this.search(curPlayerId ^ 1, alpha, beta, cur + 1)
-      searcherContext.revert(posId)
+      mover.revert(posId)
 
       if (curPlayerId === rootPlayerId) {
         // eslint-disable-next-line no-param-reassign

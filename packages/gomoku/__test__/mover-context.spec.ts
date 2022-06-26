@@ -1,17 +1,25 @@
 import fs from 'fs-extra'
 import type { GomokuDirectionType, IDirCounter } from '../src'
-import { GomokuContext, GomokuDirectionTypes, GomokuDirections } from '../src'
+import { GomokuDirectionTypes, GomokuDirections, GomokuMoverContext } from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths, stringify } from './util'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
-class TesterHelper extends GomokuContext {
+class TesterHelper extends GomokuMoverContext {
   public idxIfValid(r: number, c: number): number {
-    return this.isValidPos(r, c) ? r * this.MAX_ROW + c : -1
+    return super.isValidPos(r, c) ? r * this.MAX_ROW + c : -1
   }
 
-  public isInvalidPos(r: number, c: number): boolean {
-    return r < 0 || r >= this.MAX_ROW || c < 0 || c >= this.MAX_COL
+  public override forward(posId: number, playerId: number): void {
+    if (super.isValidIdx(posId) && this.board[posId] < 0) {
+      super.forward(posId, playerId)
+    }
+  }
+
+  public override revert(posId: number): void {
+    if (super.isValidIdx(posId) && this.board[posId] >= 0) {
+      super.revert(posId)
+    }
   }
 
   public $getDirCounters(
@@ -145,6 +153,15 @@ describe('15x15', () => {
     expect(tester.isValidPos(15, 3)).toEqual(false)
   })
 
+  test('isValidIdx', () => {
+    for (let id = 0; id < tester.TOTAL_POS; ++id) {
+      expect(tester.isValidIdx(id)).toEqual(true)
+    }
+
+    expect(tester.isValidIdx(-1)).toEqual(false)
+    expect(tester.isValidIdx(tester.TOTAL_POS)).toEqual(false)
+  })
+
   test('safeMove', () => {
     const MAX_STEPS: number = Math.max(tester.MAX_ROW, tester.MAX_COL)
     for (const dirType of fullDirectionTypes) {
@@ -223,7 +240,7 @@ describe('15x15', () => {
         let step = 0
 
         for (let r2 = r, c2 = c; ; ++step, r2 += dr, c2 += dc) {
-          if (tester.isInvalidPos(r2 + dr, c2 + dc)) break
+          if (!tester.isValidPos(r2 + dr, c2 + dc)) break
         }
 
         const message = `[r, c, dirType, step]: ${[r, c, dirType, step].join(', ')}`
@@ -234,7 +251,7 @@ describe('15x15', () => {
 
           r2 += dr
           c2 += dc
-          expect([message, tester.isInvalidPos(r2, c2)]).toEqual([message, true])
+          expect([message, !tester.isValidPos(r2, c2)]).toEqual([message, true])
         }
 
         expect([message, tester.maxMovableSteps(id, dirType)]).toEqual([message, step])

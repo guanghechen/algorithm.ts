@@ -1,13 +1,13 @@
 import fs from 'fs-extra'
 import { locateFixtures } from 'jest.setup'
-import type { GomokuDirectionType, IGomokuContextProps, IGomokuPiece } from '../src'
-import { GomokuContext, GomokuCountMap, GomokuDirectionTypes } from '../src'
+import type { GomokuDirectionType, IGomokuMoverContextProps, IGomokuPiece } from '../src'
+import { GomokuDirectionTypes, GomokuMoverContext, GomokuMoverCounter } from '../src'
 
 const { rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
-class TesterHelper extends GomokuCountMap {
-  constructor(props: IGomokuContextProps) {
-    const context = new GomokuContext(props)
+class TesterHelper extends GomokuMoverCounter {
+  constructor(props: IGomokuMoverContextProps) {
+    const context = new GomokuMoverContext(props)
     super(context)
   }
 
@@ -19,12 +19,18 @@ class TesterHelper extends GomokuCountMap {
 
   // @ts-ignore
   public override forward(posId: number, playerId: number): void {
-    if (this.context.forward(posId, playerId)) super.forward(posId)
+    if (this.context.isValidIdx(posId) && this.context.board[posId] < 0) {
+      this.context.forward(posId, playerId)
+      super.forward(posId)
+    }
   }
 
   // @ts-ignore
   public override revert(posId: number): void {
-    if (this.context.revert(posId)) super.revert(posId)
+    if (this.context.isValidIdx(posId) && this.context.board[posId] >= 0) {
+      this.context.revert(posId)
+      super.revert(posId)
+    }
   }
 
   public $stateCouldReachFinal(playerId: number): number {

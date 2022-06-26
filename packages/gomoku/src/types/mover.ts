@@ -1,16 +1,11 @@
-import type { IGomokuCandidateState } from './misc'
+import type { IGomokuCandidateState, IGomokuPiece } from './misc'
 
-export interface IGomokuSearcherContext {
+export interface IGomokuMoverStep {
   /**
-   * The own player.
+   * Initialize context with given pieces.
+   * @param pieces
    */
-  readonly rootPlayerId: number
-
-  /**
-   * Initialize context.
-   * @param rootPlayerId
-   */
-  init(rootPlayerId: number): void
+  init(pieces: ReadonlyArray<IGomokuPiece>): void
 
   /**
    * Place a piece on the given position.
@@ -24,18 +19,31 @@ export interface IGomokuSearcherContext {
    * @param posId
    */
   revert(posId: number): void
+}
+
+export interface IGomokuMover extends IGomokuMoverStep {
+  /**
+   * The own player.
+   */
+  readonly rootPlayerId: number
+
+  /**
+   * Update rootPlayerId
+   * @param rootPlayerId
+   */
+  resetRootPlayerId(rootPlayerId: number): void
 
   /**
    * Get candidates.
    * @param nextPlayerId
    * @param candidates
-   * @param minMultipleOfTopScore
+   * @param candidateGrowthFactor
    * @param MAX_SIZE
    */
   expand(
     nextPlayerId: number,
     candidates: IGomokuCandidateState[],
-    minMultipleOfTopScore: number,
+    candidateGrowthFactor: number,
     MAX_SIZE?: number,
   ): number
 
@@ -50,6 +58,11 @@ export interface IGomokuSearcherContext {
    * @param nextPlayerId
    */
   score(nextPlayerId: number): number
+
+  /**
+   * Check if the game is already end.
+   */
+  isFinal(): boolean
 
   /**
    * Check if next move could reach the final state.

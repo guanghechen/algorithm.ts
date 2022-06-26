@@ -1,22 +1,22 @@
-import { GomokuDirectionTypes, GomokuDirections } from './constant'
-import type { GomokuDirectionType } from './constant'
-import type { IGomokuContext } from './types/context'
-import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './types/misc'
-import { createHighDimensionArray } from './util/createHighDimensionArray'
+import { GomokuDirectionTypes, GomokuDirections } from '../constant'
+import type { GomokuDirectionType } from '../constant'
+import type { IDirCounter, IGomokuBoard, IGomokuPiece } from '../types/misc'
+import type { IGomokuMoverContext } from '../types/mover-context'
+import { createHighDimensionArray } from '../util/createHighDimensionArray'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
 type IGomokuDirections = number[]
 type IIdxMap = Array<Readonly<[r: number, c: number]>>
 
-export interface IGomokuContextProps {
+export interface IGomokuMoverContextProps {
   MAX_ROW: number
   MAX_COL: number
   MAX_ADJACENT: number
   MAX_DISTANCE_OF_NEIGHBOR: number
 }
 
-export class GomokuContext implements IGomokuContext {
+export class GomokuMoverContext implements IGomokuMoverContext {
   public readonly MAX_ROW: number
   public readonly MAX_COL: number
   public readonly MAX_ADJACENT: number
@@ -35,7 +35,7 @@ export class GomokuContext implements IGomokuContext {
   protected readonly _rightHalfDirCountMap: IDirCounter[][][] // [dirType][startPosId] => <Counters>
   protected _placedCount: number
 
-  constructor(props: IGomokuContextProps) {
+  constructor(props: IGomokuMoverContextProps) {
     const { MAX_ROW, MAX_COL, MAX_ADJACENT, MAX_DISTANCE_OF_NEIGHBOR } = props
     const _MAX_ROW: number = Math.max(1, MAX_ROW)
     const _MAX_COL: number = Math.max(1, MAX_COL)
@@ -177,11 +177,8 @@ export class GomokuContext implements IGomokuContext {
     }
   }
 
-  public forward(posId: number, playerId: number): boolean {
-    const board = this.board as IGomokuBoard
-    if (posId < 0 || posId >= this.TOTAL_POS || board[posId] >= 0) return false
-
-    board[posId] = playerId
+  public forward(posId: number, playerId: number): void {
+    ;(this.board as IGomokuBoard)[posId] = playerId
     this._placedCount += 1
 
     // Update _neighborPlacedCount
@@ -193,14 +190,10 @@ export class GomokuContext implements IGomokuContext {
     for (const dirType of halfDirectionTypes) {
       this._updateHalfDirCounter(playerId, posId, dirType)
     }
-    return true
   }
 
-  public revert(posId: number): boolean {
-    const board = this.board as IGomokuBoard
-    if (posId < 0 || posId >= this.TOTAL_POS || board[posId] < 0) return false
-
-    board[posId] = -1
+  public revert(posId: number): void {
+    ;(this.board as IGomokuBoard)[posId] = -1
     this._placedCount -= 1
 
     // Update _neighborPlacedCount
@@ -212,7 +205,6 @@ export class GomokuContext implements IGomokuContext {
     for (const dirType of halfDirectionTypes) {
       this._updateHalfDirCounter(-1, posId, dirType)
     }
-    return true
   }
 
   public idx(r: number, c: number): number {
@@ -225,6 +217,10 @@ export class GomokuContext implements IGomokuContext {
 
   public isValidPos(r: number, c: number): boolean {
     return r >= 0 && r < this.MAX_ROW && c >= 0 && c < this.MAX_COL
+  }
+
+  public isValidIdx(posId: number): boolean {
+    return posId >= 0 && posId < this.TOTAL_POS
   }
 
   public safeMove(posId: number, dirType: GomokuDirectionType, step: number): number {

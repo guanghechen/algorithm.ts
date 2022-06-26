@@ -1,13 +1,13 @@
-import { GomokuContext, GomokuStateCompressor } from '../src'
+import { GomokuMoverContext, GomokuStateCompressor } from '../src'
 
 type IStep = [r: number, c: number]
 
 class TesterHelper {
-  public readonly context: GomokuContext
+  public readonly context: GomokuMoverContext
   public readonly compressor: GomokuStateCompressor
 
   constructor(MAX_ROW: number, MAX_COL: number, MAX_ADJACENT: number) {
-    const context = new GomokuContext({
+    const context = new GomokuMoverContext({
       MAX_ROW,
       MAX_COL,
       MAX_ADJACENT,

@@ -1,18 +1,18 @@
-import type { GomokuDirectionType } from './constant'
-import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
-import type { IGomokuContext } from './types/context'
-import type { IGomokuCountMap } from './types/count-map'
-import { createHighDimensionArray } from './util/createHighDimensionArray'
+import type { GomokuDirectionType } from '../constant'
+import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from '../constant'
+import type { IGomokuMoverContext } from '../types/mover-context'
+import type { IGomokuMoverCounter } from '../types/mover-counter'
+import { createHighDimensionArray } from '../util/createHighDimensionArray'
 
 const { rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
 
-export class GomokuCountMap implements IGomokuCountMap {
-  public readonly context: Readonly<IGomokuContext>
+export class GomokuMoverCounter implements IGomokuMoverCounter {
+  public readonly context: Readonly<IGomokuMoverContext>
   protected readonly _mustWinPosSet: Array<Set<number>> // [playerId] => <must-drop position set>
   protected readonly _candidateCouldReachFinal: number[][] // [playerId][posId]
 
-  constructor(context: Readonly<IGomokuContext>) {
+  constructor(context: Readonly<IGomokuMoverContext>) {
     this.context = context
     this._mustWinPosSet = createHighDimensionArray(() => new Set<number>(), context.TOTAL_PLAYER)
     this._candidateCouldReachFinal = createHighDimensionArray(

@@ -1,7 +1,8 @@
 import type { GomokuDirectionType } from '../constant'
-import type { IDirCounter, IGomokuBoard, IGomokuPiece } from './misc'
+import type { IDirCounter, IGomokuBoard } from './misc'
+import type { IGomokuMoverStep } from './mover'
 
-export interface IGomokuContext {
+export interface IGomokuMoverContext extends IGomokuMoverStep {
   /**
    * Number of rows.
    */
@@ -48,25 +49,6 @@ export interface IGomokuContext {
   readonly MIDDLE_POS: number
 
   /**
-   * Initialize context with given pieces.
-   * @param pieces
-   */
-  init(pieces: ReadonlyArray<IGomokuPiece>): void
-
-  /**
-   * Place a piece on the given position.
-   * @param posId
-   * @param playerId
-   */
-  forward(posId: number, playerId: number): boolean
-
-  /**
-   * Remove the piece from the given position.
-   * @param posId
-   */
-  revert(posId: number): boolean
-
-  /**
    * Get position id.
    * @param r Row number of the target position.
    * @param c Column number of the target position.
@@ -85,6 +67,12 @@ export interface IGomokuContext {
    * @param c
    */
   isValidPos(r: number, c: number): boolean
+
+  /**
+   * Check if a given position id is represent a legal position.
+   * @param posId
+   */
+  isValidIdx(posId: number): boolean
 
   /**
    * Move the specified number of steps in the given direction.

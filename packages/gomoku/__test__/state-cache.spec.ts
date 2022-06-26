@@ -1,4 +1,4 @@
-import { GomokuStateCache } from '@algorithm.ts/gomoku'
+import { GomokuStateCache } from '../src'
 
 describe('state-cache', function () {
   test('default', function () {

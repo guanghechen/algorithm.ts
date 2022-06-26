@@ -1,33 +1,17 @@
-import type { IGomokuCandidateState, IGomokuPiece } from './misc'
+import type { IGomokuCandidateState } from './misc'
+import type { IGomokuMoverStep } from './mover'
 
-export interface IGomokuState {
-  /**
-   * Initialize state with given pieces.
-   */
-  init(pieces: ReadonlyArray<IGomokuPiece>): void
-
-  /**
-   * Place a piece on the given position.
-   * @param posId
-   */
-  forward(posId: number): void
-
-  /**
-   * Remove the piece from the given position.
-   * @param posId
-   */
-  revert(posId: number): void
-
+export interface IGomokuMoverState extends IGomokuMoverStep {
   /**
    * @param nextPlayerId
    * @param candidates
-   * @param minMultipleOfTopScore
+   * @param candidateGrowthFactor
    * @param MAX_SIZE
    */
   expand(
     nextPlayerId: number,
     candidates: IGomokuCandidateState[],
-    minMultipleOfTopScore: number,
+    candidateGrowthFactor: number,
     MAX_SIZE?: number,
   ): number
 

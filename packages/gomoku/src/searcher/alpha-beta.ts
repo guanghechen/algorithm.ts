@@ -1,38 +1,38 @@
 import type { IGomokuCandidateState } from '../types/misc'
+import type { IGomokuMover } from '../types/mover'
 import type { IGomokuSearcher } from '../types/searcher'
-import type { IGomokuSearcherContext } from '../types/searcher-context'
 
 export interface IAlphaBetaSearcherProps {
   MAX_CANDIDATE_COUNT: number
   MIN_PROMOTION_SCORE: number
-  MIN_MULTIPLE_OF_TOP_SCORE: number
-  searchContext: IGomokuSearcherContext
+  CANDIDATE_GROWTH_FACTOR: number
+  mover: IGomokuMover
   deeperSearcher: IGomokuSearcher
 }
 
 export class AlphaBetaSearcher implements IGomokuSearcher {
   public readonly MAX_CANDIDATE_COUNT: number
   public readonly MIN_PROMOTION_SCORE: number
-  public readonly MIN_MULTIPLE_OF_TOP_SCORE: number
-  public readonly searchContext: Readonly<IGomokuSearcherContext>
+  public readonly CANDIDATE_GROWTH_FACTOR: number
+  public readonly searchContext: Readonly<IGomokuMover>
   public readonly deeperSearcher: IGomokuSearcher
   protected readonly _candidateCache: IGomokuCandidateState[]
 
   constructor(props: IAlphaBetaSearcherProps) {
     this.MAX_CANDIDATE_COUNT = props.MAX_CANDIDATE_COUNT
     this.MIN_PROMOTION_SCORE = props.MIN_PROMOTION_SCORE
-    this.MIN_MULTIPLE_OF_TOP_SCORE = props.MIN_MULTIPLE_OF_TOP_SCORE
-    this.searchContext = props.searchContext
+    this.CANDIDATE_GROWTH_FACTOR = props.CANDIDATE_GROWTH_FACTOR
+    this.searchContext = props.mover
     this.deeperSearcher = props.deeperSearcher
     this._candidateCache = []
   }
 
-  public search(rootPlayerId: number, alpha: number, beta: number, cur: number): number | -1 {
+  public search(rootPlayerId: number, alpha: number, beta: number): number | -1 {
     const { searchContext, _candidateCache: candidates } = this
     const _size: number = searchContext.expand(
       rootPlayerId,
       candidates,
-      this.MIN_MULTIPLE_OF_TOP_SCORE,
+      this.CANDIDATE_GROWTH_FACTOR,
       this.MAX_CANDIDATE_COUNT,
     )
 
@@ -49,7 +49,7 @@ export class AlphaBetaSearcher implements IGomokuSearcher {
       const gamma: number =
         candidate.score < MIN_PROMOTION_SCORE
           ? searchContext.score(nextPlayerId)
-          : deeperSearcher.search(nextPlayerId, alpha, beta, cur + 1)
+          : deeperSearcher.search(nextPlayerId, alpha, beta, 1)
       searchContext.revert(posId)
 
       if (alpha < gamma) {

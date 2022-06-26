@@ -1,26 +1,31 @@
 import type { IPriorityQueue } from '@algorithm.ts/priority-queue'
 import { createPriorityQueue } from '@algorithm.ts/priority-queue'
-import type { GomokuDirectionType } from './constant'
-import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from './constant'
-import type { IGomokuContext } from './types/context'
-import type { IGomokuCountMap } from './types/count-map'
-import type { IDirCounter, IGomokuCandidateState, IGomokuPiece, IShapeScoreMap } from './types/misc'
-import type { IGomokuState } from './types/state'
-import { createHighDimensionArray } from './util/createHighDimensionArray'
+import type { GomokuDirectionType } from '../constant'
+import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from '../constant'
+import type {
+  IDirCounter,
+  IGomokuCandidateState,
+  IGomokuPiece,
+  IShapeScoreMap,
+} from '../types/misc'
+import type { IGomokuMoverContext } from '../types/mover-context'
+import type { IGomokuMoverCounter } from '../types/mover-counter'
+import type { IGomokuMoverState } from '../types/mover-state'
+import { createHighDimensionArray } from '../util/createHighDimensionArray'
 
 const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 const { rightHalf: allDirectionTypeBitset } = GomokuDirectionTypeBitset
 
 export interface IGomokuStateProps {
-  context: IGomokuContext
-  scoreMap: IShapeScoreMap
-  countMap: IGomokuCountMap
+  context: Readonly<IGomokuMoverContext>
+  counter: Readonly<IGomokuMoverCounter>
+  scoreMap: Readonly<IShapeScoreMap>
 }
 
-export class GomokuState implements IGomokuState {
+export class GomokuMoverState implements IGomokuMoverState {
   public readonly NEXT_MOVER_BUFFER = 4
-  public readonly context: Readonly<IGomokuContext>
-  public readonly countMap: Readonly<IGomokuCountMap>
+  public readonly context: Readonly<IGomokuMoverContext>
+  public readonly counter: Readonly<IGomokuMoverCounter>
   public readonly scoreMap: Readonly<IShapeScoreMap>
   protected readonly _candidateQueues: Array<IPriorityQueue<IGomokuCandidateState>>
   protected readonly _candidateInqSets: Array<Array<Set<number>>>
@@ -34,7 +39,7 @@ export class GomokuState implements IGomokuState {
   protected readonly _countOfReachFinalDirMap: number[][][] // [playerId][startPosId][dirType]
 
   constructor(props: IGomokuStateProps) {
-    const { context, countMap, scoreMap } = props
+    const { context, counter, scoreMap } = props
 
     const _candidateQueues: Array<IPriorityQueue<IGomokuCandidateState>> = createHighDimensionArray(
       () => createPriorityQueue<IGomokuCandidateState>((x, y) => x.score - y.score),
@@ -77,7 +82,7 @@ export class GomokuState implements IGomokuState {
     )
 
     this.context = context
-    this.countMap = countMap
+    this.counter = counter
     this.scoreMap = scoreMap
     this._candidateQueues = _candidateQueues
     this._candidateInqSets = _candidateInqSets
@@ -166,7 +171,7 @@ export class GomokuState implements IGomokuState {
   public expand(
     nextPlayerId: number,
     candidates: IGomokuCandidateState[],
-    minMultipleOfTopScore: number,
+    candidateGrowthFactor: number,
     MAX_SIZE: number = this.context.TOTAL_POS,
   ): number {
     const topCandidate = this.topCandidate(nextPlayerId)
@@ -190,7 +195,7 @@ export class GomokuState implements IGomokuState {
       if (item === undefined) break
 
       if (_candidateScoreExpired[item.posId] === 0 && item.score === candidateScores[item.posId]) {
-        if (item.score * minMultipleOfTopScore < topScore) {
+        if (item.score * candidateGrowthFactor < topScore) {
           Q.enqueue(item)
           break
         }
@@ -225,13 +230,12 @@ export class GomokuState implements IGomokuState {
   }
 
   public topCandidate(nextPlayerId: number): IGomokuCandidateState | undefined {
-    const { countMap } = this
-    const mustDropPos0 = countMap.mustWinPosSet(nextPlayerId)
+    const mustDropPos0 = this.counter.mustWinPosSet(nextPlayerId)
     if (mustDropPos0.size > 0) {
       for (const posId of mustDropPos0) return { posId, score: Number.MAX_VALUE }
     }
 
-    const mustDropPos1 = countMap.mustWinPosSet(nextPlayerId ^ 1)
+    const mustDropPos1 = this.counter.mustWinPosSet(nextPlayerId ^ 1)
     if (mustDropPos1.size > 0) {
       for (const posId of mustDropPos1) return { posId, score: Number.MAX_VALUE }
     }
@@ -349,6 +353,8 @@ export class GomokuState implements IGomokuState {
   }
 
   protected _reEvaluateCandidate(posId: number): void {
+    // invariant(this.context.board[postId] < 0, `[_reEvaluateCandidate] Bad posId(${posId})`)
+
     const expiredBitset = this._candidateScoreExpired[posId]
     if (expiredBitset > 0) {
       const { NEXT_MOVER_BUFFER, context, _candidateScoreDirMap, _stateScoreDirMap } = this

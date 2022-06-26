@@ -1,18 +1,28 @@
+import type { IGomokuMoverContext, IGomokuSolutionProps } from '../src'
 import { GomokuSolution } from '../src'
+
+class Solution extends GomokuSolution {
+  public readonly moverContext: Readonly<IGomokuMoverContext>
+
+  constructor(props: IGomokuSolutionProps) {
+    super(props)
+    this.moverContext = this._moverContext
+  }
+}
 
 describe('construction', () => {
   test('default', () => {
-    const solution = new GomokuSolution({ MAX_ROW: 15, MAX_COL: 15 })
-    expect(solution.context.MAX_ROW).toEqual(15)
-    expect(solution.context.MAX_COL).toEqual(15)
-    expect(solution.context.MAX_ADJACENT).toEqual(5)
-    expect(solution.context.TOTAL_POS).toEqual(15 * 15)
-    expect(solution.context.MAX_DISTANCE_OF_NEIGHBOR).toEqual(2)
+    const solution = new Solution({ MAX_ROW: 15, MAX_COL: 15 })
+    expect(solution.moverContext.MAX_ROW).toEqual(15)
+    expect(solution.moverContext.MAX_COL).toEqual(15)
+    expect(solution.moverContext.MAX_ADJACENT).toEqual(5)
+    expect(solution.moverContext.TOTAL_POS).toEqual(15 * 15)
+    expect(solution.moverContext.MAX_DISTANCE_OF_NEIGHBOR).toEqual(2)
   })
 })
 
 describe('15x15', function () {
-  class Solution extends GomokuSolution {
+  class Solution15x15 extends Solution {
     constructor() {
       super({
         MAX_ROW: 15,
@@ -23,7 +33,7 @@ describe('15x15', function () {
     }
   }
 
-  const getSolution = (): Solution => new Solution()
+  const getSolution = (): Solution15x15 => new Solution15x15()
 
   test('basic', async function () {
     const solution = getSolution()
@@ -84,7 +94,7 @@ describe('15x15', function () {
     const pieces = await import('./fixtures/15x15/pieces.4.json')
     solution.init([])
     for (const { r, c, p } of pieces.default) solution.forward(r, c, p)
-    expect(solution.state.isFinal()).toEqual(true)
+    expect(solution.mover.isFinal()).toEqual(true)
     const [r, c] = solution.minimaxSearch(1)
     expect([[-1, -1]]).toContainEqual([r, c])
   })
@@ -224,7 +234,7 @@ describe('15x15', function () {
 })
 
 describe('5x5', function () {
-  class Solution extends GomokuSolution {
+  class Solution5x5 extends Solution {
     constructor(MAX_ADJACENT?: number) {
       super({
         MAX_ROW: 5,
@@ -236,12 +246,12 @@ describe('5x5', function () {
   }
 
   test('edge case', function () {
-    const solution = new Solution(100)
+    const solution = new Solution5x5(100)
     solution.init([])
 
     let player = 0
-    for (let r = 0; r < solution.context.MAX_ROW; ++r) {
-      for (let c = 0; c < solution.context.MAX_COL; ++c) {
+    for (let r = 0; r < solution.moverContext.MAX_ROW; ++r) {
+      for (let c = 0; c < solution.moverContext.MAX_COL; ++c) {
         solution.forward(r, c, player)
         player ^= 1
       }
