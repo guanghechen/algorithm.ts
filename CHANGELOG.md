@@ -1,5 +1,19 @@
 # Changelog
 
+<a name="2.0.13"></a>
+## 2.0.13 (2022-06-26)
+
+### Changed
+
+- 🔧 chore: fix test coverage fails [[cb09bca](https://github.com/guanghechen/algorithm.ts/commit/cb09bca1fb2701208fc38ab23695ac77933cbd03)]
+- ⬆️ chore: ugprade devDependencies [[b86a374](https://github.com/guanghechen/algorithm.ts/commit/b86a3740dc1d3960a13e05783462e7df001ebd41)]
+- 🎨 refactor(gomoku): refactor algorithm [[339864e](https://github.com/guanghechen/algorithm.ts/commit/339864ed68b97d5cb3aa954dc1c4644812ac0891)]
+
+### Miscellaneous
+
+- 📝 docs: update CHANGELOG [[f5618c6](https://github.com/guanghechen/algorithm.ts/commit/f5618c67541f1c7bb46f73d6fc3e912941eff220)]
+
+
 <a name="2.0.12"></a>
 ## 2.0.12 (2022-06-07)
 
