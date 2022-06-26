@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/mcmf",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "description": "The MCMF algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",
@@ -43,6 +43,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/circular-queue": "^2.0.12"
+    "@algorithm.ts/circular-queue": "^2.0.13"
   }
 }
