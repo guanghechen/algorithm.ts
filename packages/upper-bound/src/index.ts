@@ -1,42 +1,46 @@
+export interface IBinarySearchCheck {
+  (mid: number): -1 | 0 | 1 | number
+}
+
+export interface IBinarySearchCheckBigint {
+  (mid: bigint): -1 | 0 | 1 | number
+}
+
 /**
- * Return the index of first elements which greater than the target element.
+ * Find the index of first element which greater than the target element.
  *
- * @param left    non-negative integer in the range of [0, 2^31]
- * @param right   non-negative integer in the range of [1, 2^31]
- * @param cmp
+ * @param lft   (close) non-negative integer in the range of [-2^31, 2^31)
+ * @param rht   (open) non-negative integer in the range of [-2^31, 2^31)
+ * @param check
  * @returns
  */
-export function upperBound(
-  left: number,
-  right: number,
-  cmp: (mid: number) => -1 | 0 | 1 | number | bigint,
-): number {
-  let i = left
-  for (let j = right; i < j; ) {
-    const k = (i + j) >>> 1
-    if (cmp(k) <= 0) i = k + 1
-    else j = k
+export function upperBound(lft: number, rht: number, check: IBinarySearchCheck): number {
+  let i = lft
+  for (let j = rht; i < j; ) {
+    const mid = (i + j) >> 1
+    if (check(mid) <= 0) i = mid + 1
+    else j = mid
   }
   return i
 }
 
 /**
- * Return the index of first elements which greater than the target element.
+ * Find the index of first element which greater than the target element. (bigint version)
  *
- * @param left    bigint
- * @param right   bigint
- * @param cmp
+ * @param lft   (close) bigint
+ * @param rht   (open) bigint
+ * @param check
  * @returns
  */
-export function upperBoundBigInt(
-  left: bigint,
-  right: bigint,
-  cmp: (mid: bigint) => -1 | 0 | 1 | number | bigint,
+export function upperBoundBigint(
+  lft: bigint,
+  rht: bigint,
+  check: IBinarySearchCheckBigint,
 ): bigint {
-  let i = left
-  for (let j = right; i < j; ) {
+  let i = lft
+  for (let j = rht; i < j; ) {
     const k = (i + j) >> 1n
-    if (cmp(k) <= 0) i = k + 1n
+    if (check(k) <= 0) i = k + 1n
     else j = k
   }
   return i
