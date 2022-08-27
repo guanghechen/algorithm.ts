@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/gomoku",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "description": "A algorithm based on minimax search and alpha-beta prune to solve gomoku game.",
   "author": {
     "name": "guanghechen",
@@ -42,6 +42,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/priority-queue": "^2.0.13"
+    "@algorithm.ts/priority-queue": "^2.0.14"
   }
 }
