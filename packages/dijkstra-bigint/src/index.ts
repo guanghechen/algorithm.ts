@@ -54,7 +54,7 @@ const Q = createPriorityQueue<{ pos: number; cost: bigint }>((x, y) => {
  * @param graph
  * @param options
  * @see https://me.guanghechen.com/post/algorithm/graph/shortest-path/dijkstra
- * @see https://github.com/guanghechen/algorithm.ts/blob/main/packages/dijkstra
+ * @see https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dijkstra
  */
 export function dijkstra(graph: IGraph, options: IOptions = {}): bigint[] {
   const { N, source, edges, G, dist = [] } = graph

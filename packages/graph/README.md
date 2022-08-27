@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/graph#readme">@algorithm.ts/graph</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/graph#readme">@algorithm.ts/graph</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/graph">
@@ -122,7 +122,7 @@ Types and utils from solving graph problems.
 * [@algorithm.ts/dijkstra-bigint][]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/graph#readme
-[@algorithm.ts/bellman-ford]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/bellman-ford
-[@algorithm.ts/dijkstra]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra
-[@algorithm.ts/dijkstra-bigint]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/dijkstra-bigint
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/graph#readme
+[@algorithm.ts/bellman-ford]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bellman-ford
+[@algorithm.ts/dijkstra]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dijkstra
+[@algorithm.ts/dijkstra-bigint]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dijkstra-bigint

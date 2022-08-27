@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/sieve-prime#readme">@algorithm.ts/sieve-prime</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/sieve-prime#readme">@algorithm.ts/sieve-prime</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/sieve-prime">
@@ -93,5 +93,5 @@ If you are curious about this algorithm, you can visit [here][sieve-prime] for m
 * [数论基础之筛法][sieve-prime]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/sieve-prime#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/sieve-prime#readme
 [sieve-prime]: https://me.guanghechen.com/post/math/number-theory/sieve/#heading-%E7%BA%BF%E6%80%A7%E7%AD%9B

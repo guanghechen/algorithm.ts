@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/knuth-shuffle#readme">@algorithm.ts/knuth-shuffle</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/knuth-shuffle#readme">@algorithm.ts/knuth-shuffle</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/knuth-shuffle">
@@ -121,5 +121,5 @@ If you are curious about this algorithm, you can visit [here][knuth-shuffle] for
 * [洗牌问题和 knuth-shuffle 算法][knuth-shuffle]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/knuth-shuffle#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/knuth-shuffle#readme
 [knuth-shuffle]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-knuth-shuffle

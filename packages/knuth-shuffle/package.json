@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts.git",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x",
     "directory": "packages/knuth-shuffle"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/main/packages/knuth-shuffle#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/knuth-shuffle#readme",
   "keywords": [
     "algorithm",
     "shuffle",

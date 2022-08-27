@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/circular-queue#readme">@algorithm.ts/circular-queue</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/circular-queue#readme">@algorithm.ts/circular-queue</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/circular-queue">
@@ -124,4 +124,4 @@ are kept in the queue. Other operations are the same as ordinary queues.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/circular-queue#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/circular-queue#readme

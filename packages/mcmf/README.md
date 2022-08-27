@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/mcmf#readme">@algorithm.ts/mcmf</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/mcmf#readme">@algorithm.ts/mcmf</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/mcmf">
@@ -228,10 +228,10 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
 ## Related
 
 
-* [@algorithm.ts/dinic](https://github.com/guanghechen/algorithm.ts/tree/main/packages/dinic)
-* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/main/packages/mcmf)
+* [@algorithm.ts/dinic](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dinic)
+* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/mcmf)
 * [网络流 24 题](https://me.guanghechen.com/post/algorithm/graph/network-flow/24-problems/)
 * [网络流基础之最大权闭合图](https://me.guanghechen.com/post/algorithm/graph/network-flow/%E6%9C%80%E5%A4%A7%E6%9D%83%E9%97%AD%E5%90%88%E5%9B%BE/)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/mcmf#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/mcmf#readme

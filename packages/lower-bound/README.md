@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/lower-bound#readme">@algorithm.ts/lower-bound</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/lower-bound#readme">@algorithm.ts/lower-bound</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/lower-bound">
@@ -127,4 +127,4 @@ greater or equals than the target element.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/lower-bound#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/lower-bound#readme

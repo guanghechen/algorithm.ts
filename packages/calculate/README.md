@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/calculate#readme">@algorithm.ts/calculate</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/calculate#readme">@algorithm.ts/calculate</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/calculate">
@@ -152,5 +152,5 @@ import { bigintCalculate } from 'algorithm.ts/calculate'
 * [编译原理-语法制导翻译实现计算器][calculate]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/calculate#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/calculate#readme
 [calculate]: https://me.guanghechen.com/post/fundamentals-of-compiling/exercise/

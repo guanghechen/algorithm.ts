@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/sieve-totient#readme">@algorithm.ts/sieve-totient</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/sieve-totient#readme">@algorithm.ts/sieve-totient</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/sieve-totient">
@@ -97,5 +97,5 @@ for more details.
 * [数论基础之筛法 | 光和尘][sieve-totient]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/sieve-totient#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/sieve-totient#readme
 [sieve-totient]: https://me.guanghechen.com/post/math/number-theory/sieve/#heading-%E7%BA%BF%E6%80%A7%E7%AD%9B-2

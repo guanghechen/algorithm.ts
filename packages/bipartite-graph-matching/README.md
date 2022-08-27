@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/bipartite-graph-matching#readme">@algorithm.ts/bipartite-graph-matching</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bipartite-graph-matching#readme">@algorithm.ts/bipartite-graph-matching</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/bipartite-graph-matching">
@@ -178,7 +178,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * [Matching (graph theory) | Wikipedia][wikipedia-matching]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/bipartite-graph-matching#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bipartite-graph-matching#readme
 [wikipedia-bipartite-graph]: https://en.wikipedia.org/wiki/Bipartite_graph
 [wikipedia-matching]: https://en.wikipedia.org/wiki/Matching_(graph_theory)
 [bipartite-graph]: https://me.guanghechen.com/post/algorithm/graph/bipartite-graph/

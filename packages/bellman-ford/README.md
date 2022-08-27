@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/bellman-ford#readme">@algorithm.ts/bellman-ford</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bellman-ford#readme">@algorithm.ts/bellman-ford</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/bellman-ford">
@@ -221,6 +221,6 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * [@algorithm.ts/circular-queue][]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/bellman-ford#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bellman-ford#readme
 [wikipedia-bellman-ford]: https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
-[@algorithm.ts/circular-queue]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/circular-queue
+[@algorithm.ts/circular-queue]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/circular-queue

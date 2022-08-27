@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/upper-bound#readme">@algorithm.ts/upper-bound</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/upper-bound#readme">@algorithm.ts/upper-bound</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/upper-bound">
@@ -129,4 +129,4 @@ greater than the target element.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/upper-bound#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/upper-bound#readme

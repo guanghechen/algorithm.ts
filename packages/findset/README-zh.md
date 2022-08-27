@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/findset#readme">@algorithm.ts/findset</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/findset#readme">@algorithm.ts/findset</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/findset">
@@ -149,5 +149,5 @@
 * [Disjoint-set data structure | Wikipedia][wiki-find-set]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/findset#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/findset#readme
 [wiki-find-set]: https://en.wikipedia.org/wiki/Disjoint-set_data_structure

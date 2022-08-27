@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/priority-queue#readme">@algorithm.ts/priority-queue</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/priority-queue#readme">@algorithm.ts/priority-queue</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/priority-queue">
@@ -164,4 +164,4 @@ complexity of the enqueue and dequeue operations are both $O(\log N)$.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/priority-queue#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/priority-queue#readme

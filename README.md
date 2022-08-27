@@ -86,14 +86,14 @@ Package                                     | Description
 
 ## License
 
-algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/blob/main/LICENSE).
+algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/LICENSE).
 
 [wiki-base64]: https://en.wikipedia.org/wiki/Base64
 [wiki-huffman]: https://en.wikipedia.org/wiki/Huffman_coding
 [wiki-bipartite-graph]: https://en.wikipedia.org/wiki/Bipartite_graph
 [wiki-matching]: https://en.wikipedia.org/wiki/Matching_(graph_theory)
 
-[homepage]: https://github.com/guanghechen/algorithm.ts
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x
 [@algorithm.ts/base64]: ./packages/base64
 [@algorithm.ts/bellman-ford]: ./packages/bellman-ford
 [@algorithm.ts/binary-index-tree]: ./packages/binary-index-tree

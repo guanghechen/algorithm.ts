@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts.git",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x",
     "directory": "packages/upper-bound"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/main/packages/upper-bound#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/upper-bound#readme",
   "keywords": [
     "algorithm",
     "upper bound"

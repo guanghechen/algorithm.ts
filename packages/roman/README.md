@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/roman#readme">@algorithm.ts/roman</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/roman#readme">@algorithm.ts/roman</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/roman">
@@ -109,4 +109,4 @@ and Arabic numerals.
 * [Roman numerals | Wikipedia](https://en.wikipedia.org/wiki/Roman_numerals)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/roman#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/roman#readme

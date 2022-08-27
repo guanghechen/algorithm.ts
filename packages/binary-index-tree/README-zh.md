@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/binary-index-tree#readme">@algorithm.ts/binary-index-tree</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/binary-index-tree#readme">@algorithm.ts/binary-index-tree</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/binary-index-tree">
@@ -230,5 +230,5 @@
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/binary-index-tree#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/binary-index-tree#readme
 [binary-index-tree]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-binary-index-tree

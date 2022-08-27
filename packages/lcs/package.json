@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts.git",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x",
     "directory": "packages/lcs"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/main/packages/lcs#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/lcs#readme",
   "keywords": [
     "algorithm",
     "lcs",

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/main/packages/trie#readme">@algorithm.ts/trie</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/trie#readme">@algorithm.ts/trie</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/trie">
@@ -229,4 +229,4 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * https://en.wikipedia.org/wiki/Trie
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/main/packages/trie#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/trie#readme

@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts.git"
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x#readme",
   "engines": {
     "node": ">= 14.15.0"
   },
