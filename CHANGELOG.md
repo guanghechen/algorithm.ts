@@ -1,5 +1,25 @@
 # Changelog
 
+<a name="2.0.14"></a>
+## 2.0.14 (2022-08-27)
+
+### Changed
+
+- 🔧 chore: update prettier configs [[6e87b42](https://github.com/guanghechen/algorithm.ts/commit/6e87b4217c4757af178be6ca32592b4ee96d7b6c)]
+- 🔧 chore: update lerna config [[e024085](https://github.com/guanghechen/algorithm.ts/commit/e024085cffff02da63d59013a00f29e1cfe85187)]
+- 🔧 chore: update build configs [[266538b](https://github.com/guanghechen/algorithm.ts/commit/266538bb6736e85c2439b706f11865425b570563)]
+- ⬆️ chore: upgrade devDependencies [[930e2fc](https://github.com/guanghechen/algorithm.ts/commit/930e2fc75cc37fb2f4f18fb5be3563aa05b9ba79)]
+- ⬆️ chore: upgrade devDependencies [[78ed321](https://github.com/guanghechen/algorithm.ts/commit/78ed321ecb6e545049a6193b1d3bdaa3fcbb6a37)]
+
+### Fixed
+
+- 🐛 fix(binary-search): fix bugs in lowerBound and upperBound [[b2fd1c1](https://github.com/guanghechen/algorithm.ts/commit/b2fd1c1ad87c216df2af65dcd6a487ab565de76e)]
+
+### Miscellaneous
+
+- 📝 docs: update repo link [[f0210ca](https://github.com/guanghechen/algorithm.ts/commit/f0210ca93780ed4109c90d4d337604a6b998b01b)]
+
+
 <a name="2.0.13"></a>
 ## 2.0.13 (2022-06-26)
 
@@ -8,10 +28,6 @@
 - 🔧 chore: fix test coverage fails [[cb09bca](https://github.com/guanghechen/algorithm.ts/commit/cb09bca1fb2701208fc38ab23695ac77933cbd03)]
 - ⬆️ chore: ugprade devDependencies [[b86a374](https://github.com/guanghechen/algorithm.ts/commit/b86a3740dc1d3960a13e05783462e7df001ebd41)]
 - 🎨 refactor(gomoku): refactor algorithm [[339864e](https://github.com/guanghechen/algorithm.ts/commit/339864ed68b97d5cb3aa954dc1c4644812ac0891)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[f5618c6](https://github.com/guanghechen/algorithm.ts/commit/f5618c67541f1c7bb46f73d6fc3e912941eff220)]
 
 
 <a name="2.0.12"></a>
@@ -28,10 +44,6 @@
 - ⚡ improve: optimize gomoku [[2c839a4](https://github.com/guanghechen/algorithm.ts/commit/2c839a484f5be43bcf2c7b3ebcc1c29191ad0905)]
 - 🎨 improve(dijkstra): refactor codes [[9f2f4e3](https://github.com/guanghechen/algorithm.ts/commit/9f2f4e315d2c2a8939c251f0d63eae4da0a4c4a1)]
 - 🚚 move: migrate getShortestPath from @algorithm.ts/bellman-ford to @algorithm.ts/graph [[682672a](https://github.com/guanghechen/algorithm.ts/commit/682672a1017cf5775051943544b1af394e4509af)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[c79f084](https://github.com/guanghechen/algorithm.ts/commit/c79f0841b8301720c0c51bb719f97188557e80cd)]
 
 
 <a name="2.0.11"></a>
@@ -52,7 +64,6 @@
 
 -  Merge pull request [#2](https://github.com/guanghechen/algorithm.ts/issues/2) from guanghechen/develop [[aeb83d1](https://github.com/guanghechen/algorithm.ts/commit/aeb83d1fd878b2f9dd7cc4f5316436f318f94548)]
 - 📝 docs([#1](https://github.com/guanghechen/algorithm.ts/issues/1)): update README and tests [[eee875c](https://github.com/guanghechen/algorithm.ts/commit/eee875cd9be2e12f5e4023244cfd9fb4b8ed2a65)]
-- 📝 docs: update CHANGELOG [[24da53e](https://github.com/guanghechen/algorithm.ts/commit/24da53e057391276f188225e5dafff491efc9d4e)]
 
 
 <a name="2.0.10"></a>
@@ -62,10 +73,6 @@
 
 - ⚡ improve(gomoku): optimize unnecessary operations on maintaining candidates [[db9374f](https://github.com/guanghechen/algorithm.ts/commit/db9374f52e3cd6d95a81e29e10733d600773b6fe)]
 - ⚡ improve(gomoku): maintain candidates in priority-queue cross state changes [[595490b](https://github.com/guanghechen/algorithm.ts/commit/595490b16d5df845f5d2e4afa7614d3db4871992)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[8d3876a](https://github.com/guanghechen/algorithm.ts/commit/8d3876a9b0bc0178875bedeeb6af070686eb4e20)]
 
 
 <a name="2.0.9"></a>
@@ -84,10 +91,6 @@
 ### Fixed
 
 - 🐛 fix(gomoku): fix unreasonable scoreMap [[475cc20](https://github.com/guanghechen/algorithm.ts/commit/475cc208ee144d90cc1acaa6901c7d2d4ed78ffe)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[8fbba14](https://github.com/guanghechen/algorithm.ts/commit/8fbba14d131725aeeb6f2819fe30dc74f746730a)]
 
 
 <a name="2.0.8"></a>
@@ -114,7 +117,6 @@
 ### Miscellaneous
 
 - 📝 docs(priority-queue): update README [[67a0eeb](https://github.com/guanghechen/algorithm.ts/commit/67a0eebc992c0d75b33980d2db63abed31ce0288)]
-- 📝 docs: update CHANGELOG [[0c575e5](https://github.com/guanghechen/algorithm.ts/commit/0c575e5f8c339c050905e02f64c13db571efaac8)]
 
 
 <a name="2.0.8-alpha.0"></a>
@@ -152,7 +154,6 @@
 
 -  improve: add POSSIBILITY_SEARCH_EQUIV_CANDIDATE [[88ea7ec](https://github.com/guanghechen/algorithm.ts/commit/88ea7ecd4c2e6fd3ae5eb52df78a6de6b9dd711a)]
 -  improve: tweak algorithm [[fd90575](https://github.com/guanghechen/algorithm.ts/commit/fd9057574c51ab2c9aa82274c032d749753e7ddf)]
-- 📝 docs: update CHANGELOG [[f4b1e6d](https://github.com/guanghechen/algorithm.ts/commit/f4b1e6db157d0d119082d906feef3e3019c2f288)]
 
 
 <a name="2.0.7-alpha.1"></a>
@@ -174,7 +175,6 @@
 ### Miscellaneous
 
 -  Merge branch &#x27;develop-gomoku&#x27; [[4105827](https://github.com/guanghechen/algorithm.ts/commit/41058273e74ced3d15cdc4892d1299c064da93fb)]
-- 📝 docs: update CHANGELOG [[634026a](https://github.com/guanghechen/algorithm.ts/commit/634026a03a6f997c2a4a8a1f73f99e7ab2edc3f2)]
 
 
 <a name="2.0.7-alpha.0"></a>
@@ -207,10 +207,6 @@
 - 🐛 fix: add the center pos as initial candidate [[496ceb5](https://github.com/guanghechen/algorithm.ts/commit/496ceb52518896c2b3ea686fb95715b0cdcc140a)]
 - 🐛 fix(gomoku): avoid to parse a invalid pos id [[c19a328](https://github.com/guanghechen/algorithm.ts/commit/c19a32884c884de5eec2b953caa754f9a145f9f6)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[ad52739](https://github.com/guanghechen/algorithm.ts/commit/ad52739bd9b68679170edfe107e4853c72dbaa38)]
-
 
 <a name="2.0.6"></a>
 ## 2.0.6 (2022-03-26)
@@ -224,10 +220,6 @@
 - ⚡ improve(gomoku): use &#x27;context.safeMove()&#x27; and &#x27;context.fastMove()&#x27; instead of &#x27;context.move()&#x27; [[616f8a6](https://github.com/guanghechen/algorithm.ts/commit/616f8a6f4b4df356e988e1d78ef1a32d9902e648)]
 - 🎨 refactor: rename NEXT_MOVER_BUFFER_FAC to NEXT_MOVER_MAX_BUFFER [[ed0de20](https://github.com/guanghechen/algorithm.ts/commit/ed0de206d7641050f9da06c6a62c06c5f1974555)]
 - ⚡ improve(gomoku): avoid division and modulo operations [[754b580](https://github.com/guanghechen/algorithm.ts/commit/754b5806b877355c4366641eae44e9affd02288a)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[c68789c](https://github.com/guanghechen/algorithm.ts/commit/c68789cb9aa1c92b6113f53940bb33d1750740e6)]
 
 
 <a name="2.0.5"></a>
@@ -246,10 +238,6 @@
 - 🎨 improve(gomoku): refactor updateRelatedConShapeCountMap to make it more readable [[45c6128](https://github.com/guanghechen/algorithm.ts/commit/45c612850c374b41ade745608be2c5b9b7318400)]
 - 🎨 improve(gomoku): detected max-possible size for gap shapes [[697b131](https://github.com/guanghechen/algorithm.ts/commit/697b1317a6d17f898a0a71169e711fbecc183365)]
 - 🎨 improve: prefer iterator instead of high-level func [[8270395](https://github.com/guanghechen/algorithm.ts/commit/8270395f67d222df5e498093c933629aaf33cc04)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[fe32d92](https://github.com/guanghechen/algorithm.ts/commit/fe32d92f6ca23900bf5c231cfcb29d62e6c574b5)]
 
 
 <a name="2.0.4"></a>
@@ -292,7 +280,6 @@
 -  Merge branch &#x27;develop-gomoku&#x27; [[43896da](https://github.com/guanghechen/algorithm.ts/commit/43896da66ddbfd4352bf955e449a2b6f43c89ed6)]
 -  feat(gomoku): maintain gapShapeCountMap [[6b60cde](https://github.com/guanghechen/algorithm.ts/commit/6b60cde9de7069101b453b07367d8e4e0bf45901)]
 -  fix(gomoku): fix logic error [[e1aa811](https://github.com/guanghechen/algorithm.ts/commit/e1aa811c21e7de53cc0549a4a35f3bc0f395a210)]
-- 📝 docs: update CHANGELOG [[7d49547](https://github.com/guanghechen/algorithm.ts/commit/7d49547bec845f4e5202704d6821dd0d2c667c00)]
 
 
 <a name="2.0.3"></a>
@@ -301,10 +288,6 @@
 ### Fixed
 
 - 🐛 fix: revert findMinLexicographicalLCS as the previous change is incorrectly [[57485d6](https://github.com/guanghechen/algorithm.ts/commit/57485d6e1164c1af5b38bec2f19c86b5fdc543a7)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[afd8033](https://github.com/guanghechen/algorithm.ts/commit/afd8033fd8519b9fc8d06603f4fe928306db7a72)]
 
 
 <a name="2.0.2"></a>
@@ -318,7 +301,6 @@
 ### Miscellaneous
 
 - 📝 docs: update README [[79e9ac6](https://github.com/guanghechen/algorithm.ts/commit/79e9ac649170251ddb348fb40f5160fb23366631)]
-- 📝 docs: update CHANGELOG [[58e20ce](https://github.com/guanghechen/algorithm.ts/commit/58e20ceab94e287097e217c66dbac21a9fb4054b)]
 
 
 <a name="2.0.1"></a>
@@ -332,7 +314,6 @@
 
 - 📝 docs: update package descriptions [[a2455ed](https://github.com/guanghechen/algorithm.ts/commit/a2455edb5dbf5e7662e85e04733b86b8d5e30a5b)]
 - 📝 docs: update README [[de7b296](https://github.com/guanghechen/algorithm.ts/commit/de7b2965d6d29e780efed5e0ce3a4dba97093c6b)]
-- 📝 docs: update CHANGELOG [[d3d48ab](https://github.com/guanghechen/algorithm.ts/commit/d3d48ab53932c2e6669c9c055a9c2b7e610dd947)]
 
 
 <a name="2.0.0"></a>
@@ -353,10 +334,6 @@
 
 - 🔧 chore: update coverage threshold (make strictly) [[ac18ca0](https://github.com/guanghechen/algorithm.ts/commit/ac18ca005a19da91864255c38981cdb9082bdac5)]
 - 🎨 [BREAKING] feat: rewrite &#x27;@algorithm.ts/sliding-window&#x27; [[5521403](https://github.com/guanghechen/algorithm.ts/commit/5521403ee10b7ddb41c468ebb3c77ce31cf3c1ac)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[5ffc752](https://github.com/guanghechen/algorithm.ts/commit/5ffc75251be9056a00d045626dca20cd4a65c887)]
 
 
 <a name="2.0.0-alpha.0"></a>
@@ -403,9 +380,7 @@
 
 ### Miscellaneous
 
-- 📝 docs: update CHANGELOG [[c29da8f](https://github.com/guanghechen/algorithm.ts/commit/c29da8f0a5559190e83f8670d383d8b771fda062)]
 - 📝 docs: update READMEs [[89d28d1](https://github.com/guanghechen/algorithm.ts/commit/89d28d1bbf2b7db1f87dbfde8d079a82925a5847)]
-- 📝 docs: update CHANGELOG [[fecbf5a](https://github.com/guanghechen/algorithm.ts/commit/fecbf5abb777efd078e56fb2b9ef9f8f7d5bf552)]
 
 
 <a name="1.0.23"></a>
@@ -427,7 +402,6 @@
 -  [BREAKING] refactor: rename &#x27;FindSet&#x27; to &#x27;Findset&#x27; [[5b8c25f](https://github.com/guanghechen/algorithm.ts/commit/5b8c25ff01963252a3c65ead0d0031a26428b5fc)]
 - 📝 docs(@algorithm.ts/roman): update README [[d334490](https://github.com/guanghechen/algorithm.ts/commit/d33449052d318db10a4e12dc51498852cf6f173b)]
 - 📝 docs(@algorithm.ts/roman): update README [[ba78363](https://github.com/guanghechen/algorithm.ts/commit/ba78363aad832703b28ea091e17a92ae2bcdd4ab)]
-- 📝 docs: update CHANGELOG [[02213d0](https://github.com/guanghechen/algorithm.ts/commit/02213d09a727dcac60ce3435c1e6199a5b4ee10d)]
 
 
 <a name="1.0.22"></a>
@@ -444,7 +418,6 @@
 ### Miscellaneous
 
 - 📝 docs: fix invalid link references [[ab06d7b](https://github.com/guanghechen/algorithm.ts/commit/ab06d7b59aa215d0f326420e71e021fc7510a696)]
-- 📝 docs: update CHANGELOG [[fdc755b](https://github.com/guanghechen/algorithm.ts/commit/fdc755b174201f98a994b19eb026ee52296469c2)]
 
 
 <a name="1.0.21"></a>
@@ -457,7 +430,6 @@
 ### Miscellaneous
 
 - 📝 docs: update READMEs [[2e17b5b](https://github.com/guanghechen/algorithm.ts/commit/2e17b5b58cbc7c6119264ff851fa24f0942c11ac)]
-- 📝 docs: update CHANGELOG [[a33554d](https://github.com/guanghechen/algorithm.ts/commit/a33554d7612d593f8c7407555dfa9cbe8eeb233a)]
 
 
 <a name="1.0.20"></a>
@@ -471,10 +443,6 @@
 
 - ⚡ improve: prefer Unit32Array instead of number[] [[eb890fe](https://github.com/guanghechen/algorithm.ts/commit/eb890fe2ab0fca8ecb09b34e77f42424dbae5970)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[0c3ab92](https://github.com/guanghechen/algorithm.ts/commit/0c3ab92515f976376ba4284d837d6bc814208791)]
-
 
 <a name="1.0.19"></a>
 ## 1.0.19 (2021-10-07)
@@ -486,10 +454,6 @@
 ### Changed
 
 - ⬆️ chore: upgrade devDependencies [[68cf3e1](https://github.com/guanghechen/algorithm.ts/commit/68cf3e1388baa9734e588016651318aee0389058)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[b617ec5](https://github.com/guanghechen/algorithm.ts/commit/b617ec569e8461f915a758dcfeeeac25a79284ab)]
 
 
 <a name="1.0.18"></a>
@@ -507,7 +471,6 @@
 
 - 📝 docs: update READMEs [[2168e61](https://github.com/guanghechen/algorithm.ts/commit/2168e615921a1411b449ba7bee3548e3306427a7)]
 - 📝 docs: update README [[b13c7b2](https://github.com/guanghechen/algorithm.ts/commit/b13c7b29462a670df4abb945778e26067ebafdf5)]
-- 📝 docs: update CHANGELOG [[3f010b8](https://github.com/guanghechen/algorithm.ts/commit/3f010b8607fe37fbe5cfa6f58f992083ade71813)]
 
 
 <a name="1.0.17"></a>
@@ -520,7 +483,6 @@
 ### Miscellaneous
 
 - 📝 docs: update READMEs [[b30be1f](https://github.com/guanghechen/algorithm.ts/commit/b30be1f29a545f2525a4b4422795387f8fa70333)]
-- 📝 docs: update CHANGELOG [[9cd3f2d](https://github.com/guanghechen/algorithm.ts/commit/9cd3f2de73ac0b2c8f25a232f0830012ef7931a4)]
 
 
 <a name="1.0.16"></a>
@@ -529,10 +491,6 @@
 ### Added
 
 - ✨ feat: implemented bigint versions of lower-bound and upper-bound [[97846b1](https://github.com/guanghechen/algorithm.ts/commit/97846b1f06f19bf57c666de1422a3833dd5259d5)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[e27d876](https://github.com/guanghechen/algorithm.ts/commit/e27d8766120d28c4bee975844bccf871e6e99c19)]
 
 
 <a name="1.0.15"></a>
@@ -547,7 +505,6 @@
 
 - 📝 docs: update README [[ba86828](https://github.com/guanghechen/algorithm.ts/commit/ba8682840bc759f44055641d93501e92e89c93ae)]
 - 📝 docs: update README [[aa74fd2](https://github.com/guanghechen/algorithm.ts/commit/aa74fd2cc32c479476f6ffc808982deb73226841)]
-- 📝 docs: update CHANGELOG [[f8e28f7](https://github.com/guanghechen/algorithm.ts/commit/f8e28f778bd5d3b52950bc7a5cafd9fa9c2e5d98)]
 
 
 <a name="1.0.14"></a>
@@ -561,7 +518,6 @@
 ### Miscellaneous
 
 - 📝 docs(priority-queue): update README [[1746090](https://github.com/guanghechen/algorithm.ts/commit/17460905bc7228cc6a49fabbad7e0457c5cc28ee)]
-- 📝 docs: update CHANGELOG [[5dc4fd9](https://github.com/guanghechen/algorithm.ts/commit/5dc4fd975c0cbf3601b5b90e9ac425a64a1e6b4f)]
 
 
 <a name="1.0.13"></a>
@@ -574,7 +530,6 @@
 ### Miscellaneous
 
 - 📝 docs: update README [[3c5be84](https://github.com/guanghechen/algorithm.ts/commit/3c5be84d74979ffff4eba3772216e8cd4a48ab9d)]
-- 📝 docs: update CHANGELOG [[ba0a822](https://github.com/guanghechen/algorithm.ts/commit/ba0a8229605256a419c5f08e95528f6d25250a20)]
 
 
 <a name="1.0.12"></a>
@@ -584,10 +539,6 @@
 
 - ✨ feat: implement &#x27;@algorithm.ts/dijkstra&#x27; [[9d61f0f](https://github.com/guanghechen/algorithm.ts/commit/9d61f0f3e44793403ecbb925ca4b148659caaef1)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[188e1bc](https://github.com/guanghechen/algorithm.ts/commit/188e1bc45cde62a60fe4d62eed9ca2bdf72b5ff3)]
-
 
 <a name="1.0.11"></a>
 ## 1.0.11 (2021-08-28)
@@ -595,10 +546,6 @@
 ### Added
 
 - ✨ feat: implement &#x27;@algorithm.ts/trie&#x27; [[39a26a1](https://github.com/guanghechen/algorithm.ts/commit/39a26a179e4b67a809b51782d6c271cd921b0a27)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[1acaaa3](https://github.com/guanghechen/algorithm.ts/commit/1acaaa3d9fb9d57f725e8b8a17fd1018b523957a)]
 
 
 <a name="1.0.10"></a>
@@ -608,10 +555,6 @@
 
 - ✨ feat(binary-search-tree): export createBinaryIndexTree1Mod and createBinaryIndexTree2Mod [[602aaaf](https://github.com/guanghechen/algorithm.ts/commit/602aaafa73623d309f2da3bc4f263581d7f1ba1b)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[dea9c50](https://github.com/guanghechen/algorithm.ts/commit/dea9c503a5f84e18fd8060a0e429da5814674b0b)]
-
 
 <a name="1.0.9"></a>
 ## 1.0.9 (2021-08-24)
@@ -619,10 +562,6 @@
 ### Changed
 
 - 🎨 improve(dinic,isap,mcmf): totalEdges is not required [[ba20cc9](https://github.com/guanghechen/algorithm.ts/commit/ba20cc92831972e060ec4da7e79aeb75b931ae3f)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[8d82092](https://github.com/guanghechen/algorithm.ts/commit/8d82092007d685004604c17b8a820cae55ff8835)]
 
 
 <a name="1.0.8"></a>
@@ -674,7 +613,6 @@
 
 - 📝 docs: update README [[bbd6fae](https://github.com/guanghechen/algorithm.ts/commit/bbd6fae97a5f1726c4e066d9fba579a9663e9873)]
 - 📝 docs: update README [[0dfbb8d](https://github.com/guanghechen/algorithm.ts/commit/0dfbb8d6c30d33a9b226fd2ea1703c9111e60ff2)]
-- 📝 docs: update CHANGELOG [[07fea47](https://github.com/guanghechen/algorithm.ts/commit/07fea47b50eec6cdf810570b11b5e059327281d8)]
 
 
 <a name="1.0.5"></a>
@@ -687,7 +625,6 @@
 ### Miscellaneous
 
 - 📝 docs: update READMEs [[ec51481](https://github.com/guanghechen/algorithm.ts/commit/ec514815af1449d0008e14d40f93a4b98ffe4993)]
-- 📝 docs: update CHANGELOG [[32f54c1](https://github.com/guanghechen/algorithm.ts/commit/32f54c15479a9849225df2b6b38b5989fdae49bb)]
 
 
 <a name="1.0.4"></a>
@@ -696,10 +633,6 @@
 ### Added
 
 - ✨ feat(priority-queue): support build Priority Queue with O(N) complexity [[a1d2455](https://github.com/guanghechen/algorithm.ts/commit/a1d245558bb501a359c6f2203753a6bf8e94f670)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[f8004d4](https://github.com/guanghechen/algorithm.ts/commit/f8004d461728c3ba944193e8c4f310d7f0b8a9a8)]
 
 
 <a name="1.0.3"></a>
@@ -713,10 +646,6 @@
 
 - ⬆️ chore: upgrade devDependencies [[f9b7325](https://github.com/guanghechen/algorithm.ts/commit/f9b732541b2988a257c548757eb65360f7c006cd)]
 
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[f5f6d0c](https://github.com/guanghechen/algorithm.ts/commit/f5f6d0ce52709bd36464ff85b92dbf5d44b36293)]
-
 
 <a name="1.0.2"></a>
 ## 1.0.2 (2021-07-28)
@@ -729,10 +658,6 @@
 
 - ⚡ improve(sudoku): improve performance on &#x27;checkSudokuSolution&#x27; [[e2350a0](https://github.com/guanghechen/algorithm.ts/commit/e2350a0f73af60b835cc746af2fa1cc79e0636ad)]
 - 🎨 rename(sudoku): rename type &#x27;SudokuGameData&#x27; to &#x27;SudokuData&#x27; [[6ef309d](https://github.com/guanghechen/algorithm.ts/commit/6ef309d0b385428a0e2dade70a3dd421f0ce928e)]
-
-### Miscellaneous
-
-- 📝 docs: update CHANGELOG [[df45e2c](https://github.com/guanghechen/algorithm.ts/commit/df45e2c9e79fef6b5e7be115f2fa29765b543b3f)]
 
 
 <a name="1.0.1"></a>
@@ -773,9 +698,7 @@
 
 ### Miscellaneous
 
-- 📝 docs: update CHANGELOG [[c23dbdd](https://github.com/guanghechen/algorithm.ts/commit/c23dbddd2ac429ac370581671a07f0f798bb07d9)]
 - 📝 docs: update README [[c00749b](https://github.com/guanghechen/algorithm.ts/commit/c00749bc24ff7293ac46136758dd265a62d2366d)]
-- 📝 docs: add CHANGELOG [[c946120](https://github.com/guanghechen/algorithm.ts/commit/c946120cc8620ec19de1456730f17b1d7f97341b)]
 - 🔨 chore: allow to publish sub-packages with different versions [[90db8aa](https://github.com/guanghechen/algorithm.ts/commit/90db8aa4c6b728484f287007c4cbdc0a3be71b34)]
 - 📝 docs: add README [[18590b0](https://github.com/guanghechen/algorithm.ts/commit/18590b0c0d64aca543608681f24276101d578691)]
 - 🔨 chore: add development configs [[2aae64c](https://github.com/guanghechen/algorithm.ts/commit/2aae64c2f5c9e6600ae0815a14e296478f3ac427)]
