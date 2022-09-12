@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/binary-index-tree#readme">@algorithm.ts/binary-index-tree</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/binary-index-tree#readme">@algorithm.ts/binary-index-tree</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/binary-index-tree">
@@ -50,29 +50,25 @@
 <br/>
 
 
-[中文文档](./README-zh.md)
-
 A typescript implementation of the **Binary Index Tree**.
 
-The Binary Index Tree is a tree-shaped array structure used to efficiently
-maintain the prefix sum. There are usually two modes of operation:
+The Binary Index Tree is a tree-shaped array structure used to efficiently maintain the prefix sum.
+There are usually two modes of operation:
 
-1. Single point update, interval query. Modify the value of an element in the
-   number sequence, and solve the prefix sum at a certain position. Solve the
-   sum of any interval $[L, R]$ can be divided into the sum of interval $[1,R]$
-   and the sum of interval $[1, L-1]$, then perform a subtraction operation.
+1. Single point update, interval query. Modify the value of an element in the number sequence, and
+   solve the prefix sum at a certain position. Solve the sum of any interval $[L, R]$ can be divided
+   into the sum of interval $[1,R]$ and the sum of interval $[1, L-1]$, then perform a subtraction
+   operation.
 
-2. Interval update, single-point query. Add a value to the value of the first
-   $x$ elements in the sequence, and solve the current value of the element at
-   any position in the sequence. Similarly, if you want to add a common value $x$
-   to any interval $[L, R]$, you can first add $x$ to all elements in [1,R], and
-   then add $-x$ to all elements in [1,L-1]. 
+2. Interval update, single-point query. Add a value to the value of the first $x$ elements in the
+   sequence, and solve the current value of the element at any position in the sequence. Similarly,
+   if you want to add a common value $x$ to any interval $[L, R]$, you can first add $x$ to all
+   elements in [1,R], and then add $-x$ to all elements in [1,L-1]. 
 
 The above operations are all done under the amortized complexity of $O(\log N)$.
 
-The problem that the Binary Index Tree can solve is a subset of the Segment
-Tree. Its advantage is that the complexity constant is smaller, and the
-implementation is simpler and easier to understand.
+The problem that the Binary Index Tree can solve is a subset of the Segment Tree. But the complexity
+constant of Binary Index Tree is smaller, and its implementation is simpler and easier to understand.
 
 
 ## Install
@@ -89,6 +85,7 @@ implementation is simpler and easier to understand.
   yarn add @algorithm.ts/binary-index-tree
   ```
 
+
 ## Usage
 
 ### Single-point update And interval query
@@ -96,10 +93,15 @@ implementation is simpler and easier to understand.
 * Solve numbers:
 
   ```typescript {3}
-  import { createBinaryIndexTree1 } from '@algorithm.ts/binary-index-tree'
+  import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  const bit = createBinaryIndexTree1<number>(0)
+  const bit = new SingleUpdateIntervalQuery<number>({ 
+    operator: {
+      ZERO: 0,
+      add: (x, y) => x + y
+    }
+  })
   bit.init(MAX_N)
 
   // Add 10 on the 2th element.
@@ -124,12 +126,15 @@ implementation is simpler and easier to understand.
 * Solve bigint:
 
   ```typescript {6}
-  import { createBinaryIndexTree1 } from '@algorithm.ts/binary-index-tree'
+  import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  // Please note that the first parameter is `0n`, which represents the zero
-  // element of bigint, and 0 is passed-in in the above example.
-  const bit = createBinaryIndexTree1<number>(0n) 
+  const bit = new SingleUpdateIntervalQuery<bigint>({
+    operator: {
+      ZERO: 0n,
+      add: (x, y) => x + y
+    }
+  })
   bit.init(MAX_N)
 
   // Add 10n on the 2th element.
@@ -156,10 +161,15 @@ implementation is simpler and easier to understand.
 * Solve numbers:
 
   ```typescript {3}
-  import { createBinaryIndexTree2 } from '@algorithm.ts/binary-index-tree'
+  import { IntervalUpdateSingleQuery } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  const bit = createBinaryIndexTree2<number>(0)
+  const bit = new IntervalUpdateSingleQuery<number>({
+    operator: {
+      ZERO: 0,
+      add: (x, y) => x + y
+    }
+  })
   bit.init(MAX_N)
 
   // Add 10 on the first two elements.
@@ -184,12 +194,15 @@ implementation is simpler and easier to understand.
 * Solve bigint:
 
   ```typescript {6}
-  import { createBinaryIndexTree2 } from '@algorithm.ts/binary-index-tree'
+  import { IntervalUpdateSingleQuery } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  // Please note that the first parameter is `0n`, which represents the zero
-  // element of bigint, and 0 is passed-in in the above example.
-  const bit = createBinaryIndexTree2<number>(0n)
+  const bit = new IntervalUpdateSingleQuery<number>({
+    operator: {
+      ZERO: 0n,
+      add: (x, y) => x + y
+    }
+  })
   bit.init(MAX_N)
 
   // Add 10 on the first two elements.
@@ -214,21 +227,39 @@ implementation is simpler and easier to understand.
 * With Mod
 
   ```typescript
-  import { createBinaryIndexTree1Mod } from '@algorithm.ts/binary-index-tree'
+  import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
 
   const MOD = 1e9 + 7
-  const bit = createBinaryIndexTree1Mod<number>(0, MOD) 
+  const bit = SingleUpdateIntervalQuery<number>({
+    operator: {
+      ZERO: 0,
+      add: (x, y) => {
+        const z = x + y
+        return z >= MOD ? z - MOD : z < 0 ? z + MOD : z
+      },
+    },
+  })
 
+  bit.init(1e5 + 10)
   bit.add(2, <value>)   // <value> should in the range of (-MOD, MOD)
   bit.query(3)
   ```
 
   ```typescript
-  import { createBinaryIndexTree2Mod } from '@algorithm.ts/binary-index-tree'
+  import { IntervalUpdateSingleQuery } from '@algorithm.ts/binary-index-tree'
 
-  const MOD = 1e9 + 7
-  const bit = createBinaryIndexTree1Mod<bigint>(0, BigInt(MOD)) 
-
+  const MOD = BigInt(1e9 + 7)
+  const bit = new IntervalUpdateSingleQuery<bigint>({
+    operator: {
+      ZERO: 0n,
+      add: (x, y) => {
+        const z = x + y
+        return z >= MOD ? z - MOD : z < 0n ? z + MOD : z
+      },
+    }, 
+  })
+  
+  bit.init(1e5 + 10)
   bit.add(2, <value>)   // <value> should in the range of (-MOD, MOD)
   bit.query(3)
   ```
@@ -237,5 +268,5 @@ implementation is simpler and easier to understand.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/binary-index-tree#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/binary-index-tree#readme
 [binary-index-tree]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-binary-index-tree

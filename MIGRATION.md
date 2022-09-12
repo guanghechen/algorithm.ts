@@ -41,3 +41,22 @@ No breaking changes.
           dist: ReadonlyArray<C>
         }
     ```
+
+
+### @algorithm.ts/binary-index-tree
+
+1. `createBinaryIndexTree1` is removed, use `SingleUpdateIntervalQuery` instead.
+2. `createBinaryIndexTree2` is removed, use `SingleUpdateIntervalQuery` instead.
+3. No builtin modulo binary index tree, perform the modulus operations through customized `add`
+   method:
+
+    ```typescript
+    import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
+    const MOD = 1e9 + 7
+    const bit = SingleUpdateIntervalQuery<number>({
+      operator: {
+        ZERO: 0,
+        add: (x, y) => ((x + y) % MOD + MOD) % MOD,
+      },
+    })
+   ```
