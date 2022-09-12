@@ -200,3 +200,8 @@ No breaking changes.
 ### @algorithm.ts/lcs
 
 No breaking changes.
+
+
+### @algorithm.ts/manacher
+
+1. Return `number[]` instead of `Uint32Array`.

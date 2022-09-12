@@ -21,15 +21,12 @@
  *  radius[6] = 2   // bab
  *
  * @param text
- * @param radius
- * @param N
- *
  * @see https://me.guanghechen.com/post/algorithm/string/manacher/
  */
-export function manacher(text: string): Uint32Array {
+export function manacher(text: string): number[] {
   const N = text.length
   const _size = (N << 1) - 1
-  const radius: Uint32Array = new Uint32Array(_size)
+  const radius: number[] = new Array<number>(_size).fill(0)
 
   radius[0] = 1
   for (let i = 1, j = 0; i < _size; ++i) {

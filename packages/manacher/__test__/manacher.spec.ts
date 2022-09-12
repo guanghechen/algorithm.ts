@@ -39,8 +39,8 @@ test('manacher', function () {
  */
 function solution1(text: string): number {
   const N: number = text.length
-  const radius: Uint32Array = manacher(text)
-  const dp: Uint32Array = new Uint32Array(N)
+  const radius: number[] = manacher(text)
+  const dp: number[] = [0]
 
   for (let i = 1; i < N; ++i) {
     let answer: number = i < radius[i] * 2 ? 0 : dp[i - 1] + 1

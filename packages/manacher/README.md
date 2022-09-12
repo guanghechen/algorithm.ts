@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/manacher#readme">@algorithm.ts/manacher</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/manacher#readme">@algorithm.ts/manacher</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/manacher">
@@ -52,8 +52,8 @@
 
 A typescript implementation of the **manacher** algorithm.
 
-Manacher is a linear time algorithm for listing all the palindromes that appear
-at the start of a given string.
+Manacher is a linear time algorithm for listing all the palindromes that appear at the start of a
+given string.
 
 If you are curious about this algorithm, you can visit [here][manacher] for more details.
 
@@ -72,11 +72,6 @@ If you are curious about this algorithm, you can visit [here][manacher] for more
   yarn add @algorithm.ts/manacher
   ```
 
-* deno
-
-  ```typescript
-  import manacher from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/manacher/src/index.ts'
-  ```
 
 ## Usage
 
@@ -87,8 +82,8 @@ If you are curious about this algorithm, you can visit [here][manacher] for more
 
   export function minCut(text: string): number {
     const N: number = text.length
-    const radius: Uint32Array= manacher(text)
-    const dp: Uint32Array = new Uint32Array(N)
+    const radius: number[] = manacher(text)
+    const dp: number[] = [0]
 
     for (let i = 1; i < N; ++i) {
       let answer: number = i < radius[i] * 2 ? 0 : dp[i - 1] + 1
@@ -111,5 +106,5 @@ If you are curious about this algorithm, you can visit [here][manacher] for more
 * [最长回文子串 Manacher 算法][manacher]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/manacher#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/manacher#readme
 [manacher]: https://me.guanghechen.com/post/algorithm/string/manacher/
