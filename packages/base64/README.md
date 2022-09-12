@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/base64/#readme">@algorithm.ts/base64</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/base64/#readme">@algorithm.ts/base64</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/base64">
@@ -75,12 +75,16 @@ project uses `Uint8Array` to represent byte streams.
 * `encode`: Encode a Uint8Array into base64 encoded string.
 
   ```typescript
+  // node env: import { TextEncoder } from 'util'
   import { encode } from '@algorithm.ts/base64'
 
-  const textEncoder = new TextEncoder('utf-8')
-  const data: Uint8Array = textEncoder.encode(text)
+  const getBytes = (text: string): Uint8Array => {
+    const textEncoder = new TextEncoder()
+    const data: Uint8Array = textEncoder.encode(text)
+    return data
+  }
 
-  encode('Hello, world!') // => 'SGVsbG8sIHdvcmxkIQ=='
+  encode(getBytes('Hello, world!')) // => 'SGVsbG8sIHdvcmxkIQ=='
   ```
 
 * `decode`: Decode a base64 encoded string to Uint8Array
@@ -89,7 +93,7 @@ project uses `Uint8Array` to represent byte streams.
   import { decode } from '@algorithm.ts/base64'
 
   const data: Uint8Array = decode('SGVsbG8sIHdvcmxkIQ==') 
-  const textDecoder = new TextDecoder('utf-8')
+  const textDecoder = new TextDecoder()
   textDecoder.decode(data) // => 'Hello, world!'
   ```
 
@@ -97,7 +101,24 @@ project uses `Uint8Array` to represent byte streams.
 
   ```typescript
   validate('SGVsbG8sIHdvcmxkIQ==') // => true
-  validate('SGVsbG8sIHdvcmxkIQ===') // => false
+  ```
+
+* Custom code map.
+
+  ```typescript
+  // node env: import { TextEncoder } from 'util'
+  import { Base64 } from '@algorithm.ts/base64'
+
+  const getBytes = (text: string): Uint8Array => {
+    const textEncoder = new TextEncoder()
+    const data: Uint8Array = textEncoder.encode(text)
+    return data
+  }
+
+  const base64 = new Base64({
+    CODES: '#ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+'
+  })
+  base64.encode(getBytes('Hello, world!')) // => RFUraF7rHGcublwjHP==
   ```
 
 
@@ -133,4 +154,4 @@ project uses `Uint8Array` to represent byte streams.
 * [`btoa()` | MDN](https://developer.mozilla.org/en-US/docs/Web/API/btoa)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/base64#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/base64#readme
