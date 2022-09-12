@@ -202,6 +202,15 @@ No breaking changes.
 No breaking changes.
 
 
+### @algorithm.ts/upper-bound
+
+This package is removed, use `@algorithm.ts/binary-search` instead.
+
+```typescript
+import { lowerBound } from '@algorithm.ts/binary-search'
+```
+
+
 ### @algorithm.ts/manacher
 
 1. Return `number[]` instead of `Uint32Array`.
@@ -244,3 +253,12 @@ No breaking changes.
 3. Rename `moveForward` to `forwardRightBoundary`.
 4. Support to move the left boundary of the sliding-window through the new method `forwardLeftBoundary`.
 5. `init()` is renamed to `reset()`, and the parameters is changed to object style. 
+
+
+### @algorithm.ts/upper-bound
+
+This package is removed, use `@algorithm.ts/binary-search` instead.
+
+```typescript
+import { upperBound } from '@algorithm.ts/binary-search'
+```

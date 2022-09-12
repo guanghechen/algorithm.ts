@@ -1,10 +1,5 @@
-export interface IBinarySearchCheck {
-  (mid: number): -1 | 0 | 1 | number
-}
-
-export interface IBinarySearchCheckBigint {
-  (mid: bigint): -1 | 0 | 1 | number
-}
+import { BIGINT_ONE } from '@algorithm.ts/_constant'
+import type { IBinarySearchCheck, IBinarySearchCheckBigint } from './types'
 
 /**
  * Find the index of first element which greater than the target element.
@@ -39,11 +34,9 @@ export function upperBoundBigint(
 ): bigint {
   let i = lft
   for (let j = rht; i < j; ) {
-    const k = (i + j) >> 1n
-    if (check(k) <= 0) i = k + 1n
+    const k = (i + j) >> BIGINT_ONE
+    if (check(k) <= 0) i = k + BIGINT_ONE
     else j = k
   }
   return i
 }
-
-export default upperBound

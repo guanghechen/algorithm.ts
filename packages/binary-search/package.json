@@ -1,20 +1,20 @@
 {
-  "name": "@algorithm.ts/upper-bound",
+  "name": "@algorithm.ts/lower-bound",
   "version": "2.0.14",
-  "description": "Find the index of first elements which greater than the target element.",
+  "description": "Find the index of first elements which greater or equals than the target element.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x",
-    "directory": "packages/upper-bound"
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
+    "directory": "packages/lower-bound"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/upper-bound#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/lower-bound#readme",
   "keywords": [
     "algorithm",
-    "upper bound"
+    "lower bound"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
