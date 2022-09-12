@@ -65,3 +65,9 @@ No breaking changes.
 
 1. Renamed to `@algorithm.ts/bipartite-matching`.
 2. Use `new HungarianDfs()` (or `new HungarianBfs()`) instead of `createBipartiteGraphMatching`
+
+
+### @algorithm.ts/calculate
+
+1. Renamed to `@algorithm.ts/calculator`.
+2. Use `calculator.calculate(<expression>)` instead of `calculate(<expression>)`.

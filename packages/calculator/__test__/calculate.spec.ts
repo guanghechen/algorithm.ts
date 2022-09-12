@@ -1,16 +1,10 @@
-import {
-  bigintCalculate,
-  calculate,
-  createCalculate,
-  decimalCalculate,
-  integerOperations,
-} from '../src'
+import { Calculator, IntegerOperand, bigintCalculator, calculator, decimalCalculator } from '../src'
 
 describe('basic', function () {
   test('custom', function () {
-    const f = createCalculate(integerOperations)
-    expect(f('1+2')).toEqual(3)
-    expect(() => f('1+2.2')).toThrow(/Unrecognized symbol/)
+    const calculator = new Calculator(new IntegerOperand())
+    expect(calculator.calculate('1+2')).toEqual(3)
+    expect(() => calculator.calculate('1+2.2')).toThrow(/Unrecognized symbol/)
   })
 })
 
@@ -91,17 +85,19 @@ describe('calculate', function () {
     test(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(() => decimalCalculate(kase.input)).toThrowError()
+        expect(() => decimalCalculator.calculate(kase.input)).toThrowError()
       } else {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(decimalCalculate(kase.input)).toEqual(kase.answer)
+        expect(decimalCalculator.calculate(kase.input)).toEqual(kase.answer)
       }
     })
   }
 
   test('exceptional', function () {
-    expect(() => decimalCalculate('$0.2')).toThrow(/Not a valid arithmetic expression/)
-    expect(() => decimalCalculate('1.1$0.2')).toThrow(/Not a valid arithmetic expression/)
+    expect(() => decimalCalculator.calculate('$0.2')).toThrow(/Not a valid arithmetic expression/)
+    expect(() => decimalCalculator.calculate('1.1$0.2')).toThrow(
+      /Not a valid arithmetic expression/,
+    )
   })
 })
 
@@ -166,10 +162,10 @@ describe('integer calculate', function () {
     test(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(() => calculate(kase.input)).toThrowError()
+        expect(() => calculator.calculate(kase.input)).toThrowError()
       } else {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(calculate(kase.input)).toEqual(kase.answer)
+        expect(calculator.calculate(kase.input)).toEqual(kase.answer)
       }
     })
   }
@@ -240,10 +236,10 @@ describe('bigint calculate', function () {
     test(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(() => bigintCalculate(kase.input)).toThrowError()
+        expect(() => bigintCalculator.calculate(kase.input)).toThrowError()
       } else {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(bigintCalculate(kase.input)).toEqual(kase.answer)
+        expect(bigintCalculator.calculate(kase.input)).toEqual(kase.answer)
       }
     })
   }
