@@ -202,7 +202,7 @@ No breaking changes.
 No breaking changes.
 
 
-### @algorithm.ts/upper-bound
+### @algorithm.ts/lower-bound
 
 This package is removed, use `@algorithm.ts/binary-search` instead.
 
@@ -245,6 +245,21 @@ import { lowerBound } from '@algorithm.ts/binary-search'
 No breaking changes.
 
 
+### @algorithm.ts/sieve-prime
+
+1. Renamed to `@algorithm.ts/prime`.
+
+
+### @algorithm.ts/sieve-totient
+
+1. This package is removed, use `@algorithm.ts/prime` instead.
+
+    ```typescript
+    import { sieveTotient } from '@algorithm.ts/prime'
+    ```
+
+
+
 ### @algorithm.ts/sliding-window
 
 1. Use `new SlidingWindow(options)` instead of `createSlidingWindow(cmp)`.
@@ -257,8 +272,8 @@ No breaking changes.
 
 ### @algorithm.ts/upper-bound
 
-This package is removed, use `@algorithm.ts/binary-search` instead.
+1. This package is removed, use `@algorithm.ts/binary-search` instead.
 
-```typescript
-import { upperBound } from '@algorithm.ts/binary-search'
-```
+    ```typescript
+    import { upperBound } from '@algorithm.ts/binary-search'
+    ```
