@@ -73,6 +73,19 @@ No breaking changes.
 2. Use `calculator.calculate(<expression>)` instead of `calculate(<expression>)`.
 
 
+## @algorithm.ts/circular-queue
+
+This package is removed, use `@algorithm.ts/queue` instead.
+
+1. Use `.size` instead of `.size()`.
+3. `.end()` is renamed to `.back()`.
+4. `.get()` is removed.
+5. `.set()` is removed.
+6. `.isValidIndex()` is removed.
+7. `.isEmpty()` is removed, use `.size > 0` instead.
+
+
+
 ### @algorithm.ts/dijkstra
 
 1.  `dijkstra` returns a structured result instead of a number array.
@@ -238,6 +251,18 @@ import { lowerBound } from '@algorithm.ts/binary-search'
       }
     }
     ```
+
+
+## @algorithm.ts/priority-queue
+
+This package is removed, use `@algorithm.ts/queue` instead.
+
+1. !!! Priority queue is a Min-Heap now (previous version is a Max-Heap).
+2. Use `.size` instead of `.size()`.
+3. `.top()` is renamed to `.front()`.
+4. `.replaceTop(newElement)` is removed, use `Q.dequeue(newElement)` instead.
+5. `.isEmpty()` is removed, use `.size > 0` instead.
+6. `.collect()` is removed, use `Array.from(Q)` instead.
 
 
 ### @algorithm.ts/roman

@@ -1,20 +1,22 @@
 {
-  "name": "@algorithm.ts/circular-queue",
+  "name": "@algorithm.ts/priority-queue",
   "version": "2.0.14",
-  "description": "Circular queue in Typescript",
+  "description": "Priority queue.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x",
-    "directory": "packages/circular-queue"
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
+    "directory": "packages/priority-queue"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/circular-queue#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/priority-queue#readme",
   "keywords": [
-    "queue",
-    "circular queue"
+    "algorithm",
+    "data structure",
+    "heap",
+    "priority queue"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
