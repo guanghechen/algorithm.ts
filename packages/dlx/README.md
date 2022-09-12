@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dlx#readme">@algorithm.ts/dlx</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/dlx#readme">@algorithm.ts/dlx</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/dlx">
@@ -52,8 +52,8 @@
 
 A typescript implementation of the **DLX** algorithm.
 
-DLX is the Algorithm X that applied the dancing-link. The algorithm is used to
-solve the exact-cover problem.
+DLX is the Algorithm X that applied the dancing-link. The algorithm is used to solve the
+exact-cover problem.
 
 If you are curious about this algorithm, you can visit [here][dlx] for more details.
 
@@ -72,23 +72,18 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
   yarn add @algorithm.ts/dlx
   ```
 
-* deno
-
-  ```typescript
-  import { createDLX } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/dlx/src/index.ts'
-  ```
 
 ## Usage
 
 * Use dlx to solve a 9x9 sudoku problem:
 
   ```typescript
-  import { createDLX } from '../src'
+  import { DancingLinkX } from '@algorithm.ts/dlx'
 
   const ebs = 1e-6
   const DL_TOTAL_COLUMNS = 9 * 9 * 4
   const DL_MAX_NODES = DL_TOTAL_COLUMNS * (9 * 9 * 9) + 10
-  const dlx = createDLX(DL_MAX_NODES)
+  const dlx = new DancingLinkX({ MAX_N: DL_MAX_NODES })
 
   // Sudoku constraints.
   export enum SudokuConstraint {
@@ -98,12 +93,8 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
     SUB = 3, // Sub(a, b): a-th sub-square matrix must have the number b
   }
 
-  export function solveSudoku(
-    puzzle: ReadonlyArray<number[]>,
-    solution: number[][],
-  ): boolean {
-    const encode = (a: number, b: number, c: number): number =>
-      a * 81 + b * 9 + c + 1
+  export function solveSudoku(puzzle: ReadonlyArray<number[]>, solution: number[][]): boolean {
+    const encode = (a: number, b: number, c: number): number => a * 81 + b * 9 + c + 1
 
     dlx.init(DL_TOTAL_COLUMNS)
     const columns: number[] = new Array<number>(4)
@@ -136,6 +127,7 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
       code = Math.floor(code / 9 + ebs)
       const a = code
 
+      // eslint-disable-next-line no-param-reassign
       solution[a][b] = c
     }
     return true
@@ -178,5 +170,5 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
 * [洗牌问题和 dlx 算法][dlx]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dlx#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/dlx#readme
 [dlx]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-dlx

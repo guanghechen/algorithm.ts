@@ -1,7 +1,7 @@
-import { createDLX } from '@algorithm.ts/dlx'
+import { DancingLinkX } from '../src'
 import multipleSudoku3x3 from './fixtures/sudoku9x9/multiple.json'
 import uniqueSudoku3x3 from './fixtures/sudoku9x9/unique.json'
-import { solveSudoku } from './sudoku3x3'
+import { solveSudoku } from './sudoku9x9'
 
 describe('dlx', function () {
   describe('sudoku9x9', function () {
@@ -38,11 +38,9 @@ describe('dlx', function () {
   })
 
   test('destroy', function () {
-    const dlx = createDLX(10)
-
+    const dlx = new DancingLinkX({ MAX_N: 10 })
     dlx.init(10)
     dlx.destroy()
-
     expect(dlx.solve()).toEqual(null)
   })
 })

@@ -1,9 +1,9 @@
-import { createDLX } from '../src'
+import { DancingLinkX } from '../src'
 
 const ebs = 1e-6
 const DL_TOTAL_COLUMNS = 9 * 9 * 4
 const DL_MAX_NODES = DL_TOTAL_COLUMNS * (9 * 9 * 9) + 10
-const dlx = createDLX(DL_MAX_NODES)
+const dlx = new DancingLinkX({ MAX_N: DL_MAX_NODES })
 
 // Sudoku constraints.
 export enum SudokuConstraint {
