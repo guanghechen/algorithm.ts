@@ -1,24 +1,24 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bipartite-graph-matching#readme">@algorithm.ts/bipartite-graph-matching</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/bipartite-matching#readme">@algorithm.ts/bipartite-matching</a>
   </h1>
   <div align="center">
-    <a href="https://www.npmjs.com/package/@algorithm.ts/bipartite-graph-matching">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/bipartite-matching">
       <img
         alt="Npm Version"
-        src="https://img.shields.io/npm/v/@algorithm.ts/bipartite-graph-matching.svg"
+        src="https://img.shields.io/npm/v/@algorithm.ts/bipartite-matching.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@algorithm.ts/bipartite-graph-matching">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/bipartite-matching">
       <img
         alt="Npm Download"
-        src="https://img.shields.io/npm/dm/@algorithm.ts/bipartite-graph-matching.svg"
+        src="https://img.shields.io/npm/dm/@algorithm.ts/bipartite-matching.svg"
       />
     </a>
-    <a href="https://www.npmjs.com/package/@algorithm.ts/bipartite-graph-matching">
+    <a href="https://www.npmjs.com/package/@algorithm.ts/bipartite-matching">
       <img
         alt="Npm License"
-        src="https://img.shields.io/npm/l/@algorithm.ts/bipartite-graph-matching.svg"
+        src="https://img.shields.io/npm/l/@algorithm.ts/bipartite-matching.svg"
       />
     </a>
     <a href="#install">
@@ -30,7 +30,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@algorithm.ts/bipartite-graph-matching"
+        src="https://img.shields.io/node/v/@algorithm.ts/bipartite-matching"
       />
     </a>
     <a href="https://github.com/facebook/jest">
@@ -72,29 +72,25 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * npm
 
   ```bash
-  npm install --save @algorithm.ts/bipartite-graph-matching
+  npm install --save @algorithm.ts/bipartite-matching
   ```
 
 * yarn
 
   ```bash
-  yarn add @algorithm.ts/bipartite-graph-matching
+  yarn add @algorithm.ts/bipartite-matching
   ```
 
-* deno
-
-  ```typescript
-  import { createBipartiteGraphMatching } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/bipartite-graph-matching/src/index.ts'
-  ```
 
 ## Usage
 
 * Simple
 
   ```typescript
-  import { createBipartiteGraphMatching } from '@algorithm.ts/bipartite-graph-matching'
+  import type { IBipartiteMatcher } from '@algorithm.ts/bipartite-matching'
+  import { HungarianDfs } from '@algorithm.ts/bipartite-matching'
 
-  const matching = createBipartiteGraphMatching()
+  const matcher: IBipartiteMatcher = new HungarianDfs()
   matching.init(4)
   matching.maxMatch() // => 0
 
@@ -107,14 +103,17 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   matching.maxMatch() // => 2
   ```
 
-### Example
+
+## Example
 
 * A solution for leetcode "Maximum Students Taking Exam"
   (https://leetcode.com/problems/maximum-students-taking-exam/):
 
   ```typescript
-  import { createBipartiteGraphMatching } from '@algorithm.ts/bipartite-graph-matching'
+  import type { IBipartiteMatcher } from '@algorithm.ts/bipartite-matching'
+  import { HungarianDfs } from '@algorithm.ts/bipartite-matching'
 
+  const matcher: IBipartiteMatcher = new HungarianDfs()
   export function maxStudents(seats: string[][]): number {
     const R: number = seats.length
     if (R <= 0) return 0
@@ -138,8 +137,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
     if (total <= 0) return 0
     if (total === 1) return 1
 
-    const matching = createBipartiteGraphMatching()
-    matching.init(total)
+    matcher.init(total)
     for (let r = 0; r < R; ++r) {
       for (let c = 0; c < C; ++c) {
         const u: number = seatCodes[r][c]
@@ -147,24 +145,24 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
           if (r > 0) {
             // Check upper left
             if (c > 0 && seatCodes[r - 1][c - 1] > -1) {
-              matching.addEdge(u, seatCodes[r - 1][c - 1])
+              matcher.addEdge(u, seatCodes[r - 1][c - 1])
             }
 
             // Check upper right
             if (c + 1 < C && seatCodes[r - 1][c + 1] > -1) {
-              matching.addEdge(u, seatCodes[r - 1][c + 1])
+              matcher.addEdge(u, seatCodes[r - 1][c + 1])
             }
           }
 
           // Check left
           if (c > 0 && seatCodes[r][c - 1] > -1) {
-            matching.addEdge(u, seatCodes[r][c - 1])
+            matcher.addEdge(u, seatCodes[r][c - 1])
           }
         }
       }
     }
 
-    const totalPaired: number = matching.maxMatch()
+    const totalPaired: number = matcher.maxMatch().count
     return total - totalPaired
   }
   ```
@@ -178,7 +176,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * [Matching (graph theory) | Wikipedia][wikipedia-matching]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bipartite-graph-matching#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/bipartite-matching#readme
 [wikipedia-bipartite-graph]: https://en.wikipedia.org/wiki/Bipartite_graph
 [wikipedia-matching]: https://en.wikipedia.org/wiki/Matching_(graph_theory)
 [bipartite-graph]: https://me.guanghechen.com/post/algorithm/graph/bipartite-graph/

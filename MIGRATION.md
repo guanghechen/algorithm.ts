@@ -60,3 +60,8 @@ No breaking changes.
       },
     })
    ```
+
+### @algorithm.ts/bipartite-graph-matching
+
+1. Renamed to `@algorithm.ts/bipartite-matching`.
+2. Use `new HungarianDfs()` (or `new HungarianBfs()`) instead of `createBipartiteGraphMatching`
