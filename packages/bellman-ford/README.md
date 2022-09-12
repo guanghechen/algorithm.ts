@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bellman-ford#readme">@algorithm.ts/bellman-ford</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/bellman-ford#readme">@algorithm.ts/bellman-ford</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/bellman-ford">
@@ -77,6 +77,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   yarn add @algorithm.ts/bellman-ford
   ```
 
+
 ## Usage
 
 * Simple
@@ -85,7 +86,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   import type { IGraph } from '@algorithm.ts/bellman-ford'
   import bellmanFord from '@algorithm.ts/bellman-ford'
 
-  const graph: IGraph = {
+  const graph: IBellmanFordGraph<number> = {
     N: 4,
     source: 0,
     edges: [
@@ -96,27 +97,30 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
     ],
     G: [[0], [1, 2], [3], []],
   }
-  const dist: number[] = []
-  bellmanFord(graph, { dist }) // => true, which means there is no negative-cycle.
-  dist
-  // => [0, 2, 4, 4]
-  // 
-  //    Which means:
-  //      0 --> 0: cost is 0
-  //      0 --> 1: cost is 2
-  //      0 --> 2: cost is 4
-  //      0 --> 3: cost is 4
+
+  const result = bellmanFord(graph)
+  /**
+   * {
+   *   hasNegativeCycle: false, // there is no negative-cycle.
+   *   INF: 4503599627370494,
+   *   source: 0,
+   *   bestFrom: ,
+   *   dist: [0, 2, 4, 4] 
+   * }
+   * 
+   * For dist:
+   *    0 --> 0: cost is 0
+   *    0 --> 1: cost is 2
+   *    0 --> 2: cost is 4
+   *    0 --> 3: cost is 4
+   */
   ```
 
 * Options
 
-  Name        | Type        | Required  | Description
-  :----------:|:-----------:|:---------:|:----------------
-  `INF`       | `number`    | `false`   | A big number, representing the unreachable cost.
-  `from`      | `number[]`  | `false`   | Record the shortest path parent source point to the specified point.
-  `dist`      | `number[]`  | `false`   | An array recording the shortest distance to the source point.
-  `inq`       | `boolean`   | `false`   | Used to check if an element is already in the queue.
-  `inqTimes`  | `number[]`  | `false`   | Record the number of times an element is enqueued, used to check whether there is a negative cycle.
+  Name        | Type            | Required  | Description
+  :----------:|:---------------:|:---------:|:----------------
+  `INF`       | `number|bigint` | `false`   | A big number, representing the unreachable cost.
 
 
 ### Example
@@ -125,6 +129,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
   ```typescript
   import bellmanFord from '@algorithm.ts/bellman-ford'
+  import { getShortestPath } from '@algorithm.ts/graph'
 
   const A = 0
   const B = 1
@@ -146,29 +151,25 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
     G: [[0], [1, 2], [3, 4], [5]],
   }
 
-  const noNegativeCycle: boolean = bellmanFord(graph, undefined, context => {
-    const a2aPath: number[] = context.getShortestPathTo(A)
-    const a2bPath: number[] = context.getShortestPathTo(B)
-    const a2cPath: number[] = context.getShortestPathTo(C)
-    const a2dPath: number[] = context.getShortestPathTo(D)
+  const result = _bellmanFord.bellmanFord(graph)
+  assert(result.negativeCycle === false)
 
-    a2aPath // => [0]
-    a2bPath // => [0, 1]
-    a2cPath // => [0, 1, 2]
-    a2dPath // => [0, 1, 2, 3]
-  })
+  getShortestPath(result.bestFrom, Nodes.A, Nodes.A) // [Nodes.A]
+  getShortestPath(result.bestFrom, Nodes.A, Nodes.B) // [Nodes.A, Nodes.B]
+  getShortestPath(result.bestFrom, Nodes.A, Nodes.C) // [Nodes.A, Nodes.B, Nodes.C]
+  getShortestPath(result.bestFrom, Nodes.A, Nodes.D) // [Nodes.A, Nodes.B, Nodes.C, Nodes.D])
   ```
 
 * A solution for leetcode "Number of Ways to Arrive at Destination"
   (https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/):
 
   ```typescript
-  import type { IEdge, IGraph } from '@algorithm.ts/bellman-ford'
-  import bellmanFord from '@algorithm.ts/bellman-ford'
+  import type { IBellmanFordEdge, IBellmanFordGraph } from '@algorithm.ts/bellman-ford'
+  import { bellmanFord } from '@algorithm.ts/bellman-ford'
 
   const MOD = 1e9 + 7
   export function countPaths(N: number, roads: number[][]): number {
-    const edges: IEdge[] = []
+    const edges: Array<IBellmanFordEdge<number>> = []
     const G: number[][] = new Array(N)
     for (let i = 0; i < N; ++i) G[i] = []
     for (const [from, to, cost] of roads) {
@@ -181,10 +182,11 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
     const source = 0
     const target = N - 1
-    const graph: IGraph = { N, source: target, edges, G }
-    const dist: number[] = customDist ?? []
-    bellmanFord.bellmanFord(graph, { INF: 1e12, dist })
+    const graph: IBellmanFordGraph<number> = { N, source: target, edges, G }
+    const result = bellmanFord(graph, { INF: 1e12 })
+    if (result.hasNegativeCycle) return -1
 
+    const { dist } = result
     const dp: number[] = new Array(N).fill(-1)
     return dfs(source)
 
@@ -197,7 +199,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
       answer = 0
       const d = dist[o]
       for (const idx of G[o]) {
-        const e: IEdge = edges[idx]
+        const e: IBellmanFordEdge<number> = edges[idx]
         if (dist[e.to] + e.cost === d) {
           const t = dfs(e.to)
           answer = modAdd(answer, t)
@@ -218,9 +220,9 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
 * 《算法竞赛入门经典（第2版）》（刘汝佳）： P363 Bellman-Ford 算法
 * [bellman-ford | Wikipedia][wikipedia-bellman-ford]
-* [@algorithm.ts/circular-queue][]
+* [@algorithm.ts/queue][]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bellman-ford#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/bellman-ford#readme
 [wikipedia-bellman-ford]: https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
-[@algorithm.ts/circular-queue]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/circular-queue
+[@algorithm.ts/queue]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/queue

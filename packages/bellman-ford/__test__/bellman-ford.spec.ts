@@ -1,41 +1,82 @@
-import { buildEdgeMap } from '@algorithm.ts/graph'
-import { testOjCodes } from 'jest.setup'
+import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
+import { buildEdgeMap, getShortestPath } from '@algorithm.ts/graph'
+import assert from 'assert'
 import type { IBellmanFordGraph } from '../src'
-import { BellmanFord, bellmanFord } from '../src'
+import { BellmanFord, bellmanFord, bellmanFordBigint } from '../src'
 
 describe('basic', function () {
-  test('no negative cycle', function () {
-    const graph: IBellmanFordGraph = {
-      N: 4,
-      source: 0,
-      edges: [
-        { to: 1, cost: 2 },
-        { to: 2, cost: 2 },
-        { to: 3, cost: 2 },
-        { to: 3, cost: 1 },
-      ],
-      G: [[0], [1, 2], [3], []],
-    }
-    const dist: number[] = []
+  describe('bellmanFord', function () {
+    test('no negative cycle', function () {
+      const graph: IBellmanFordGraph<number> = {
+        N: 4,
+        source: 0,
+        edges: [
+          { to: 1, cost: 2 },
+          { to: 2, cost: 2 },
+          { to: 3, cost: 2 },
+          { to: 3, cost: 1 },
+        ],
+        G: [[0], [1, 2], [3], []],
+      }
 
-    expect(bellmanFord(graph, { dist })).toEqual(true)
-    expect(dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
+      const result = bellmanFord(graph)
+      expect(result.hasNegativeCycle).toEqual(false)
+
+      assert(result.hasNegativeCycle === false)
+      expect(result.dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
+    })
+
+    test('negative cycle', function () {
+      const graph: IBellmanFordGraph<number> = {
+        N: 4,
+        source: 0,
+        edges: [
+          { to: 1, cost: -2 },
+          { to: 0, cost: -2 },
+          { to: 3, cost: 2 },
+          { to: 3, cost: 1 },
+        ],
+        G: [[0], [1, 2], [3], []],
+      }
+      expect(bellmanFord(graph)).toEqual({ hasNegativeCycle: true })
+    })
   })
 
-  test('negative cycle', function () {
-    const dist: number[] = []
-    const graph: IBellmanFordGraph = {
-      N: 4,
-      source: 0,
-      edges: [
-        { to: 1, cost: -2 },
-        { to: 0, cost: -2 },
-        { to: 3, cost: 2 },
-        { to: 3, cost: 1 },
-      ],
-      G: [[0], [1, 2], [3], []],
-    }
-    expect(bellmanFord(graph, { dist })).toEqual(false)
+  describe('bellmanFordBigint', function () {
+    test('no negative cycle', function () {
+      const graph: IBellmanFordGraph<bigint> = {
+        N: 4,
+        source: 0,
+        edges: [
+          { to: 1, cost: 2n },
+          { to: 2, cost: 2n },
+          { to: 3, cost: 2n },
+          { to: 3, cost: 1n },
+        ],
+        G: [[0], [1, 2], [3], []],
+      }
+
+      const result = bellmanFordBigint(graph)
+      expect(result.hasNegativeCycle).toEqual(false)
+
+      assert(result.hasNegativeCycle === false)
+      expect(result.dist.slice(0, graph.N)).toEqual([0n, 2n, 4n, 4n])
+    })
+
+    test('negative cycle', function () {
+      const graph: IBellmanFordGraph<bigint> = {
+        N: 4,
+        source: 0,
+        edges: [
+          { to: 1, cost: -2n },
+          { to: 0, cost: -2n },
+          { to: 3, cost: 2n },
+          { to: 3, cost: 1n },
+        ],
+        G: [[0], [1, 2], [3], []],
+      }
+      expect(bellmanFordBigint(graph)).toEqual({ hasNegativeCycle: true })
+    })
   })
 })
 
@@ -58,31 +99,32 @@ describe('shortest path', function () {
       { from: Nodes.D, to: Nodes.C, cost: -5 },
     ]
 
-    const graph: IBellmanFordGraph = {
+    const graph: IBellmanFordGraph<number> = {
       N,
       source: Nodes.A,
       edges,
       G: buildEdgeMap(N, edges),
     }
 
-    let a2aPath: number[] | undefined
-    let a2bPath: number[] | undefined
-    let a2cPath: number[] | undefined
-    let a2dPath: number[] | undefined
-
-    const _bellmanFord = new BellmanFord()
-    const noNegativeCycle: boolean = _bellmanFord.bellmanFord(graph, undefined, context => {
-      a2aPath = context.getShortestPathTo(Nodes.A)
-      a2bPath = context.getShortestPathTo(Nodes.B)
-      a2cPath = context.getShortestPathTo(Nodes.C)
-      a2dPath = context.getShortestPathTo(Nodes.D)
+    const _bellmanFord = new BellmanFord<number>({
+      ZERO: 0,
+      INF: Math.floor(Number.MAX_SAFE_INTEGER / 2),
     })
+    const result = _bellmanFord.bellmanFord(graph)
 
-    expect(noNegativeCycle).toEqual(true)
-    expect(a2aPath).toEqual([Nodes.A])
-    expect(a2bPath).toEqual([Nodes.A, Nodes.B])
-    expect(a2cPath).toEqual([Nodes.A, Nodes.B, Nodes.C])
-    expect(a2dPath).toEqual([Nodes.A, Nodes.B, Nodes.C, Nodes.D])
+    expect(result.hasNegativeCycle).toEqual(false)
+    assert(result.hasNegativeCycle === false)
+    const { bestFrom } = result
+
+    expect(getShortestPath(bestFrom, Nodes.A, Nodes.A)).toEqual([Nodes.A])
+    expect(getShortestPath(bestFrom, Nodes.A, Nodes.B)).toEqual([Nodes.A, Nodes.B])
+    expect(getShortestPath(bestFrom, Nodes.A, Nodes.C)).toEqual([Nodes.A, Nodes.B, Nodes.C])
+    expect(getShortestPath(bestFrom, Nodes.A, Nodes.D)).toEqual([
+      Nodes.A,
+      Nodes.B,
+      Nodes.C,
+      Nodes.D,
+    ])
   })
 
   test('with negative cycle', function () {
@@ -105,28 +147,26 @@ describe('shortest path', function () {
       { from: Nodes.D, to: Nodes.B, cost: 1 },
     ]
 
-    const graph: IBellmanFordGraph = {
+    const graph: IBellmanFordGraph<number> = {
       N,
       source: Nodes.A,
       edges,
       G: buildEdgeMap(N, edges),
     }
-
-    const noNegativeCycle: boolean = bellmanFord(graph)
-    expect(noNegativeCycle).toEqual(false)
+    expect(bellmanFord(graph)).toEqual({ hasNegativeCycle: true })
   })
 })
 
 describe('oj', function () {
   // https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
   testOjCodes(
-    'leetcode/number-of-ways-to-arrive-at-destination',
+    TestOjDataProblemKey.LEETCODE_NUMBER_OF_WAYS_TO_ARRIVE_AT_DESTINATION,
     import('./oj/number-of-ways-to-arrive-at-destination'),
   )
 
   // https://leetcode.com/problems/maximum-path-quality-of-a-graph/
   testOjCodes(
-    'leetcode/maximum-path-quality-of-a-graph',
+    TestOjDataProblemKey.LEETCODE_MAXIMUM_PATH_QUALITY_OF_A_GRAPH,
     import('./oj/maximum-path-quality-of-a-graph'),
   )
 })

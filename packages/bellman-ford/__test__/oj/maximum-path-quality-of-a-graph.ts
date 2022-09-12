@@ -11,7 +11,7 @@ export function maximalPathQuality(
   const T: number = maxTime
   const N: number = values.length
 
-  const edges: IBellmanFordEdge[] = new Array(N)
+  const edges: Array<IBellmanFordEdge<number>> = new Array(N)
   const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
   for (const [u, v, w] of originalEdges) {
@@ -21,10 +21,12 @@ export function maximalPathQuality(
     G[v].push(edges.length)
     edges.push({ to: u, cost: w })
   }
-  const graph: IBellmanFordGraph = { N, source: 0, edges, G }
-  const dist: number[] = []
-  if (!bellmanFord(graph, { INF: Number.MAX_SAFE_INTEGER, dist })) return -1
+  const graph: IBellmanFordGraph<number> = { N, source: 0, edges, G }
 
+  const result = bellmanFord(graph, { INF: Number.MAX_SAFE_INTEGER })
+  if (result.hasNegativeCycle) return -1
+
+  const { dist } = result
   const visited: Uint8Array = new Uint8Array(N)
   return dfs(0, T, values[0])
 

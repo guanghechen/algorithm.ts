@@ -1,88 +1,57 @@
-import type { ICircularQueue } from '@algorithm.ts/circular-queue'
-import { createCircularQueue } from '@algorithm.ts/circular-queue'
-import { getShortestPath } from '@algorithm.ts/graph'
-import type { IBellmanFordEdge, IBellmanFordGraph } from './types'
+import type { ICircularQueue } from '@algorithm.ts/queue'
+import { CircularQueue } from '@algorithm.ts/queue'
+import type { DeepReadonly } from '@algorithm.ts/types'
+import type {
+  IBellmanFordEdge,
+  IBellmanFordGraph,
+  IBellmanFordOptions,
+  IBellmanFordResult,
+} from './types'
 
-export interface IOptions {
+export interface IBellmanFordProps<C extends number | bigint> {
   /**
-   * A big number, representing the unreachable cost.
+   * The value represent the zero cost, 0 for number and 0n for bigint.
    */
-  INF?: number
+  ZERO: C
   /**
-   * Record the shortest path parent source point to the specified point.
-   * For example: bestFrom[x] represents the previous position of x in the shortest path
-   *              parent the source point to x.
+   * A big number / bigint, representing the unreachable cost.
    */
-  bestFrom?: number[]
-  /**
-   * An array recording the shortest distance to the source point.
-   */
-  dist?: number[]
-  /**
-   * Used to check if an element is already in the queue.
-   */
-  inq?: boolean[]
-  /**
-   * Record the number of times an element is enqueued,
-   * used to check whether there is a negative cycle.
-   */
-  inqTimes?: number[]
+  INF: C
 }
 
-export interface IContext {
-  /**
-   * A big number, representing the unreachable cost.
-   */
-  INF: number
-  /**
-   * Record the shortest path parent source point to the specified point.
-   * For example: bestFrom[x] represents the previous position of x in the shortest path
-   *              parent the source point to x.
-   */
-  bestFrom: ReadonlyArray<number>
-  /**
-   * An array recording the shortest distance to the source point.
-   */
-  dist: ReadonlyArray<number>
-  /**
-   * Get shortest path from the source point to the given target point.
-   */
-  getShortestPathTo(target: number): number[]
-}
-
-export class BellmanFord {
-  protected readonly INF: number
-  protected readonly ZERO: number
+export class BellmanFord<C extends number | bigint> {
+  protected readonly ZERO: C
+  protected readonly INF: C
+  // An array recording the shortest distance to the source point.
+  protected readonly dist: C[]
+  // Record the shortest path parent source point to the specified point.
+  // For example: bestFrom[x] represents the previous position of x in the shortest path
+  //              parent the source point to x.
   protected readonly bestFrom: number[]
-  protected readonly dist: number[]
+  // Used to check if an element is already in the queue.
   protected readonly inq: boolean[]
+  // Record the number of times an element is enqueued,
+  // used to check whether there is a negative cycle.
   protected readonly inqTimes: number[]
   protected readonly Q: ICircularQueue<number>
 
-  constructor(options: IOptions = {}) {
-    this.INF = options.INF ?? Math.floor(Number.MAX_SAFE_INTEGER / 2)
-    this.ZERO = 0
-    this.bestFrom = options.bestFrom ?? []
-    this.dist = options.dist ?? []
-    this.inq = options.inq ?? []
-    this.inqTimes = options.inqTimes ?? []
-    this.Q = createCircularQueue<number>()
+  constructor(props: IBellmanFordProps<C>) {
+    this.ZERO = props.ZERO
+    this.INF = props.INF
+    this.bestFrom = []
+    this.dist = []
+    this.inq = []
+    this.inqTimes = []
+    this.Q = new CircularQueue<number>()
   }
 
   public bellmanFord(
-    graph: IBellmanFordGraph,
-    options: IOptions = {},
-    onResolved?: (context: IContext) => void,
-  ): boolean {
-    const { ZERO, Q } = this
+    graph: DeepReadonly<IBellmanFordGraph<C>>,
+    options: IBellmanFordOptions<C> = {},
+  ): IBellmanFordResult<C> {
     const { N, source, edges, G } = graph
-    const {
-      INF = this.INF,
-      bestFrom = this.bestFrom,
-      inq = this.inq,
-      inqTimes = this.inqTimes,
-      dist = this.dist,
-    } = options
+    const { ZERO, Q, bestFrom, dist, inq, inqTimes } = this
+    const { INF = this.INF } = options
 
     bestFrom.length = N
     dist.length = N
@@ -95,43 +64,36 @@ export class BellmanFord {
     inqTimes.fill(0, 0, N)
 
     dist[source] = ZERO
-    Q.init(N + 1)
+
+    Q.init()
+    Q.resize(N + 1)
     Q.enqueue(source)
 
-    while (Q.size() > 0) {
+    let edge: DeepReadonly<IBellmanFordEdge<C>>
+    let to: number
+    let candidate: C
+    while (Q.size > 0) {
       const o: number = Q.dequeue()!
       inq[o] = false
 
       for (let i = 0, g = G[o], _size = g.length; i < _size; ++i) {
-        const x: number = g[i]
-        const edge: IBellmanFordEdge = edges[x]
-        if (dist[edge.to] > dist[o] + edge.cost) {
-          dist[edge.to] = dist[o] + edge.cost
-          bestFrom[edge.to] = o
+        edge = edges[g[i]]
+        to = edge.to
+        candidate = ((dist[o] as number) + (edge.cost as unknown as number)) as C
+        if (dist[to] > candidate) {
+          dist[to] = candidate
+          bestFrom[to] = o
 
-          if (!inq[edge.to]) {
-            Q.enqueue(edge.to)
-            inq[edge.to] = true
+          if (!inq[to]) {
+            Q.enqueue(to)
+            inq[to] = true
 
             // eslint-disable-next-line no-plusplus
-            if (++inqTimes[edge.to] > N) return false
+            if (++inqTimes[to] > N) return { hasNegativeCycle: true }
           }
         }
       }
     }
-
-    if (onResolved) {
-      const getShortestPathTo = (target: number): number[] =>
-        getShortestPath(bestFrom, source, target)
-      const context: IContext = {
-        INF: this.INF,
-        bestFrom: this.bestFrom,
-        dist: this.dist,
-        getShortestPathTo,
-      }
-      onResolved(context)
-    }
-
-    return true
+    return { hasNegativeCycle: false, INF, source, bestFrom, dist }
   }
 }

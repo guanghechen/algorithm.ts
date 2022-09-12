@@ -5,7 +5,7 @@ export default countPaths
 
 const MOD = 1e9 + 7
 export function countPaths(N: number, roads: number[][]): number {
-  const edges: IBellmanFordEdge[] = []
+  const edges: Array<IBellmanFordEdge<number>> = []
   const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
   for (const [from, to, cost] of roads) {
@@ -18,10 +18,11 @@ export function countPaths(N: number, roads: number[][]): number {
 
   const source = 0
   const target = N - 1
-  const graph: IBellmanFordGraph = { N, source: target, edges, G }
-  const dist: number[] = []
-  bellmanFord(graph, { INF: 1e12, dist })
+  const graph: IBellmanFordGraph<number> = { N, source: target, edges, G }
+  const result = bellmanFord(graph, { INF: 1e12 })
+  if (result.hasNegativeCycle) return -1
 
+  const { dist } = result
   const dp: number[] = new Array(N).fill(-1)
   return dfs(source)
 
@@ -34,7 +35,7 @@ export function countPaths(N: number, roads: number[][]): number {
     answer = 0
     const d = dist[o]
     for (const idx of G[o]) {
-      const e: IBellmanFordEdge = edges[idx]
+      const e: IBellmanFordEdge<number> = edges[idx]
       if (dist[e.to] + e.cost === d) {
         const t = dfs(e.to)
         answer = modAdd(answer, t)
