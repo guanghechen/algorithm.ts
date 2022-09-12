@@ -1,22 +1,22 @@
-import { testOjCodes } from 'jest.setup'
-import { createDinic } from '../src'
+import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
+import { Dinic } from '../src'
 
 describe('basic', function () {
   test('simple', function () {
-    const dinic = createDinic()
+    const dinic = new Dinic()
     dinic.init(0, 1, 4)
     dinic.addEdge(0, 2, 1)
     dinic.addEdge(0, 3, 2)
     dinic.addEdge(3, 1, 1)
-    expect(dinic.maxFlow()).toEqual(1)
-    dinic.solve(context => expect(context).toMatchSnapshot())
+    expect(dinic.maxflow()).toEqual(1)
+    expect(dinic.mincut()).toEqual([{ cap: 1, flow: 1, from: 3, to: 1 }])
   })
 })
 
 describe('oj', function () {
-  // https://codeforces.com/contest/1082/problem/G
-  testOjCodes('codeforces/1082/G', import('./oj/codeforces-1082-g'))
-
-  // https://leetcode.com/problems/maximum-students-taking-exam/
-  testOjCodes('leetcode/maximum-students-taking-exam', import('./oj/maximum-students-taking-exam'))
+  testOjCodes(TestOjDataProblemKey.CODEFORCES_1082_G, import('./oj/codeforces-1082-g'))
+  testOjCodes(
+    TestOjDataProblemKey.LEETCODE_MAXIMUM_STUDENTS_TAKING_EXAM,
+    import('./oj/maximum-students-taking-exam'),
+  )
 })

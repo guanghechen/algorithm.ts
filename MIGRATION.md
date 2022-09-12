@@ -107,3 +107,27 @@ Removed, use `@algorithm.ts/dijkstra` instead.
 ```typescript
 import { dijkstraBigint } from '@algorithm.ts/dijkstra'
 ```
+
+
+### @algorithm.ts/dinic
+
+1. Perform class style API, use `new Dinic()` instead of `createDinic()` 
+2. `.maxFlow()` is renamed to `.maxflow()`
+3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, 
+    you can try to extend the `Dinic` and export a method such as `getSnapshot()`.
+
+    ```typescript
+    class CustomDinic extends Dinic {
+      public getSnapshot() {
+        return {
+          N: this._N,
+          source: this._source,
+          sink: this._sink,
+          G: this.G,
+          edges: this._edges,
+          edgesTot: this._edgesTot,
+          dist: this._dist
+        }
+      }
+    }
+    ```

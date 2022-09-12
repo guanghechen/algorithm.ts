@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dinic#readme">@algorithm.ts/dinic</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/dinic#readme">@algorithm.ts/dinic</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/dinic">
@@ -69,32 +69,36 @@ The **Dinic** algorithm is an algorithm for solving network flow problems.
   yarn add @algorithm.ts/dinic
   ```
 
-* deno
-
-  ```typescript
-  import { createDinic } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/dinic/src/index.ts'
-  ```
 
 ## Usage
 
 * Simple
 
   ```typescript
-  import { createDinic } from '@algorithm.ts/dinic'
+  import { Dinic } from '@algorithm.ts/dinic'
 
-  const dinic = createDinic()
+  const dinic = new Dinic()
   dinic.init(0, 1, 4)
   dinic.addEdge(0, 2, 1)
   dinic.addEdge(0, 3, 2)
   dinic.addEdge(3, 1, 1)
 
-  dinic.maxFlow() // => 1
+  dinic.maxflow() // => 1
 
   // Access current residual network.
-  dinic.solve(context => {
-    context
-    // { G: [...], edgeTot: 6, edges: [...] }
-  })
+  class CustomDinic extends Dinic {
+    public getSnapshot() {
+      return {
+        N: this._N,
+        source: this._source,
+        sink: this._sink,
+        G: this.G,
+        edges: this._edges,
+        edgesTot: this._edgesTot,
+        dist: this._dist
+      }
+    }
+  }
   ```
 
 ### Example
@@ -102,9 +106,9 @@ The **Dinic** algorithm is an algorithm for solving network flow problems.
 * A solution for Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
 
   ```typescript
-  import { createDinic } from '@algorithm.ts/dinic'
+  import { Dinic } from '@algorithm.ts/dinic'
 
-  const dinic = createDinic()
+  const dinic = new Dinic()
   export function solveCodeforces1082G(
     nodes: number[],
     edges: Array<[u: number, v: number, weight: number]>,
@@ -130,7 +134,7 @@ The **Dinic** algorithm is an algorithm for solving network flow problems.
       dinic.addEdge(x, u, Number.MAX_SAFE_INTEGER)
       dinic.addEdge(x, v, Number.MAX_SAFE_INTEGER)
     }
-    answer -= dinic.maxFlow()
+    answer -= dinic.maxflow()
     return answer
   }
   ```
@@ -138,7 +142,7 @@ The **Dinic** algorithm is an algorithm for solving network flow problems.
 * A solution for leetcode "Maximum Students Taking Exam" (https://leetcode.com/problems/maximum-students-taking-exam/):
 
   ```typescript
-  import { createDinic } from '@algorithm.ts/dinic'
+  import { Dinic } from '@algorithm.ts/dinic'
 
   export function maxStudents(seats: string[][]): number {
     const R: number = seats.length
@@ -162,7 +166,6 @@ The **Dinic** algorithm is an algorithm for solving network flow problems.
 
     const source: number = total * 2
     const target: number = source + 1
-    const dinic = createDinic()
     dinic.init(source, target, target + 1)
 
     for (let r = 0; r < R; ++r) {
@@ -197,17 +200,17 @@ The **Dinic** algorithm is an algorithm for solving network flow problems.
       }
     }
 
-    const totalPaired: number = dinic.maxFlow() / 2
+    const totalPaired: number = dinic.maxflow() / 2
     return total - totalPaired
   }
   ```
 
 ## Related
 
-* [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/isap)
-* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/mcmf)
+* [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/isap)
+* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/mcmf)
 * [网络流 24 题](https://me.guanghechen.com/post/algorithm/graph/network-flow/24-problems/)
 * [网络流基础之最大权闭合图](https://me.guanghechen.com/post/algorithm/graph/network-flow/%E6%9C%80%E5%A4%A7%E6%9D%83%E9%97%AD%E5%90%88%E5%9B%BE/)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dinic#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/dinic#readme

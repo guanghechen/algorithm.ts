@@ -1,8 +1,8 @@
-import { createDinic } from '../../src'
+import { Dinic } from '../../src'
 
 export default solveCodeforces1082G
 
-const dinic = createDinic()
+const dinic = new Dinic()
 export function solveCodeforces1082G(
   nodes: number[],
   edges: Array<[u: number, v: number, weight: number]>,
@@ -28,6 +28,6 @@ export function solveCodeforces1082G(
     dinic.addEdge(x, u, Number.MAX_SAFE_INTEGER)
     dinic.addEdge(x, v, Number.MAX_SAFE_INTEGER)
   }
-  answer -= dinic.maxFlow()
+  answer -= dinic.maxflow()
   return answer
 }

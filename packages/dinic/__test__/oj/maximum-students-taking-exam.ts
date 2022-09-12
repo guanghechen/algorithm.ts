@@ -1,8 +1,8 @@
-import { createDinic } from '../../src'
+import { Dinic } from '../../src'
 
 export default maxStudents
 
-const dinic = createDinic()
+const dinic = new Dinic()
 export function maxStudents(seats: string[][]): number {
   const R: number = seats.length
   if (R <= 0) return 0
@@ -59,6 +59,6 @@ export function maxStudents(seats: string[][]): number {
     }
   }
 
-  const totalPaired: number = dinic.maxFlow() / 2
+  const totalPaired: number = dinic.maxflow() / 2
   return total - totalPaired
 }
