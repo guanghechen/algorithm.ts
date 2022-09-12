@@ -8,13 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
     "directory": "packages/graph"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/graph#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/graph#readme",
   "keywords": [
     "algorithm",
-    "graph"
+    "graph algorithm utils"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",

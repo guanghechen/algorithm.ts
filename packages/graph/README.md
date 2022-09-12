@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/graph#readme">@algorithm.ts/graph</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/graph#readme">@algorithm.ts/graph</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/graph">
@@ -66,12 +66,6 @@ Types and utils from solving graph problems.
   yarn add @algorithm.ts/graph
   ```
 
-* deno
-
-  ```typescript
-  import type { IEdge, IGraph } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/graph/src/index.ts'
-  import { buildEdgeMap } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/graph/src/index.ts'
-  ```
 
 ## Usage
 
@@ -79,6 +73,12 @@ Types and utils from solving graph problems.
 
   ```typescript {17}
   import { buildEdgeMap } from '@algorithm.ts/graph'
+  import type { IDigraph, IDigraphEdge } from '@algorithm.ts/types'
+
+  interface IEdge extends IDigraphEdge {
+    from: number
+    cost: number
+  }
 
   const Nodes = {
     A: 0,
@@ -87,7 +87,7 @@ Types and utils from solving graph problems.
     D: 3,
   }
   const N: number = Object.keys(Nodes).length
-  const edges: Array<IEdge & { from: number }> = [
+  const edges: IEdge[] = [
     { from: Nodes.A, to: Nodes.B, cost: 1 }, // A-B (1)
     { from: Nodes.B, to: Nodes.A, cost: -1 }, // B-A (-1)
     { from: Nodes.B, to: Nodes.C, cost: 0.87 }, // B-C (0.87)
@@ -95,10 +95,8 @@ Types and utils from solving graph problems.
     { from: Nodes.C, to: Nodes.D, cost: 5 }, // C-D (5)
     { from: Nodes.D, to: Nodes.C, cost: -5 }, // D-C (-5)
   ]
-
   const G: number[][] = buildEdgeMap(N, edges)
-
-  const graph: IGraph = { N, edges, G }
+  const graph: IDigraph<IEdge> = { N, G, edges }
   ```
 
 * `getShortestPath`
@@ -119,10 +117,8 @@ Types and utils from solving graph problems.
 
 * [@algorithm.ts/bellman-ford][]
 * [@algorithm.ts/dijkstra][]
-* [@algorithm.ts/dijkstra-bigint][]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/graph#readme
-[@algorithm.ts/bellman-ford]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/bellman-ford
-[@algorithm.ts/dijkstra]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dijkstra
-[@algorithm.ts/dijkstra-bigint]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dijkstra-bigint
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/graph#readme
+[@algorithm.ts/bellman-ford]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/bellman-ford
+[@algorithm.ts/dijkstra]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/dijkstra

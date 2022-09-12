@@ -154,3 +154,8 @@ No breaking changes.
 ### @algorithm.ts/gomoku
 
 No breaking changes.
+
+
+### @algorithm.ts/graph
+
+1. The graph related types is moved to `@algorithm.ts/types`.
