@@ -1,4 +1,4 @@
-import { buildEncodingTable, createHuffmanTree } from './huffman'
+import { fromText, toEncodingTable } from './huffman'
 import type { IHuffmanEncodedData, IHuffmanEncodingTable, IHuffmanNode } from './huffman'
 
 /**
@@ -11,9 +11,9 @@ export function encode(plaintext: string): {
   encodingTable: IHuffmanEncodingTable
   tree: IHuffmanNode
 } {
-  const tree: IHuffmanNode = createHuffmanTree(plaintext)
+  const tree: IHuffmanNode = fromText(plaintext)
   const encodedData: Array<0 | 1> = []
-  const encodingTable: IHuffmanEncodingTable = buildEncodingTable(tree)
+  const encodingTable: IHuffmanEncodingTable = toEncodingTable(tree)
   for (const c of plaintext) {
     // Invariant: data should not be null / undefined.
     const data: IHuffmanEncodedData = encodingTable[c]

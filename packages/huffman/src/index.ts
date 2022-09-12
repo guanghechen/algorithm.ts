@@ -1,6 +1,6 @@
 import { compress, decompress } from './compress'
 import { decode, encode } from './encode'
-import { buildEncodingTable, buildHuffmanTree, createHuffmanTree } from './huffman'
+import { fromEncodingTable, fromText, toEncodingTable } from './huffman'
 
 export * from './compress'
 export * from './encode'
@@ -11,7 +11,7 @@ export default {
   decode,
   compress,
   decompress,
-  buildEncodingTable,
-  createHuffmanTree,
-  buildHuffmanTree,
+  fromText,
+  fromEncodingTable,
+  toEncodingTable,
 }

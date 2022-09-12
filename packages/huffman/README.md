@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/huffman#readme">@algorithm.ts/huffman</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/huffman#readme">@algorithm.ts/huffman</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/huffman">
@@ -74,19 +74,18 @@ A typescript implementation of the **huffman** coding.
 
   ```typescript
   import { encode } from '@algorithm.ts/huffman'
-
   const { encodedData, encodingTable, tree } = encode('Hello, world!')
   ```
 
 * `decode`: Decode a huffman encoded data to string.
 
   ```typescript
-  import { decode } from '@algorithm.ts/huffman'
+  import { decode, fromEncodingTable } from '@algorithm.ts/huffman'
 
   const plaintext = decode(encodedData, tree)
 
   // Or build tree from encodingTable
-  const tree2 = buildHuffmanTree(encodingTable)
+  const tree2 = fromEncodingTable(encodingTable)
   const plaintext2 = decode(encodedData, tree2)
   ```
 
@@ -144,7 +143,7 @@ A typescript implementation of the **huffman** coding.
     const encodingTable = decompressEncodingTable(
       JSON.parse(textDecoder.decode(base64.decode(encodingTableText))),
     )
-    const tree = huffman.buildHuffmanTree(encodingTable)
+    const tree = huffman.fromEncodingTable(encodingTable)
 
     const cipherData = huffman.decompress(base64.decode(cipherText))
     const plaintext = huffman.decode(cipherData, tree)
@@ -181,4 +180,4 @@ A typescript implementation of the **huffman** coding.
 * [Huffman coding | Wikipedia](https://en.wikipedia.org/wiki/Huffman_coding)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/huffman#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/huffman#readme

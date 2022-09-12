@@ -159,3 +159,10 @@ No breaking changes.
 ### @algorithm.ts/graph
 
 1. The graph related types is moved to `@algorithm.ts/types`.
+
+
+### @algorithm.ts/huffman
+
+1. `buildEncodingTable` is renamed to `toEncodingTable`.
+2. `buildHuffmanTree` is renamed to `fromEncodingTable`.
+3. `createHuffmanTree` is renamed to `fromText`.

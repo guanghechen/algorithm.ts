@@ -1,4 +1,4 @@
-import { buildHuffmanTree, compress, decode, decompress, encode } from '../src'
+import { compress, decode, decompress, encode, fromEncodingTable } from '../src'
 
 describe('basic', function () {
   test('empty', () => textWrapper(''))
@@ -18,7 +18,7 @@ describe('basic', function () {
     const text2: string = decode(encodedData, tree)
     expect(text2).toEqual(text)
 
-    const tree2 = buildHuffmanTree(encodingTable)
+    const tree2 = fromEncodingTable(encodingTable)
     expect(tree).toEqual(tree2)
 
     expect(decode(encodedData, tree2)).toEqual(text)
@@ -32,9 +32,8 @@ describe('basic', function () {
 
 test('unexpected', function () {
   const { encodedData, encodingTable } = encode('Hello, world!')
-
   const { H, ...encodingTable2 } = encodingTable
-  const tree2 = buildHuffmanTree(encodingTable2)
+  const tree2 = fromEncodingTable(encodingTable2)
 
   expect(() => decode(encodedData, tree2)).toThrow(/Bad encoded data or huffman tree/)
 })

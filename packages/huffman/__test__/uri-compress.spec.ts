@@ -50,7 +50,7 @@ function decompress(compressedText: string): string {
   const encodingTable = decompressEncodingTable(
     JSON.parse(textDecoder.decode(base64.decode(encodingTableText))),
   )
-  const tree = huffman.buildHuffmanTree(encodingTable)
+  const tree = huffman.fromEncodingTable(encodingTable)
 
   const cipherData = huffman.decompress(base64.decode(cipherText))
   const plaintext = huffman.decode(cipherData, tree)
