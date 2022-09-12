@@ -1,7 +1,8 @@
+/* eslint-disable  */
 import fs from 'fs-extra'
-import { locateFixtures } from 'jest.setup'
 import type { GomokuDirectionType, IGomokuMoverContextProps, IGomokuPiece } from '../src'
 import { GomokuDirectionTypes, GomokuMoverContext, GomokuMoverCounter } from '../src'
+import { locateFixtures } from './util'
 
 const { rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 

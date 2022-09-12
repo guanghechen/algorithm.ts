@@ -1,10 +1,12 @@
 import fs from 'fs-extra'
-import { locateFixtures } from 'jest.setup'
 import path from 'path'
 
 export enum PieceDataDirName {
   d15x15 = '15x15',
 }
+
+const FIXTURE_DIR = path.join(__dirname, 'fixtures')
+export const locateFixtures = (...p: string[]): string => path.resolve(FIXTURE_DIR, ...p)
 
 export const locatePieceDataFilepaths = (
   dirName: PieceDataDirName,

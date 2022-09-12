@@ -149,3 +149,8 @@ import { dijkstraBigint } from '@algorithm.ts/dijkstra'
 ### @algorithm.ts/gcd
 
 No breaking changes.
+
+
+### @algorithm.ts/gomoku
+
+No breaking changes.

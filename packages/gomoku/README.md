@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/gomoku#readme">@algorithm.ts/gomoku</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/gomoku#readme">@algorithm.ts/gomoku</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/gomoku">
@@ -66,11 +66,40 @@
 
 ## Usage
 
-
 * Basic
+
+  ```typescript
+  import { Solution } from '@algorithm.ts/gomoku'
+
+  const solution = new Solution({
+    MAX_ROW: 15,
+    MAX_COL: 15,
+    MAX_ADJACENT: 5,
+    MAX_DISTANCE_OF_NEIGHBOR: 2,
+  })
+
+  // Let's use 0 to represent WHITE piece and 1 to represent BLACK piece.
+  // The chessboard can be regarded as a two-dimensional coordinate system, in which the y-axis is
+  // to the right, the x-axis is downward, and the position of the first moveable piece on the
+  // chessboard is (0,0)
+
+  // put a WHITE piece on the position (7, 7).
+  solution.forward(7, 7, 0)
+
+  // put a BLACK piece on the position (6, 6).
+  solution.forward(6, 6, 1)
+
+  // ... (Omit some chess moves)
+
+  // Try to choose a favorable position to place the WHITE piece in the free position of the chessboard.
+  const [r0, c0] = solution.minimaxSearch(0)
+
+  // Try to choose a favorable position to place the BLACK piece in the free position of the chessboard.
+  const [r1, c1] = solution.minimaxSearch(1)
+  ```
 
 
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/gomoku#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/gomoku#readme

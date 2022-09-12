@@ -1,5 +1,5 @@
-import type { IPriorityQueue } from '@algorithm.ts/priority-queue'
-import { createPriorityQueue } from '@algorithm.ts/priority-queue'
+import { PriorityQueue } from '@algorithm.ts/queue'
+import type { IPriorityQueue } from '@algorithm.ts/queue'
 import type { GomokuDirectionType } from '../constant'
 import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from '../constant'
 import type {
@@ -42,7 +42,7 @@ export class GomokuMoverState implements IGomokuMoverState {
     const { context, counter, scoreMap } = props
 
     const _candidateQueues: Array<IPriorityQueue<IGomokuCandidateState>> = createHighDimensionArray(
-      () => createPriorityQueue<IGomokuCandidateState>((x, y) => x.score - y.score),
+      () => new PriorityQueue<IGomokuCandidateState>({ compare: (x, y) => y.score - x.score }),
       context.TOTAL_PLAYER, // playerId
     )
     const _candidateInqSets: Array<Array<Set<number>>> = createHighDimensionArray(
@@ -207,7 +207,7 @@ export class GomokuMoverState implements IGomokuMoverState {
       }
     }
 
-    if (Q.size() > this.context.TOTAL_POS) {
+    if (Q.size > this.context.TOTAL_POS) {
       Q.splice(
         item => {
           if (

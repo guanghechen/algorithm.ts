@@ -272,7 +272,7 @@ describe('15x15', function () {
     }
   })
 
-  test('isFinal', () => {
+  test('isFinal', function () {
     const tester = getTester()
     const posId0 = tester.context.idx(6, 6)
     for (const dirType of fullDirectionTypes) {

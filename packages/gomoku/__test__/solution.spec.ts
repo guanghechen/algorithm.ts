@@ -11,7 +11,7 @@ class Solution extends GomokuSolution {
 }
 
 describe('construction', () => {
-  test('default', () => {
+  test('default', function () {
     const solution = new Solution({ MAX_ROW: 15, MAX_COL: 15 })
     expect(solution.moverContext.MAX_ROW).toEqual(15)
     expect(solution.moverContext.MAX_COL).toEqual(15)
