@@ -135,3 +135,13 @@ import { dijkstraBigint } from '@algorithm.ts/dijkstra'
 ### @algorithm.ts/dlx
 
 1. Use `new DancingLinkX({ MAX_N: <number> })` instead of `createDLX(<number>)` 
+
+
+### @algorithm.ts/findset
+
+1. Use `new Findset()` instead of `createFindset()`.
+2. Use `new HeuristicFindset()` instead of `createHeuristicFindset()`.
+3. Use `new EnhancedFindset()` instead of `createEnhancedFindset()`.
+4. `.size(<number>)` is renamed to `.count(<number>)`.
+5. `.resetNode(<number>)` is removed.
+

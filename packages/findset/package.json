@@ -8,13 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
     "directory": "packages/findset"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/findset#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/findset#readme",
   "keywords": [
     "findset",
-    "heuristic findset"
+    "heuristic findset",
+    "enhanced findset (get set)"
   ],
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",

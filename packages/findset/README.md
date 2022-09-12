@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/findset#readme">@algorithm.ts/findset</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/findset#readme">@algorithm.ts/findset</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/findset">
@@ -50,12 +50,11 @@
 <br/>
 
 
-A typescript implementation of the **Findset** data structure, usually also
-known as [Disjoint-set data structure][wiki-find-set].
+A typescript implementation of the **Findset** data structure, usually also known as
+[Disjoint-set data structure][wiki-find-set].
 
-The find-set is a data structure used to maintain the node relationship in a
-forest. Find set support to perform the following operations under the
-amortized constant time complexity:
+The find-set is a data structure used to maintain the node relationship in a forest. Find set
+support to perform the following operations under the amortized constant time complexity:
 
 1. Determine whether two nodes are in a synonymous tree.
 2. Merge two trees.
@@ -75,14 +74,15 @@ amortized constant time complexity:
   yarn add @algorithm.ts/findset
   ```
 
+
 ## Usage
 
 * Create a ordinary findset:
 
   ```typescript
-  import { createFindset } from '@algorithm.ts/findset'
+  import { Findset } from '@algorithm.ts/findset'
 
-  const findset = createFindset()
+  const findset = new Findset()
 
   // Initialize the findset with 1000 node.
   findset.init(1000)
@@ -105,9 +105,9 @@ amortized constant time complexity:
   number of executions of subsequent queries.
 
   ```typescript
-  import { createHeuristicFindset } from '@algorithm.ts/findset'
+  import { HeuristicFindset } from '@algorithm.ts/findset'
 
-  const findset = createHeuristicFindset()
+  const findset = new HeuristicFindset()
 
   // Initialize the findset with 1000 node.
   findset.init(1000)
@@ -122,10 +122,10 @@ amortized constant time complexity:
   assert(findset.root(2) === findset.root(3))
 
   // Count the nodes of a tree.
-  findset.size(1)   // => 1
-  findset.size(2)   // => 2
-  findset.size(3)   // => 2
-  findset.size(4)   // => 1
+  findset.count(1)   // => 1
+  findset.count(2)   // => 2
+  findset.count(3)   // => 2
+  findset.count(4)   // => 1
   ```
 
 * Create an enhanced findset:
@@ -134,41 +134,48 @@ amortized constant time complexity:
   all the nodes on a given tree (access through the root node).
 
   ```typescript
-  import { createEnhancedFindset } from '@algorithm.ts/findset'
+  import { EnhancedFindset } from '@algorithm.ts/findset'
 
-  const findset = createEnhancedFindset(100)
+  const findset = new EnhancedFindset()
 
   findset.init(100)
-  findset.size(1)       // => 1
+  findset.count(1)      // => 1
   findset.merge(1, 2)
-  findset.size(1)       // => 2
-  findset.size(2)       // => 2
+  findset.count(1)      // => 2
+  findset.count(2)      // => 2
   findset.getSetOf(1)   // => Set {1, 2}
   findset.getSetOf(2)   // => Set {1, 2}
   ```
 
-### Example
+
+## Example
 
 * A solution for leetcode "Find All People With Secret"
   (https://leetcode.com/problems/find-all-people-with-secret/):
 
   ```typescript
-  import { createEnhancedFindset } from '@algorithm.ts/findset'
-  import type { IEnhancedFindset } from '@algorithm.ts/findset'
+  import { UnsafeEnhancedFindset } from '@algorithm.ts/findset'
+
+  class MyFindset extends UnsafeEnhancedFindset {
+    public resetNode(x: number): void {
+      this._parent[x] = 0
+      this._sets[x].clear()
+      this._sets[x].add(x)
+    }
+  }
 
   const MAX_N = 1e5 + 10
   const answer: Set<number> = new Set()
   const nodes: Set<number> = new Set()
   const visited: Uint8Array = new Uint8Array(MAX_N)
-  const findset: IEnhancedFindset = createEnhancedFindset(MAX_N)
+  const findset = new MyFindset()
 
   export function findAllPeople(N: number, meetings: number[][], firstPerson: number): number[] {
-    const M: number = meetings.length
-
     answer.clear()
     answer.add(1)
     answer.add(firstPerson + 1)
 
+    const M: number = meetings.length
     meetings
       .sort((x, y) => x[2] - y[2])
       .forEach(item => {
@@ -176,6 +183,7 @@ amortized constant time complexity:
         item[1] += 1
       })
 
+    findset.init(N)
     for (let i = 0, j: number; i < M; i = j) {
       const t: number = meetings[i][2]
       for (j = i + 1; j < M; ++j) {
@@ -190,7 +198,7 @@ amortized constant time complexity:
       }
 
       for (const x of nodes) {
-        findset.initNode(x)
+        findset.resetNode(x)
         visited[x] = 0
       }
 
@@ -206,7 +214,7 @@ amortized constant time complexity:
         if (visited[xx]) continue
         visited[xx] = 1
 
-        const xxSet: Set<number> = findset.getSetOf(xx)!
+        const xxSet = findset.getSetOf(xx)!
         for (const t of xxSet) answer.add(t)
       }
     }
@@ -222,5 +230,5 @@ amortized constant time complexity:
 * [Disjoint-set data structure | Wikipedia][wiki-find-set]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/findset#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/findset#readme
 [wiki-find-set]: https://en.wikipedia.org/wiki/Disjoint-set_data_structure
