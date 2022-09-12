@@ -295,6 +295,15 @@ No breaking changes.
 5. `init()` is renamed to `reset()`, and the parameters is changed to object style. 
 
 
+### @algorithm.ts/trie
+
+1. `.insert()` is renamed to `.set()`. 
+2. `.math()` is renamed to `.get()`.
+3. `.hasPrefixMatched` is renamed to `.hasPrefix()`.
+4. `.init()` is removed, use `.clear()` to initialize trie.
+
+
+
 ### @algorithm.ts/upper-bound
 
 1. This package is removed, use `@algorithm.ts/binary-search` instead.

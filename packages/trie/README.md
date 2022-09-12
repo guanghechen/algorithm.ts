@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/trie#readme">@algorithm.ts/trie</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/trie#readme">@algorithm.ts/trie</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/trie">
@@ -54,13 +54,11 @@ A typescript implementation of the **TRIE** data structure.
 
 The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki/Trie):
 
-> In computer science, a trie, also called digital tree or prefix tree, is a
-> type of search tree, a tree data structure used for locating specific keys
-> from within a set. These keys are most often strings, with links between
-> nodes defined not by the entire key, but by individual characters. In order
-> to access a key (to recover its value, change it, or remove it), the trie
-> is traversed depth-first, following the links between nodes, which
-> represent each character in the key.
+> In computer science, a trie, also called digital tree or prefix tree, is a type of search tree, a
+> tree data structure used for locating specific keys from within a set. These keys are most often
+> strings, with links between nodes defined not by the entire key, but by individual characters. In
+> order to access a key (to recover its value, change it, or remove it), the trie is traversed
+> depth-first, following the links between nodes, which represent each character in the key.
 
 
 ## Install
@@ -77,42 +75,41 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   yarn add @algorithm.ts/trie
   ```
 
-* deno
-
-  ```typescript
-  import { createTrie } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/trie/src/index.ts'
-  ```
 
 ## Usage
 
-* Trie
+* Trie: Trie implements the [Collection][] interface.
 
-  - `init(): void`: Initialize a trie.
+  - `set(element: Readonly<E>, value: V, start?: number, end?: number): this`:
+    Insert a string (or an array) into the trie.
 
-  - `insert(str: string, v: T, start?: number, end?: number): void`:  Insert a
-    string into the trie.
+  - `delete(element: Readonly<E>, start?: number, end?: number): boolean`:
+    Remove a string (or an array) from the trie.
 
-  - `match(str: string, start?: number, end?: number): T | null`: Find a word in
-    the trie which exact match the `str.slice(start, end)`. If there is such a
-    word, return its additional value, otherwise return null.
+  - `get(element: Readonly<E>, start?: number, end?: number): V | undefined`: 
+    Find the value of the element which exactly matched the `element.slice(start, end)`.
+    If there is no such an element, then return undefined.
 
-  - `hasPrefixMatched(str: string, start?: number, end?: number): boolean`:
-    Check if there is a word `w` in the trie satisfied that
-    `w.slice(0, end - start)` equals to `str.slice(start, end)`.
+  - `has(element: Readonly<E>, start?: number, end?: number): boolean`:
+    Check if there is an element exactly matched the `element.slice(start, end)`.
 
-  - `find(str: string, start?: number, end?: number): TrieNodeData<T> | null`:
+  - `hasPrefix(prefix: Readonly<E>, start?: number, end?: number): boolean`:
+    Check if there is an element which prefix matched the `prefix.slice(start, end)`.
+
+  - `find(element: Readonly<E>, start?: number, end?: number): ITrieNodeData<V> | undefined`:
     Find word with smallest length in the trie which exact match the
-    `str.slice(start, x)`, where the x is an integer in the range [start, _end).
+    `element.slice(start, x)`, where the x is an integer in the range [start, _end).
 
-  - `findAll(str: string, start?: number, end?: number): Array<TrieNodeData<T>>`:
+  - `findAll(element: Readonly<E>, start?: number, end?: number): Iterable<ITrieNodeData<V>>`:
     Find all words in the trie which exact match the
-    `str.slice(start, x)`, where the x is an integer in the range [start, _end).
+    `element.slice(start, x)`, where the x is an integer in the range [start, _end).
 
 * Util
 
-  - `lowercaseIdx(c: string): number`: Calc idx of lowercase English letter.
-  - `uppercaseIdx(c: string): number`: Calc idx of uppercase English letter. 
   - `digitIdx(c: string): number`: Calc idx of digit character.
+  - `uppercaseIdx(c: string): number`: Calc idx of uppercase English letter. 
+  - `lowercaseIdx(c: string): number`: Calc idx of lowercase English letter.
+  - `alphaNumericIdx(c: string): number`: Calc idx of digit, lowercase/uppercase English leter.
 
 ### Example
 
@@ -120,25 +117,24 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
   ```typescript
   import type { ITrie } from '@algorithm.ts/trie'
-  import { createTrie, lowercaseIdx } from '@algorithm.ts/trie'
+  import { Trie, lowercaseIdx } from '@algorithm.ts/trie'
 
-  export function wordBreak(s: string, wordDict: string[]): string[] {
-    if (s.length <= 0) return []
+  const trie: ITrie<string, number> = new Trie<string, number>({
+    SIGMA_SIZE: 26,
+    idx: lowercaseIdx,
+    mergeNodeValue: (_x, y) => y,
+  })
 
-    const trie: ITrie = createTrie({
-      SIGMA_SIZE: 26,
-      ZERO: 0,
-      idx: lowercaseIdx,
-      mergeAdditionalValues: (x, y) => y,
-    })
+  export function wordBreak(text: string, wordDict: string[]): string[] {
+    if (text.length <= 0) return []
 
-    trie.init()
+    trie.clear()
     for (let i = 0; i < wordDict.length; ++i) {
       const word = wordDict[i]
-      trie.insert(word, i + 1)
+      trie.set(word, i)
     }
 
-    const N = s.length
+    const N = text.length
     const results: string[] = []
     const collect: number[] = []
     dfs(0, 0)
@@ -149,14 +145,13 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
         results.push(
           collect
             .slice(0, cur)
-            .map(x => wordDict[x - 1])
+            .map(x => wordDict[x])
             .join(' '),
         )
         return
       }
 
-      const pairs = trie.findAll(s, pos)
-      for (const { end, val } of pairs) {
+      for (const { end, val } of trie.findAll(text, pos, text.length)) {
         collect[cur] = val
         dfs(cur + 1, end)
       }
@@ -167,58 +162,72 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * A solution of https://leetcode.com/problems/word-search-ii/
 
   ```typescript
-  import { Trie, createTrie, lowercaseIdx } from '@algorithm.ts/trie'
+  import { Trie, lowercaseIdx } from '@algorithm.ts/trie'
 
-  function findWords(board: string[][], words: string[]): string[] {
-    if (words.length === 0) return []
+  class CustomTrie<E extends unknown[] | string, V> extends Trie<E, V> {
+    public getSnapshot(): { ch: Uint32Array[]; values: Array<V | undefined> } {
+      return {
+        ch: this._ch,
+        values: this._values,
+      }
+    }
+  }
 
+  const trie = new CustomTrie<string, number>({
+    SIGMA_SIZE: 26,
+    idx: lowercaseIdx,
+    mergeNodeValue: (x, _y) => x,
+  })
+
+  export function findWords(board: string[][], words: string[]): string[] {
+    const N = words.length
     const R = board.length
-    if (R <= 0) return []
-
     const C = board[0].length
-    if (C <= 0) return []
+    if (N <= 0 || R <= 0 || C <= 0) return []
 
-    const trie: Trie = createTrie({
-      SIGMA_SIZE: 26,
-      ZERO: 0,
-      idx: lowercaseIdx,
-      mergeAdditionalValues: x => x,
-    })
+    trie.clear()
+    for (let i = 0; i < N; ++i) trie.set(words[i], i)
 
-    trie.init()
+    const boardCode: number[][] = []
+    for (let r = 0; r < R; ++r) {
+      const codes: number[] = []
+      for (let c = 0; c < C; ++c) codes[c] = board[r][c].charCodeAt(0) - 97
+      boardCode[r] = codes
+    }
 
     const visited: boolean[][] = new Array(R)
     for (let r = 0; r < R; ++r) visited[r] = new Array(C).fill(false)
 
-    const boardWord: string[] = []
+    let matchedWordCount = 0
+    const isWordMatched: boolean[] = new Array(N).fill(false)
+
+    const { ch, values } = trie.getSnapshot()
     for (let r = 0; r < R; ++r) {
       for (let c = 0; c < C; ++c) {
         dfs(0, r, c)
       }
     }
 
-    const results: string[] = []
-    for (const word of words) {
-      if (trie.hasPrefixMatched(word)) results.push(word)
-    }
+    const results: string[] = words.filter((_w, i) => isWordMatched[i])
     return results
 
-    function dfs(cur: number, r: number, c: number): void {
-      if (cur === 10 || r < 0 || r >= R || c < 0 || c >= C) {
-        trie.insert(boardWord.join(''), 1, 0, cur)
-        return
+    function dfs(u: number, r: number, c: number): void {
+      if (visited[r][c] || matchedWordCount === N) return
+
+      const u2: number = ch[u][boardCode[r][c]]
+      if (u2 === 0) return
+
+      const val = values[u2]
+      if (val !== undefined && !isWordMatched[val]) {
+        isWordMatched[val] = true
+        matchedWordCount += 1
       }
 
-      if (visited[r][c]) return
-
       visited[r][c] = true
-      boardWord[cur] = board[r][c]
-
-      const nextCur: number = cur + 1
-      dfs(nextCur, r - 1, c)
-      dfs(nextCur, r, c + 1)
-      dfs(nextCur, r + 1, c)
-      dfs(nextCur, r, c - 1)
+      if (r > 0) dfs(u2, r - 1, c)
+      if (c + 1 < C) dfs(u2, r, c + 1)
+      if (r + 1 < R) dfs(u2, r + 1, c)
+      if (c > 0) dfs(u2, r, c - 1)
       visited[r][c] = false
     }
   }
@@ -229,4 +238,5 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * https://en.wikipedia.org/wiki/Trie
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/trie#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/trie#readme
+[Collection]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/types#readme

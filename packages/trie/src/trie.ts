@@ -1,112 +1,73 @@
+/* eslint-disable no-param-reassign */
+import { UnsafeTrie } from './trie-unsafe'
 import type { ITrie, ITrieNodeData } from './types'
 
-/**
- * Options for create trie.
- */
-export interface IOptions<T = number> {
-  /**
-   * The maximum number of children a parent node can have.
-   */
-  SIGMA_SIZE: number
+export class Trie<E extends unknown[] | string, V> extends UnsafeTrie<E, V> implements ITrie<E, V> {
+  public override set(
+    element: Readonly<E>,
+    value: V,
+    start = 0,
+    end: number = element.length,
+  ): this {
+    if (start < 0) start = 0
+    if (end > element.length) end = element.length
 
-  /**
-   * The zero element of the additional value, we may pass in different types
-   * of data, and the added value may perform a variety of different
-   * mathematical transformations, so we need to specify a zero element.
-   */
-  ZERO: T
-
-  /**
-   * Map a character to an integer in the range [0, SIGMA_SIZE)
-   */
-  idx(c: string): number
-
-  /**
-   * Specify how to combine additional values.
-   * When the same word is inserted in multiple times, there will be multiple
-   * additional values, so we need to specify how to deal with them.
-   *
-   * @param prevValue
-   * @param nextValue
-   */
-  mergeAdditionalValues(prevValue: T, nextValue: T): T
-}
-
-export function createTrie<T = number>({
-  SIGMA_SIZE,
-  ZERO,
-  idx,
-  mergeAdditionalValues,
-}: IOptions<T>): ITrie<T> {
-  let sz: number
-  const ch: Uint32Array[] = []
-  const values: T[] = [ZERO]
-  return { init, insert, match, hasPrefixMatched, find, findAll }
-
-  function init(): void {
-    if (ch[0] === undefined) ch[0] = new Uint32Array(SIGMA_SIZE)
-    else ch[0].fill(0)
-    sz = 1
+    if (start >= end) super.set(element, value, 0, 0)
+    else super.set(element, value, start, end)
+    return this
   }
 
-  function insert(str: string, v: T, start = 0, end = str.length): void {
-    let u = 0
-    for (let i = start; i < end; ++i) {
-      const c: number = idx(str[i])
-      if (ch[u][c] === 0) {
-        if (ch[sz] === undefined) ch[sz] = new Uint32Array(SIGMA_SIZE)
-        else ch[sz].fill(0)
+  public override delete(element: Readonly<E>, start = 0, end: number = element.length): boolean {
+    if (start < 0) start = 0
+    if (end > element.length) end = element.length
 
-        values[sz] = ZERO
-        // eslint-disable-next-line no-plusplus
-        ch[u][c] = sz++
-      }
-      u = ch[u][c]
-    }
-    // console.log('u:', u, sz)
-    values[u] = mergeAdditionalValues(values[u], v)
+    if (start >= end) return super.delete(element, 0, 0)
+    return super.delete(element, start, end)
   }
 
-  function match(str: string, start = 0, end = str.length): T | null {
-    let i = start
-    let u = 0
-    for (; i < end; ++i) {
-      const c: number = idx(str[i])
-      if (ch[u][c] === 0) break
-      u = ch[u][c]
-    }
-    const val = values[u]
-    return i < end || val === ZERO ? null : val
+  public override get(
+    element: Readonly<E>,
+    start = 0,
+    end: number = element.length,
+  ): V | undefined {
+    if (start < 0) start = 0
+    if (end > element.length) end = element.length
+
+    if (start >= end) return super.get(element, 0, 0)
+    return super.get(element, start, end)
   }
 
-  function hasPrefixMatched(str: string, start = 0, end = str.length): boolean {
-    for (let i = start, u = 0; i < end; ++i) {
-      const c: number = idx(str[i])
-      u = ch[u][c]
-      if (u === 0) return false
-    }
-    return true
+  public override has(element: Readonly<E>, start = 0, end: number = element.length): boolean {
+    if (start < 0) start = 0
+    if (end > element.length) end = element.length
+
+    if (start >= end) return super.has(element, 0, 0)
+    return super.has(element, start, end)
   }
 
-  function find(str: string, start = 0, end = str.length): ITrieNodeData<T> | null {
-    for (let i = start, u = 0; i < end; ++i) {
-      const c: number = idx(str[i])
-      u = ch[u][c]
-      if (u === 0) break
-      if (values[u] !== ZERO) return { end: i + 1, val: values[u] }
-    }
-    return null
+  public override hasPrefix(prefix: Readonly<E>, start = 0, end: number = prefix.length): boolean {
+    if (start < 0) start = 0
+    if (end > prefix.length) end = prefix.length
+    return super.hasPrefix(prefix, start, end)
   }
 
-  function findAll(str: string, start = 0, end = str.length): Array<ITrieNodeData<T>> {
-    const results: Array<ITrieNodeData<T>> = []
-    for (let i = start, u = 0; i < end; ++i) {
-      const c: number = idx(str[i])
-      if (ch[u][c] === 0) break
-      u = ch[u][c]
-      const val = values[u]
-      if (val !== ZERO) results.push({ end: i + 1, val })
-    }
-    return results
+  public override find(
+    element: Readonly<E>,
+    start = 0,
+    end: number = element.length,
+  ): ITrieNodeData<V> | undefined {
+    if (start < 0) start = 0
+    if (end > element.length) end = element.length
+    return super.find(element, start, end)
+  }
+
+  public override findAll(
+    element: Readonly<E>,
+    start = 0,
+    end: number = element.length,
+  ): Iterable<ITrieNodeData<V>> {
+    if (start < 0) start = 0
+    if (end > element.length) end = element.length
+    return super.findAll(element, start, end)
   }
 }
