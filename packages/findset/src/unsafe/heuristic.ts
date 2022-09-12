@@ -14,6 +14,7 @@ export class UnsafeHeuristicFindset implements IHeuristicFindset {
     this._count[0] = 0
   }
 
+  /* istanbul ignore next */
   public destroy(): void {
     this._parent.length = 0
     this._count.length = 0

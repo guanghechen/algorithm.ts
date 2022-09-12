@@ -20,6 +20,7 @@ export class UnsafeEnhancedFindset implements IEnhancedFindset {
     this._parent.fill(0)
   }
 
+  /* istanbul ignore next */
   public destroy(): void {
     for (const s of this._sets) s.clear()
     this._parent.length = 0

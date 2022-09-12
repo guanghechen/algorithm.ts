@@ -13,6 +13,7 @@ export class UnsafeVanillaFindset implements IFindset {
     this._parent.fill(0)
   }
 
+  /* istanbul ignore next */
   public destroy(): void {
     this._parent.length = 0
     this._N = 0

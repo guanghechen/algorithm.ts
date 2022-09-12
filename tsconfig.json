@@ -5,6 +5,7 @@
     "module": "CommonJS",
     "sourceMap": true,
     "paths": {
+      "@@/fixtures/*": ["fixtures/*"],
       "@algorithm.ts/_constant": ["packages/_constant/src"],
       "@algorithm.ts/base64": ["packages/base64/src"],
       "@algorithm.ts/bellman-ford": ["packages/bellman-ford/src"],
