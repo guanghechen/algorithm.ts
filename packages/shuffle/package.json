@@ -1,5 +1,5 @@
 {
-  "name": "@algorithm.ts/knuth-shuffle",
+  "name": "@algorithm.ts/shuffle",
   "version": "2.0.14",
   "description": "Knuth shuffle",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
-    "directory": "packages/knuth-shuffle"
+    "directory": "packages/shuffle"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/knuth-shuffle#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/shuffle#readme",
   "keywords": [
     "algorithm",
     "shuffle",

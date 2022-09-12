@@ -1,7 +1,7 @@
 {
-  "name": "@algorithm.ts/sieve-prime",
+  "name": "@algorithm.ts/prime",
   "version": "2.0.14",
-  "description": "A linear time algorithm to sieve prime numbers",
+  "description": "A typescript implementation of the Linear-Sieve algorithm for prime numbers.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -9,12 +9,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
-    "directory": "packages/sieve-prime"
+    "directory": "packages/prime"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/sieve-prime#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/prime#readme",
   "keywords": [
     "algorithm",
     "prime",
+    "totient",
     "linear sieve"
   ],
   "main": "lib/cjs/index.js",

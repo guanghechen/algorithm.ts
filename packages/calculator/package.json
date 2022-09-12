@@ -1,5 +1,5 @@
 {
-  "name": "@algorithm.ts/calculate",
+  "name": "@algorithm.ts/calculator",
   "version": "2.0.14",
   "description": "A tiny calculator for number arithmetics such as '+-*/()'",
   "author": {
@@ -9,11 +9,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
-    "directory": "packages/calculate"
+    "directory": "packages/calculator"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/calculate#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/calculator#readme",
   "keywords": [
-    "calculate",
+    "calculator",
     "calculator",
     "arithmetic",
     "bigint",

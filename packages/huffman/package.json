@@ -41,6 +41,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/priority-queue": "^2.0.14"
+    "@algorithm.ts/queue": "^2.0.14"
   }
 }

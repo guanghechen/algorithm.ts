@@ -1,5 +1,5 @@
 {
-  "name": "@algorithm.ts/lower-bound",
+  "name": "@algorithm.ts/binary-search",
   "version": "2.0.14",
   "description": "Find the index of first elements which greater or equals than the target element.",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
-    "directory": "packages/lower-bound"
+    "directory": "packages/binary-search"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/lower-bound#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/binary-search#readme",
   "keywords": [
     "algorithm",
     "lower bound"

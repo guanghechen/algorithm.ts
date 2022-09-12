@@ -21,7 +21,7 @@
     <a href="https://github.com/nodejs/node">
       <img
         alt="Node.js Version"
-        src="https://img.shields.io/node/v/@algorithm.ts/knuth-shuffle"
+        src="https://img.shields.io/node/v/@algorithm.ts/shuffle"
       />
     </a>
     <a href="https://github.com/guanghechen/algorithm.ts/actions/workflows/ci.yml">

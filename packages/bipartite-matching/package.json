@@ -1,5 +1,5 @@
 {
-  "name": "@algorithm.ts/bipartite-graph-matching",
+  "name": "@algorithm.ts/bipartite-matching",
   "version": "2.0.14",
   "description": "The algorithm to find the maximum matching of the bipartite graph.",
   "author": {
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
-    "directory": "packages/bipartite-graph-matching"
+    "directory": "packages/bipartite-matching"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/bipartite-graph-matching#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/bipartite-matching#readme",
   "keywords": [
     "algorithm",
     "bipartite graph matching"

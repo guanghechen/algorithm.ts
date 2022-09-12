@@ -1,7 +1,7 @@
 {
   "name": "@algorithm.ts/dijkstra",
   "version": "2.0.14",
-  "description": "Dijkstra algorithm optimized with @algorithm.ts/priority-queue.",
+  "description": "Dijkstra algorithm optimized with priority queue.",
   "author": {
     "name": "guanghechen",
     "url": "https://github.com/guanghechen/"
@@ -44,6 +44,6 @@
   },
   "dependencies": {
     "@algorithm.ts/graph": "^2.0.14",
-    "@algorithm.ts/priority-queue": "^2.0.14"
+    "@algorithm.ts/queue": "^2.0.14"
   }
 }

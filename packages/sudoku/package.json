@@ -42,6 +42,6 @@
   },
   "dependencies": {
     "@algorithm.ts/dlx": "^2.0.14",
-    "@algorithm.ts/knuth-shuffle": "^2.0.14"
+    "@algorithm.ts/shuffle": "^2.0.14"
   }
 }
