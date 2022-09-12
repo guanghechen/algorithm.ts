@@ -1,6 +1,6 @@
 import { findLCSOfEveryRightPrefix, findLengthOfLCS, findMinLexicographicalLCS } from '../src'
 
-describe('basic', function () {
+describe('basic', () => {
   test('findLengthOfLCS', function () {
     const lenOf = (s1: string | number[], s2: string | number[]): number =>
       findLengthOfLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y])
@@ -118,28 +118,24 @@ describe('basic', function () {
   })
 
   test('findLCSOfEveryRightPrefix', function () {
-    const dpOf = (s1: string | number[], s2: string | number[]): Uint32Array | null =>
+    const dpOf = (s1: string | number[], s2: string | number[]): number[] | null =>
       findLCSOfEveryRightPrefix(s1.length, s2.length, (x, y) => s1[x] === s2[y])
     expect(
       dpOf('f8d1d155-d14e-433f-88e1-07b54f184740', 'a00322f7-256e-46fe-ae91-8de835c57778'),
-    ).toEqual(
-      new Uint32Array([
-        0, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 6, 6, 7, 7, 8, 8, 8, 8, 9, 10, 11, 11, 11, 11, 11,
-        11, 11, 11, 12, 12, 12, 12,
-      ]),
-    )
-    expect(dpOf('abcde', 'ace')).toEqual(new Uint32Array([1, 2, 3]))
-    expect(dpOf('ace', 'abcde')).toEqual(new Uint32Array([1, 1, 2, 2, 3]))
-    expect(dpOf('abc', 'abc')).toEqual(new Uint32Array([1, 2, 3]))
-    expect(dpOf('abc', 'abce')).toEqual(new Uint32Array([1, 2, 3, 3]))
+    ).toEqual([
+      0, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 6, 6, 7, 7, 8, 8, 8, 8, 9, 10, 11, 11, 11, 11, 11,
+      11, 11, 11, 12, 12, 12, 12,
+    ])
+    expect(dpOf('abcde', 'ace')).toEqual([1, 2, 3])
+    expect(dpOf('ace', 'abcde')).toEqual([1, 1, 2, 2, 3])
+    expect(dpOf('abc', 'abc')).toEqual([1, 2, 3])
+    expect(dpOf('abc', 'abce')).toEqual([1, 2, 3, 3])
     expect(dpOf('', 'abce')).toEqual(null)
     expect(dpOf('abce', '')).toEqual(null)
     expect(dpOf('', '')).toEqual(null)
-    expect(dpOf([1, 2, 3, 4, 6, 6, 7, 8, 6], [2, 3, 4, 7, 9, 8, 2, 3, 5, 2])).toEqual(
-      new Uint32Array([1, 2, 3, 4, 4, 5, 5, 5, 5, 5]),
-    )
-    expect(dpOf('abeep boop', 'beep boob blah')).toEqual(
-      new Uint32Array([1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8]),
-    )
+    expect(dpOf([1, 2, 3, 4, 6, 6, 7, 8, 6], [2, 3, 4, 7, 9, 8, 2, 3, 5, 2])).toEqual([
+      1, 2, 3, 4, 4, 5, 5, 5, 5, 5,
+    ])
+    expect(dpOf('abeep boop', 'beep boob blah')).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 8, 8, 8, 8])
   })
 })

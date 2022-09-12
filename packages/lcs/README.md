@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/lcs#readme">@algorithm.ts/lcs</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/lcs#readme">@algorithm.ts/lcs</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/lcs">
@@ -77,14 +77,8 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   yarn add @algorithm.ts/lcs
   ```
 
-* deno
-
-  ```typescript
-  import * as lcs from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/lcs/src/index.ts'
-  ```
 
 ## Usage
-
 
 * Basic
 
@@ -124,6 +118,6 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * [Longest common subsequence problem | Wikipedia][wikipedia-lcs]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/lcs#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/lcs#readme
 [lcs]: https://me.guanghechen.com/post/algorithm/lcs/
 [wikipedia-lcs]: https://en.wikipedia.org/wiki/Longest_common_subsequence_problem

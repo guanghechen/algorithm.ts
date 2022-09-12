@@ -1,3 +1,5 @@
+import type { IEquals } from '@algorithm.ts/types'
+
 /**
  * Find a least lexicographical match for the longest common subsequence.
  *
@@ -6,27 +8,27 @@
  *
  * @param N1
  * @param N2
- * @param isEqual
+ * @param equals
  * @returns
  * @see https://me.guanghechen.com/post/algorithm/lcs/
  */
 export function findMinLexicographicalLCS(
   N1: number,
   N2: number,
-  isEqual: (x: number, y: number) => boolean,
+  equals: IEquals<number>,
 ): Array<[number, number]> {
   if (N1 <= 0 || N2 <= 0) return []
 
   const dp: Uint32Array[] = new Array(N1)
   for (let i = 0; i < N1; ++i) dp[i] = new Uint32Array(N2)
 
-  dp[0][0] = isEqual(0, 0) ? 1 : 0
-  for (let i = 1; i < N1; ++i) dp[i][0] = dp[i - 1][0] | (isEqual(i, 0) ? 1 : 0)
-  for (let j = 1; j < N2; ++j) dp[0][j] = dp[0][j - 1] | (isEqual(0, j) ? 1 : 0)
+  dp[0][0] = equals(0, 0) ? 1 : 0
+  for (let i = 1; i < N1; ++i) dp[i][0] = dp[i - 1][0] | (equals(i, 0) ? 1 : 0)
+  for (let j = 1; j < N2; ++j) dp[0][j] = dp[0][j - 1] | (equals(0, j) ? 1 : 0)
 
   for (let i = 1; i < N1; ++i) {
     for (let j = 1; j < N2; ++j) {
-      dp[i][j] = isEqual(i, j) ? dp[i - 1][j - 1] + 1 : Math.max(dp[i][j - 1], dp[i - 1][j])
+      dp[i][j] = equals(i, j) ? dp[i - 1][j - 1] + 1 : Math.max(dp[i][j - 1], dp[i - 1][j])
     }
   }
 
@@ -48,16 +50,12 @@ export function findMinLexicographicalLCS(
  *
  * @param N1
  * @param N2
- * @param isEqual
+ * @param equals
  * @returns
  * @see https://me.guanghechen.com/post/algorithm/lcs/
  */
-export function findLengthOfLCS(
-  N1: number,
-  N2: number,
-  isEqual: (x: number, y: number) => boolean,
-): number {
-  const dp: Uint32Array | null = findLCSOfEveryRightPrefix(N1, N2, isEqual)
+export function findLengthOfLCS(N1: number, N2: number, equals: IEquals<number>): number {
+  const dp = findLCSOfEveryRightPrefix(N1, N2, equals)
   return dp === null ? 0 : dp[N2 - 1]
 }
 
@@ -78,29 +76,29 @@ export function findLengthOfLCS(
  *
  * @param N1
  * @param N2
- * @param isEqual
+ * @param equals
  * @returns
  * @see https://me.guanghechen.com/post/algorithm/lcs/
  */
 export function findLCSOfEveryRightPrefix(
   N1: number,
   N2: number,
-  isEqual: (x: number, y: number) => boolean,
-): Uint32Array | null {
+  equals: IEquals<number>,
+): number[] | null {
   if (N1 <= 0 || N2 <= 0) return null
 
   // dp[j] represent that the length of longest common subsequence of A[0..N1] and B[0..j]
-  const dp: Uint32Array = new Uint32Array(N2)
+  const dp: number[] = new Array(N2).fill(0)
   for (let i = 0; i < N1; ++i) {
     for (let j = N2 - 1; j > 0; --j) {
-      if (isEqual(i, j)) {
+      if (equals(i, j)) {
         const candidate: number = dp[j - 1] + 1
-        // Find a longer common subsequence
+        // Found a longer common subsequence.
         if (dp[j] < candidate) dp[j] = candidate
       }
     }
 
-    if (isEqual(i, 0)) dp[0] = 1
+    if (equals(i, 0)) dp[0] = 1
 
     for (let j = 1, x = dp[0]; j < N2; ++j) {
       if (dp[j] < x) dp[j] = x

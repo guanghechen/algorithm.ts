@@ -195,3 +195,8 @@ No breaking changes.
 ### @algorithm.ts/knuth-shuffle
 
 1. Renamed to `@algorithm.ts/shuffle`.
+
+
+### @algorithm.ts/lcs
+
+No breaking changes.
