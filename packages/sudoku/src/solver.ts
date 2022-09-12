@@ -1,11 +1,13 @@
 import type { IDancingLinkX } from '@algorithm.ts/dlx'
-import { createDLX } from '@algorithm.ts/dlx'
-import { createSegmentCodeMap } from './util'
+import { DancingLinkX } from '@algorithm.ts/dlx'
+import { SudokuSize } from './size'
+import type { ISudokuBoardData, ISudokuSize } from './types'
+import { createMatrixCodeMap } from './util'
 
 /**
  * Sudoku constraints.
  */
-export enum SudokuConstraint {
+export const enum SudokuConstraint {
   // Slot(a, b) 表示第 a 列和第 b 列的格子上要有字母
   SLOT = 0,
 
@@ -23,35 +25,28 @@ export interface ISudokuSolverOptions {
   /**
    * Size of the child puzzle matrix (sqrt of original puzzle size)
    */
-  readonly childMatrixSize: number
+  readonly childMatrixWidth: number
 }
 
 export class SudokuSolver {
-  public readonly SUDOKU_SIZE_SQRT: number
-  public readonly SUDOKU_SIZE: number
-  public readonly SUDOKU_SIZE_SQUARE: number
+  public readonly size: Readonly<ISudokuSize>
   public readonly DL_TOTAL_COLUMNS: number
-  protected readonly constraints: number[] = new Array<number>(4)
-  protected readonly segmentCodeMap: ReadonlyArray<number>
   protected readonly dlx: IDancingLinkX
+  protected readonly matCodeMap: ReadonlyArray<number>
+  protected readonly constraints: SudokuConstraint[] = new Array<SudokuConstraint>(4)
 
   constructor(options: ISudokuSolverOptions) {
-    const { childMatrixSize } = options
-    const SUDOKU_SIZE_SQRT = childMatrixSize
-    const SUDOKU_SIZE = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT
-    const SUDOKU_SIZE_SQUARE = SUDOKU_SIZE * SUDOKU_SIZE
+    const { childMatrixWidth } = options
+    const size = new SudokuSize(childMatrixWidth)
+    const DL_TOTAL_COLUMNS = size.BOARD * 4
+    const DL_MAX_ROWS = size.BOARD * size.MATRIX
+    const DL_MAX_NODES = DL_TOTAL_COLUMNS * DL_MAX_ROWS + size.MATRIX + 1
+    const dlx = new DancingLinkX({ MAX_N: DL_MAX_NODES })
 
-    const DL_TOTAL_COLUMNS = SUDOKU_SIZE * SUDOKU_SIZE * 4
-    const DL_MAX_ROWS = SUDOKU_SIZE * SUDOKU_SIZE * SUDOKU_SIZE
-    const DL_MAX_NODES = DL_TOTAL_COLUMNS * DL_MAX_ROWS + SUDOKU_SIZE + 1
-    const dlx = createDLX(DL_MAX_NODES)
-
-    this.dlx = dlx
-    this.SUDOKU_SIZE_SQRT = SUDOKU_SIZE_SQRT
-    this.SUDOKU_SIZE = SUDOKU_SIZE
-    this.SUDOKU_SIZE_SQUARE = SUDOKU_SIZE_SQUARE
+    this.size = size
     this.DL_TOTAL_COLUMNS = DL_TOTAL_COLUMNS
-    this.segmentCodeMap = createSegmentCodeMap(SUDOKU_SIZE_SQRT)
+    this.dlx = dlx
+    this.matCodeMap = createMatrixCodeMap(size)
   }
 
   /**
@@ -70,34 +65,25 @@ export class SudokuSolver {
    * @returns Whether there is a solution
    * @public
    */
-  public solve(puzzle: ReadonlyArray<number[]>, solution: number[][] | null): boolean {
-    const {
-      SUDOKU_SIZE_SQRT,
-      SUDOKU_SIZE,
-      SUDOKU_SIZE_SQUARE,
-      DL_TOTAL_COLUMNS: SUDOKU_NODES,
-      constraints,
-      segmentCodeMap,
-      dlx,
-    } = this
-
-    const encode = (a: number, b: number, c: number): number =>
-      a * SUDOKU_SIZE_SQUARE + b * SUDOKU_SIZE + c + 1
+  public solve(puzzle: Readonly<ISudokuBoardData>, solution: ISudokuBoardData | null): boolean {
+    const { size, DL_TOTAL_COLUMNS: SUDOKU_NODES, constraints, matCodeMap, dlx } = this
+    const { MATRIX, BOARD } = size
+    const encode = (constraint: number, code: number): number => constraint * BOARD + code + 1
 
     dlx.init(SUDOKU_NODES)
-    for (let r = 0; r < SUDOKU_SIZE; ++r) {
-      for (let c = 0; c < SUDOKU_SIZE; ++c) {
-        // (r,c) 所属的子方阵编号
-        const s = segmentCodeMap[r] * SUDOKU_SIZE_SQRT + segmentCodeMap[c]
-        const w = puzzle[r][c]
-        for (let v = 0; v < SUDOKU_SIZE; ++v) {
-          if (w === -1 || w === v) {
-            constraints[0] = encode(SudokuConstraint.SLOT, r, c)
-            constraints[1] = encode(SudokuConstraint.ROW, r, v)
-            constraints[2] = encode(SudokuConstraint.COL, c, v)
-            constraints[3] = encode(SudokuConstraint.SUB, s, v)
-            dlx.addRow(encode(r, c, v), constraints)
-          }
+    for (let r = 0, id = 0; r < MATRIX; ++r) {
+      for (let c = 0; c < MATRIX; ++c, ++id) {
+        const w = puzzle[id]
+        const matCode: number = matCodeMap[id]
+        const lv: number = w === -1 ? 0 : w
+        const rv: number = w === -1 ? MATRIX : w + 1
+        for (let v = lv; v < rv; ++v) {
+          constraints[0] = encode(SudokuConstraint.SLOT, id)
+          constraints[1] = encode(SudokuConstraint.ROW, r * MATRIX + v)
+          constraints[2] = encode(SudokuConstraint.COL, c * MATRIX + v)
+          constraints[3] = encode(SudokuConstraint.SUB, matCode * MATRIX + v)
+          const rowNum = id * MATRIX + v + 1
+          dlx.addRow(rowNum, constraints)
         }
       }
     }
@@ -108,17 +94,12 @@ export class SudokuSolver {
     // Fill solution into the `solution` array.
     if (solution !== null) {
       for (const _code of answer) {
-        let code = _code - 1
-        const c = code % SUDOKU_SIZE
-
-        code = (code / SUDOKU_SIZE) >> 0 // Math.floor
-        const b = code % SUDOKU_SIZE
-
-        code = (code / SUDOKU_SIZE) >> 0 // Math.floor
-        const a = code
+        const code = _code - 1
+        const v = code % MATRIX
+        const id = (code / MATRIX) >> 0 // Math.floor
 
         // eslint-disable-next-line no-param-reassign
-        solution[a][b] = c
+        solution[id] = v
       }
     }
     return true

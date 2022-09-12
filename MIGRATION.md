@@ -295,6 +295,31 @@ No breaking changes.
 5. `init()` is renamed to `reset()`, and the parameters is changed to object style. 
 
 
+### @algorithm.ts/sudoku
+
+1. Use one-dimension array to record a sudoku puzzle / solution data. (Previous version were using
+   two-dimension array).
+
+   Once you still want to get a two-dimension array, here is an example shows that.
+
+    ```typescript
+    import { toMatrixStyleBoardData } from '@algorithm.ts/sudoku'
+
+    // Convert the two-dimensional array to one-dimensional array.
+    const puzzle = oldStylePuzzle.flat()
+
+    solver.solve(puzzle, solution)
+
+    // Convert the one-dimensional array to two-dimensional array.
+    const oldStyleSolution = toMatrixStyleBoardData(solution)
+    ```
+
+2. `createSudokuBoard()` is renamed to `createSudokuBoardData()`.
+3. `fillSudokuBoard()` is renamed to `fillSudokuBoardData()`.
+4. `copySudokuBoard()` is renamed to `copySudokuBoardData()`.
+5. `checkSudokuSolution` is renamed to `checkSudokuSolution`.
+
+
 ### @algorithm.ts/trie
 
 1. `.insert()` is renamed to `.set()`. 

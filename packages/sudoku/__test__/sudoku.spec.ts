@@ -1,79 +1,94 @@
-import type { ISudokuBoard } from '../src'
-import { SudokuCreator, SudokuSolver, checkSudokuSolution } from '../src'
-import { createSudokuBoard } from '../src/util'
+import type { ISudokuBoardData } from '../src'
+import {
+  SudokuCreator,
+  SudokuSize,
+  SudokuSolver,
+  createSudokuBoardData,
+  verifySolution,
+} from '../src'
 import multipleSudoku9x9 from './fixtures/sudoku9x9/multiple.json'
 import uniqueSudoku9x9 from './fixtures/sudoku9x9/unique.json'
 
-describe('9x9', function () {
-  const SUDOKU_SIZE_SQRT = 3
-  const SUDOKU_SIZE = 9
+describe('SudokuSize', () => {
+  test('basic', function () {
+    for (let base = 1; base <= 9; base++) {
+      const size = new SudokuSize(base)
+      expect(size.BASE_1).toEqual(base ** 1)
+      expect(size.BASE_2).toEqual(base ** 2)
+      expect(size.BASE_3).toEqual(base ** 3)
+      expect(size.BASE_4).toEqual(base ** 4)
+      expect(size.MATRIX_RANK).toEqual(base ** 1)
+      expect(size.MATRIX).toEqual(base ** 2)
+      expect(size.BOARD).toEqual(base ** 4)
+    }
+  })
+})
 
-  const solver = new SudokuSolver({ childMatrixSize: SUDOKU_SIZE_SQRT })
-  const creator = new SudokuCreator({ childMatrixSize: SUDOKU_SIZE_SQRT })
+describe('9x9', function () {
+  const size = new SudokuSize(3)
+  const solver = new SudokuSolver({ childMatrixWidth: size.MATRIX_RANK })
+  const creator = new SudokuCreator({ childMatrixWidth: size.MATRIX_RANK })
 
   test('unique solution', function () {
-    const solution: ISudokuBoard = createSudokuBoard(SUDOKU_SIZE)
-    for (const { puzzle, solution: answer } of uniqueSudoku9x9) {
-      expect(solver.solve(puzzle, solution)).toBe(true)
-      expect(checkSudokuSolution(solution, SUDOKU_SIZE_SQRT)).toBe(true)
+    for (const kase of uniqueSudoku9x9) {
+      const puzzle: Readonly<ISudokuBoardData> = kase.puzzle.flat()
+      const answer: Readonly<ISudokuBoardData> = kase.solution.flat()
+      const solution = createSudokuBoardData(size)
+      expect(solver.solve(puzzle, solution)).toEqual(true)
+      expect(verifySolution(solution, size)).toEqual(true)
       expect(solution).toEqual(answer)
     }
   })
 
   test('multiple solution', function () {
-    const solution: ISudokuBoard = createSudokuBoard(SUDOKU_SIZE)
-    for (const { puzzle } of multipleSudoku9x9) {
-      expect(solver.solve(puzzle, solution)).toBe(true)
-      expect(checkSudokuSolution(solution, SUDOKU_SIZE_SQRT)).toBe(true)
+    for (const kase of multipleSudoku9x9) {
+      const puzzle: Readonly<ISudokuBoardData> = kase.puzzle.flat()
+      const solution: ISudokuBoardData = createSudokuBoardData(size)
+      expect(solver.solve(puzzle, solution)).toEqual(true)
+      expect(verifySolution(solution, size)).toEqual(true)
     }
   })
 
   test('create puzzle', function () {
-    const solution: ISudokuBoard = createSudokuBoard(SUDOKU_SIZE)
     for (let difficulty = 0; difficulty <= 1; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
-      expect(solver.solve(puzzle, solution)).toBe(true)
+      const solution: ISudokuBoardData = createSudokuBoardData(size)
+      expect(solver.solve(puzzle, solution)).toEqual(true)
 
-      for (let r = 0; r < SUDOKU_SIZE; ++r) {
-        for (let c = 0; c < SUDOKU_SIZE; ++c) {
-          const v = puzzle[r][c]
-          if (v === -1) continue
-          expect(answer[r][c]).toEqual(v)
-          expect(solution[r][c]).toEqual(v)
-        }
+      for (let p = 0; p < size.BOARD; ++p) {
+        const v = puzzle[p]
+        if (v === -1) continue
+        expect(answer[p]).toEqual(v)
+        expect(solution[p]).toEqual(v)
       }
 
-      expect(checkSudokuSolution(answer, SUDOKU_SIZE_SQRT)).toBe(true)
-      expect(checkSudokuSolution(solution, SUDOKU_SIZE_SQRT)).toBe(true)
+      expect(verifySolution(answer, size)).toEqual(true)
+      expect(verifySolution(solution, size)).toEqual(true)
       expect(solution).toEqual(answer)
     }
   })
 })
 
 describe('16x16', function () {
-  const SUDOKU_SIZE_SQRT = 4
-  const SUDOKU_SIZE = 16
-
-  const solver = new SudokuSolver({ childMatrixSize: SUDOKU_SIZE_SQRT })
-  const creator = new SudokuCreator({ childMatrixSize: SUDOKU_SIZE_SQRT })
+  const size = new SudokuSize(4)
+  const solver = new SudokuSolver({ childMatrixWidth: size.MATRIX_RANK })
+  const creator = new SudokuCreator({ childMatrixWidth: size.MATRIX_RANK })
 
   test('create puzzle', function () {
-    const solution: ISudokuBoard = createSudokuBoard(SUDOKU_SIZE)
     for (let difficulty = 0; difficulty <= 0.4; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
-      expect(solver.solve(puzzle, solution)).toBe(true)
+      const solution: ISudokuBoardData = createSudokuBoardData(size)
+      expect(solver.solve(puzzle, solution)).toEqual(true)
 
-      for (let r = 0; r < SUDOKU_SIZE; ++r) {
-        for (let c = 0; c < SUDOKU_SIZE; ++c) {
-          const v = puzzle[r][c]
-          if (v === -1) continue
-          expect(answer[r][c]).toEqual(v)
-          expect(solution[r][c]).toEqual(v)
-        }
+      for (let p = 0; p < size.BOARD; ++p) {
+        const v = puzzle[p]
+        if (v === -1) continue
+        expect(answer[p]).toEqual(v)
+        expect(solution[p]).toEqual(v)
       }
 
-      expect(checkSudokuSolution(answer, SUDOKU_SIZE_SQRT)).toBe(true)
-      expect(checkSudokuSolution(solution, SUDOKU_SIZE_SQRT)).toBe(true)
+      expect(verifySolution(answer, size)).toEqual(true)
+      expect(verifySolution(solution, size)).toEqual(true)
       expect(solution).toEqual(answer)
     }
   })

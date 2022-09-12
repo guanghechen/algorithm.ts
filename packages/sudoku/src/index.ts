@@ -1,4 +1,5 @@
 export * from './creator'
+export * from './size'
 export * from './solver'
 export * from './types'
 export * from './util'

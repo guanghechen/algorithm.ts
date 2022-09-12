@@ -1,13 +1,19 @@
-import knuthShuffle, { randomInt } from '@algorithm.ts/knuth-shuffle'
+import { knuthShuffle, randomInt } from '@algorithm.ts/shuffle'
+import { SudokuSize } from './size'
 import { SudokuSolver } from './solver'
-import type { ISudokuBoard, ISudokuData } from './types'
-import { copySudokuBoard, createSegmentCodeMap, createSudokuBoard, fillSudokuBoard } from './util'
+import type { ISudokuBoardData, ISudokuData, ISudokuSize } from './types'
+import {
+  copySudokuBoardData,
+  createMatrixCoordinateMap,
+  createSudokuBoardData,
+  fillSudokuBoardData,
+} from './util'
 
 export interface ISudokuCreatorOptions {
   /**
    * Size of the child puzzle matrix (sqrt of original puzzle size)
    */
-  readonly childMatrixSize: number
+  readonly childMatrixWidth: number
   /**
    * The difficulty to solve the puzzle.
    * @default 0.2
@@ -16,56 +22,42 @@ export interface ISudokuCreatorOptions {
 }
 
 export class SudokuCreator {
-  public readonly SUDOKU_SIZE_SQRT: number
-  public readonly SUDOKU_SIZE: number
-  public readonly SUDOKU_SIZE_SQUARE: number
+  public readonly size: Readonly<ISudokuSize>
   protected readonly solver: SudokuSolver
-  protected readonly segmentCodeMap: ReadonlyArray<number>
+  protected readonly matCoordinateMap: ReadonlyArray<number>
   protected readonly gridCodes: number[]
   protected readonly candidates: number[]
-  protected readonly visitedNums: boolean[]
-  protected readonly tmpBoard: ISudokuBoard
+  protected readonly availableNums: boolean[]
+  protected readonly tmpBoard: ISudokuBoardData
   protected difficulty: number
 
   constructor(options: ISudokuCreatorOptions) {
-    const { childMatrixSize, difficulty = 0.2 } = options
-    const SUDOKU_SIZE_SQRT = childMatrixSize
-    const SUDOKU_SIZE = SUDOKU_SIZE_SQRT * SUDOKU_SIZE_SQRT
-    const SUDOKU_SIZE_SQUARE = SUDOKU_SIZE * SUDOKU_SIZE
-    const solver = new SudokuSolver({ childMatrixSize: SUDOKU_SIZE_SQRT })
+    const { childMatrixWidth, difficulty = 0.2 } = options
+    const size = new SudokuSize(childMatrixWidth)
+    const solver = new SudokuSolver({ childMatrixWidth })
+    const gridCodes: number[] = new Array(size.BOARD)
+    for (let i = 0; i < size.BOARD; ++i) gridCodes[i] = i
 
+    this.size = size
     this.solver = solver
-    this.SUDOKU_SIZE_SQRT = SUDOKU_SIZE_SQRT
-    this.SUDOKU_SIZE = SUDOKU_SIZE
-    this.SUDOKU_SIZE_SQUARE = SUDOKU_SIZE_SQUARE
-    this.difficulty = this.resolveDifficulty(difficulty)
-    this.segmentCodeMap = createSegmentCodeMap(SUDOKU_SIZE_SQRT)
-
-    const gridCodes: number[] = new Array(SUDOKU_SIZE_SQUARE)
+    this.matCoordinateMap = createMatrixCoordinateMap(size)
     this.gridCodes = gridCodes
-    for (let r = 0, i = 0; r < SUDOKU_SIZE; ++r) {
-      const u = r << 16
-      for (let c = 0; c < SUDOKU_SIZE; ++c, ++i) {
-        gridCodes[i] = u | c
-      }
-    }
+    this.difficulty = this._resolveDifficulty(difficulty)
 
-    this.candidates = new Array(SUDOKU_SIZE)
-    this.visitedNums = new Array(SUDOKU_SIZE)
-    this.tmpBoard = createSudokuBoard(SUDOKU_SIZE)
+    this.candidates = new Array(size.MATRIX)
+    this.availableNums = new Array(size.MATRIX)
+    this.tmpBoard = createSudokuBoardData(size)
   }
 
   /**
    * Create a sudoku game data.
-   * @param _difficulty
+   * @param difficulty
    * @returns
    */
-  public createSudoku(_difficulty?: number): ISudokuData {
-    if (_difficulty != null) {
-      this.difficulty = this.resolveDifficulty(_difficulty)
-    }
-    const solution: number[][] = this.createSolution()
-    const puzzle: number[][] = this.createPuzzle(solution)
+  public createSudoku(difficulty?: number): ISudokuData {
+    if (difficulty != null) this.difficulty = this._resolveDifficulty(difficulty)
+    const solution: ISudokuBoardData = this._createSolution()
+    const puzzle: ISudokuBoardData = this._createPuzzle(solution)
     return { puzzle, solution: solution }
   }
 
@@ -73,37 +65,40 @@ export class SudokuCreator {
    * Create a full-filled sudoku data.
    * @returns
    */
-  protected createSolution(): number[][] {
-    const { SUDOKU_SIZE, SUDOKU_SIZE_SQUARE } = this
-    const { candidates, gridCodes, solver, tmpBoard: radicalPuzzle } = this
+  protected _createSolution(): ISudokuBoardData {
+    const { size, candidates, gridCodes, solver, tmpBoard: radicalPuzzle } = this
 
     // Initial radical puzzle board.
-    fillSudokuBoard(radicalPuzzle, -1)
+    fillSudokuBoardData(radicalPuzzle, -1, size)
 
+    // Add randomness.
     knuthShuffle(gridCodes)
-    const _end = Math.floor((Math.random() * 0.3 + 0.2) * SUDOKU_SIZE_SQUARE)
+
+    const filledCount = Math.round((Math.random() * 0.3 + 0.2) * size.BOARD)
+    const _end = Math.max(size.BASE_3, Math.min(size.BOARD, filledCount))
     for (let i = 0; i < _end; ++i) {
       const p = gridCodes[i]
-      const r = p >> 16
-      const c = p & 0xffff
 
       // Get candidates
-      const candidatesSize: number = this.calcCandidates(radicalPuzzle, r, c)
+      const candidatesSize: number = this._collectCandidates(radicalPuzzle, p)
+
+      /* istanbul ignore next */
       if (candidatesSize < 1) continue
 
       const x = randomInt(candidatesSize)
       const v = candidates[x]
-      radicalPuzzle[r][c] = v
+      radicalPuzzle[p] = v
     }
 
-    const solution: number[][] = createSudokuBoard(SUDOKU_SIZE)
+    const solution: ISudokuBoardData = createSudokuBoardData(size)
     for (let i = 0; i < _end; ++i) {
-      if (solver.solve(radicalPuzzle, solution)) return solution
-
       const p = gridCodes[i]
-      const r = p >> 16
-      const c = p & 0xffff
-      radicalPuzzle[r][c] = -1
+
+      /* istanbul ignore next */
+      if (p === -1) continue
+
+      if (solver.solve(radicalPuzzle, solution)) return solution
+      radicalPuzzle[p] = -1
     }
 
     /* istanbul ignore next */
@@ -115,35 +110,32 @@ export class SudokuCreator {
    * @param solution
    * @returns
    */
-  protected createPuzzle(solution: Readonly<ISudokuBoard>): ISudokuBoard {
-    const { SUDOKU_SIZE, SUDOKU_SIZE_SQUARE } = this
-    const { candidates, gridCodes, solver, difficulty } = this
+  protected _createPuzzle(solution: Readonly<ISudokuBoardData>): ISudokuBoardData {
+    const { size, candidates, gridCodes, solver, difficulty } = this
 
     // First, fill the solution into the puzzle.
-    const puzzle: number[][] = createSudokuBoard(SUDOKU_SIZE)
-    copySudokuBoard(solution, puzzle)
+    const puzzle: ISudokuBoardData = createSudokuBoardData(size)
+    copySudokuBoardData(solution, puzzle, size)
 
+    // Add randomness.
     knuthShuffle(gridCodes)
-    const _end = Math.floor(SUDOKU_SIZE_SQUARE * difficulty)
+
+    const _end = Math.floor(size.BOARD * difficulty)
     for (let i = 0; i < _end; ++i) {
       const p = gridCodes[i]
-      const r = p >> 16
-      const c = p & 0xffff
 
       // Get candidates
-      const candidatesSize: number = this.calcCandidates(puzzle, r, c)
+      const candidatesSize: number = this._collectCandidates(puzzle, p)
 
       let j = 0
-      if (candidatesSize > 0) {
-        for (; j < candidatesSize; ++j) {
-          puzzle[r][c] = candidates[j]
-          if (solver.solve(puzzle, null)) break
-        }
+      for (; j < candidatesSize; ++j) {
+        puzzle[p] = candidates[j]
+        if (solver.solve(puzzle, null)) break
       }
 
       // If j < candidateSize, that means there are multiple solutions after
       // erase this grid, so we cannot erase it.
-      puzzle[r][c] = j < candidatesSize ? solution[r][c] : -1
+      puzzle[p] = j < candidatesSize ? solution[p] : -1
     }
     return puzzle
   }
@@ -156,47 +148,42 @@ export class SudokuCreator {
    * this.candidates, and the function only returns the number of candidates.
    *
    * @param board
-   * @param r
-   * @param c
+   * @param p
    */
-  protected calcCandidates(board: Readonly<ISudokuBoard>, r: number, c: number): number {
-    const { SUDOKU_SIZE_SQRT, SUDOKU_SIZE } = this
-    const { segmentCodeMap, candidates, visitedNums } = this
-    visitedNums.fill(false)
+  protected _collectCandidates(board: Readonly<ISudokuBoardData>, p: number): number {
+    const { size, matCoordinateMap, candidates, availableNums } = this
+    const { MATRIX_RANK, MATRIX, BOARD } = size
+
+    const c0: number = p % MATRIX
+    const r0: number = p - c0
+    const p0: number = matCoordinateMap[p]
+
+    availableNums.fill(true)
 
     // Check rows
-    for (let i = 0; i < SUDOKU_SIZE; ++i) {
-      const v = board[r][i]
-      if (v === -1) continue
-      visitedNums[v] = true
+    for (let i = r0, I = r0 + MATRIX; i < I; ++i) {
+      const v = board[i]
+      if (v !== -1) availableNums[v] = false
     }
 
     // Check columns
-    for (let i = 0; i < SUDOKU_SIZE; ++i) {
-      const v = board[i][c]
-      if (v === -1) continue
-      visitedNums[v] = true
+    for (let i = c0; i < BOARD; i += MATRIX) {
+      const v = board[i]
+      if (v !== -1) availableNums[v] = false
     }
 
     // Check sub-matrix
-    const sr = segmentCodeMap[r] * SUDOKU_SIZE_SQRT
-    const sc = segmentCodeMap[c] * SUDOKU_SIZE_SQRT
-    for (let i = 0; i < SUDOKU_SIZE_SQRT; ++i) {
-      const _r = sr + i
-      for (let j = 0; j < SUDOKU_SIZE_SQRT; ++j) {
-        const _c = sc + j
-        const v = board[_r][_c]
-        if (v === -1) continue
-        visitedNums[v] = true
+    for (let i0 = p0, ri = 0; ri < MATRIX_RANK; ++ri, i0 += MATRIX) {
+      for (let i = i0, I = i0 + MATRIX_RANK; i < I; ++i) {
+        const v = board[i]
+        if (v !== -1) availableNums[v] = false
       }
     }
 
     // Collect candidates
     let tot = 0
-    for (let v = 0; v < SUDOKU_SIZE; ++v) {
-      if (visitedNums[v]) continue
-      // eslint-disable-next-line no-plusplus
-      candidates[tot++] = v
+    for (let v = 0; v < MATRIX; ++v) {
+      if (availableNums[v]) candidates[tot++] = v
     }
     return tot
   }
@@ -206,7 +193,7 @@ export class SudokuCreator {
    * @param _difficulty
    * @returns
    */
-  protected resolveDifficulty(_difficulty: number): number {
+  protected _resolveDifficulty(_difficulty: number): number {
     const difficulty = Math.max(0, Math.min(1, _difficulty)) * 0.8 + 0.2
     return difficulty
   }
