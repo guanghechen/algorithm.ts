@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/queue",
-  "version": "2.0.14",
+  "version": "3.0.0-alpha.0",
   "description": "Typescript implementation of queues, such as priority queue and circular queue.",
   "author": {
     "name": "guanghechen",
@@ -43,6 +43,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/types": "^2.0.14"
+    "@algorithm.ts/types": "^3.0.0-alpha.0"
   }
 }

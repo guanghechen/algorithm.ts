@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/binary-search",
-  "version": "2.0.14",
+  "version": "3.0.0-alpha.0",
   "description": "Find the index of first elements which greater or equals than the target element.",
   "author": {
     "name": "guanghechen",
@@ -40,6 +40,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/constant": "^2.0.14"
+    "@algorithm.ts/constant": "^3.0.0-alpha.0"
   }
 }
