@@ -57,11 +57,10 @@ Package                                     | Description
 [@algorithm.ts/base64][]                    | A [Base64][wiki-base64] encoding implementation.
 [@algorithm.ts/bellman-ford][]              | Bellman-ford algorithm. #ShortestPath
 [@algorithm.ts/binary-index-tree][]         | Binary Index Tree.
-[@algorithm.ts/bipartite-graph-matching][]  | The algorithm to find the maximum [matching][wiki-matching] of the [bipartite graph][wiki-bipartite-graph].
-[@algorithm.ts/calculate][]                 | A tiny calculator for number arithmetics.
-[@algorithm.ts/circular-queue][]            | Circular queue.
+[@algorithm.ts/bipartite-matching][]        | The algorithm to find the maximum [matching][wiki-matching] of the [bipartite graph][wiki-bipartite-graph].
+[@algorithm.ts/binary-search][]             | Binary search related algorithms, includes `binarySearch`, `lowerBound` and `upperBound`.
+[@algorithm.ts/calculator][]                | A tiny calculator for number arithmetics.
 [@algorithm.ts/dijkstra][]                  | Dijkstra algorithm optimized with [@algorithm.ts/priority-queue][]. #ShortestPath
-[@algorithm.ts/dijkstra-bigint][]           | Dijkstra algorithm (bigint version) optimized with [@algorithm.ts/priority-queue][]. #ShortestPath
 [@algorithm.ts/dinic][]                     | Dinic algorithm. #MaxFlow, #NetworkFlow.
 [@algorithm.ts/dlx][]                       | DLX algorithm.
 [@algorithm.ts/findset][]                   | Find set.
@@ -69,19 +68,16 @@ Package                                     | Description
 [@algorithm.ts/graph][]                     | Types and utils from solving graph problems.
 [@algorithm.ts/huffman][]                   | A [Huffman][wiki-huffman] coding implementation.
 [@algorithm.ts/isap][]                      | ISAP algorithm. #MaxFlow, #NetworkFlow.
-[@algorithm.ts/knuth-shuffle][]             | Knuth-Shuffle algorithm.
+[@algorithm.ts/shuffle][]                   | Includes Knuth-Shuffle algorithm.
 [@algorithm.ts/lcs][]                       | Find the Longest Common Subsequence.
-[@algorithm.ts/lower-bound][]               | Find the index of first elements which greater or equals than the target element.
 [@algorithm.ts/manacher][]                  | The manacher algorithm for solving palindrome string problems.
 [@algorithm.ts/mcmf][]                      | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.
-[@algorithm.ts/priority-queue][]            | Priority Queue (heap).
+[@algorithm.ts/queue][]                     | Queues, includes priority-queue (Min Heap), circular-queue.
 [@algorithm.ts/roman][]                     | Support the mutual conversion between Roman numerals and Arabic numerals.
 [@algorithm.ts/sliding-window][]            | Sliding window algorithm.
-[@algorithm.ts/sieve-prime][]               | A linear time algorithm to sieve prime numbers.
-[@algorithm.ts/sieve-totient][]             | A linear time algorithm to sieve prime numbers and get the Euler's totient function.
+[@algorithm.ts/prime][]                     | A linear time algorithm to sieve prime numbers and totient.
 [@algorithm.ts/sudoku][]                    | A collection of utilities to generate / solve Sudoku problems.
 [@algorithm.ts/trie][]                      | Trie. (digital tree or prefix tree)
-[@algorithm.ts/upper-bound][]               | Find the index of first elements which greater than the target element.
 
 
 ## License
@@ -97,11 +93,10 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/tree/
 [@algorithm.ts/base64]: ./packages/base64
 [@algorithm.ts/bellman-ford]: ./packages/bellman-ford
 [@algorithm.ts/binary-index-tree]: ./packages/binary-index-tree
-[@algorithm.ts/bipartite-graph-matching]: ./packages/bipartite-graph-matching
-[@algorithm.ts/calculate]: ./packages/calculate
-[@algorithm.ts/circular-queue]: ./packages/circular-queue
+[@algorithm.ts/binary-search]: ./packages/binary-search
+[@algorithm.ts/bipartite-matching]: ./packages/bipartite-matching
+[@algorithm.ts/calculator]: ./packages/calculator
 [@algorithm.ts/dijkstra]: ./packages/dijkstra
-[@algorithm.ts/dijkstra-bigint]: ./packages/dijkstra-bigint
 [@algorithm.ts/dinic]: ./packages/dinic
 [@algorithm.ts/dlx]: ./packages/dlx
 [@algorithm.ts/findset]: ./packages/findset
@@ -109,16 +104,13 @@ algorithm.ts is [MIT licensed](https://github.com/guanghechen/algorithm.ts/tree/
 [@algorithm.ts/graph]: ./packages/graph
 [@algorithm.ts/huffman]: ./packages/huffman
 [@algorithm.ts/isap]: ./packages/isap
-[@algorithm.ts/knuth-shuffle]: ./packages/knuth-shuffle
+[@algorithm.ts/shuffle]: ./packages/shuffle
 [@algorithm.ts/lcs]: ./packages/lcs
-[@algorithm.ts/lower-bound]: ./packages/lower-bound
 [@algorithm.ts/manacher]: ./packages/manacher
 [@algorithm.ts/mcmf]: ./packages/mcmf
-[@algorithm.ts/priority-queue]: ./packages/priority-queue
+[@algorithm.ts/queue]: ./packages/queue
 [@algorithm.ts/roman]: ./packages/roman
-[@algorithm.ts/sieve-prime]: ./packages/sieve-prime
-[@algorithm.ts/sieve-totient]: ./packages/sieve-totient
+[@algorithm.ts/prime]: ./packages/prime
 [@algorithm.ts/sliding-window]: ./packages/sliding-window
 [@algorithm.ts/sudoku]: ./packages/sudoku
 [@algorithm.ts/trie]: ./packages/trie
-[@algorithm.ts/upper-bound]: ./packages/upper-bound
