@@ -1,4 +1,4 @@
-import { BIGINT_ZERO } from '@algorithm.ts/_constant'
+import { BIGINT_ZERO } from '@algorithm.ts/constant'
 import type { DeepReadonly } from '@algorithm.ts/types'
 import { BellmanFord } from './BellmanFord'
 import type { IBellmanFordGraph, IBellmanFordOptions, IBellmanFordResult } from './types'

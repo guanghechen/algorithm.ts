@@ -1,4 +1,4 @@
-import type { IDancingLinkX } from '@algorithm.ts/dlx'
+import type { IDancingLinkX } from './types'
 
 export interface IDancingLinkXProps {
   /**

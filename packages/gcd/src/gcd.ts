@@ -1,4 +1,4 @@
-import { BIGINT_ZERO } from '@algorithm.ts/_constant'
+import { BIGINT_ZERO } from '@algorithm.ts/constant'
 
 /**
  * Find the greatest common divisor of x and y

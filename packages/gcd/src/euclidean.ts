@@ -1,4 +1,4 @@
-import { BIGINT_ONE, BIGINT_ZERO } from '@algorithm.ts/_constant'
+import { BIGINT_ONE, BIGINT_ZERO } from '@algorithm.ts/constant'
 
 /**
  * Extended Euclidean algorithm for solving the smallest
