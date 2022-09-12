@@ -1,0 +1,55 @@
+[
+  {
+    "N": 0,
+    "G": [],
+    "edges": []
+  },
+  {
+    "N": 2,
+    "G": [[0], []],
+    "edges": [
+      {
+        "from": 0,
+        "to": 1,
+        "cost": 10,
+        "capacity": 1
+      }
+    ]
+  },
+  {
+    "N": 3,
+    "G": [[0, 1], [2], []],
+    "edges": [
+      {
+        "from": 0,
+        "to": 1,
+        "cost": 10,
+        "capacity": 1
+      },
+      {
+        "from": 0,
+        "to": 2,
+        "cost": 12,
+        "capacity": 1
+      },
+      {
+        "from": 1,
+        "to": 2,
+        "cost": 2,
+        "capacity": 1
+      }
+    ]
+  },
+  {
+    "N": 10,
+    "G": [[], [0], [], [2, 3, 4, 5], [], [], [], [], [1], []],
+    "edges": [
+      { "from": 1, "to": 3, "cost": 53, "capacity": 6 },
+      { "from": 8, "to": 3, "cost": 24, "capacity": 9 },
+      { "from": 3, "to": 0, "cost": 51, "capacity": 7 },
+      { "from": 3, "to": 9, "cost": 32, "capacity": 8 },
+      { "from": 3, "to": 2, "cost": 33, "capacity": 5 },
+      { "from": 3, "to": 5, "cost": 68, "capacity": 2 }
+    ]
+  }
+]

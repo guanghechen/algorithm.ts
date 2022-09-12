@@ -30,8 +30,7 @@
       "@algorithm.ts/sliding-window": ["packages/sliding-window/src"],
       "@algorithm.ts/sudoku": ["packages/sudoku/src"],
       "@algorithm.ts/trie": ["packages/trie/src"],
-      "@algorithm.ts/types": ["packages/types/src"],
-      "jest.setup": ["jest.setup.ts"]
+      "@algorithm.ts/types": ["packages/types/src"]
     }
   },
   "exclude": ["**/__test__/fixtures"]
