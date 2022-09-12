@@ -166,3 +166,27 @@ No breaking changes.
 1. `buildEncodingTable` is renamed to `toEncodingTable`.
 2. `buildHuffmanTree` is renamed to `fromEncodingTable`.
 3. `createHuffmanTree` is renamed to `fromText`.
+
+
+### @algorithm.ts/isap
+
+1. Use `new Isap()` instead of `createIsap()` 
+2. `.maxFlow()` is renamed to `.maxflow()`
+3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, 
+    you can try to extend the `Isap` and export a method such as `getSnapshot()`.
+
+    ```typescript
+    class CustomIsap extends Isap {
+      public getSnapshot() {
+        return {
+          N: this._N,
+          source: this._source,
+          sink: this._sink,
+          G: this.G,
+          edges: this._edges,
+          edgesTot: this._edgesTot,
+          dist: this._dist
+        }
+      }
+    }
+    ```

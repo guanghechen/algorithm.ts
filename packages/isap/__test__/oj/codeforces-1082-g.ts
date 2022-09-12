@@ -1,8 +1,8 @@
-import { createIsap } from '../../src'
+import { Isap } from '../../src'
 
 export default solveCodeforces1082G
 
-const isap = createIsap()
+const isap = new Isap()
 export function solveCodeforces1082G(
   nodes: number[],
   edges: Array<[u: number, v: number, weight: number]>,
@@ -28,6 +28,6 @@ export function solveCodeforces1082G(
     isap.addEdge(x, u, Number.MAX_SAFE_INTEGER)
     isap.addEdge(x, v, Number.MAX_SAFE_INTEGER)
   }
-  answer -= isap.maxFlow()
+  answer -= isap.maxflow()
   return answer
 }

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/isap#readme">@algorithm.ts/isap</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/isap#readme">@algorithm.ts/isap</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/isap">
@@ -69,18 +69,13 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
   yarn add @algorithm.ts/isap
   ```
 
-* deno
-
-  ```typescript
-  import { createIsap } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/isap/src/index.ts'
-  ```
 
 ## Usage
 
 * Simple
 
   ```typescript
-  import { createIsap } from '@algorithm.ts/isap'
+  import { Isap } from '@algorithm.ts/isap'
 
   const isap = createIsap()
   isap.init(0, 1, 4)
@@ -91,10 +86,19 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
   isap.maxFlow() // => 1
 
   // Access current residual network.
-  isap.solve(context => {
-    context
-    // { G: [...], edgeTot: 6, edges: [...] }
-  })
+  class CustomIsap extends Isap {
+    public getSnapshot() {
+      return { 
+        N: this._N,
+        source: this._source,
+        sink: this._sink,
+        G: this.G,
+        edges: this._edges,
+        edgesTot: this._edgesTot,
+        dist: this._dist
+      }
+    }
+  }
   ```
 
 ### Example
@@ -102,9 +106,9 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 * A solution for Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
 
   ```typescript
-  import { createIsap } from '@algorithm.ts/isap'
+  import { Isap } from '@algorithm.ts/isap'
 
-  const isap = createIsap()
+  const isap = new Isap()
   export function solveCodeforces1082G(
     nodes: number[],
     edges: Array<[u: number, v: number, weight: number]>,
@@ -130,7 +134,7 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
       isap.addEdge(x, u, Number.MAX_SAFE_INTEGER)
       isap.addEdge(x, v, Number.MAX_SAFE_INTEGER)
     }
-    answer -= isap.maxFlow()
+    answer -= isap.maxflow()
     return answer
   }
   ```
@@ -138,7 +142,7 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 * A solution for leetcode "Maximum Students Taking Exam" (https://leetcode.com/problems/maximum-students-taking-exam/):
 
   ```typescript
-  import { createIsap } from '@algorithm.ts/isap'
+  import { Isap } from '@algorithm.ts/isap'
 
   export function maxStudents(seats: string[][]): number {
     const R: number = seats.length
@@ -162,7 +166,6 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 
     const source: number = total * 2
     const target: number = source + 1
-    const isap = createIsap()
     isap.init(source, target, target + 1)
 
     for (let r = 0; r < R; ++r) {
@@ -197,7 +200,7 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
       }
     }
 
-    const totalPaired: number = isap.maxFlow() / 2
+    const totalPaired: number = isap.maxflow() / 2
     return total - totalPaired
   }
   ```
@@ -205,10 +208,10 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 
 ## Related
 
-* [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/isap)
-* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/mcmf)
+* [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/isap)
+* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/mcmf)
 * [网络流 24 题](https://me.guanghechen.com/post/algorithm/graph/network-flow/24-problems/)
 * [网络流基础之最大权闭合图](https://me.guanghechen.com/post/algorithm/graph/network-flow/%E6%9C%80%E5%A4%A7%E6%9D%83%E9%97%AD%E5%90%88%E5%9B%BE/)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/isap#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/isap#readme

@@ -1,8 +1,8 @@
-import { createIsap } from '../../src'
+import { Isap } from '../../src'
 
 export default maxStudents
 
-const isap = createIsap()
+const isap = new Isap()
 export function maxStudents(seats: string[][]): number {
   const R: number = seats.length
   if (R <= 0) return 0
@@ -59,6 +59,6 @@ export function maxStudents(seats: string[][]): number {
     }
   }
 
-  const totalPaired: number = isap.maxFlow() / 2
+  const totalPaired: number = isap.maxflow() / 2
   return total - totalPaired
 }

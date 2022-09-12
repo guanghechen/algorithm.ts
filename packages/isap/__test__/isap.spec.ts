@@ -1,22 +1,22 @@
-import { testOjCodes } from 'jest.setup'
-import { createIsap } from '../src'
+import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
+import { Isap } from '../src'
 
 describe('basic', function () {
   test('simple', function () {
-    const isap = createIsap()
+    const isap = new Isap()
     isap.init(0, 1, 4)
     isap.addEdge(0, 2, 1)
     isap.addEdge(0, 3, 2)
     isap.addEdge(3, 1, 1)
-    expect(isap.maxFlow()).toEqual(1)
-    isap.solve(context => expect(context).toMatchSnapshot())
+    expect(isap.maxflow()).toEqual(1)
+    expect(isap.mincut()).toEqual([{ cap: 1, flow: 1, from: 3, to: 1 }])
   })
 })
 
 describe('oj', function () {
-  // https://codeforces.com/contest/1082/problem/G
-  testOjCodes('codeforces/1082/G', import('./oj/codeforces-1082-g'))
-
-  // https://leetcode.com/problems/maximum-students-taking-exam/
-  testOjCodes('leetcode/maximum-students-taking-exam', import('./oj/maximum-students-taking-exam'))
+  testOjCodes(TestOjDataProblemKey.CODEFORCES_1082_G, import('./oj/codeforces-1082-g'))
+  testOjCodes(
+    TestOjDataProblemKey.LEETCODE_MAXIMUM_STUDENTS_TAKING_EXAM,
+    import('./oj/maximum-students-taking-exam'),
+  )
 })
