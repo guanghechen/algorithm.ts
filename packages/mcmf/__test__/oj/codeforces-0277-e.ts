@@ -1,8 +1,8 @@
-import { createMcmf } from '../../src'
+import { Mcmf } from '../../src'
 
 export default solveCodeforces0277E
 
-const mcmf = createMcmf()
+const mcmf = new Mcmf()
 export function solveCodeforces0277E(coordinates: Array<[x: number, y: number]>): number {
   const N: number = coordinates.length
 
@@ -26,7 +26,7 @@ export function solveCodeforces0277E(coordinates: Array<[x: number, y: number]>)
     }
   }
 
-  const [mincost, maxflow] = mcmf.minCostMaxFlow()
+  const { mincost, maxflow } = mcmf.minCostMaxFlow()
   const answer = maxflow === N - 1 ? mincost : -1
   return answer
 }

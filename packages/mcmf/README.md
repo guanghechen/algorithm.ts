@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/mcmf#readme">@algorithm.ts/mcmf</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/mcmf#readme">@algorithm.ts/mcmf</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/mcmf">
@@ -68,20 +68,15 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
   yarn add @algorithm.ts/mcmf
   ```
 
-* deno
-
-  ```typescript
-  import { createMcmf } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/mcmf/src/index.ts'
-  ```
 
 ## Usage
 
 * Codeforces contest 0277 Problem E (https://codeforces.com/contest/277/problem/E):
 
   ```typescript
-  import { createMcmf } from '@algorithm.ts/mcmf'
+  import { Mcmf } from '@algorithm.ts/mcmf'
 
-  const mcmf = createMcmf()
+  const mcmf = new Mcmf()
   export function solveCodeforces0277E(coordinates: Array<[x: number, y: number]>): number {
     const N: number = coordinates.length
 
@@ -105,7 +100,7 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
       }
     }
 
-    const [mincost, maxflow] = mcmf.minCostMaxFlow()
+    const { mincost, maxflow } = mcmf.minCostMaxFlow()
     const answer = maxflow === N - 1 ? mincost : -1
     return answer
   }
@@ -125,9 +120,9 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
 * A solution for Codeforces contest 1082 Problem G (https://codeforces.com/contest/1082/problem/G):
 
   ```typescript
-  import { createMcmf } from '@algorithm.ts/mcmf'
+  import { Mcmf } from '@algorithm.ts/mcmf'
 
-  const mcmf = createMcmf()
+  const mcmf = new Mcmf()
   export function solveCodeforces1082G(
     nodes: number[],
     edges: Array<[u: number, v: number, weight: number]>,
@@ -153,7 +148,9 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
       mcmf.addEdge(x, u, Number.MAX_SAFE_INTEGER, 0)
       mcmf.addEdge(x, v, Number.MAX_SAFE_INTEGER, 0)
     }
-    answer -= mcmf.maxFlow()
+
+    const { mincost, maxflow } = mcmf.minCostMaxFlow()
+    answer -= maxflow
     return answer
   }
   ```
@@ -161,7 +158,7 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
 * A solution for leetcode "Maximum Students Taking Exam" (https://leetcode.com/problems/maximum-students-taking-exam/):
 
   ```typescript
-  import { createMcmf } from '@algorithm.ts/mcmf'
+  import { Mcmf } from '@algorithm.ts/mcmf'
 
   export function maxStudents(seats: string[][]): number {
     const R: number = seats.length
@@ -185,7 +182,7 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
 
     const source: number = total * 2
     const target: number = source + 1
-    const mcmf = createMcmf()
+    const mcmf = new Mcmf()
     mcmf.init(source, target, target + 1)
 
     for (let r = 0; r < R; ++r) {
@@ -220,7 +217,8 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
       }
     }
 
-    const totalPaired: number = mcmf.maxFlow() / 2
+    const { mincost, maxflow } = mcmf.minCostMaxFlow()
+    const totalPaired: number = maxflow / 2
     return total - totalPaired
   }
   ```
@@ -228,10 +226,10 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
 ## Related
 
 
-* [@algorithm.ts/dinic](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dinic)
-* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/mcmf)
+* [@algorithm.ts/dinic](https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/dinic)
+* [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/mcmf)
 * [网络流 24 题](https://me.guanghechen.com/post/algorithm/graph/network-flow/24-problems/)
 * [网络流基础之最大权闭合图](https://me.guanghechen.com/post/algorithm/graph/network-flow/%E6%9C%80%E5%A4%A7%E6%9D%83%E9%97%AD%E5%90%88%E5%9B%BE/)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/mcmf#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/mcmf#readme

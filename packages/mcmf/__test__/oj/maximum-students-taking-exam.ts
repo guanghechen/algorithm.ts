@@ -1,8 +1,8 @@
-import { createMcmf } from '../../src'
+import { Mcmf } from '../../src'
 
 export default maxStudents
 
-const mcmf = createMcmf()
+const mcmf = new Mcmf()
 export function maxStudents(seats: string[][]): number {
   const R: number = seats.length
   if (R <= 0) return 0
@@ -59,7 +59,7 @@ export function maxStudents(seats: string[][]): number {
     }
   }
 
-  const [, maxFlow] = mcmf.minCostMaxFlow()
-  const totalPaired: number = maxFlow / 2
+  const { maxflow } = mcmf.minCostMaxFlow()
+  const totalPaired: number = maxflow / 2
   return total - totalPaired
 }

@@ -205,3 +205,27 @@ No breaking changes.
 ### @algorithm.ts/manacher
 
 1. Return `number[]` instead of `Uint32Array`.
+
+
+### @algorithm.ts/mcmf
+
+1. Use `new Mcmf()` instead of `createMcmf()` 
+2. `.minCostMaxFlow()` return an object instead of tuple.
+3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, 
+    you can try to extend the `Mcmf` and export a method such as `getSnapshot()`.
+
+    ```typescript
+    class CustomMcmf extends Mcmf {
+      public getSnapshot() {
+        return {
+          N: this._N,
+          source: this._source,
+          sink: this._sink,
+          G: this.G,
+          edges: this._edges,
+          edgesTot: this._edgesTot,
+          dist: this._dist
+        }
+      }
+    }
+    ```

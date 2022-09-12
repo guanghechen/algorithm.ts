@@ -1,8 +1,8 @@
-import { createMcmf } from '../../src'
+import { Mcmf } from '../../src'
 
 export default solveCodeforces1082G
 
-const mcmf = createMcmf()
+const mcmf = new Mcmf()
 export function solveCodeforces1082G(
   nodes: number[],
   edges: Array<[u: number, v: number, weight: number]>,
@@ -29,7 +29,7 @@ export function solveCodeforces1082G(
     mcmf.addEdge(x, v, Number.MAX_SAFE_INTEGER, 0)
   }
 
-  const [, maxFlow] = mcmf.minCostMaxFlow()
-  answer -= maxFlow
+  const { maxflow } = mcmf.minCostMaxFlow()
+  answer -= maxflow
   return answer
 }

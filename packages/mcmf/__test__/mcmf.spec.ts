@@ -1,26 +1,28 @@
-import { testOjCodes } from 'jest.setup'
-import { createMcmf } from '../src'
+import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
+import { Mcmf } from '../src'
 
 describe('basic', function () {
   test('simple', function () {
-    const mcmf = createMcmf()
+    const mcmf = new Mcmf()
     mcmf.init(0, 1, 4)
     mcmf.addEdge(0, 2, 1, 10)
     mcmf.addEdge(0, 3, 2, 2)
     mcmf.addEdge(2, 1, 1, 9)
     mcmf.addEdge(3, 1, 1, 1)
-    expect(mcmf.minCostMaxFlow()).toEqual([22, 2])
-    mcmf.solve(context => expect(context).toMatchSnapshot())
+    expect(mcmf.minCostMaxFlow()).toEqual({ mincost: 22, maxflow: 2 })
+    expect(mcmf.mincut()).toEqual([
+      { cap: 1, flow: 1, from: 0, to: 2, cost: 10 },
+      { cap: 1, flow: 1, from: 2, to: 1, cost: 9 },
+      { cap: 1, flow: 1, from: 3, to: 1, cost: 1 },
+    ])
   })
 })
 
 describe('oj', function () {
-  // https://codeforces.com/contest/277/problem/E
-  testOjCodes('codeforces/0277/E', import('./oj/codeforces-0277-e'))
-
-  // https://codeforces.com/contest/1082/problem/G
-  testOjCodes('codeforces/1082/G', import('./oj/codeforces-1082-g'))
-
-  // https://leetcode.com/problems/maximum-students-taking-exam/
-  testOjCodes('leetcode/maximum-students-taking-exam', import('./oj/maximum-students-taking-exam'))
+  testOjCodes(TestOjDataProblemKey.CODEFORCES_0277_E, import('./oj/codeforces-0277-e'))
+  testOjCodes(TestOjDataProblemKey.CODEFORCES_1082_G, import('./oj/codeforces-1082-g'))
+  testOjCodes(
+    TestOjDataProblemKey.LEETCODE_MAXIMUM_STUDENTS_TAKING_EXAM,
+    import('./oj/maximum-students-taking-exam'),
+  )
 })
