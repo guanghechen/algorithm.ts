@@ -231,6 +231,16 @@ No breaking changes.
     ```
 
 
-### algorithm.ts/roman
+### @algorithm.ts/roman
 
 No breaking changes.
+
+
+### @algorithm.ts/sliding-window
+
+1. Use `new SlidingWindow(options)` instead of `createSlidingWindow(cmp)`.
+2. `max()` is removed, use `min()` instead. The sliding-window is maintain the minimum value index
+   now (the previous version will maintain the maximum value in the window).
+3. Rename `moveForward` to `forwardRightBoundary`.
+4. Support to move the left boundary of the sliding-window through the new method `forwardLeftBoundary`.
+5. `init()` is renamed to `reset()`, and the parameters is changed to object style. 

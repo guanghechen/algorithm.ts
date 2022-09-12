@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/sliding-window#readme">@algorithm.ts/sliding-window</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/sliding-window#readme">@algorithm.ts/sliding-window</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/sliding-window">
@@ -67,57 +67,49 @@ A typescript implementation of the **sliding-window** algorithm.
   yarn add @algorithm.ts/sliding-window
   ```
 
-* deno
-
-  ```typescript
-  import { createSlidingWindow } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/sliding-window/src/index.ts'
-  ```
-
 
 ## Usage
 
 * `SlidingWindow`
 
-  Member                                          | Return    |  Description
-  :----------------------------------------------:|:---------:|:---------------------------------------
-  `init(WINDOW_SIZE: number, startIdx?: number)`  | `void`    | Initialize a sliding window.
-  `moveForward(steps: number)`                    | `void`    | Move the sliding window forward with specified steps.
-  `max()`                                         | `number`  | Get the index of the maximum value in the sliding window.
+  Member                                          | Return              |  Description
+  :----------------------------------------------:|:-------------------:|:---------------------------------------
+  `constructor(options: ISlidingWindowProps)`     | `SlidingWindow`     | 
+  `reset(options?: ISlidingWindowResetOptions)`   | `void`              | Reset the sliding window.
+  `forwardLeftBoundary(steps?: number)`           | `void`              | Move the sliding window left boundary forward by `steps` steps.
+  `forwardRightBoundary(steps?: number)`          | `void`              | Move the sliding window right boundary forward by `steps` steps.
+  `min()`                                         | `number|undefined`  | Return the minimum element in the Sliding Window.
 
-* `createSlidingWindow`
+* `ISlidingWindowProps`
 
-  ```typescript
-  export function createSlidingWindow(cmp: (x: number, y: number) => -1 | 0 | 1 | number): ISlidingWindow
-  ```
+  - `WINDOW_SIZE`: (required) the width of the sliding window.
 
-  - `createSlidingWindow((x, y) => nums[x] - nums[y])`: 
-    Create a sliding window (the window size is not specified yet), and maintain the index of 
-    the nums with the largest value in the window.
+  - `compare`: (required) compare two index to determine which one is smaller.
 
-  - The `createSlidingWindow((x, y) => nums[y] - nums[x])`:
-    Create a sliding window (the window size is not specified yet), and maintain the index of 
-    the nums with the smallest value in the window.
+  - `startIndex`: (optional) the first index of the input range.
 
 
-### Example
+## Example
 
 * A solution of https://leetcode.com/problems/sliding-window-maximum/
 
   ```typescript
-  import { createSlidingWindow } from '@algorithm.ts/sliding-window'
+  import { SlidingWindow } from '@algorithm.ts/sliding-window'
 
   export function maxSlidingWindow(nums: number[], K: number): number[] {
     const N = nums.length
     if (N < K) return []
 
     const results: number[] = []
-    const window = createSlidingWindow((x, y) => nums[x] - nums[y])
-    window.init(K)
+    const window = new SlidingWindow({
+      WINDOW_SIZE: K,
+      compare: (x, y) => nums[y] - nums[x],
+    })
 
-    window.moveForward(K - 1)
+    window.forwardRightBoundary(K - 1)
     for (let i = K - 1; i < N; ++i) {
-      window.moveForward()
-      results.push(nums[window.max()])
+      window.forwardRightBoundary()
+      results.push(nums[window.min()!])
     }
     return results
   }
@@ -127,4 +119,4 @@ A typescript implementation of the **sliding-window** algorithm.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/sliding-window#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/sliding-window#readme
