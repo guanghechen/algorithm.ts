@@ -145,3 +145,7 @@ import { dijkstraBigint } from '@algorithm.ts/dijkstra'
 4. `.size(<number>)` is renamed to `.count(<number>)`.
 5. `.resetNode(<number>)` is removed.
 
+
+### @algorithm.ts/gcd
+
+No breaking changes.
