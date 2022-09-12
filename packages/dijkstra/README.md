@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dijkstra#readme">@algorithm.ts/dijkstra</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/dijkstra#readme">@algorithm.ts/dijkstra</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/dijkstra">
@@ -74,11 +74,6 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   yarn add @algorithm.ts/dijkstra
   ```
 
-* deno
-
-  ```typescript
-  import dijkstra from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/dijkstra/src/index.ts'
-  ```
 
 ## Usage
 
@@ -87,7 +82,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   ```typescript
   import dijkstra from '@algorithm.ts/dijkstra'
 
-  const dist: number[] = dijkstra({
+  const { dist } = dijkstra({
     N: 4,
     source: 0,
     edges: [
@@ -107,40 +102,19 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   //      0 --> 3: cost is 4
   ```
 
-* Pass custom `dist` array.
 
-  ```typescript
-  import dijkstra from '@algorithm.ts/dijkstra'
-
-  const dist: number[] = []
-  dijkstra({
-    N: 4,
-    source: 0,
-    edges: [
-      { to: 1, cost: 2 },
-      { to: 2, cost: 2 },
-      { to: 3, cost: 2 },
-      { to: 3, cost: 1 },
-    ],
-    G: [[0], [1, 2], [3], []],
-    dist,
-  })
-
-  dist // => [0, 2, 4, 4]
-  ```
-
-### Example
+## Example
 
 * A solution for leetcode "Number of Ways to Arrive at Destination"
   (https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/):
 
   ```typescript
-  import type { IEdge } from '@algorithm.ts/dijkstra'
-  import dijkstra from '@algorithm.ts/dijkstra'
+  import type { IDijkstraEdge } from '@algorithm.ts/dijkstra'
+  import { dijkstra } from '@algorithm.ts/dijkstra'
 
   const MOD = 1e9 + 7
   export function countPaths(N: number, roads: number[][]): number {
-    const edges: IEdge[] = []
+    const edges: Array<IDijkstraEdge<number>> = []
     const G: number[][] = new Array(N)
     for (let i = 0; i < N; ++i) G[i] = []
     for (const [from, to, cost] of roads) {
@@ -153,7 +127,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
     const source = 0
     const target = N - 1
-    const dist: number[] = dijkstra({ N, source: target, edges, G, dist: customDist }, { INF: 1e12 })
+    const { dist } = dijkstra({ N, source: target, edges, G }, { INF: 1e12 })
 
     const dp: number[] = new Array(N).fill(-1)
     return dfs(source)
@@ -167,13 +141,14 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
       answer = 0
       const d = dist[o]
       for (const idx of G[o]) {
-        const e: IEdge = edges[idx]
+        const e: IDijkstraEdge<number> = edges[idx]
         if (dist[e.to] + e.cost === d) {
           const t = dfs(e.to)
           answer = modAdd(answer, t)
         }
       }
-      return dp[o] = answer
+      dp[o] = answer
+      return answer
     }
   }
 
@@ -189,12 +164,10 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 * 《算法竞赛入门经典（第2版）》（刘汝佳）： P359-P362 Dijkstra 算法
 * [dijkstra 算法 | 光和尘][dijkstra]
 * [dijkstra | Wikipedia][wikipedia-dijkstra]
-* [@algorithm.ts/dijkstra-bigint][]
-* [@algorithm.ts/priority-queue][]
+* [@algorithm.ts/queue][]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dijkstra#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/dijkstra#readme
 [wikipedia-dijkstra]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 [dijkstra]: https://me.guanghechen.com/post/algorithm/graph/shortest-path/dijkstra
-[@algorithm.ts/dijkstra-bigint]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/dijkstra-bigint
-[@algorithm.ts/priority-queue]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/priority-queue
+[@algorithm.ts/queue]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/queue

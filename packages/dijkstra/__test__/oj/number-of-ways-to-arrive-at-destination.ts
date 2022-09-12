@@ -5,7 +5,7 @@ export default countPaths
 
 const MOD = 1e9 + 7
 export function countPaths(N: number, roads: number[][]): number {
-  const edges: IDijkstraEdge[] = []
+  const edges: Array<IDijkstraEdge<number>> = []
   const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
   for (const [from, to, cost] of roads) {
@@ -18,7 +18,7 @@ export function countPaths(N: number, roads: number[][]): number {
 
   const source = 0
   const target = N - 1
-  const dist: number[] = dijkstra({ N, source: target, edges, G }, { INF: 1e12 })
+  const { dist } = dijkstra({ N, source: target, edges, G }, { INF: 1e12 })
 
   const dp: number[] = new Array(N).fill(-1)
   return dfs(source)
@@ -32,7 +32,7 @@ export function countPaths(N: number, roads: number[][]): number {
     answer = 0
     const d = dist[o]
     for (const idx of G[o]) {
-      const e: IDijkstraEdge = edges[idx]
+      const e: IDijkstraEdge<number> = edges[idx]
       if (dist[e.to] + e.cost === d) {
         const t = dfs(e.to)
         answer = modAdd(answer, t)

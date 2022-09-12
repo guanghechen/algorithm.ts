@@ -1,81 +1,61 @@
-import { getShortestPath } from '@algorithm.ts/graph'
-import type { IPriorityQueue } from '@algorithm.ts/priority-queue'
-import { createPriorityQueue } from '@algorithm.ts/priority-queue'
-import type { IDijkstraEdge, IDijkstraGraph } from './types'
+import type { IPriorityQueue } from '@algorithm.ts/queue'
+import { PriorityQueue } from '@algorithm.ts/queue'
+import type { DeepReadonly } from '@algorithm.ts/types'
+import type { IDijkstraEdge, IDijkstraGraph, IDijkstraOptions, IDijkstraResult } from './types'
 
-export interface IOptions {
-  /**
-   * A big number, representing the unreachable cost.
-   */
-  INF?: number
-  /**
-   * Record the shortest path parent source point to the specified point.
-   * For example: bestFrom[x] represents the previous position of x in the shortest path
-   *              parent the source point to x.
-   */
-  bestFrom?: number[]
-  /**
-   * An array recording the shortest distance to the source point.
-   */
-  dist?: number[]
+interface IStateNode<C extends number | bigint> {
+  pos: number
+  cost: C
 }
 
-export interface IContext {
+export interface IDijkstraProps<C extends number | bigint> {
   /**
-   * A big number, representing the unreachable cost.
+   * The value represent the zero cost, 0 for number and 0n for bigint.
    */
-  INF: number
+  ZERO: C
   /**
-   * Record the shortest path parent source point to the specified point.
-   * For example: bestFrom[x] represents the previous position of x in the shortest path
-   *              parent the source point to x.
+   * A big number / bigint, representing the unreachable cost.
    */
-  bestFrom: ReadonlyArray<number>
-  /**
-   * An array recording the shortest distance to the source point.
-   */
-  dist: ReadonlyArray<number>
-  /**
-   * Get shortest path from the source point to the given target point.
-   */
-  getShortestPathTo(target: number): number[]
+  INF: C
 }
 
 /**
  * The dijkstra algorithm, optimized with priority queue.
  *
+ * !!!NOTE dijkstra cannot work with negative cycle.
+ *
  * @param graph
  * @param options
  * @see https://me.guanghechen.com/post/algorithm/graph/shortest-path/dijkstra
  */
-export class Dijkstra {
-  protected readonly INF: number
-  protected readonly ZERO: number
+export class Dijkstra<C extends number | bigint> {
+  protected readonly ZERO: C
+  protected readonly INF: C
+  // An array recording the shortest distance to the source point.
+  protected readonly dist: C[]
+  // Record the shortest path parent source point to the specified point.
+  // For example: bestFrom[x] represents the previous position of x in the shortest path
+  //              parent the source point to x.
   protected readonly bestFrom: number[]
-  protected readonly dist: number[]
   protected readonly done: boolean[]
-  protected readonly Q: IPriorityQueue<{ pos: number; cost: number }>
+  protected readonly Q: IPriorityQueue<IStateNode<C>>
 
-  constructor(options: IOptions = {}) {
-    this.INF = options.INF ?? Math.floor(Number.MAX_SAFE_INTEGER / 2)
-    this.ZERO = 0
-    this.bestFrom = options.bestFrom ?? []
-    this.dist = options.dist ?? []
+  constructor(props: IDijkstraProps<C>) {
+    this.ZERO = props.ZERO
+    this.INF = props.INF
+    this.bestFrom = []
+    this.dist = []
     this.done = []
-    this.Q = createPriorityQueue<{ pos: number; cost: number }>((x, y) => {
-      if (x.cost === y.cost) return 0
-      return x.cost < y.cost ? 1 : -1
-    })
+    this.Q = new PriorityQueue<IStateNode<C>>({ compare: (x, y) => x.cost - y.cost })
   }
 
   public dijkstra(
-    graph: IDijkstraGraph,
-    options: IOptions = {},
-    onResolved?: (context: IContext) => void,
-  ): boolean {
-    const { ZERO, Q, done } = this
+    graph: DeepReadonly<IDijkstraGraph<C>>,
+    options: IDijkstraOptions<C> = {},
+  ): IDijkstraResult<C> {
     const { N, source, edges, G } = graph
-    const { INF = this.INF, bestFrom = this.bestFrom, dist = this.dist } = options
+    const { ZERO, Q, bestFrom, dist, done } = this
+    const { INF = this.INF } = options
 
     dist.length = N
     done.length = N
@@ -87,37 +67,25 @@ export class Dijkstra {
     Q.enqueue({ pos: source, cost: ZERO })
     dist[source] = ZERO
 
-    while (Q.size() > 0) {
-      const { pos: o, cost } = Q.dequeue()!
-
-      if (done[o]) {
-        if (dist[o] < cost) return false
-        continue
-      }
+    let edge: DeepReadonly<IDijkstraEdge<C>>
+    let to: number
+    let candidate: C
+    while (Q.size > 0) {
+      const o = Q.dequeue()!.pos
+      if (done[o]) continue
       done[o] = true
 
-      for (const idx of G[o]) {
-        const edge: IDijkstraEdge = edges[idx]
-        const candidate: number = dist[o] + edge.cost
-        if (dist[edge.to] > candidate) {
-          dist[edge.to] = candidate
-          bestFrom[edge.to] = o
-          Q.enqueue({ pos: edge.to, cost: dist[edge.to] })
+      for (let i = 0, g = G[o], _size = g.length; i < _size; ++i) {
+        edge = edges[g[i]]
+        to = edge.to
+        candidate = ((dist[o] as number) + (edge.cost as unknown as number)) as C
+        if (dist[to] > candidate) {
+          dist[to] = candidate
+          bestFrom[to] = o
+          Q.enqueue({ pos: to, cost: candidate })
         }
       }
     }
-
-    if (onResolved) {
-      const getShortestPathTo = (target: number): number[] =>
-        getShortestPath(bestFrom, source, target)
-      const context: IContext = {
-        INF: this.INF,
-        bestFrom: this.bestFrom,
-        dist: this.dist,
-        getShortestPathTo,
-      }
-      onResolved(context)
-    }
-    return true
+    return { INF, source, bestFrom, dist }
   }
 }

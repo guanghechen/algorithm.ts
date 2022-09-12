@@ -11,7 +11,7 @@ export function maximalPathQuality(
   const T: number = maxTime
   const N: number = values.length
 
-  const edges: IDijkstraEdge[] = new Array(N)
+  const edges: Array<IDijkstraEdge<number>> = new Array(N)
   const G: number[][] = new Array(N)
   for (let i = 0; i < N; ++i) G[i] = []
   for (const [u, v, w] of originalEdges) {
@@ -21,7 +21,7 @@ export function maximalPathQuality(
     G[v].push(edges.length)
     edges.push({ to: u, cost: w })
   }
-  const dist: number[] = dijkstra(
+  const { dist } = dijkstra(
     {
       N,
       source: 0,

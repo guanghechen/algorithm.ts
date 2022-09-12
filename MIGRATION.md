@@ -71,3 +71,39 @@ No breaking changes.
 
 1. Renamed to `@algorithm.ts/calculator`.
 2. Use `calculator.calculate(<expression>)` instead of `calculate(<expression>)`.
+
+
+### @algorithm.ts/dijkstra
+
+1.  `dijkstra` returns a structured result instead of a number array.
+
+    ```typescript
+    export interface IDijkstraResult<C extends number | bigint> {
+      /**
+      * A big number, representing the unreachable cost.
+      */
+      INF: C
+      /**
+      * Source point
+      */
+      source: number
+      /**
+      * Record the shortest path parent source point to the specified point.
+      * For example: bestFrom[x] represents the previous position of x in the shortest path
+      *              parent the source point to x.
+      */
+      bestFrom: ReadonlyArray<number>
+      /**
+      * An array recording the shortest distance to the source point.
+      */
+      dist: ReadonlyArray<C>
+    }
+    ```
+
+### @algorithm.ts/dijkstra-bigint
+
+Removed, use `@algorithm.ts/dijkstra` instead.
+
+```typescript
+import { dijkstraBigint } from '@algorithm.ts/dijkstra'
+```
