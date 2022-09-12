@@ -14,8 +14,9 @@ export const defaultRomanCodes = 'MDCLXVI'
 /**
  * Convert an Arabic numeral into a Roman numeral representation.
  *
- * @param value
+ * @param originalValue
  * @param romanCodes
+ * @returns
  */
 export function int2roman(originalValue: number, romanCodes: string = defaultRomanCodes): string {
   let one = 10 ** Math.floor(romanCodes.length / 2)
@@ -30,7 +31,8 @@ export function int2roman(originalValue: number, romanCodes: string = defaultRom
   const roman: string[] = []
 
   // Convert high-order numbers
-  i == 0 ? convert('', '', romanCodes[0]) : convert('', romanCodes[0], romanCodes[1])
+  if (i === 0) convert('', '', romanCodes[0])
+  else convert('', romanCodes[0], romanCodes[1])
 
   // Covert remain numbers
   for (one /= 10; one > 0; one /= 10, i += 2) {

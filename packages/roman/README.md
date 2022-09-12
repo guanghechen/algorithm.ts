@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/roman#readme">@algorithm.ts/roman</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/roman#readme">@algorithm.ts/roman</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/roman">
@@ -50,8 +50,7 @@
 <br/>
 
 
-This package is written to support the mutual conversion between Roman numerals
-and Arabic numerals.
+This package is written to support the mutual conversion between Roman numerals and Arabic numerals.
 
 
 ## Install
@@ -68,11 +67,6 @@ and Arabic numerals.
   yarn add @algorithm.ts/roman
   ```
 
-* deno
-
-  ```typescript
-  import { int2roman, roman2int } from 'https://raw.githubusercontent.com/guanghechen/algorithm.ts/main/packages/roman/src/index.ts'
-  ```
 
 ## Usage
 
@@ -109,4 +103,4 @@ and Arabic numerals.
 * [Roman numerals | Wikipedia](https://en.wikipedia.org/wiki/Roman_numerals)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/roman#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/roman#readme

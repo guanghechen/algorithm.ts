@@ -1,12 +1,13 @@
 import { int2roman } from '../src'
+import int2romanMap from './fixtures/int2romanMap.json'
 
 describe('int2roman', function () {
   test('regular', function () {
-    const results: string[] = []
+    const results: Record<number, string> = {}
     for (let n = 1; n < 4000; ++n) {
-      results.push(`${n}: `.padStart(6) + int2roman(n))
+      results[n] = int2roman(n)
     }
-    expect(results).toMatchSnapshot('1..3999')
+    expect(results).toEqual(int2romanMap)
   })
 
   test('custom', function () {

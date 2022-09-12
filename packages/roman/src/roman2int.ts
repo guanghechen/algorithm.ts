@@ -23,7 +23,8 @@ export const defaultRomanCodeMap = {
  * Convert an Arabic numeral into a Roman numeral representation.
  *
  * @param roman
- * @param romanCodes
+ * @param romanCodeMap
+ * @returns
  */
 export function roman2int(
   roman: string,
