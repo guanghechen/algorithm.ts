@@ -335,6 +335,7 @@ describe('15x15', function () {
   })
 
   test('candidate ids', async function () {
+    jest.setTimeout(10 * 1000)
     const tester = getTester()
     const getCandidateIds = (nextPlayer: number): number[] => {
       return tester

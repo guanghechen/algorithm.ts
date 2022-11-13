@@ -284,6 +284,7 @@ describe('15x15', () => {
   })
 
   test('hasPlacedNeighbors', function () {
+    jest.setTimeout(15 * 1000)
     const hasPlacedNeighbors = (posId: number): boolean => {
       for (const id2 of tester.accessibleNeighbors(posId)) {
         if (id2 >= 0 && tester.board[id2] >= 0) return true
