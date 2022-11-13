@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/gcd",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.0-alpha.1",
   "description": "GCD + Euclidean algorithm",
   "author": {
     "name": "guanghechen",
@@ -41,6 +41,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/constant": "^3.0.0-alpha.0"
+    "@algorithm.ts/constant": "^3.0.0-alpha.1"
   }
 }
