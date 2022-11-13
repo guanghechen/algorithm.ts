@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`basic Hello, world! 1`] = `
-Object {
-  "encodedData": Array [
+{
+  "encodedData": [
     1,
     1,
     1,
@@ -46,105 +46,105 @@ Object {
     1,
     1,
   ],
-  "encodingTable": Object {
-    " ": Array [
+  "encodingTable": {
+    " ": [
       1,
       0,
       1,
       1,
     ],
-    "!": Array [
+    "!": [
       1,
       1,
       1,
       1,
     ],
-    ",": Array [
+    ",": [
       0,
       0,
       1,
     ],
-    "H": Array [
+    "H": [
       1,
       1,
       1,
       0,
     ],
-    "d": Array [
+    "d": [
       1,
       0,
       0,
       0,
     ],
-    "e": Array [
+    "e": [
       1,
       0,
       0,
       1,
     ],
-    "l": Array [
+    "l": [
       0,
       1,
     ],
-    "o": Array [
+    "o": [
       1,
       1,
       0,
     ],
-    "r": Array [
+    "r": [
       0,
       0,
       0,
     ],
-    "w": Array [
+    "w": [
       1,
       0,
       1,
       0,
     ],
   },
-  "tree": Object {
-    "left": Object {
-      "left": Object {
-        "left": Object {
+  "tree": {
+    "left": {
+      "left": {
+        "left": {
           "value": "r",
         },
-        "right": Object {
+        "right": {
           "value": ",",
         },
       },
-      "right": Object {
+      "right": {
         "value": "l",
       },
     },
-    "right": Object {
-      "left": Object {
-        "left": Object {
-          "left": Object {
+    "right": {
+      "left": {
+        "left": {
+          "left": {
             "value": "d",
           },
-          "right": Object {
+          "right": {
             "value": "e",
           },
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": "w",
           },
-          "right": Object {
+          "right": {
             "value": " ",
           },
         },
       },
-      "right": Object {
-        "left": Object {
+      "right": {
+        "left": {
           "value": "o",
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": "H",
           },
-          "right": Object {
+          "right": {
             "value": "!",
           },
         },
@@ -167,8 +167,8 @@ Uint8Array [
 `;
 
 exports[`basic Hello, world!1 1`] = `
-Object {
-  "encodedData": Array [
+{
+  "encodedData": [
     1,
     0,
     0,
@@ -217,117 +217,117 @@ Object {
     1,
     0,
   ],
-  "encodingTable": Object {
-    " ": Array [
+  "encodingTable": {
+    " ": [
       0,
       1,
       0,
     ],
-    "!": Array [
+    "!": [
       1,
       0,
       1,
       1,
     ],
-    ",": Array [
+    ",": [
       0,
       1,
       1,
       1,
     ],
-    "1": Array [
+    "1": [
       1,
       0,
       1,
       0,
     ],
-    "H": Array [
+    "H": [
       1,
       0,
       0,
       0,
     ],
-    "d": Array [
+    "d": [
       1,
       1,
       1,
       1,
     ],
-    "e": Array [
+    "e": [
       0,
       1,
       1,
       0,
     ],
-    "l": Array [
+    "l": [
       0,
       0,
     ],
-    "o": Array [
-      1,
-      1,
-      0,
-    ],
-    "r": Array [
-      1,
+    "o": [
       1,
       1,
       0,
     ],
-    "w": Array [
+    "r": [
+      1,
+      1,
+      1,
+      0,
+    ],
+    "w": [
       1,
       0,
       0,
       1,
     ],
   },
-  "tree": Object {
-    "left": Object {
-      "left": Object {
+  "tree": {
+    "left": {
+      "left": {
         "value": "l",
       },
-      "right": Object {
-        "left": Object {
+      "right": {
+        "left": {
           "value": " ",
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": "e",
           },
-          "right": Object {
+          "right": {
             "value": ",",
           },
         },
       },
     },
-    "right": Object {
-      "left": Object {
-        "left": Object {
-          "left": Object {
+    "right": {
+      "left": {
+        "left": {
+          "left": {
             "value": "H",
           },
-          "right": Object {
+          "right": {
             "value": "w",
           },
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": "1",
           },
-          "right": Object {
+          "right": {
             "value": "!",
           },
         },
       },
-      "right": Object {
-        "left": Object {
+      "right": {
+        "left": {
           "value": "o",
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": "r",
           },
-          "right": Object {
+          "right": {
             "value": "d",
           },
         },
@@ -350,8 +350,8 @@ Uint8Array [
 `;
 
 exports[`basic Hello, world!11 1`] = `
-Object {
-  "encodedData": Array [
+{
+  "encodedData": [
     0,
     1,
     0,
@@ -403,117 +403,117 @@ Object {
     1,
     0,
   ],
-  "encodingTable": Object {
-    " ": Array [
+  "encodingTable": {
+    " ": [
       1,
       1,
       1,
       1,
     ],
-    "!": Array [
+    "!": [
       0,
       1,
       0,
       1,
     ],
-    ",": Array [
+    ",": [
       1,
       1,
       1,
       0,
     ],
-    "1": Array [
+    "1": [
       1,
       1,
       0,
     ],
-    "H": Array [
+    "H": [
       0,
       1,
       0,
       0,
     ],
-    "d": Array [
+    "d": [
       0,
       1,
       1,
       0,
     ],
-    "e": Array [
+    "e": [
       0,
       1,
       1,
       1,
     ],
-    "l": Array [
+    "l": [
       0,
       0,
     ],
-    "o": Array [
+    "o": [
       1,
       0,
       1,
     ],
-    "r": Array [
+    "r": [
       1,
       0,
       0,
       1,
     ],
-    "w": Array [
+    "w": [
       1,
       0,
       0,
       0,
     ],
   },
-  "tree": Object {
-    "left": Object {
-      "left": Object {
+  "tree": {
+    "left": {
+      "left": {
         "value": "l",
       },
-      "right": Object {
-        "left": Object {
-          "left": Object {
+      "right": {
+        "left": {
+          "left": {
             "value": "H",
           },
-          "right": Object {
+          "right": {
             "value": "!",
           },
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": "d",
           },
-          "right": Object {
+          "right": {
             "value": "e",
           },
         },
       },
     },
-    "right": Object {
-      "left": Object {
-        "left": Object {
-          "left": Object {
+    "right": {
+      "left": {
+        "left": {
+          "left": {
             "value": "w",
           },
-          "right": Object {
+          "right": {
             "value": "r",
           },
         },
-        "right": Object {
+        "right": {
           "value": "o",
         },
       },
-      "right": Object {
-        "left": Object {
+      "right": {
+        "left": {
           "value": "1",
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": ",",
           },
-          "right": Object {
+          "right": {
             "value": " ",
           },
         },
@@ -537,8 +537,8 @@ Uint8Array [
 `;
 
 exports[`basic Hello, world!111 1`] = `
-Object {
-  "encodedData": Array [
+{
+  "encodedData": [
     0,
     1,
     1,
@@ -593,118 +593,118 @@ Object {
     0,
     0,
   ],
-  "encodingTable": Object {
-    " ": Array [
+  "encodingTable": {
+    " ": [
       1,
       0,
       1,
       1,
     ],
-    "!": Array [
+    "!": [
       0,
       1,
       1,
       1,
     ],
-    ",": Array [
+    ",": [
       1,
       0,
       1,
       0,
     ],
-    "1": Array [
+    "1": [
       0,
       0,
     ],
-    "H": Array [
+    "H": [
       0,
       1,
       1,
       0,
     ],
-    "d": Array [
+    "d": [
       1,
-      1,
-      0,
-      0,
-    ],
-    "e": Array [
-      1,
-      1,
-      0,
-      1,
-    ],
-    "l": Array [
-      1,
-      1,
-      1,
-    ],
-    "o": Array [
       1,
       0,
       0,
     ],
-    "r": Array [
+    "e": [
+      1,
+      1,
+      0,
+      1,
+    ],
+    "l": [
+      1,
+      1,
+      1,
+    ],
+    "o": [
+      1,
+      0,
+      0,
+    ],
+    "r": [
       0,
       1,
       0,
       1,
     ],
-    "w": Array [
+    "w": [
       0,
       1,
       0,
       0,
     ],
   },
-  "tree": Object {
-    "left": Object {
-      "left": Object {
+  "tree": {
+    "left": {
+      "left": {
         "value": "1",
       },
-      "right": Object {
-        "left": Object {
-          "left": Object {
+      "right": {
+        "left": {
+          "left": {
             "value": "w",
           },
-          "right": Object {
+          "right": {
             "value": "r",
           },
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": "H",
           },
-          "right": Object {
+          "right": {
             "value": "!",
           },
         },
       },
     },
-    "right": Object {
-      "left": Object {
-        "left": Object {
+    "right": {
+      "left": {
+        "left": {
           "value": "o",
         },
-        "right": Object {
-          "left": Object {
+        "right": {
+          "left": {
             "value": ",",
           },
-          "right": Object {
+          "right": {
             "value": " ",
           },
         },
       },
-      "right": Object {
-        "left": Object {
-          "left": Object {
+      "right": {
+        "left": {
+          "left": {
             "value": "d",
           },
-          "right": Object {
+          "right": {
             "value": "e",
           },
         },
-        "right": Object {
+        "right": {
           "value": "l",
         },
       },
@@ -727,10 +727,10 @@ Uint8Array [
 `;
 
 exports[`basic empty 1`] = `
-Object {
-  "encodedData": Array [],
-  "encodingTable": Object {},
-  "tree": Object {},
+{
+  "encodedData": [],
+  "encodingTable": {},
+  "tree": {},
 }
 `;
 
@@ -741,24 +741,24 @@ Uint8Array [
 `;
 
 exports[`basic 中文 1`] = `
-Object {
-  "encodedData": Array [
+{
+  "encodedData": [
     0,
     1,
   ],
-  "encodingTable": Object {
-    "中": Array [
+  "encodingTable": {
+    "中": [
       0,
     ],
-    "文": Array [
+    "文": [
       1,
     ],
   },
-  "tree": Object {
-    "left": Object {
+  "tree": {
+    "left": {
       "value": "中",
     },
-    "right": Object {
+    "right": {
       "value": "文",
     },
   },

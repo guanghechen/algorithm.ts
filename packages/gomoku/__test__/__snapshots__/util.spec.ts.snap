@@ -1,66 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`createScoreMap MAX_ADJACENT - 5 1`] = `
-Object {
-  "con": Array [
-    Array [
+{
+  "con": [
+    [
       0,
       0,
       0,
     ],
-    Array [
+    [
       0,
       16,
       32,
     ],
-    Array [
+    [
       0,
       256,
       512,
     ],
-    Array [
+    [
       0,
       4096,
       8192,
     ],
-    Array [
+    [
       0,
       65536,
       131072,
     ],
-    Array [
+    [
       1048576,
       1048576,
       1048576,
     ],
   ],
-  "gap": Array [
-    Array [
+  "gap": [
+    [
       0,
       0,
       0,
     ],
-    Array [
+    [
       0,
       -24,
       -16,
     ],
-    Array [
+    [
       0,
       96,
       224,
     ],
-    Array [
+    [
       0,
       2016,
       4064,
     ],
-    Array [
+    [
       65504,
       65520,
       65528,
     ],
-    Array [
+    [
       65504,
       65520,
       65528,
