@@ -85,7 +85,7 @@ describe('calculate', function () {
     test(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(() => decimalCalculator.calculate(kase.input)).toThrowError()
+        expect(() => decimalCalculator.calculate(kase.input)).toThrow()
       } else {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(decimalCalculator.calculate(kase.input)).toEqual(kase.answer)
@@ -162,7 +162,7 @@ describe('integer calculate', function () {
     test(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(() => calculator.calculate(kase.input)).toThrowError()
+        expect(() => calculator.calculate(kase.input)).toThrow()
       } else {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(calculator.calculate(kase.input)).toEqual(kase.answer)
@@ -236,7 +236,7 @@ describe('bigint calculate', function () {
     test(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
-        expect(() => bigintCalculator.calculate(kase.input)).toThrowError()
+        expect(() => bigintCalculator.calculate(kase.input)).toThrow()
       } else {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(bigintCalculator.calculate(kase.input)).toEqual(kase.answer)
