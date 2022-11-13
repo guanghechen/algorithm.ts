@@ -50,6 +50,10 @@ A monorepo contains some of common algorithms and data structures written in
 Typescript. (no third-party dependencies)
 
 
+## Migration
+
+* Migrate from 2.x.x: https://github.com/guanghechen/algorithm.ts/blob/release-3.x.x/MIGRATION.md
+
 ## Overview
 
 Package                                     | Description
