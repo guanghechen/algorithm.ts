@@ -35,7 +35,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.js",
+    "build": "cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
     "prebuild": "rimraf lib/",
     "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build",
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."

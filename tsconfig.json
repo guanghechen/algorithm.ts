@@ -2,7 +2,7 @@
   "extends": "./tsconfig.settings.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "CommonJS",
+    "module": "ESNext",
     "sourceMap": true,
     "paths": {
       "@@/fixtures/*": ["fixtures/*"],
