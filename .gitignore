@@ -28,7 +28,9 @@ yarn-error.log*
 !.vscode/settings.json
 !.vscode/launch.json
 
-.yarn/
+.yarn/*
+!.yarn/plugins
+!.yarn/releases
 
 *.suo
 *.ntvs*
