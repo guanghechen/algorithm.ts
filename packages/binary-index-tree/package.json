@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/binary-index-tree",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "description": "Binary Index Tree",
   "author": {
     "name": "guanghechen",
@@ -42,6 +42,6 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/types": "^3.0.0-alpha.1"
+    "@algorithm.ts/types": "^3.0.0-alpha.2"
   }
 }

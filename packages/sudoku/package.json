@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sudoku",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0-alpha.2",
   "description": "A efficient Sudoku solver and creator.",
   "author": {
     "name": "guanghechen",
@@ -41,7 +41,7 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/dlx": "^3.0.0-alpha.1",
-    "@algorithm.ts/shuffle": "^3.0.0-alpha.1"
+    "@algorithm.ts/dlx": "^3.0.0-alpha.2",
+    "@algorithm.ts/shuffle": "^3.0.0-alpha.2"
   }
 }
