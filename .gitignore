@@ -28,6 +28,8 @@ yarn-error.log*
 !.vscode/settings.json
 !.vscode/launch.json
 
+.yarn/
+
 *.suo
 *.ntvs*
 *.njsproj

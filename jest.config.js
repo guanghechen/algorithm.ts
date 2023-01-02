@@ -4,6 +4,7 @@ const baseConfig = tsMonorepoConfig(__dirname)
 
 module.exports = {
   ...baseConfig,
+  coverageProvider: 'babel',
   coverageThreshold: {
     global: {
       branches: 90,
