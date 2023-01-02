@@ -1,5 +1,96 @@
 # Changelog
 
+<a name="3.0.0-alpha.2"></a>
+## 3.0.0-alpha.2 (2023-01-02)
+
+### Added
+
+- ✅ test: fix test timeout [[bea9acf](https://github.com/guanghechen/algorithm.ts/commit/bea9acfc5cf28c09cf4416b49e5dd88d6cd99b8d)]
+
+### Changed
+
+- 🔧 chore: use yarn@3 &amp; upgrade devDependencies [[89fdd1d](https://github.com/guanghechen/algorithm.ts/commit/89fdd1d1ed2014cd0526a07a31a0cfbd4621c1af)]
+- ⬆️ chore: upgrade dependencies [[2672a11](https://github.com/guanghechen/algorithm.ts/commit/2672a119246358d4589ae36bcabd044d395b6136)]
+
+### Fixed
+
+- 💚 chore: fix ci configurations [[97a531b](https://github.com/guanghechen/algorithm.ts/commit/97a531b00a075d0bc850fd41e3dfd17c44a2f97e)]
+- 💚 chore: devDependencies need node@16 [[839f75b](https://github.com/guanghechen/algorithm.ts/commit/839f75b545c8167f76544e25d91b17ea3d494f49)]
+
+
+<a name="3.0.0-alpha.1"></a>
+## 3.0.0-alpha.1 (2022-11-13)
+
+### Added
+
+- ✅ test: update test snapshots due to the upgrade of jest [[56015d1](https://github.com/guanghechen/algorithm.ts/commit/56015d13f204dc7f3e6b23ff860ea2bb19784aab)]
+
+### Changed
+
+- 🔧 chore(bipartite-matching): add missing dependencies [[dd4653a](https://github.com/guanghechen/algorithm.ts/commit/dd4653a3b2199e5893d70b1a293f87170bd04d7f)]
+- ⬆️ chore: upgrade devDependencies [[3c28a8b](https://github.com/guanghechen/algorithm.ts/commit/3c28a8b1441bdf26aab91fe4cd9be08f3261a41e)]
+
+### Miscellaneous
+
+- 📄 docs: update LICENSE [[6f8332f](https://github.com/guanghechen/algorithm.ts/commit/6f8332f2160dc523eb9f2700a71852852de02d28)]
+- 📝 docs: update README [[5837322](https://github.com/guanghechen/algorithm.ts/commit/58373222f35a66fcc79571f8056cd831d20d2e97)]
+- 📝 docs: update README [[39421fc](https://github.com/guanghechen/algorithm.ts/commit/39421fc0bc3053185cc4ba48904d4609b23fcdfd)]
+
+
+<a name="3.0.0-alpha.0"></a>
+## 3.0.0-alpha.0 (2022-09-12)
+
+### Added
+
+- ✅ test: update fixtures [[a8c2c5f](https://github.com/guanghechen/algorithm.ts/commit/a8c2c5f24fa627a78fc070fa5024b4d198bcafbd)]
+- ✨ feat: add @algorithm.ts/types [[159a5b2](https://github.com/guanghechen/algorithm.ts/commit/159a5b262b5617f1dbc8438536e540e6640830c8)]
+- ✨ feat: refactor sudoku [[1863c63](https://github.com/guanghechen/algorithm.ts/commit/1863c63c443ff47d96e2fa4b615cc07e29ff6698)]
+- ✨ feat: refactor trie [[0f08274](https://github.com/guanghechen/algorithm.ts/commit/0f082740f9a79b11560122a51ba2e0459ad6c11c)]
+- ✨ feat: refactor circular-queue and priority-queue [[43b1c19](https://github.com/guanghechen/algorithm.ts/commit/43b1c19591089782e52e85333585840454e4a9c2)]
+- ✨ feat: refactor sieve-prime and sieve-totient [[072d387](https://github.com/guanghechen/algorithm.ts/commit/072d387775fbc29427c05941f82eaba58f210e44)]
+- ✨ feat: refactor lower-bound and upper-bound [[d30e53a](https://github.com/guanghechen/algorithm.ts/commit/d30e53ac299906b366bd88dc99ac926a87796613)]
+- ✨ feat: refactor sliding-window [[9cfc0c7](https://github.com/guanghechen/algorithm.ts/commit/9cfc0c71a7388069d231cf908165e93c0fceb577)]
+- ✨ feat: refactor roman [[763d4a4](https://github.com/guanghechen/algorithm.ts/commit/763d4a495dc27925ba51b64892096b9e0d0e800c)]
+- ✨ feat: refactor mcmf [[0a3e860](https://github.com/guanghechen/algorithm.ts/commit/0a3e8600621a856b2a602c8b54fd8408c36ad839)]
+- ✨ feat: refactor manacher [[ded1df8](https://github.com/guanghechen/algorithm.ts/commit/ded1df8f84dd51d790af1826b61bfdb3823231d6)]
+- ✨ feat: refactor lcs [[307a086](https://github.com/guanghechen/algorithm.ts/commit/307a0869f44490a738d77d44ea0c086eef8a6af6)]
+- ✨ feat: refactor shuffle [[89fafdb](https://github.com/guanghechen/algorithm.ts/commit/89fafdb5f414032ab0dc48381eecfced3f64d88c)]
+- ✨ feat: refactor isap [[916d950](https://github.com/guanghechen/algorithm.ts/commit/916d9504c8d582a480fb9a3da22cf673044b5a37)]
+- ✨ feat: refactor huffman [[add5058](https://github.com/guanghechen/algorithm.ts/commit/add50585f8214a81fd2ef6c2e7c47a2fa84ce474)]
+- ✨ feat: refactor graph [[e18c3f3](https://github.com/guanghechen/algorithm.ts/commit/e18c3f31305df4def06f564663d641e2529b24d1)]
+- ✨ feat: refactor gomoku [[3f14d1e](https://github.com/guanghechen/algorithm.ts/commit/3f14d1e5fbbd07b58ae0a58acc645c9c1f84dc0f)]
+- ✨ feat: refactor gcd [[3896501](https://github.com/guanghechen/algorithm.ts/commit/38965015cda108e8dfbcdd8e49dddbace923fca9)]
+- ✨ feat: refactor findset [[c1f8e99](https://github.com/guanghechen/algorithm.ts/commit/c1f8e990d10e5a2fbf9a9b528a906ce997d95c06)]
+- ✨ feat: refactor dlx [[615025d](https://github.com/guanghechen/algorithm.ts/commit/615025d6cb81ffbde34ba4c0b5421d690e326823)]
+- ✨ feat: refactor dinic [[b99221c](https://github.com/guanghechen/algorithm.ts/commit/b99221c1f9c6386970a4ce40496ed14b89b5e5ae)]
+- ✨ feat: refactor dijkstra and dijkstra-bigint [[96debf3](https://github.com/guanghechen/algorithm.ts/commit/96debf3781ee17938d9b8e3bcc143f9e4697e8fa)]
+- ✨ feat: refactor calculator (Renamed from calculate) [[099ad26](https://github.com/guanghechen/algorithm.ts/commit/099ad26fdea1b4d1e628876d48ce32985ef18420)]
+- ✨ feat: refactor bipartite-matching (Renamed from bipartite-graph-matching) [[4b33a42](https://github.com/guanghechen/algorithm.ts/commit/4b33a427b98b5e1bc0e08eaa29db44b1d0f033ae)]
+- ✨ feat: refactor binary-index-tree [[0bff58a](https://github.com/guanghechen/algorithm.ts/commit/0bff58ae8d793a54ef8db4d69b596b611bd6e4cb)]
+- ✨ feat: refactor bellman-ford [[2ebf9a8](https://github.com/guanghechen/algorithm.ts/commit/2ebf9a8e2cea6e8fcd5d64882a4d255d3cf8140c)]
+- ✨ feat: refactor base64 [[1059ed6](https://github.com/guanghechen/algorithm.ts/commit/1059ed64895529d0a5c37b6caa3e22ce854f9ef5)]
+
+### Changed
+
+- 🔧 chore: tweak test coverage [[224a317](https://github.com/guanghechen/algorithm.ts/commit/224a3170b7ae54805ed4b6d5adbcabd95d36645f)]
+
+### Miscellaneous
+
+-  Don&#x27;t build constant as external module [[6d2a140](https://github.com/guanghechen/algorithm.ts/commit/6d2a140fbb18b67cf97bcc742a2c2844c6ae6874)]
+-  fix build error [[bbaa26f](https://github.com/guanghechen/algorithm.ts/commit/bbaa26fc2654a47438574c73997ab4e4fca7bc72)]
+-  fix package names [[f647d76](https://github.com/guanghechen/algorithm.ts/commit/f647d76ebf0606a773624c9d0121151d6e75ddd3)]
+- 📝 docs: update links [[703af60](https://github.com/guanghechen/algorithm.ts/commit/703af60a7ca35c77146fd0ad579143978e688432)]
+- 📝 docs: update CHANGELOG [[797c7e3](https://github.com/guanghechen/algorithm.ts/commit/797c7e3ef32023bd23f415cc58b6e51a50cc8d2a)]
+
+
+<a name="0.0.0"></a>
+## 0.0.0 (2023-01-02)
+
+### Fixed
+
+- 💚 chore: fix ci [[d3c960b](https://github.com/guanghechen/algorithm.ts/commit/d3c960b994168ff3ac63999d85f8e150aa7418d7)]
+
+
 <a name="2.0.14"></a>
 ## 2.0.14 (2022-08-27)
 
