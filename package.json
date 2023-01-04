@@ -15,7 +15,7 @@
     "node": ">= 14.15.0"
   },
   "scripts": {
-    ":publish": "yarn test:coverage && lerna publish",
+    ":publish": "yarn test:coverage && node --experimental-vm-modules node_modules/.bin/lerna publish",
     ":upgrade": "yarn upgrade-interactive && run-s clean format build test",
     "build": "lerna run build --concurrency 1",
     "clean": "lerna clean --yes && yarn install",
