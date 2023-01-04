@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/bipartite-matching",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "description": "The algorithm to find the maximum matching of the bipartite graph.",
   "author": {
     "name": "guanghechen",
@@ -41,7 +41,7 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/queue": "^3.0.0-alpha.2"
+    "@algorithm.ts/queue": "^3.0.0-alpha.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

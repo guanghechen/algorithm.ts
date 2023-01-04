@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sliding-window",
-  "version": "3.0.0-alpha.2",
+  "version": "3.0.0-alpha.3",
   "description": "Sliding window",
   "author": {
     "name": "guanghechen",
@@ -41,7 +41,7 @@
     "test": "cross-env TS_NODE_FILES=true jest --config ../../jest.config.js --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/types": "^3.0.0-alpha.2"
+    "@algorithm.ts/types": "^3.0.0-alpha.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
