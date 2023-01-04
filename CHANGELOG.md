@@ -1,5 +1,20 @@
 # Changelog
 
+<a name="3.0.0-alpha.3"></a>
+## 3.0.0-alpha.3 (2023-01-04)
+
+### Changed
+
+- 🔧 chore: update npm script [[a18af7b](https://github.com/guanghechen/algorithm.ts/commit/a18af7bfb18b2f326d95adb6f57059e840a94f62)]
+- 🔧 chore: support dual esm/commonjs packages [[0f91fbf](https://github.com/guanghechen/algorithm.ts/commit/0f91fbf7c22d7778175ee833afdcf05df5dd34ba)]
+- ⬆️ chore: upgrade devDependencies [[fd1e79f](https://github.com/guanghechen/algorithm.ts/commit/fd1e79f6de2a8ab4220a952f4ab1f70790c1eabe)]
+- 🔧 chore: update yarn.lock [[57ff628](https://github.com/guanghechen/algorithm.ts/commit/57ff628a271e32768acad6ae50a626e6eeff9cff)]
+
+### Fixed
+
+- 💚 chore: fix ci [[d3c960b](https://github.com/guanghechen/algorithm.ts/commit/d3c960b994168ff3ac63999d85f8e150aa7418d7)]
+
+
 <a name="3.0.0-alpha.2"></a>
 ## 3.0.0-alpha.2 (2023-01-02)
 
