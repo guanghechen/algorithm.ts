@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="3.0.0-alpha.6"></a>
+## 3.0.0-alpha.6 (2023-01-07)
+
+### Changed
+
+- 🔧 chore: set engine node&gt;&#x3D;16.0.0 [[76e08d7](https://github.com/guanghechen/algorithm.ts/commit/76e08d7a410d437f83a84002c97892204c1fd5ca)]
+- 🔧 chore: update devDependencies [[f2a910d](https://github.com/guanghechen/algorithm.ts/commit/f2a910dc373f27f49551b901c5cfa85aa89f48b7)]
+
+
 <a name="3.0.0-alpha.5"></a>
 ## 3.0.0-alpha.5 (2023-01-07)
 
@@ -111,7 +120,6 @@
 -  fix build error [[bbaa26f](https://github.com/guanghechen/algorithm.ts/commit/bbaa26fc2654a47438574c73997ab4e4fca7bc72)]
 -  fix package names [[f647d76](https://github.com/guanghechen/algorithm.ts/commit/f647d76ebf0606a773624c9d0121151d6e75ddd3)]
 - 📝 docs: update links [[703af60](https://github.com/guanghechen/algorithm.ts/commit/703af60a7ca35c77146fd0ad579143978e688432)]
-- 📝 docs: update CHANGELOG [[797c7e3](https://github.com/guanghechen/algorithm.ts/commit/797c7e3ef32023bd23f415cc58b6e51a50cc8d2a)]
 
 
 <a name="0.0.0"></a>
