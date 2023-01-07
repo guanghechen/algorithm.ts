@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/prime",
-  "version": "3.0.0-alpha.5",
+  "version": "3.0.0-alpha.6",
   "description": "A typescript implementation of the Linear-Sieve algorithm for prime numbers.",
   "author": {
     "name": "guanghechen",

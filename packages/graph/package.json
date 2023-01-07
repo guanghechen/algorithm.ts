@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/graph",
-  "version": "3.0.0-alpha.5",
+  "version": "3.0.0-alpha.6",
   "description": "Types and utils from solving graph problems.",
   "author": {
     "name": "guanghechen",
@@ -44,7 +44,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/types": "^3.0.0-alpha.5"
+    "@algorithm.ts/types": "^3.0.0-alpha.6"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
