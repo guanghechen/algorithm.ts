@@ -19,9 +19,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/bellman-ford@workspace:packages/bellman-ford"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.3
-    "@algorithm.ts/queue": ^3.0.0-alpha.3
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/constant": ^3.0.0-alpha.5
+    "@algorithm.ts/queue": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -32,7 +32,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/binary-index-tree@workspace:packages/binary-index-tree"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -43,7 +43,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/binary-search@workspace:packages/binary-search"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.3
+    "@algorithm.ts/constant": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -54,7 +54,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/bipartite-matching@workspace:packages/bipartite-matching"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.3
+    "@algorithm.ts/queue": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -65,15 +65,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/calculator@workspace:packages/calculator"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.3
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/constant": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/constant@^3.0.0-alpha.3, @algorithm.ts/constant@workspace:packages/constant":
+"@algorithm.ts/constant@^3.0.0-alpha.5, @algorithm.ts/constant@workspace:packages/constant":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/constant@workspace:packages/constant"
   dependencies:
@@ -87,9 +87,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dijkstra@workspace:packages/dijkstra"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.3
-    "@algorithm.ts/queue": ^3.0.0-alpha.3
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/constant": ^3.0.0-alpha.5
+    "@algorithm.ts/queue": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -100,15 +100,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dinic@workspace:packages/dinic"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.3
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/queue": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/dlx@^3.0.0-alpha.3, @algorithm.ts/dlx@workspace:packages/dlx":
+"@algorithm.ts/dlx@^3.0.0-alpha.5, @algorithm.ts/dlx@workspace:packages/dlx":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dlx@workspace:packages/dlx"
   dependencies:
@@ -132,7 +132,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/gcd@workspace:packages/gcd"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.3
+    "@algorithm.ts/constant": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -143,7 +143,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/gomoku@workspace:packages/gomoku"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.3
+    "@algorithm.ts/queue": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -154,7 +154,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/graph@workspace:packages/graph"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -165,7 +165,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/huffman@workspace:packages/huffman"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.3
+    "@algorithm.ts/queue": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -176,8 +176,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/isap@workspace:packages/isap"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.3
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/queue": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -188,7 +188,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/lcs@workspace:packages/lcs"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -209,8 +209,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/mcmf@workspace:packages/mcmf"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.3
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/queue": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -227,11 +227,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/queue@^3.0.0-alpha.3, @algorithm.ts/queue@workspace:packages/queue":
+"@algorithm.ts/queue@^3.0.0-alpha.5, @algorithm.ts/queue@workspace:packages/queue":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/queue@workspace:packages/queue"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -280,11 +280,10 @@ __metadata:
     ts-node: 10.9.1
     tsconfig-paths: 4.1.2
     typescript: 4.9.4
-    yarn-deduplicate: 6.0.1
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/shuffle@^3.0.0-alpha.3, @algorithm.ts/shuffle@workspace:packages/shuffle":
+"@algorithm.ts/shuffle@^3.0.0-alpha.5, @algorithm.ts/shuffle@workspace:packages/shuffle":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/shuffle@workspace:packages/shuffle"
   dependencies:
@@ -299,7 +298,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/sliding-window@workspace:packages/sliding-window"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -310,8 +309,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/sudoku@workspace:packages/sudoku"
   dependencies:
-    "@algorithm.ts/dlx": ^3.0.0-alpha.3
-    "@algorithm.ts/shuffle": ^3.0.0-alpha.3
+    "@algorithm.ts/dlx": ^3.0.0-alpha.5
+    "@algorithm.ts/shuffle": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -322,15 +321,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/trie@workspace:packages/trie"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.3
-    "@algorithm.ts/types": ^3.0.0-alpha.3
+    "@algorithm.ts/constant": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.5
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/types@^3.0.0-alpha.3, @algorithm.ts/types@workspace:packages/types":
+"@algorithm.ts/types@^3.0.0-alpha.5, @algorithm.ts/types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/types@workspace:packages/types"
   dependencies:
@@ -10371,7 +10370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.x, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8":
+"semver@npm:7.x, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7":
   version: 7.3.8
   resolution: "semver@npm:7.3.8"
   dependencies:
@@ -11333,7 +11332,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.4.1":
+"tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0":
   version: 2.4.1
   resolution: "tslib@npm:2.4.1"
   checksum: 19480d6e0313292bd6505d4efe096a6b31c70e21cf08b5febf4da62e95c265c8f571f7b36fcc3d1a17e068032f59c269fab3459d6cd3ed6949eafecf64315fca
@@ -11980,20 +11979,6 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 47da1b0d854fa16d45a3ded57b716b013b2179022352a5f7467409da5a04a1eef5b3b3d97a2dfc13e8bbe5f2ffc0afe3bc6a4a72f8254e60f5a4bd7947138643
-  languageName: node
-  linkType: hard
-
-"yarn-deduplicate@npm:6.0.1":
-  version: 6.0.1
-  resolution: "yarn-deduplicate@npm:6.0.1"
-  dependencies:
-    "@yarnpkg/lockfile": ^1.1.0
-    commander: ^9.4.1
-    semver: ^7.3.8
-    tslib: ^2.4.1
-  bin:
-    yarn-deduplicate: dist/cli.js
-  checksum: 5600cc68fec8f1177b0d3cb1eb28e923c74dd540dcd1c2dbbcfed91030c5afe253b28db2d56b84667fc5c3812da7dae1335b1ef442cb6ba43c28b2cc67e3b265
   languageName: node
   linkType: hard
 
