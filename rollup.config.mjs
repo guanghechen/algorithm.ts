@@ -1,5 +1,5 @@
 import createRollupConfig from '@guanghechen/rollup-config'
-import path from 'path'
+import path from 'node:path'
 
 const internalModules = new Set(['@algorithm.ts/constant'])
 

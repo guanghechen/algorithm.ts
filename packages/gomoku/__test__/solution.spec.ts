@@ -56,8 +56,10 @@ describe('15x15', function () {
 
   test('pieces.0', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.0.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.0.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
 
     const [r0, c0] = solution.minimaxSearch(0)
     expect([
@@ -65,7 +67,7 @@ describe('15x15', function () {
       [8, 7],
     ]).toContainEqual([r0, c0])
 
-    solution.init(pieces.default)
+    solution.init(pieces)
     const [r1, c1] = solution.minimaxSearch(1)
     expect([
       [4, 7],
@@ -75,13 +77,15 @@ describe('15x15', function () {
 
   test('pieces.3', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.3.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.3.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
 
     const [r0, c0] = solution.minimaxSearch(0)
     expect([[8, 3]]).toContainEqual([r0, c0])
 
-    solution.init(pieces.default)
+    solution.init(pieces)
     const [r1, c1] = solution.minimaxSearch(1)
     expect([
       [4, 4],
@@ -91,9 +95,11 @@ describe('15x15', function () {
 
   test('pieces.4', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.4.json')
+    const { default: pieces } = await import('./fixtures/15x15/pieces.4.json', {
+      assert: { type: 'json' },
+    })
     solution.init([])
-    for (const { r, c, p } of pieces.default) solution.forward(r, c, p)
+    for (const { r, c, p } of pieces) solution.forward(r, c, p)
     expect(solution.mover.isFinal()).toEqual(true)
     const [r, c] = solution.minimaxSearch(1)
     expect([[-1, -1]]).toContainEqual([r, c])
@@ -101,8 +107,10 @@ describe('15x15', function () {
 
   test('pieces.5', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.5.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.5.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
     const [r, c] = solution.minimaxSearch(1)
     expect([
       [5, 10],
@@ -113,8 +121,10 @@ describe('15x15', function () {
 
   test('pieces.8', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.8.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.8.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
 
     const [r0, c0] = solution.minimaxSearch(0)
     expect([
@@ -135,8 +145,10 @@ describe('15x15', function () {
 
   test('pieces.9', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.9.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.9.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
 
     const [r0, c0] = solution.minimaxSearch(0)
     expect([
@@ -155,16 +167,20 @@ describe('15x15', function () {
 
   test('pieces.10', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.10.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.10.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
     const [r, c] = solution.minimaxSearch(1)
     expect([r, c]).toEqual([7, 10])
   })
 
   test('pieces.11', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.11.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.11.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
     expect([
       [8, 2],
@@ -177,8 +193,10 @@ describe('15x15', function () {
 
   test('pieces.12', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.12.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.12.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
     expect([
       [9, 4],
@@ -190,8 +208,10 @@ describe('15x15', function () {
 
   test('pieces.13', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.13.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.13.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
     expect([
       [10, 4],
@@ -204,8 +224,10 @@ describe('15x15', function () {
 
   test('pieces.15', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.15.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.15.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
     expect([
       [5, 2],
@@ -216,8 +238,10 @@ describe('15x15', function () {
 
   test('pieces.16', async function () {
     const solution = getSolution()
-    const pieces = await import('./fixtures/15x15/pieces.16.json')
-    solution.init(pieces.default)
+    const { default: pieces } = await import('./fixtures/15x15/pieces.16.json', {
+      assert: { type: 'json' },
+    })
+    solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
     expect([
       [4, 4],

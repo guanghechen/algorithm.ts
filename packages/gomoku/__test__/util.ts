@@ -1,10 +1,12 @@
-import fs from 'fs-extra'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+import url from 'node:url'
 
 export enum PieceDataDirName {
   d15x15 = '15x15',
 }
 
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const FIXTURE_DIR = path.join(__dirname, 'fixtures')
 export const locateFixtures = (...p: string[]): string => path.resolve(FIXTURE_DIR, ...p)
 

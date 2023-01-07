@@ -2,8 +2,7 @@
   "extends": "./tsconfig.settings.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "ESNext",
-    "sourceMap": true,
+    "outDir": "lib",
     "paths": {
       "@@/fixtures/*": ["fixtures/*"],
       "@algorithm.ts/base64": ["packages/base64/src"],

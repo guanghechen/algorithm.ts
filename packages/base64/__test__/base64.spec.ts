@@ -1,4 +1,4 @@
-import { TextEncoder } from 'util'
+import { TextEncoder } from 'node:util'
 import { Base64, decode, encode, validate } from '../src'
 
 describe('basic', () => {

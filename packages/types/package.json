@@ -14,11 +14,14 @@
   "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/types#readme",
   "type": "module",
   "exports": {
-    "import": "./lib/esm/index.mjs",
-    "require": "./lib/cjs/index.cjs"
+    "types": "./lib/types/index.d.ts",
+    "require": "./lib/cjs/index.cjs",
+    "import": "./lib/esm/index.mjs"
   },
-  "types": "lib/types/index.d.ts",
-  "source": "src/index.ts",
+  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "source": "./src/index.ts",
   "license": "MIT",
   "engines": {
     "node": ">= 14.15.0"
@@ -33,7 +36,7 @@
   ],
   "scripts": {
     "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
-    "prepublishOnly": "cross-env ROLLUP_SHOULD_SOURCEMAP=false yarn build"
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

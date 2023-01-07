@@ -1,5 +1,4 @@
-/* eslint-disable  */
-import fs from 'fs-extra'
+import fs from 'node:fs'
 import type { GomokuDirectionType, IGomokuMoverContextProps, IGomokuPiece } from '../src'
 import { GomokuDirectionTypes, GomokuMoverContext, GomokuMoverCounter } from '../src'
 import { locateFixtures } from './util'
@@ -92,7 +91,7 @@ describe('15x15', () => {
       .filter(filepath => fs.statSync(filepath).isFile())
     expect(filepaths.length).toBeGreaterThan(0)
     for (const filepath of filepaths) {
-      const pieces = await fs.readJSON(filepath)
+      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
       tester.init([])
       for (let i = 0; i < pieces.length; ++i) {
         const { r, c, p } = pieces[i]

@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import { jest } from '@jest/globals'
 import type { GomokuDirectionType, IDirCounter } from '../src'
 import { GomokuDirectionTypes, GomokuDirections, GomokuMoverContext } from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths, stringify } from './util'
@@ -341,7 +341,7 @@ describe('15x15', () => {
 
   test('getDirCounters -- init', async () => {
     for (const { filepath, title } of filepaths) {
-      const pieces = await fs.readJSON(filepath)
+      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
       tester.init(pieces)
       for (const dirType of halfDirectionTypes) {
         for (const startPosId of tester.getStartPosSet(dirType)) {
@@ -357,7 +357,7 @@ describe('15x15', () => {
 
   test('getDirCounters -- step by step', async () => {
     for (const { filepath, title } of filepaths) {
-      const pieces = await fs.readJSON(filepath)
+      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
       tester.init([])
       for (const { r, c, p } of pieces) {
         const posId = tester.idx(r, c)
