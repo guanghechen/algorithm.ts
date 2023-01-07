@@ -1,5 +1,13 @@
 # Changelog
 
+<a name="3.0.0-alpha.4"></a>
+## 3.0.0-alpha.4 (2023-01-07)
+
+### Changed
+
+- 🔧 chore: update npm entries [[950e3ec](https://github.com/guanghechen/algorithm.ts/commit/950e3ec1d0c9ec3a53de613b9048b3442697404d)]
+
+
 <a name="3.0.0-alpha.3"></a>
 ## 3.0.0-alpha.3 (2023-01-04)
 
