@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/isap",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "description": "The ISAP algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",
@@ -47,8 +47,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/queue": "^3.0.0-alpha.3",
-    "@algorithm.ts/types": "^3.0.0-alpha.3"
+    "@algorithm.ts/queue": "^3.0.0-alpha.4",
+    "@algorithm.ts/types": "^3.0.0-alpha.4"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
