@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/trie",
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0-alpha.5",
   "description": "Trie",
   "author": {
     "name": "guanghechen",
@@ -47,8 +47,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/constant": "^3.0.0-alpha.4",
-    "@algorithm.ts/types": "^3.0.0-alpha.4"
+    "@algorithm.ts/constant": "^3.0.0-alpha.5",
+    "@algorithm.ts/types": "^3.0.0-alpha.5"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

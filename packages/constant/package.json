@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/constant",
-  "version": "3.0.0-alpha.4",
+  "version": "3.0.0-alpha.5",
   "description": "Common constant for the algorithm.ts packages.",
   "author": {
     "name": "guanghechen",
