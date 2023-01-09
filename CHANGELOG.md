@@ -1,5 +1,14 @@
 # Changelog
 
+<a name="3.0.0-alpha.7"></a>
+## 3.0.0-alpha.7 (2023-01-09)
+
+### Changed
+
+- ⬆️ chore: upgrade devDependencies [[08066a5](https://github.com/guanghechen/algorithm.ts/commit/08066a5340098fbf61226f217643cc348a22ab23)]
+- 🔧 chore: update yarn.lock when publish new release [[8e48b83](https://github.com/guanghechen/algorithm.ts/commit/8e48b8321f3b2e76a37a50a2772419bf8f4ed25d)]
+
+
 <a name="3.0.0-alpha.6"></a>
 ## 3.0.0-alpha.6 (2023-01-07)
 
