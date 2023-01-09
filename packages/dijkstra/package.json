@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dijkstra",
-  "version": "3.0.0-alpha.6",
+  "version": "3.0.0-alpha.7",
   "description": "Dijkstra algorithm optimized with priority queue.",
   "author": {
     "name": "guanghechen",
@@ -47,9 +47,9 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/constant": "^3.0.0-alpha.6",
-    "@algorithm.ts/queue": "^3.0.0-alpha.6",
-    "@algorithm.ts/types": "^3.0.0-alpha.6"
+    "@algorithm.ts/constant": "^3.0.0-alpha.7",
+    "@algorithm.ts/queue": "^3.0.0-alpha.7",
+    "@algorithm.ts/types": "^3.0.0-alpha.7"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/base64",
-  "version": "3.0.0-alpha.6",
+  "version": "3.0.0-alpha.7",
   "description": "A Base64 encoding implementation.",
   "author": {
     "name": "guanghechen",
