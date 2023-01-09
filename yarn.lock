@@ -19,9 +19,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/bellman-ford@workspace:packages/bellman-ford"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.5
-    "@algorithm.ts/queue": ^3.0.0-alpha.5
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/constant": ^3.0.0-alpha.6
+    "@algorithm.ts/queue": ^3.0.0-alpha.6
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -32,7 +32,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/binary-index-tree@workspace:packages/binary-index-tree"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -43,7 +43,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/binary-search@workspace:packages/binary-search"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.5
+    "@algorithm.ts/constant": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -54,7 +54,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/bipartite-matching@workspace:packages/bipartite-matching"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.5
+    "@algorithm.ts/queue": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -65,15 +65,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/calculator@workspace:packages/calculator"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.5
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/constant": ^3.0.0-alpha.6
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/constant@^3.0.0-alpha.5, @algorithm.ts/constant@workspace:packages/constant":
+"@algorithm.ts/constant@^3.0.0-alpha.6, @algorithm.ts/constant@workspace:packages/constant":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/constant@workspace:packages/constant"
   dependencies:
@@ -87,9 +87,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dijkstra@workspace:packages/dijkstra"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.5
-    "@algorithm.ts/queue": ^3.0.0-alpha.5
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/constant": ^3.0.0-alpha.6
+    "@algorithm.ts/queue": ^3.0.0-alpha.6
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -100,15 +100,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dinic@workspace:packages/dinic"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.5
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/queue": ^3.0.0-alpha.6
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/dlx@^3.0.0-alpha.5, @algorithm.ts/dlx@workspace:packages/dlx":
+"@algorithm.ts/dlx@^3.0.0-alpha.6, @algorithm.ts/dlx@workspace:packages/dlx":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dlx@workspace:packages/dlx"
   dependencies:
@@ -132,7 +132,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/gcd@workspace:packages/gcd"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.5
+    "@algorithm.ts/constant": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -143,7 +143,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/gomoku@workspace:packages/gomoku"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.5
+    "@algorithm.ts/queue": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -154,7 +154,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/graph@workspace:packages/graph"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -165,7 +165,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/huffman@workspace:packages/huffman"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.5
+    "@algorithm.ts/queue": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -176,8 +176,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/isap@workspace:packages/isap"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.5
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/queue": ^3.0.0-alpha.6
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -188,7 +188,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/lcs@workspace:packages/lcs"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -209,8 +209,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/mcmf@workspace:packages/mcmf"
   dependencies:
-    "@algorithm.ts/queue": ^3.0.0-alpha.5
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/queue": ^3.0.0-alpha.6
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -227,11 +227,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/queue@^3.0.0-alpha.5, @algorithm.ts/queue@workspace:packages/queue":
+"@algorithm.ts/queue@^3.0.0-alpha.6, @algorithm.ts/queue@workspace:packages/queue":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/queue@workspace:packages/queue"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -254,10 +254,10 @@ __metadata:
   dependencies:
     "@babel/core": 7.20.12
     "@babel/eslint-parser": 7.19.1
-    "@guanghechen/eslint-config": ^3.0.0-alpha.5
-    "@guanghechen/eslint-config-ts": ^3.0.0-alpha.5
-    "@guanghechen/jest-config": ^3.0.0-alpha.5
-    "@guanghechen/rollup-config": ^3.0.0-alpha.5
+    "@guanghechen/eslint-config": ^3.0.0
+    "@guanghechen/eslint-config-ts": ^3.0.0
+    "@guanghechen/jest-config": ^3.0.0
+    "@guanghechen/rollup-config": ^3.0.0
     "@types/jest": 29.2.5
     "@types/node": 18.11.18
     cross-env: ^7.0.3
@@ -273,7 +273,7 @@ __metadata:
     lint-staged: 13.1.0
     npm-run-all: 4.1.5
     pinst: 3.0.0
-    prettier: 2.8.1
+    prettier: 2.8.2
     rimraf: ^3.0.2
     rollup: ^3.9.1
     ts-jest: 29.0.3
@@ -283,7 +283,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/shuffle@^3.0.0-alpha.5, @algorithm.ts/shuffle@workspace:packages/shuffle":
+"@algorithm.ts/shuffle@^3.0.0-alpha.6, @algorithm.ts/shuffle@workspace:packages/shuffle":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/shuffle@workspace:packages/shuffle"
   dependencies:
@@ -298,7 +298,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/sliding-window@workspace:packages/sliding-window"
   dependencies:
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -309,8 +309,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/sudoku@workspace:packages/sudoku"
   dependencies:
-    "@algorithm.ts/dlx": ^3.0.0-alpha.5
-    "@algorithm.ts/shuffle": ^3.0.0-alpha.5
+    "@algorithm.ts/dlx": ^3.0.0-alpha.6
+    "@algorithm.ts/shuffle": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
@@ -321,15 +321,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/trie@workspace:packages/trie"
   dependencies:
-    "@algorithm.ts/constant": ^3.0.0-alpha.5
-    "@algorithm.ts/types": ^3.0.0-alpha.5
+    "@algorithm.ts/constant": ^3.0.0-alpha.6
+    "@algorithm.ts/types": ^3.0.0-alpha.6
     cross-env: ^7.0.3
     rimraf: ^3.0.2
     rollup: ^3.9.1
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/types@^3.0.0-alpha.5, @algorithm.ts/types@workspace:packages/types":
+"@algorithm.ts/types@^3.0.0-alpha.6, @algorithm.ts/types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/types@workspace:packages/types"
   dependencies:
@@ -868,40 +868,40 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@guanghechen/eslint-config-ts@npm:^3.0.0-alpha.5":
-  version: 3.0.0-alpha.5
-  resolution: "@guanghechen/eslint-config-ts@npm:3.0.0-alpha.5"
+"@guanghechen/eslint-config-ts@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@guanghechen/eslint-config-ts@npm:3.0.0"
   dependencies:
-    "@guanghechen/eslint-config": ^3.0.0-alpha.5
+    "@guanghechen/eslint-config": ^3.0.0
     "@typescript-eslint/eslint-plugin": ^5.47.1
     "@typescript-eslint/parser": ^5.47.1
   peerDependencies:
     eslint: ^8.0.0
-  checksum: dda28d0cb1f7a39d9177cb6262996d679522e832c64ecc4df31b494f09e560b825df6fe9036e27472bf07578dae1f88d50bf1bcb63011549a34d7f526e55a873
+  checksum: ae6439226024e27ce55e9519a290cd49e228e66e2c7185502897598813e0a14238251e4f02af7f993f77d6d54d625591c1385ea7dcdf6c03a49622c9de114cb4
   languageName: node
   linkType: hard
 
-"@guanghechen/eslint-config@npm:^3.0.0-alpha.5":
-  version: 3.0.0-alpha.5
-  resolution: "@guanghechen/eslint-config@npm:3.0.0-alpha.5"
+"@guanghechen/eslint-config@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@guanghechen/eslint-config@npm:3.0.0"
   dependencies:
     eslint-plugin-import: ^2.26.0
   peerDependencies:
     eslint: ^8.0.0
-  checksum: 6d29b61fdf7985393333d91807cc2e3621b3ae37568a57b116dd2266c7c09bc20b5dcffa58f79ab4064e9af273546df7724ba3ddcdeb6db7f0f788a8db672e52
+  checksum: 70a0a90983aa8292dfcca6a9f695e7a13839dfb679f766af1f0dbbcc3c5aefabb3c42f1e19b4bffaf58fe86e0d363895fe8418497c67b2ed4c96ff3f7ba66b33
   languageName: node
   linkType: hard
 
-"@guanghechen/jest-config@npm:^3.0.0-alpha.5":
-  version: 3.0.0-alpha.5
-  resolution: "@guanghechen/jest-config@npm:3.0.0-alpha.5"
-  checksum: cedee845827580b734aa1a71eebe677f1d4554aad516597c4a21017a434fe620866754eab0668b2fc32c4a3de6b14a4f36e7b6a4ad3d6144d82ded69c4afd973
+"@guanghechen/jest-config@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@guanghechen/jest-config@npm:3.0.0"
+  checksum: f9618751434eaee543bc1a9622b38f9c108858a16e6104a1b73ac1022b09c3e3bfd26044075035f2e0c59337df735983b853164946ec0edaa51dd1f90f3138dc
   languageName: node
   linkType: hard
 
-"@guanghechen/rollup-config@npm:^3.0.0-alpha.5":
-  version: 3.0.0-alpha.5
-  resolution: "@guanghechen/rollup-config@npm:3.0.0-alpha.5"
+"@guanghechen/rollup-config@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@guanghechen/rollup-config@npm:3.0.0"
   dependencies:
     "@rollup/plugin-commonjs": 24.0.0
     "@rollup/plugin-json": 6.0.0
@@ -911,7 +911,7 @@ __metadata:
     rollup-plugin-dts: ^5.1.0
   peerDependencies:
     rollup: ^3.0.0
-  checksum: 404fadb74e0ce5eb30b497518d7894b64a98a3ed38e7c0cfd7b4987a0057b962c46139f20ab39edcb24904b4bbbaceebde10d40696da69adfc68ff8177098c09
+  checksum: 0618dfef670b2623ba22b56684703503c2ea621b0e897ed1e676007533debcd4d998e31d8a8a6374927f2f5b03f5b74ab3e3c397a9ecdcf8940e18e501382514
   languageName: node
   linkType: hard
 
@@ -9667,12 +9667,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.1":
-  version: 2.8.1
-  resolution: "prettier@npm:2.8.1"
+"prettier@npm:2.8.2":
+  version: 2.8.2
+  resolution: "prettier@npm:2.8.2"
   bin:
     prettier: bin-prettier.js
-  checksum: 4f21a0f1269f76fb36f54e9a8a1ea4c11e27478958bf860661fb4b6d7ac69aac1581f8724fa98ea3585e56d42a2ea317a17ff6e3324f40cb11ff9e20b73785cc
+  checksum: 740c56c2128d587d656ea1dde9bc9c3503dfc94db4f3ac387259215eeb2e216680bdad9d18a0c9feecc6b42cfa188d6fa777df4c36c1d00cedd4199074fbfbd2
   languageName: node
   linkType: hard
 
