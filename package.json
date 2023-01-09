@@ -31,7 +31,8 @@
     "test": "lerna run test --concurrency 1",
     "test:coverage": "lerna run --concurrency 1 test -- --coverage",
     "test:update": "lerna run --concurrency 1 test -- -u",
-    "update:changelog": "gitmoji-changelog update"
+    "update:changelog": "gitmoji-changelog update",
+    "version": "yarn && git stage yarn.lock"
   },
   "workspaces": [
     "packages/*"
