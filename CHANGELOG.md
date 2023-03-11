@@ -1,5 +1,18 @@
 # Changelog
 
+<a name="3.0.0-alpha.8"></a>
+## 3.0.0-alpha.8 (2023-03-11)
+
+### Changed
+
+- 🔧 chore: update package entry [[fd4445a](https://github.com/guanghechen/algorithm.ts/commit/fd4445a0197b21b1d6cc157c543c1f59116c2cc5)]
+- ⬆️ chore: upgrade devDependencies [[4aac0d0](https://github.com/guanghechen/algorithm.ts/commit/4aac0d0267b4050689e95902d081302131417ec5)]
+
+### Miscellaneous
+
+- 📄 docs: update LICENSE [[371fd7d](https://github.com/guanghechen/algorithm.ts/commit/371fd7d4f443bd693d6e06087bd5006a528ba37b)]
+
+
 <a name="3.0.0-alpha.7"></a>
 ## 3.0.0-alpha.7 (2023-01-09)
 
