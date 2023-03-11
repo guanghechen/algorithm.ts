@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/types",
-  "version": "3.0.0-alpha.7",
+  "version": "3.0.0-alpha.8",
   "description": "Common types for the algorithm.ts packages.",
   "author": {
     "name": "guanghechen",

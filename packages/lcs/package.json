@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/lcs",
-  "version": "3.0.0-alpha.7",
+  "version": "3.0.0-alpha.8",
   "description": "Find the longest common subsequence.",
   "author": {
     "name": "guanghechen",
@@ -45,7 +45,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/types": "^3.0.0-alpha.7"
+    "@algorithm.ts/types": "^3.0.0-alpha.8"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
