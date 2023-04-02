@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/findset",
-  "version": "3.0.0-alpha.8",
+  "version": "3.0.0",
   "description": "Find set written in Typescript.",
   "author": {
     "name": "guanghechen",

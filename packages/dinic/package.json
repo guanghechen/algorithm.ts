@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dinic",
-  "version": "3.0.0-alpha.8",
+  "version": "3.0.0",
   "description": "The dinic algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",
@@ -47,8 +47,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/queue": "^3.0.0-alpha.8",
-    "@algorithm.ts/types": "^3.0.0-alpha.8"
+    "@algorithm.ts/queue": "^3.0.0",
+    "@algorithm.ts/types": "^3.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
