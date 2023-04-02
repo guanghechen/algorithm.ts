@@ -1,5 +1,15 @@
 # Changelog
 
+<a name="3.0.0"></a>
+## 3.0.0 (2023-04-02)
+
+### Changed
+
+- 🔧 chore: add missing devDependencies [[69f6da4](https://github.com/guanghechen/algorithm.ts/commit/69f6da43cf1ecebac9f6bf8a7d8ffaced7f9de4c)]
+- 🔧 chore: don&#x27;t pack src/ folder into tarball file [[2dc61ad](https://github.com/guanghechen/algorithm.ts/commit/2dc61ad8c031cfc1ecf4f63c405d3e23eff1d9c9)]
+- ⬆️ chore: upgrade devDependencies [[e88a181](https://github.com/guanghechen/algorithm.ts/commit/e88a181201ea675715be11d165b0c49c0f9224b8)]
+
+
 <a name="3.0.0-alpha.8"></a>
 ## 3.0.0-alpha.8 (2023-03-11)
 
