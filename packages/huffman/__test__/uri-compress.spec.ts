@@ -69,12 +69,12 @@ function compressEncodingTable(table: IHuffmanEncodingTable): Array<string | num
 }
 
 function decompressEncodingTable(entries: Array<string | number>): IHuffmanEncodingTable {
-  const table = {}
+  const table: IHuffmanEncodingTable = {}
   for (let i = 0; i < entries.length; i += 2) {
     const value = entries[i] as string
     const p = entries[i + 1] as number
-    const path = []
-    for (let x = p; x > 1; x >>= 1) path.push(x & 1)
+    const path: Array<0 | 1> = []
+    for (let x = p; x > 1; x >>= 1) path.push((x & 1) as 0 | 1)
     table[value] = path.reverse()
   }
   return table

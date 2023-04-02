@@ -402,7 +402,7 @@ describe('15x15', () => {
       return result
     }
 
-    const data = collect() as any[]
+    const data = collect() as Array<[id: number, dirType: GomokuDirectionType]>
     expect(data.length).toEqual(tester.TOTAL_POS * fullDirectionTypes.length)
 
     const countMap1: Record<number, number> = {}

@@ -1,29 +1,38 @@
-import createRollupConfig from '@guanghechen/rollup-config'
+import { createRollupConfig, tsPresetConfigBuilder } from '@guanghechen/rollup-config'
 import path from 'node:path'
 
 const internalModules = new Set(['@algorithm.ts/constant'])
 
 export default async function rollupConfig() {
-  const { default: manifest } = await import(
-    path.resolve('package.json'),
-    { assert: { type: 'json' } },
-  )
-  const configs = await createRollupConfig({
-    manifest,
-    pluginOptions: {
-      typescriptOptions: { tsconfig: 'tsconfig.src.json' },
+  const { default: manifest } = await import(path.resolve('package.json'), {
+    assert: { type: 'json' },
+  })
+  const tsBuilder = tsPresetConfigBuilder({
+    typescriptOptions: {
+      tsconfig: 'tsconfig.src.json',
     },
   })
 
-  configs.forEach(config => {
-    if (config.external) {
-      const external = config.external
-      // eslint-disable-next-line no-param-reassign
-      config.external = function (id) {
-        if (internalModules.has(id)) return false
-        return external(id)
+  const config = await createRollupConfig({
+    manifest,
+    env: {
+      sourcemap: false,
+    },
+    presetConfigBuilders: [
+      {
+        name: tsBuilder.name,
+        build: async ctx => {
+          const config = await tsBuilder.build(ctx)
+          return {
+            ...config,
+            external: (id) => {
+              if (internalModules.has(id)) return false
+              return config.external(id)
+            }
+          }
+        }
       }
-    }
+    ],
   })
-  return configs
+  return config
 }
