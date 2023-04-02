@@ -5,6 +5,9 @@ import url from 'node:url'
 export default async function () {
   const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
   const baseConfig = await tsMonorepoConfig(__dirname, { useESM: true })
+  const { default: manifest } = await import(path.resolve('package.json'), {
+    assert: { type: 'json' },
+  })
 
   const config = {
     ...baseConfig,
@@ -12,10 +15,11 @@ export default async function () {
     coverageProvider: 'babel',
     coverageThreshold: {
       global: {
-        branches: 90,
-        functions: 95,
-        lines: 95,
-        statements: 95,
+        branches: 100,
+        functions: 100,
+        lines: 100,
+        statements: 100,
+        ...manifest.jest?.coverageThreshold?.global,
       },
     },
     extensionsToTreatAsEsm: ['.ts', '.mts'],

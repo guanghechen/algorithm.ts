@@ -10,6 +10,7 @@ __metadata:
   resolution: "@algorithm.ts/base64@workspace:packages/base64"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -23,6 +24,7 @@ __metadata:
     "@algorithm.ts/queue": ^3.0.0-alpha.8
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -34,6 +36,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -45,6 +48,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/constant": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -56,6 +60,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/queue": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -68,6 +73,7 @@ __metadata:
     "@algorithm.ts/constant": ^3.0.0-alpha.8
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -78,6 +84,7 @@ __metadata:
   resolution: "@algorithm.ts/constant@workspace:packages/constant"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -91,6 +98,7 @@ __metadata:
     "@algorithm.ts/queue": ^3.0.0-alpha.8
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -103,6 +111,7 @@ __metadata:
     "@algorithm.ts/queue": ^3.0.0-alpha.8
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -113,6 +122,7 @@ __metadata:
   resolution: "@algorithm.ts/dlx@workspace:packages/dlx"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -123,6 +133,7 @@ __metadata:
   resolution: "@algorithm.ts/findset@workspace:packages/findset"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -134,6 +145,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/constant": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -145,6 +157,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/queue": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -156,6 +169,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -167,6 +181,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/queue": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -179,6 +194,7 @@ __metadata:
     "@algorithm.ts/queue": ^3.0.0-alpha.8
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -190,6 +206,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -200,6 +217,7 @@ __metadata:
   resolution: "@algorithm.ts/manacher@workspace:packages/manacher"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -212,6 +230,7 @@ __metadata:
     "@algorithm.ts/queue": ^3.0.0-alpha.8
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -222,6 +241,7 @@ __metadata:
   resolution: "@algorithm.ts/prime@workspace:packages/prime"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -233,6 +253,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -243,6 +264,7 @@ __metadata:
   resolution: "@algorithm.ts/roman@workspace:packages/roman"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -300,6 +322,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -312,6 +335,7 @@ __metadata:
     "@algorithm.ts/dlx": ^3.0.0-alpha.8
     "@algorithm.ts/shuffle": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -324,6 +348,7 @@ __metadata:
     "@algorithm.ts/constant": ^3.0.0-alpha.8
     "@algorithm.ts/types": ^3.0.0-alpha.8
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
@@ -334,6 +359,7 @@ __metadata:
   resolution: "@algorithm.ts/types@workspace:packages/types"
   dependencies:
     cross-env: ^7.0.3
+    jest: ^29.5.0
     rimraf: ^4.4.1
     rollup: ^3.20.2
   languageName: unknown
