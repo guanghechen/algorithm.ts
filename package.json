@@ -31,7 +31,7 @@
     "test": "lerna run test --concurrency 1",
     "test:coverage": "lerna run --concurrency 1 test -- --coverage",
     "test:update": "lerna run --concurrency 1 test -- -u",
-    "version": "yarn && ghc-doc-link-rewrite && git stage -u yarn.lock **/*/package.json **/*/README.md"
+    "version": "yarn && ghc-doc-link-rewrite && git stage -u yarn.lock packages/**/package.json packages/**/*.md"
   },
   "workspaces": [
     "packages/*"
