@@ -1,20 +1,28 @@
 {
-  "version": "3.0.0",
+  "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
+  "ignoreChanges": ["*.md", "**/__test__/**/*"],
+  "changelog": {
+    "preset": "@guanghechen/conventional-changelog"
+  },
   "command": {
     "publish": {
+      "changelogPreset": "@guanghechen/conventional-changelog",
+      "conventionalCommits": true,
+      "forcePublish": false,
       "graphType": "all",
-      "verifyAccess": false,
-      "ignoreChanges": ["*.md", "**/__test__/**/*"],
-      "message": ":bookmark:  release: publish %s",
-      "push": false,
+      "message": ":bookmark:  release",
       "private": false,
-      "forcePublish": false
+      "push": false
     },
     "version": {
       "allowBranch": ["main", "release-*"],
-      "forcePublish": true
+      "changelogPreset": "@guanghechen/conventional-changelog",
+      "conventionalCommits": true,
+      "forcePublish": false,
+      "message": ":bookmark:  release",
+      "private": false
     }
   }
 }
