@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/queue",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Typescript implementation of queues, such as priority queue and circular queue.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@3.1.0",
     "directory": "packages/queue"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/queue#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@3.1.0/packages/queue#readme",
   "keywords": [
     "algorithm",
     "data structure",
@@ -47,7 +47,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/types": "^3.0.0"
+    "@algorithm.ts/types": "^3.1.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

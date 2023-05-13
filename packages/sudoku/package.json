@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sudoku",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "A efficient Sudoku solver and creator.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@3.1.0",
     "directory": "packages/sudoku"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-2.x.x/packages/sudoku#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@3.1.0/packages/sudoku#readme",
   "keywords": [
     "sudoku",
     "sudoku creator",
@@ -45,8 +45,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/dlx": "^3.0.0",
-    "@algorithm.ts/shuffle": "^3.0.0"
+    "@algorithm.ts/dlx": "^3.1.0",
+    "@algorithm.ts/shuffle": "^3.1.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

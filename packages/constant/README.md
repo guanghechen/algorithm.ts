@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/constant#readme">@algorithm.ts/constant</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/constant@3.0.1/packages/constant#readme">@algorithm.ts/constant</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/constant">
@@ -73,4 +73,4 @@ Common constant.
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/constant#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/constant@3.0.1/packages/constant#readme

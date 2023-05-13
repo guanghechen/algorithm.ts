@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/binary-search",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Find the index of first elements which greater or equals than the target element.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@3.1.0",
     "directory": "packages/binary-search"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/binary-search#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@3.1.0/packages/binary-search#readme",
   "keywords": [
     "algorithm",
     "lower bound"
@@ -44,7 +44,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/constant": "^3.0.0"
+    "@algorithm.ts/constant": "^3.0.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

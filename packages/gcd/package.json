@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/gcd",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "GCD + Euclidean algorithm",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.0",
     "directory": "packages/gcd"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/gcd#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.0/packages/gcd#readme",
   "keywords": [
     "algorithm",
     "gcd",
@@ -45,7 +45,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/constant": "^3.0.0"
+    "@algorithm.ts/constant": "^3.0.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

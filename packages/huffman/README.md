@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/huffman#readme">@algorithm.ts/huffman</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@3.1.0/packages/huffman#readme">@algorithm.ts/huffman</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/huffman">
@@ -180,4 +180,4 @@ A typescript implementation of the **huffman** coding.
 * [Huffman coding | Wikipedia](https://en.wikipedia.org/wiki/Huffman_coding)
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/huffman#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@3.1.0/packages/huffman#readme

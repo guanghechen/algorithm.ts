@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/huffman",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "huffman + Euclidean algorithm",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@3.1.0",
     "directory": "packages/huffman"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/huffman#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@3.1.0/packages/huffman#readme",
   "keywords": [
     "algorithm",
     "huffman",
@@ -45,7 +45,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/queue": "^3.0.0"
+    "@algorithm.ts/queue": "^3.1.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

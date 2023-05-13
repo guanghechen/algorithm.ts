@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/types#readme">@algorithm.ts/types</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.0/packages/types#readme">@algorithm.ts/types</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/types">
@@ -81,4 +81,4 @@ Signature               |  Description
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/types#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.0/packages/types#readme
