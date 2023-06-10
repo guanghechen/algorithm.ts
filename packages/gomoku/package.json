@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/gomoku",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "A algorithm based on minimax search and alpha-beta prune to solve gomoku game.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@3.1.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@3.1.1",
     "directory": "packages/gomoku"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@3.1.0/packages/gomoku#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@3.1.1/packages/gomoku#readme",
   "keywords": [
     "algorithm",
     "gomoku",
@@ -46,8 +46,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/queue": "^3.1.0",
-    "@algorithm.ts/types": "^3.1.0"
+    "@algorithm.ts/queue": "^3.1.1",
+    "@algorithm.ts/types": "^3.1.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

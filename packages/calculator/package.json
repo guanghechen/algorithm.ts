@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/calculator",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "A tiny calculator for number arithmetics such as '+-*/()'",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@3.1.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@3.1.1",
     "directory": "packages/calculator"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@3.1.0/packages/calculator#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@3.1.1/packages/calculator#readme",
   "keywords": [
     "calculator",
     "calculator",
@@ -47,8 +47,8 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/constant": "^3.0.1",
-    "@algorithm.ts/types": "^3.1.0"
+    "@algorithm.ts/constant": "^3.0.2",
+    "@algorithm.ts/types": "^3.1.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/guanghechen/algorithm.ts/compare/@algorithm.ts/calculator@3.1.0...@algorithm.ts/calculator@3.1.1) (2023-06-10)
+
+
+### Performance Improvements
+
+* ⬆️ upgrade dependencies ([c555512](https://github.com/guanghechen/algorithm.ts/commit/c55551269eda0f98e75fca3fb862ce122b1a4889))
+
+
+
+
+
 # 3.1.0 (2023-05-13)
 
 

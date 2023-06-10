@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/guanghechen/algorithm.ts/compare/@algorithm.ts/queue@3.1.0...@algorithm.ts/queue@3.1.1) (2023-06-10)
+
+
+### Performance Improvements
+
+* 🎨 add new type IReadonlyCollection ([399b35d](https://github.com/guanghechen/algorithm.ts/commit/399b35d4d14fbf81579cb3fd93f8d0c691ba720a))
+* ⬆️ upgrade dependencies ([c555512](https://github.com/guanghechen/algorithm.ts/commit/c55551269eda0f98e75fca3fb862ce122b1a4889))
+
+
+
+
+
 # 3.1.0 (2023-05-13)
 
 

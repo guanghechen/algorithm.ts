@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sliding-window",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Sliding window",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@3.1.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@3.1.1",
     "directory": "packages/sliding-window"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@3.1.0/packages/sliding-window#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@3.1.1/packages/sliding-window#readme",
   "keywords": [
     "algorithm",
     "sliding-window"
@@ -44,7 +44,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/types": "^3.1.0"
+    "@algorithm.ts/types": "^3.1.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

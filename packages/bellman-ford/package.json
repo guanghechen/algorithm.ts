@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/bellman-ford",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Bellman-ford algorithm.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1",
     "directory": "packages/bellman-ford"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.0/packages/bellman-ford#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1/packages/bellman-ford#readme",
   "keywords": [
     "algorithm",
     "bellman-ford",
@@ -46,9 +46,9 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/constant": "^3.0.1",
-    "@algorithm.ts/queue": "^3.1.0",
-    "@algorithm.ts/types": "^3.1.0"
+    "@algorithm.ts/constant": "^3.0.2",
+    "@algorithm.ts/queue": "^3.1.1",
+    "@algorithm.ts/types": "^3.1.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

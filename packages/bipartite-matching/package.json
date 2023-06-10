@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/bipartite-matching",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "The algorithm to find the maximum matching of the bipartite graph.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bipartite-matching@3.1.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bipartite-matching@3.1.1",
     "directory": "packages/bipartite-matching"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bipartite-matching@3.1.0/packages/bipartite-matching#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bipartite-matching@3.1.1/packages/bipartite-matching#readme",
   "keywords": [
     "algorithm",
     "bipartite graph matching"
@@ -44,7 +44,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/queue": "^3.1.0"
+    "@algorithm.ts/queue": "^3.1.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

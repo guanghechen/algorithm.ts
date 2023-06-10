@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@3.1.0/packages/binary-index-tree#readme">@algorithm.ts/binary-index-tree</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@3.1.1/packages/binary-index-tree#readme">@algorithm.ts/binary-index-tree</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/binary-index-tree">
@@ -268,5 +268,5 @@ constant of Binary Index Tree is smaller, and its implementation is simpler and 
 ## Related
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@3.1.0/packages/binary-index-tree#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@3.1.1/packages/binary-index-tree#readme
 [binary-index-tree]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-binary-index-tree

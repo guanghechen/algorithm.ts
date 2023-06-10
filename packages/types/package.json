@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/types",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Common types for the algorithm.ts packages.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1",
     "directory": "packages/types"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.0/packages/types#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1/packages/types#readme",
   "type": "module",
   "exports": {
     "types": "./lib/types/index.d.ts",

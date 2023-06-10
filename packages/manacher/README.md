@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@3.1.0/packages/manacher#readme">@algorithm.ts/manacher</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@3.1.1/packages/manacher#readme">@algorithm.ts/manacher</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/manacher">
@@ -106,5 +106,5 @@ If you are curious about this algorithm, you can visit [here][manacher] for more
 * [最长回文子串 Manacher 算法][manacher]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@3.1.0/packages/manacher#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@3.1.1/packages/manacher#readme
 [manacher]: https://me.guanghechen.com/post/algorithm/string/manacher/

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.0/packages/gcd#readme">@algorithm.ts/gcd</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.1/packages/gcd#readme">@algorithm.ts/gcd</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/gcd">
@@ -101,5 +101,5 @@ A typescript implementation of the **gcd** and **Extended Euclidean** algorithm.
 * [数论基础之模方程初步][gcd]
 
 
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.0/packages/gcd#readme
+[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.1/packages/gcd#readme
 [gcd]: https://me.guanghechen.com/post/math/number-theory/%E6%A8%A1%E6%96%B9%E7%A8%8B/basic/

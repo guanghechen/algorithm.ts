@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/findset",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Find set written in Typescript.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@3.1.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@3.1.1",
     "directory": "packages/findset"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@3.1.0/packages/findset#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@3.1.1/packages/findset#readme",
   "keywords": [
     "findset",
     "heuristic findset",

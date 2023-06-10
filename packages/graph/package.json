@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/graph",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Types and utils from solving graph problems.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.1",
     "directory": "packages/graph"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.0/packages/graph#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.1/packages/graph#readme",
   "keywords": [
     "algorithm",
     "graph algorithm utils"
@@ -44,7 +44,7 @@
     "test": "cross-env TS_NODE_FILES=true NODE_OPTIONS=--experimental-vm-modules jest --config ../../jest.config.mjs --rootDir ."
   },
   "dependencies": {
-    "@algorithm.ts/types": "^3.1.0"
+    "@algorithm.ts/types": "^3.1.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

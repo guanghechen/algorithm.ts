@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/constant",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Common constant for the algorithm.ts packages.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/constant@3.0.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/constant@3.0.2",
     "directory": "packages/constant"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/constant@3.0.1/packages/constant#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/constant@3.0.2/packages/constant#readme",
   "type": "module",
   "exports": {
     "types": "./lib/types/index.d.ts",
