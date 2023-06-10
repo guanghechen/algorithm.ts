@@ -1,5 +1,6 @@
 import { PriorityQueue } from '@algorithm.ts/queue'
 import type { IPriorityQueue } from '@algorithm.ts/queue'
+import type { IReadonlyCollection } from '@algorithm.ts/types'
 import type { GomokuDirectionType } from '../constant'
 import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from '../constant'
 import type {
@@ -96,7 +97,7 @@ export class GomokuMoverState implements IGomokuMoverState {
     this._countOfReachFinalDirMap = _countOfReachFinalDirMap
   }
 
-  public init(pieces: ReadonlyArray<IGomokuPiece>): void {
+  public init(pieces: IReadonlyCollection<IGomokuPiece> | ReadonlyArray<IGomokuPiece>): void {
     this._candidateQueues.forEach(Q => Q.init())
     this._candidateInqSets.forEach(inqSets => inqSets.forEach(inqSet => inqSet.clear()))
     this._candidateSet.clear()
