@@ -20,7 +20,7 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
     this._compare = props.compare
   }
 
-  public *[Symbol.iterator](): Iterator<T> {
+  public *[Symbol.iterator](): IterableIterator<T> {
     const { _elements, _size } = this
     for (let i = 1; i <= _size; ++i) yield _elements[i]
   }

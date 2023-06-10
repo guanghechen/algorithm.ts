@@ -1,9 +1,17 @@
-export interface ICollection<T> extends Iterable<T> {
+export interface IReadonlyCollection<T> {
   /**
    * Count the element in the collection.
    * @getter
    */
   readonly size: number
+
+  /**
+   * Iterable.
+   */
+  [Symbol.iterator](): IterableIterator<T>
+}
+
+export interface ICollection<T> extends IReadonlyCollection<T> {
   /**
    * Release memory.
    */

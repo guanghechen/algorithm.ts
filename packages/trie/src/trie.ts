@@ -11,17 +11,12 @@ export class Trie<E extends unknown[] | string, V> extends UnsafeTrie<E, V> impl
   ): this {
     if (start < 0) start = 0
     if (end > element.length) end = element.length
-
-    if (start >= end) super.set(element, value, 0, 0)
-    else super.set(element, value, start, end)
-    return this
+    return super.set(element, value, start, end)
   }
 
   public override delete(element: Readonly<E>, start = 0, end: number = element.length): boolean {
     if (start < 0) start = 0
     if (end > element.length) end = element.length
-
-    if (start >= end) return super.delete(element, 0, 0)
     return super.delete(element, start, end)
   }
 
@@ -32,8 +27,6 @@ export class Trie<E extends unknown[] | string, V> extends UnsafeTrie<E, V> impl
   ): V | undefined {
     if (start < 0) start = 0
     if (end > element.length) end = element.length
-
-    if (start >= end) return super.get(element, 0, 0)
     return super.get(element, start, end)
   }
 
@@ -65,7 +58,7 @@ export class Trie<E extends unknown[] | string, V> extends UnsafeTrie<E, V> impl
     element: Readonly<E>,
     start = 0,
     end: number = element.length,
-  ): Iterable<ITrieNodeData<V>> {
+  ): IterableIterator<ITrieNodeData<V>> {
     if (start < 0) start = 0
     if (end > element.length) end = element.length
     return super.findAll(element, start, end)

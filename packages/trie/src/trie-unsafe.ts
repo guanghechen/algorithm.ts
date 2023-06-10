@@ -27,20 +27,19 @@ export class UnsafeTrie<E extends unknown[] | string, V> implements ITrie<E, V> 
     this._wordCount = 0
   }
 
-  public get size(): Readonly<number> {
+  public get size(): number {
     return this._wordCount
   }
 
-  public *[Symbol.iterator](): Iterator<V, number> {
-    let height = 0
-    const uStack: number[] = [0]
+  public *[Symbol.iterator](): IterableIterator<V> {
+    const vStack: number[] = [0]
     const iStack: number[] = [0]
     const { _SIGMA_SIZE, _ch, _values } = this
 
-    while (height >= 0) {
-      const o = uStack[height]
+    for (let h = 0; h >= 0; ) {
+      const o = vStack[h]
       const nodes = _ch[o]
-      let i = iStack[height]
+      let i = iStack[h]
       while (i < _SIGMA_SIZE && nodes[i] === 0) ++i
 
       if (i < _SIGMA_SIZE) {
@@ -48,17 +47,14 @@ export class UnsafeTrie<E extends unknown[] | string, V> implements ITrie<E, V> 
         const v = _values[u]
         if (v !== undefined) yield v
 
-        iStack[height] = i + 1
-        ++height
-        uStack[height] = u
-        iStack[height] = 0
+        iStack[h] = i + 1
+        ++h
+        vStack[h] = u
+        iStack[h] = 0
       } else {
-        --height
+        --h
       }
     }
-
-    // Maximal height of the trie.
-    return uStack.length
   }
 
   public clear(): void {
@@ -103,10 +99,9 @@ export class UnsafeTrie<E extends unknown[] | string, V> implements ITrie<E, V> 
   }
 
   public delete(element: Readonly<E>, start = 0, end: number = element.length): boolean {
-    const { _ch, _values, _idx } = this
-    let i = start
     let u = 0
-    for (; i < end; ++i) {
+    const { _ch, _values, _idx } = this
+    for (let i = start; i < end; ++i) {
       const c: number = _idx(element[i])
       const v: number = _ch[u][c]
       if (v === 0) return false
@@ -172,7 +167,7 @@ export class UnsafeTrie<E extends unknown[] | string, V> implements ITrie<E, V> 
     element: Readonly<E>,
     start = 0,
     end: number = element.length,
-  ): Iterable<ITrieNodeData<V>> {
+  ): IterableIterator<ITrieNodeData<V>> {
     if (start >= end) {
       const val = this._values[0]
       if (val !== undefined) yield { end: start, val }

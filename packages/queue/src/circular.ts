@@ -53,7 +53,7 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
       : () => {}
   }
 
-  public *[Symbol.iterator](): Iterator<T> {
+  public *[Symbol.iterator](): IterableIterator<T> {
     const { _elements, _size, _start, _capacity } = this
     if (_size == 0) return
 
