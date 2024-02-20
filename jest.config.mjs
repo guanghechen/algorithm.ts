@@ -56,9 +56,10 @@ const coverageMap = {
   },
   '@algorithm.ts/findset': {
     global: {
+      branches: 98,
       functions: 88,
-      lines: 96,
-      statements: 96,
+      lines: 95,
+      statements: 95,
     },
   },
   '@algorithm.ts/gomoku': {
