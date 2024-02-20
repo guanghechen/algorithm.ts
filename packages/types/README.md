@@ -49,36 +49,33 @@
 </header>
 <br/>
 
-
 Common types.
 
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/types
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/types
   ```
 
-
 ## Usage
 
 ### ICollection
 
-Signature               |  Description
-:-----------------------|:------------------------------------------------------------------------
-`readonly size: number` | Count the element in the collection. 
-`destroy(): void`       | Release memory.
-`clear(): void`         | Remove all elements. (Notice that this method does not release memory)
-
+| Signature               | Description                                                            |
+| :---------------------- | :--------------------------------------------------------------------- |
+| `readonly size: number` | Count the element in the collection.                                   |
+| `destroy(): void`       | Release memory.                                                        |
+| `clear(): void`         | Remove all elements. (Notice that this method does not release memory) |
 
 ## Related
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1/packages/types#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1/packages/types#readme

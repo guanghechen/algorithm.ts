@@ -49,38 +49,35 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **sliding-window** algorithm.
-
 
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/sliding-window
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/sliding-window
   ```
 
-
 ## Usage
 
-* `SlidingWindow`
+- `SlidingWindow`
 
-  Member                                          | Return              |  Description
-  :----------------------------------------------:|:-------------------:|:---------------------------------------
-  `constructor(options: ISlidingWindowProps)`     | `SlidingWindow`     | 
-  `reset(options?: ISlidingWindowResetOptions)`   | `void`              | Reset the sliding window.
-  `forwardLeftBoundary(steps?: number)`           | `void`              | Move the sliding window left boundary forward by `steps` steps.
-  `forwardRightBoundary(steps?: number)`          | `void`              | Move the sliding window right boundary forward by `steps` steps.
-  `min()`                                         | `number|undefined`  | Return the minimum element in the Sliding Window.
+  |                    Member                     |     Return      | Description                                                      |
+  | :-------------------------------------------: | :-------------: | :--------------------------------------------------------------- | ------------------------------------------------- |
+  |  `constructor(options: ISlidingWindowProps)`  | `SlidingWindow` |
+  | `reset(options?: ISlidingWindowResetOptions)` |     `void`      | Reset the sliding window.                                        |
+  |     `forwardLeftBoundary(steps?: number)`     |     `void`      | Move the sliding window left boundary forward by `steps` steps.  |
+  |    `forwardRightBoundary(steps?: number)`     |     `void`      | Move the sliding window right boundary forward by `steps` steps. |
+  |                    `min()`                    |     `number     | undefined`                                                       | Return the minimum element in the Sliding Window. |
 
-* `ISlidingWindowProps`
+- `ISlidingWindowProps`
 
   - `WINDOW_SIZE`: (required) the width of the sliding window.
 
@@ -88,10 +85,9 @@ A typescript implementation of the **sliding-window** algorithm.
 
   - `startIndex`: (optional) the first index of the input range.
 
-
 ## Example
 
-* A solution of https://leetcode.com/problems/sliding-window-maximum/
+- A solution of https://leetcode.com/problems/sliding-window-maximum/
 
   ```typescript
   import { SlidingWindow } from '@algorithm.ts/sliding-window'
@@ -115,8 +111,7 @@ A typescript implementation of the **sliding-window** algorithm.
   }
   ```
 
-
 ## Related
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@3.1.1/packages/sliding-window#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@3.1.1/packages/sliding-window#readme

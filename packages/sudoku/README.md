@@ -49,69 +49,63 @@
 </header>
 <br/>
 
-
 [中文文档](./README-zh.md)
 
+This library is used to solve Sudoku problems and generate Sudoku problems with unique solution.
 
-This library is used to solve Sudoku problems and generate Sudoku problems with
-unique solution.
-
-The Sudoku problem is described as a square matrix of size (a\*a) \* (a\*a),
-and the value of a position in the square matrix is an integer between [-1, a\*a).
-Among them, -1 means no value is filled in this position yet. A classic Sudoku
-problem needs to satisfy the following constraints:
+The Sudoku problem is described as a square matrix of size (a\*a) \* (a\*a), and the value of a
+position in the square matrix is an integer between [-1, a\*a). Among them, -1 means no value is
+filled in this position yet. A classic Sudoku problem needs to satisfy the following constraints:
 
 1. Each position in the square matrix needs to be filled with an integer between [0, a\*a)
 2. There are no repeated numbers in each row of the square matrix
 3. There are no repeated numbers in each column of the square matrix
-4. The square matrix can be divided into a*a sub-squares of size a*a, and there
-   are no repeated numbers in each column of the sub-squares
-A typescript implementation of the **sudoku** algorithm.
+4. The square matrix can be divided into a*a sub-squares of size a*a, and there are no repeated
+   numbers in each column of the sub-squares A typescript implementation of the **sudoku**
+   algorithm.
 
-sudoku is a shuffle algorithm, which can complete the shuffle in $O(N)$
-time complexity on the basis of only using a constant level of extra space.
+sudoku is a shuffle algorithm, which can complete the shuffle in $O(N)$ time complexity on the basis
+of only using a constant level of extra space.
 
 If you are curious about this algorithm, you can visit [here][sudoku] for more details.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/sudoku
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/sudoku
   ```
 
-
 ## Usage
 
-* `SudokuSolver`: Solve a Sudoku puzzle.
+- `SudokuSolver`: Solve a Sudoku puzzle.
 
-* `SudokuCreator`: Create a Sudoku data (puzzle and solution) with only unique solution.
+- `SudokuCreator`: Create a Sudoku data (puzzle and solution) with only unique solution.
 
-* Utility functions
+- Utility functions
 
-  Function                    | Description
-  :--------------------------:|:--------------------------------:
-  `createSudokuBoardData`     | Create a sudoku board (one-dimensional array).
-  `fillSudokuBoardData`       | Fill the sudoku board with the given value.
-  `copySudokuBoardData`       | Copy sudoku board from `src` to `dst`.
-  `verifySolution`            | Check if the solution of the given Sudoku game is valid.
-  `toMatrixStyleBoardData`    | Convert the one-dimensional array to two-dimensional array.
-  `createMatrixCodeMap`       |
-  `createMatrixCoordinateMap` |
+  |          Function           |                         Description                         |
+  | :-------------------------: | :---------------------------------------------------------: |
+  |   `createSudokuBoardData`   |       Create a sudoku board (one-dimensional array).        |
+  |    `fillSudokuBoardData`    |         Fill the sudoku board with the given value.         |
+  |    `copySudokuBoardData`    |           Copy sudoku board from `src` to `dst`.            |
+  |      `verifySolution`       |  Check if the solution of the given Sudoku game is valid.   |
+  |  `toMatrixStyleBoardData`   | Convert the one-dimensional array to two-dimensional array. |
+  |    `createMatrixCodeMap`    |
+  | `createMatrixCoordinateMap` |
 
 ## Examples
 
 ### Solve a sudoku puzzle
 
-* Solve a 16x16 sudoku puzzle
+- Solve a 16x16 sudoku puzzle
 
   ```typescript
   import type { ISudokuBoardData } from '@algorithm.ts/sudoku'
@@ -144,7 +138,7 @@ If you are curious about this algorithm, you can visit [here][sudoku] for more d
   const solution: ISudokuBoardData = createSudokuBoardData(16)
   solver.solve(puzzle, solution)  // => true
 
-  solution 
+  solution
   /** ===>
    * [
    *    2,  3, 14,  1,  8,  6,  0,  4, 11, 13,  9, 15,  5, 10, 12,  7,
@@ -169,7 +163,7 @@ If you are curious about this algorithm, you can visit [here][sudoku] for more d
 
 ### Create a sudoku game data
 
-* Create a 9x9 sudoku puzzle
+- Create a 9x9 sudoku puzzle
 
   ```typescript
   import { SudokuCreator } from '@algorithm.ts/sudoku'
@@ -250,7 +244,7 @@ If you are curious about this algorithm, you can visit [here][sudoku] for more d
     }
     ```
 
-* Create a 16x16 sudoku puzzle
+- Create a 16x16 sudoku puzzle
 
   ```typescript
   import { SudokuCreator } from '@algorithm.ts/sudoku'
@@ -303,14 +297,13 @@ If you are curious about this algorithm, you can visit [here][sudoku] for more d
   }
   ```
 
-
 ## Related
 
-* [洗牌问题和 dlx 算法 | 光和尘][dlx]
-* [洗牌问题和 knuth-shuffle 算法 | 光和尘][knuth-shuffle]
-* [当你想来一把数独 | 光和尘](https://me.guanghechen.com/post/game/sudoku/)
+- [洗牌问题和 dlx 算法 | 光和尘][dlx]
+- [洗牌问题和 knuth-shuffle 算法 | 光和尘][knuth-shuffle]
+- [当你想来一把数独 | 光和尘](https://me.guanghechen.com/post/game/sudoku/)
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@3.1.1/packages/sudoku#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@3.1.1/packages/sudoku#readme
 [knuth-shuffle]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-knuth-shuffle
 [dlx]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-dlx

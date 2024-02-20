@@ -49,38 +49,36 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **bellman-ford** algorithm.
 
-The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm):
+The following definition is quoted from Wikipedia
+(https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm):
 
 > The Bellman–Ford algorithm is an algorithm that computes shortest paths from a single source
 > vertex to all of the other vertices in a weighted digraph. It is slower than Dijkstra's algorithm
-> for the same problem, but more versatile, as it is capable of handling graphs in which some of
-> the edge weights are negative numbers. The algorithm was first proposed by Alfonso Shimbel (1955),
-> but is instead named after Richard Bellman and Lester Ford Jr., who published it in 1958 and 1956,
+> for the same problem, but more versatile, as it is capable of handling graphs in which some of the
+> edge weights are negative numbers. The algorithm was first proposed by Alfonso Shimbel (1955), but
+> is instead named after Richard Bellman and Lester Ford Jr., who published it in 1958 and 1956,
 > respectively. Edward F. Moore also published a variation of the algorithm in 1959, and for this
 > reason it is also sometimes called the Bellman–Ford–Moore algorithm.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/bellman-ford
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/bellman-ford
   ```
 
-
 ## Usage
 
-* Simple
+- Simple
 
   ```typescript
   import type { IGraph } from '@algorithm.ts/bellman-ford'
@@ -105,9 +103,9 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
    *   INF: 4503599627370494,
    *   source: 0,
    *   bestFrom: ,
-   *   dist: [0, 2, 4, 4] 
+   *   dist: [0, 2, 4, 4]
    * }
-   * 
+   *
    * For dist:
    *    0 --> 0: cost is 0
    *    0 --> 1: cost is 2
@@ -116,16 +114,15 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
    */
   ```
 
-* Options
+- Options
 
-  Name        | Type            | Required  | Description
-  :----------:|:---------------:|:---------:|:----------------
-  `INF`       | `number|bigint` | `false`   | A big number, representing the unreachable cost.
-
+  | Name  |  Type   | Required | Description |
+  | :---: | :-----: | :------: | :---------- | ------------------------------------------------ |
+  | `INF` | `number | bigint`  | `false`     | A big number, representing the unreachable cost. |
 
 ### Example
 
-* Get shortest path.
+- Get shortest path.
 
   ```typescript
   import bellmanFord from '@algorithm.ts/bellman-ford'
@@ -160,7 +157,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   getShortestPath(result.bestFrom, Nodes.A, Nodes.D) // [Nodes.A, Nodes.B, Nodes.C, Nodes.D])
   ```
 
-* A solution for leetcode "Number of Ways to Arrive at Destination"
+- A solution for leetcode "Number of Ways to Arrive at Destination"
   (https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/):
 
   ```typescript
@@ -215,14 +212,14 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   }
   ```
 
-
 ## Related
 
-* 《算法竞赛入门经典（第2版）》（刘汝佳）： P363 Bellman-Ford 算法
-* [bellman-ford | Wikipedia][wikipedia-bellman-ford]
-* [@algorithm.ts/queue][]
+- 《算法竞赛入门经典（第 2 版）》（刘汝佳）： P363 Bellman-Ford 算法
+- [bellman-ford | Wikipedia][wikipedia-bellman-ford]
+- [@algorithm.ts/queue][]
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1/packages/bellman-ford#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1/packages/bellman-ford#readme
 [wikipedia-bellman-ford]: https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
-[@algorithm.ts/queue]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@3.1.1/packages/queue
+[@algorithm.ts/queue]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@3.1.1/packages/queue

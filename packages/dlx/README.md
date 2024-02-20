@@ -49,33 +49,30 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **DLX** algorithm.
 
-DLX is the Algorithm X that applied the dancing-link. The algorithm is used to solve the
-exact-cover problem.
+DLX is the Algorithm X that applied the dancing-link. The algorithm is used to solve the exact-cover
+problem.
 
 If you are curious about this algorithm, you can visit [here][dlx] for more details.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/dlx
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/dlx
   ```
 
-
 ## Usage
 
-* Use dlx to solve a 9x9 sudoku problem:
+- Use dlx to solve a 9x9 sudoku problem:
 
   ```typescript
   import { DancingLinkX } from '@algorithm.ts/dlx'
@@ -164,11 +161,10 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
   // ]
   ```
 
-
 ## Related
 
-* [洗牌问题和 dlx 算法][dlx]
+- [洗牌问题和 dlx 算法][dlx]
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@3.1.1/packages/dlx#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@3.1.1/packages/dlx#readme
 [dlx]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-dlx

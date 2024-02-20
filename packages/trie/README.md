@@ -49,7 +49,6 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **TRIE** data structure.
 
 The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki/Trie):
@@ -60,60 +59,58 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 > order to access a key (to recover its value, change it, or remove it), the trie is traversed
 > depth-first, following the links between nodes, which represent each character in the key.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/trie
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/trie
   ```
 
-
 ## Usage
 
-* Trie: Trie implements the [Collection][] interface.
+- Trie: Trie implements the [Collection][] interface.
 
-  - `set(element: Readonly<E>, value: V, start?: number, end?: number): this`:
-    Insert a string (or an array) into the trie.
+  - `set(element: Readonly<E>, value: V, start?: number, end?: number): this`: Insert a string (or
+    an array) into the trie.
 
-  - `delete(element: Readonly<E>, start?: number, end?: number): boolean`:
-    Remove a string (or an array) from the trie.
+  - `delete(element: Readonly<E>, start?: number, end?: number): boolean`: Remove a string (or an
+    array) from the trie.
 
-  - `get(element: Readonly<E>, start?: number, end?: number): V | undefined`: 
-    Find the value of the element which exactly matched the `element.slice(start, end)`.
-    If there is no such an element, then return undefined.
+  - `get(element: Readonly<E>, start?: number, end?: number): V | undefined`: Find the value of the
+    element which exactly matched the `element.slice(start, end)`. If there is no such an element,
+    then return undefined.
 
-  - `has(element: Readonly<E>, start?: number, end?: number): boolean`:
-    Check if there is an element exactly matched the `element.slice(start, end)`.
+  - `has(element: Readonly<E>, start?: number, end?: number): boolean`: Check if there is an element
+    exactly matched the `element.slice(start, end)`.
 
-  - `hasPrefix(prefix: Readonly<E>, start?: number, end?: number): boolean`:
-    Check if there is an element which prefix matched the `prefix.slice(start, end)`.
+  - `hasPrefix(prefix: Readonly<E>, start?: number, end?: number): boolean`: Check if there is an
+    element which prefix matched the `prefix.slice(start, end)`.
 
-  - `find(element: Readonly<E>, start?: number, end?: number): ITrieNodeData<V> | undefined`:
-    Find word with smallest length in the trie which exact match the
-    `element.slice(start, x)`, where the x is an integer in the range [start, _end).
+  - `find(element: Readonly<E>, start?: number, end?: number): ITrieNodeData<V> | undefined`: Find
+    word with smallest length in the trie which exact match the `element.slice(start, x)`, where the
+    x is an integer in the range [start, \_end).
 
-  - `findAll(element: Readonly<E>, start?: number, end?: number): Iterable<ITrieNodeData<V>>`:
-    Find all words in the trie which exact match the
-    `element.slice(start, x)`, where the x is an integer in the range [start, _end).
+  - `findAll(element: Readonly<E>, start?: number, end?: number): Iterable<ITrieNodeData<V>>`: Find
+    all words in the trie which exact match the `element.slice(start, x)`, where the x is an integer
+    in the range [start, \_end).
 
-* Util
+- Util
 
   - `digitIdx(c: string): number`: Calc idx of digit character.
-  - `uppercaseIdx(c: string): number`: Calc idx of uppercase English letter. 
+  - `uppercaseIdx(c: string): number`: Calc idx of uppercase English letter.
   - `lowercaseIdx(c: string): number`: Calc idx of lowercase English letter.
   - `alphaNumericIdx(c: string): number`: Calc idx of digit, lowercase/uppercase English leter.
 
 ### Example
 
-* A solution of https://leetcode.com/problems/word-break-ii/:
+- A solution of https://leetcode.com/problems/word-break-ii/:
 
   ```typescript
   import type { ITrie } from '@algorithm.ts/trie'
@@ -159,7 +156,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   }
   ```
 
-* A solution of https://leetcode.com/problems/word-search-ii/
+- A solution of https://leetcode.com/problems/word-search-ii/
 
   ```typescript
   import { Trie, lowercaseIdx } from '@algorithm.ts/trie'
@@ -235,8 +232,9 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
 ## Related
 
-* https://en.wikipedia.org/wiki/Trie
+- https://en.wikipedia.org/wiki/Trie
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/trie@3.1.1/packages/trie#readme
-[Collection]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1/packages/types#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/trie@3.1.1/packages/trie#readme
+[Collection]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1/packages/types#readme

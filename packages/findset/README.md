@@ -49,9 +49,8 @@
 </header>
 <br/>
 
-
-A typescript implementation of the **Findset** data structure, usually also known as
-[Disjoint-set data structure][wiki-find-set].
+A typescript implementation of the **Findset** data structure, usually also known as [Disjoint-set
+data structure][wiki-find-set].
 
 The find-set is a data structure used to maintain the node relationship in a forest. Find set
 support to perform the following operations under the amortized constant time complexity:
@@ -59,25 +58,23 @@ support to perform the following operations under the amortized constant time co
 1. Determine whether two nodes are in a synonymous tree.
 2. Merge two trees.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/findset
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/findset
   ```
 
-
 ## Usage
 
-* Create a ordinary findset:
+- Create a ordinary findset:
 
   ```typescript
   import { Findset } from '@algorithm.ts/findset'
@@ -97,12 +94,11 @@ support to perform the following operations under the amortized constant time co
   assert(findset.root(2) === findset.root(3))
   ```
 
-* Create a heuristic findset:
+- Create a heuristic findset:
 
-  The heuristic find-set maintains the number of nodes of each tree on the basis
-  of the ordinary version. When merging trees, always use the root node of the
-  tree with more nodes as the root node of the new tree, which can reduce the
-  number of executions of subsequent queries.
+  The heuristic find-set maintains the number of nodes of each tree on the basis of the ordinary
+  version. When merging trees, always use the root node of the tree with more nodes as the root node
+  of the new tree, which can reduce the number of executions of subsequent queries.
 
   ```typescript
   import { HeuristicFindset } from '@algorithm.ts/findset'
@@ -128,10 +124,10 @@ support to perform the following operations under the amortized constant time co
   findset.count(4)   // => 1
   ```
 
-* Create an enhanced findset:
+- Create an enhanced findset:
 
-  On the basis of ordinary findset, this enhanced version also supports to get
-  all the nodes on a given tree (access through the root node).
+  On the basis of ordinary findset, this enhanced version also supports to get all the nodes on a
+  given tree (access through the root node).
 
   ```typescript
   import { EnhancedFindset } from '@algorithm.ts/findset'
@@ -147,10 +143,9 @@ support to perform the following operations under the amortized constant time co
   findset.getSetOf(2)   // => Set {1, 2}
   ```
 
-
 ## Example
 
-* A solution for leetcode "Find All People With Secret"
+- A solution for leetcode "Find All People With Secret"
   (https://leetcode.com/problems/find-all-people-with-secret/):
 
   ```typescript
@@ -227,8 +222,8 @@ support to perform the following operations under the amortized constant time co
 
 ## Related
 
-* [Disjoint-set data structure | Wikipedia][wiki-find-set]
+- [Disjoint-set data structure | Wikipedia][wiki-find-set]
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@3.1.1/packages/findset#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@3.1.1/packages/findset#readme
 [wiki-find-set]: https://en.wikipedia.org/wiki/Disjoint-set_data_structure

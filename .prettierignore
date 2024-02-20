@@ -1,6 +1,6 @@
-.DS_Store
 .eslintignore
 .prettierignore
+**/*.DS_Store
 
 .nx/
 .yarn/

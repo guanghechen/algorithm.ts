@@ -49,28 +49,25 @@
 </header>
 <br/>
 
-
 This package is written to support the mutual conversion between Roman numerals and Arabic numerals.
-
 
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/roman
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/roman
   ```
 
-
 ## Usage
 
-* `int2roman`: Convert an Arabic numeral into a Roman numeral representation.
+- `int2roman`: Convert an Arabic numeral into a Roman numeral representation.
 
   ```typescript
   import { int2roman } from '@algorithm.ts/roman'
@@ -85,7 +82,7 @@ This package is written to support the mutual conversion between Roman numerals 
   int2roman(4000) // => An TypeError will be thrown
   ```
 
-* `roman2int`: Convert an Roman numeral into a Arabic numeral representation.
+- `roman2int`: Convert an Roman numeral into a Arabic numeral representation.
 
   ```typescript
   import { roman2int } from '@algorithm.ts/roman'
@@ -97,10 +94,9 @@ This package is written to support the mutual conversion between Roman numerals 
   roman2int('MMMCMXCIX')  // => 3999
   ```
 
-
 ## Related
 
-* [Roman numerals | Wikipedia](https://en.wikipedia.org/wiki/Roman_numerals)
+- [Roman numerals | Wikipedia](https://en.wikipedia.org/wiki/Roman_numerals)
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/roman@3.1.1/packages/roman#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/roman@3.1.1/packages/roman#readme

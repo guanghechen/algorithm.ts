@@ -49,35 +49,32 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **huffman** coding.
-
 
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/huffman
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/huffman
   ```
 
-
 ## Usage
 
-* `encode`: Encode text to Uint8Array and a huffman tree.
+- `encode`: Encode text to Uint8Array and a huffman tree.
 
   ```typescript
   import { encode } from '@algorithm.ts/huffman'
   const { encodedData, encodingTable, tree } = encode('Hello, world!')
   ```
 
-* `decode`: Decode a huffman encoded data to string.
+- `decode`: Decode a huffman encoded data to string.
 
   ```typescript
   import { decode, fromEncodingTable } from '@algorithm.ts/huffman'
@@ -89,24 +86,23 @@ A typescript implementation of the **huffman** coding.
   const plaintext2 = decode(encodedData, tree2)
   ```
 
-* `compress`: Compress the encoded data.
+- `compress`: Compress the encoded data.
 
   ```typescript
   // Array<0 | 1> ==> Uint8Array
   const compressedData = compress(encodedData)
   ```
 
-* `decompress`: Decompress data.
+- `decompress`: Decompress data.
 
   ```typescript
   // Uint8Array ==> Array<0 | 1>
   const encodedData2 = decompress(compressedData)
   ```
 
-
 ## Example
 
-* Compress uri data
+- Compress uri data
 
   ```typescript
   const data = { name: 'alice', age: 33, gender: 'female' }
@@ -174,10 +170,9 @@ A typescript implementation of the **huffman** coding.
   }
   ```
 
-
 ## Related
 
-* [Huffman coding | Wikipedia](https://en.wikipedia.org/wiki/Huffman_coding)
+- [Huffman coding | Wikipedia](https://en.wikipedia.org/wiki/Huffman_coding)
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@3.1.1/packages/huffman#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@3.1.1/packages/huffman#readme

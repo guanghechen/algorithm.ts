@@ -49,7 +49,6 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **Binary Index Tree**.
 
 The Binary Index Tree is a tree-shaped array structure used to efficiently maintain the prefix sum.
@@ -63,40 +62,39 @@ There are usually two modes of operation:
 2. Interval update, single-point query. Add a value to the value of the first $x$ elements in the
    sequence, and solve the current value of the element at any position in the sequence. Similarly,
    if you want to add a common value $x$ to any interval $[L, R]$, you can first add $x$ to all
-   elements in [1,R], and then add $-x$ to all elements in [1,L-1]. 
+   elements in [1,R], and then add $-x$ to all elements in [1,L-1].
 
 The above operations are all done under the amortized complexity of $O(\log N)$.
 
 The problem that the Binary Index Tree can solve is a subset of the Segment Tree. But the complexity
-constant of Binary Index Tree is smaller, and its implementation is simpler and easier to understand.
-
+constant of Binary Index Tree is smaller, and its implementation is simpler and easier to
+understand.
 
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/binary-index-tree
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/binary-index-tree
   ```
 
-
 ## Usage
 
 ### Single-point update And interval query
 
-* Solve numbers:
+- Solve numbers:
 
   ```typescript {3}
   import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
 
   const MAX_N = 10
-  const bit = new SingleUpdateIntervalQuery<number>({ 
+  const bit = new SingleUpdateIntervalQuery<number>({
     operator: {
       ZERO: 0,
       add: (x, y) => x + y
@@ -123,7 +121,7 @@ constant of Binary Index Tree is smaller, and its implementation is simpler and 
   bit.query(/* any integer between [4, 10] */) // => 17
   ```
 
-* Solve bigint:
+- Solve bigint:
 
   ```typescript {6}
   import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
@@ -158,7 +156,7 @@ constant of Binary Index Tree is smaller, and its implementation is simpler and 
 
 ### Interval update and single-point query
 
-* Solve numbers:
+- Solve numbers:
 
   ```typescript {3}
   import { IntervalUpdateSingleQuery } from '@algorithm.ts/binary-index-tree'
@@ -191,7 +189,7 @@ constant of Binary Index Tree is smaller, and its implementation is simpler and 
   bit.query(/* any integer between [5, 10] */) // => 0
   ```
 
-* Solve bigint:
+- Solve bigint:
 
   ```typescript {6}
   import { IntervalUpdateSingleQuery } from '@algorithm.ts/binary-index-tree'
@@ -224,7 +222,7 @@ constant of Binary Index Tree is smaller, and its implementation is simpler and 
   bit.query(/* any integer between [5, 10] */) // => 0n
   ```
 
-* With Mod
+- With Mod
 
   ```typescript
   import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
@@ -256,17 +254,16 @@ constant of Binary Index Tree is smaller, and its implementation is simpler and 
         const z = x + y
         return z >= MOD ? z - MOD : z < 0n ? z + MOD : z
       },
-    }, 
+    },
   })
-  
+
   bit.init(1e5 + 10)
   bit.add(2, <value>)   // <value> should in the range of (-MOD, MOD)
   bit.query(3)
   ```
 
-
 ## Related
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@3.1.1/packages/binary-index-tree#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@3.1.1/packages/binary-index-tree#readme
 [binary-index-tree]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-binary-index-tree

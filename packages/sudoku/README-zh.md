@@ -51,41 +51,39 @@
 
 此库用于求解数独问题，以及生成具有唯一解的数独问题的数据。
 
-数独问题被描述成一个大小为 (a\*a) \* (a\*a) 的方阵，方阵中某个位置的数值为 [-1, a\*a)
-之间的整数。其中，-1 代表此位置未填值。一个经典的数独问题需要满足如下约束：
+数独问题被描述成一个大小为 (a\*a) \* (a\*a) 的方阵，方阵中某个位置的数值为 [-1, a\*a) 之间的整数。其
+中，-1 代表此位置未填值。一个经典的数独问题需要满足如下约束：
 
 1. 方阵中每个位置需要填一个 [0, a\*a) 之间的整数
 2. 方阵中每一行没有重复的数字
 3. 方阵中每一列没有重复的数字
 4. 方阵可以分成 a*a 个大小为 a*a 的子方阵，子方阵中每一列没有重复的数字
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/sudoku
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/sudoku
   ```
 
-
 ## Usage
 
-* `SudokuSolver`: 解决一个数独迷题
+- `SudokuSolver`: 解决一个数独迷题
 
-* `SudokuCreator`: 创建具有唯一解的数独迷题的数据
+- `SudokuCreator`: 创建具有唯一解的数独迷题的数据
 
 ## Examples
 
 ### Solve a sudoku puzzle
 
-* 解决一个 16x16 的数独问题
+- 解决一个 16x16 的数独问题
 
   ```typescript
   import type { ISudokuBoard } from '@algorithm.ts/sudoku'
@@ -118,7 +116,7 @@
   const solution: ISudokuBoard = createSudokuBoard(16)
   solver.solve(puzzle, solution)  // => true
 
-  solution 
+  solution
   /** ===>
    * [
    *    2,  3, 14,  1,  8,  6,  0,  4, 11, 13,  9, 15,  5, 10, 12,  7,
@@ -141,10 +139,9 @@
    */
   ```
 
-
 ### Create a sudoku game data
 
-* 创建一个大小为 9x9 的数独游戏数据
+- 创建一个大小为 9x9 的数独游戏数据
 
   ```typescript
   import { SudokuCreator } from '@algorithm.ts/sudoku'
@@ -225,7 +222,7 @@
     }
     ```
 
-* 创建一个 16x16 的数独游戏数据
+- 创建一个 16x16 的数独游戏数据
 
   ```typescript
   import { SudokuCreator } from '@algorithm.ts/sudoku'
@@ -278,13 +275,11 @@
   }
   ```
 
-
 ## Related
 
-* [洗牌问题和 dlx 算法 | 光和尘][dlx]
-* [洗牌问题和 knuth-shuffle 算法 | 光和尘][knuth-shuffle]
-* [当你想来一把数独 | 光和尘](https://me.guanghechen.com/post/game/sudoku/)
-
+- [洗牌问题和 dlx 算法 | 光和尘][dlx]
+- [洗牌问题和 knuth-shuffle 算法 | 光和尘][knuth-shuffle]
+- [当你想来一把数独 | 光和尘](https://me.guanghechen.com/post/game/sudoku/)
 
 [homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/sudoku#readme
 [knuth-shuffle]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-knuth-shuffle

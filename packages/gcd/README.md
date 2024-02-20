@@ -49,33 +49,30 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **gcd** and **Extended Euclidean** algorithm.
 
-* gcd: The Greatest Common Divisor.
+- gcd: The Greatest Common Divisor.
 
-* Extended Euclidean algorithm: For solving the smallest
-  integer solution (|x| + |y| smallest) of the equation `Ax + By = gcd(x,y)`.
-
+- Extended Euclidean algorithm: For solving the smallest integer solution (|x| + |y| smallest) of
+  the equation `Ax + By = gcd(x,y)`.
 
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/gcd
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/gcd
   ```
 
-
 ## Usage
 
-* gcd
+- gcd
 
   ```typescript
   import { gcd, gcdBigint } from '@algorithm.ts/gcd'
@@ -84,7 +81,7 @@ A typescript implementation of the **gcd** and **Extended Euclidean** algorithm.
   gcdBigint(3n, 6n) // => 3n
   ```
 
-* Extended Euclidean algorithm
+- Extended Euclidean algorithm
 
   ```typescript
   import { euclidean, euclideanBigint } from '@algorithm.ts/gcd'
@@ -97,9 +94,8 @@ A typescript implementation of the **gcd** and **Extended Euclidean** algorithm.
 
 ## Related
 
+- [数论基础之模方程初步][gcd]
 
-* [数论基础之模方程初步][gcd]
-
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.1/packages/gcd#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.1/packages/gcd#readme
 [gcd]: https://me.guanghechen.com/post/math/number-theory/%E6%A8%A1%E6%96%B9%E7%A8%8B/basic/

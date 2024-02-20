@@ -49,30 +49,27 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **Linear Sieve** algorithm for prime numbers.
 
 If you are curious about this algorithm, you can visit [here][prime] for more details.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/prime
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/prime
   ```
 
-
 ## Usage
 
-* Get all prime numbers in the range $[2, N)$:
+- Get all prime numbers in the range $[2, N)$:
 
   ```typescript
   import { sievePrime } from '@algorithm.ts/prime'
@@ -82,25 +79,26 @@ If you are curious about this algorithm, you can visit [here][prime] for more de
   sievePrime(10)   // => [2, 3, 5, 7]
   ```
 
-* Get all prime numbers and totient function values in the range $[2, N)$:
+- Get all prime numbers and totient function values in the range $[2, N)$:
 
   ```typescript
   import { sieveTotient } from '@algorithm.ts/prime'
 
   const [totients, primes] = sieveTotient(10)
-  // => 
+  // =>
   //    totients: [0, 1, 1, 2, 2, 4, 2, 6, 4, 6]
   //    primes: [2, 3, 5, 7]
   ```
 
-
 ## Related
 
-* [Euler's totient function | Wikipedia](https://en.wikipedia.org/wiki/Euler%27s_totient_function)
-* [数论基础之筛法][sieve-prime]
-* [数论基础之筛法 | 光和尘][sieve-totient]
+- [Euler's totient function | Wikipedia](https://en.wikipedia.org/wiki/Euler%27s_totient_function)
+- [数论基础之筛法][sieve-prime]
+- [数论基础之筛法 | 光和尘][sieve-totient]
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/prime@3.1.1/packages/prime#readme
-[sieve-prime]: https://me.guanghechen.com/post/math/number-theory/sieve/#heading-%E7%BA%BF%E6%80%A7%E7%AD%9B
-[sieve-totient]: https://me.guanghechen.com/post/math/number-theory/sieve/#heading-%E7%BA%BF%E6%80%A7%E7%AD%9B-2
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/prime@3.1.1/packages/prime#readme
+[sieve-prime]:
+  https://me.guanghechen.com/post/math/number-theory/sieve/#heading-%E7%BA%BF%E6%80%A7%E7%AD%9B
+[sieve-totient]:
+  https://me.guanghechen.com/post/math/number-theory/sieve/#heading-%E7%BA%BF%E6%80%A7%E7%AD%9B-2

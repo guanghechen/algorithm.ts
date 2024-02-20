@@ -49,38 +49,37 @@
 </header>
 <br/>
 
-
 A typescript implementation to find the **lcs** (Longest Common Subsequence).
 
-The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki/Longest_common_subsequence_problem):
+The following definition is quoted from Wikipedia
+(https://en.wikipedia.org/wiki/Longest_common_subsequence_problem):
 
 > The longest common subsequence (LCS) problem is the problem of finding the longest subsequence
 > common to all sequences in a set of sequences (often just two sequences). It differs from the
 > longest common substring problem: unlike substrings, subsequences are not required to occupy
-> consecutive positions within the original sequences. The longest common subsequence problem is
-> a classic computer science problem, the basis of data comparison programs such as the diff
-> utility, and has applications in computational linguistics and bioinformatics. It is also
-> widely used by revision control systems such as Git for reconciling multiple changes made
-> to a revision-controlled collection of files.
+> consecutive positions within the original sequences. The longest common subsequence problem is a
+> classic computer science problem, the basis of data comparison programs such as the diff utility,
+> and has applications in computational linguistics and bioinformatics. It is also widely used by
+> revision control systems such as Git for reconciling multiple changes made to a
+> revision-controlled collection of files.
 
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/lcs
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/lcs
   ```
 
-
 ## Usage
 
-* Basic
+- Basic
 
   ```typescript
   import { findLengthOfLCS, findMinLexicographicalLCS } from '@algorithm.ts/lcs'
@@ -90,11 +89,11 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
   findLengthOfLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y]) // => 5
 
-  findMinLexicographicalLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y]) 
+  findMinLexicographicalLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y])
   // => [ [1, 0], [2, 1], [3, 2], [6, 3], [7, 5] ]
-  // 
+  //
   //    Here is why:
-  //      
+  //
   //          0 1 2 3 4 5 6 7 8 9
   //      s1: 1 2 3 4 6 6 7 8 6
   //      s2: 2 3 4 7 9 8 2 3 5 2
@@ -113,11 +112,10 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
 ## Related
 
+- [最长公共子序列（LCS） | 光和尘][lcs]
+- [Longest common subsequence problem | Wikipedia][wikipedia-lcs]
 
-* [最长公共子序列（LCS） | 光和尘][lcs]
-* [Longest common subsequence problem | Wikipedia][wikipedia-lcs]
-
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@3.1.1/packages/lcs#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@3.1.1/packages/lcs#readme
 [lcs]: https://me.guanghechen.com/post/algorithm/lcs/
 [wikipedia-lcs]: https://en.wikipedia.org/wiki/Longest_common_subsequence_problem

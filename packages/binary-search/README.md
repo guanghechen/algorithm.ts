@@ -49,64 +49,61 @@
 </header>
 <br/>
 
-
 Typescript implementations of the binary search related algorithm. Different from the traditional
 implementation which find the element in an array with the given condition, this implementation aims
 to find a number that satisfied the target condition in the given interval. The condition checker
 receive the number currently found as parameter and returns a number indicating the difference
 between the currently checking number and the target number. When the returned value is
 
-* `< 0`: It means that the target number is on the right side of the currently checking number.
-* `= 0`: It means that this currently checking number is a target number but it does not guarantee
+- `< 0`: It means that the target number is on the right side of the currently checking number.
+- `= 0`: It means that this currently checking number is a target number but it does not guarantee
   that there are no other numbers that meet the conditions.
-* `> 0`: It means that the target number is on the left side of the currently checking number.
+- `> 0`: It means that the target number is on the left side of the currently checking number.
 
 ---
 
 This package contains three binary search related algorithm implemented in Typescript:
 
-* binary-search (integer / bigint): Find a number in the given interval such that it satisfies the
+- binary-search (integer / bigint): Find a number in the given interval such that it satisfies the
   given condition.
-  
+
   - If there is no such a number, return `null`.
   - if there are multiple such numbers, return any one of them.
 
-* lower-bound (integer / bigint): Find the smallest number in the given interval such that it
+- lower-bound (integer / bigint): Find the smallest number in the given interval such that it
   satisfies the given condition.
 
   - If there is no such a number, return the first number that greater than the target number.
 
-* upper-bound (integer / bigint): Find the smallest number in the given interval such that it
-  is greater than the target number.
+- upper-bound (integer / bigint): Find the smallest number in the given interval such that it is
+  greater than the target number.
 
   - If there is no such a number, return the right boundary of the given interval + 1.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/binary-search
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/binary-search
   ```
 
-
 ## Usage
 
-* Basic
+- Basic
 
   ```typescript
   import { binarySearch, lowerBound, upperBound } from '@algorithm.ts/binary-search'
 
   // elements should be ordered.
   const elements: number[] = [2, 3, 7, 11, 19]
-  
+
   // Find the first index of elements  which are greater or equal than 8
   // elements[3] = 11 >= 8
   lowerBound(0, elements.length, x => elements[x] - 8) // => 3
@@ -132,7 +129,7 @@ This package contains three binary search related algorithm implemented in Types
   binarySearch(0, elements.length, x => elements[x] - 3) // => 1
   ```
 
-* Advance
+- Advance
 
   ```typescript
   import { lowerBound ] from '@algorithm.ts/binary-search'
@@ -152,7 +149,7 @@ This package contains three binary search related algorithm implemented in Types
   lowerBound(0, fruits.length, x => fruits[x].price - 11) // => 3
   ```
 
-* Bigint
+- Bigint
 
   ```typescript
   import { lowerBoundBigint } from '@algorithm.ts/binary-search'
@@ -160,8 +157,7 @@ This package contains three binary search related algorithm implemented in Types
   lowerBoundBigint(-500000000000n, 5000000000n, x => x - 1n) // => 1n
   ```
 
-
 ## Related
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@3.1.1/packages/binary-search#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@3.1.1/packages/binary-search#readme

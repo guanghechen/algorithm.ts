@@ -51,25 +51,23 @@
 
 Types and utils from solving graph problems.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/graph
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/graph
   ```
 
-
 ## Usage
 
-* `buildEdgeMap`
+- `buildEdgeMap`
 
   ```typescript {17}
   import { buildEdgeMap } from '@algorithm.ts/graph'
@@ -99,7 +97,7 @@ Types and utils from solving graph problems.
   const graph: IDigraph<IEdge> = { N, G, edges }
   ```
 
-* `getShortestPath`
+- `getShortestPath`
 
   ```typescript {17}
   import { getShortestPath } from '@algorithm.ts/graph'
@@ -109,16 +107,17 @@ Types and utils from solving graph problems.
    * @param source    The source node on the shortest path.
    * @param target    The target node on the shortest path.
    */
-  getShortestPath(bestFrom: number[], source: number, target: number): number[] // nodes 
+  getShortestPath(bestFrom: number[], source: number, target: number): number[] // nodes
   ```
-
 
 ## Related
 
-* [@algorithm.ts/bellman-ford][]
-* [@algorithm.ts/dijkstra][]
+- [@algorithm.ts/bellman-ford][]
+- [@algorithm.ts/dijkstra][]
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.1/packages/graph#readme
-[@algorithm.ts/bellman-ford]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1/packages/bellman-ford
-[@algorithm.ts/dijkstra]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@3.1.1/packages/dijkstra
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.1/packages/graph#readme
+[@algorithm.ts/bellman-ford]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1/packages/bellman-ford
+[@algorithm.ts/dijkstra]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@3.1.1/packages/dijkstra

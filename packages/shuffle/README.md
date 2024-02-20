@@ -49,33 +49,30 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **Knuth-Shuffle** algorithm.
 
-Knuth-Shuffle is a shuffle algorithm, which can complete the shuffle in $O(N)$
-time complexity on the basis of only using a constant level of extra space.
+Knuth-Shuffle is a shuffle algorithm, which can complete the shuffle in $O(N)$ time complexity on
+the basis of only using a constant level of extra space.
 
 If you are curious about this algorithm, you can visit [here][knuth-shuffle] for more details.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/shuffle
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/shuffle
   ```
 
-
 ## Usage
 
-* Shuffle nums.
+- Shuffle nums.
 
   ```typescript
   import { knuthShuffle } from '@algorithm.ts/shuffle'
@@ -83,7 +80,7 @@ If you are curious about this algorithm, you can visit [here][knuth-shuffle] for
   knuthShuffle([1, 2, 3, 4, 5])
   ```
 
-* Shuffle complex data nodes.
+- Shuffle complex data nodes.
 
   ```typescript
   import { knuthShuffle } from '@algorithm.ts/shuffle'
@@ -102,7 +99,7 @@ If you are curious about this algorithm, you can visit [here][knuth-shuffle] for
   knuthShuffle(nodes)
   ```
 
-* Shuffle the elements which indexes in the customized contiguous range.
+- Shuffle the elements which indexes in the customized contiguous range.
 
   ```typescript
   import { knuthShuffle } from '@algorithm.ts/shuffle'
@@ -113,8 +110,8 @@ If you are curious about this algorithm, you can visit [here][knuth-shuffle] for
 
 ## Related
 
-* [洗牌问题和 shuffle 算法][knuth-shuffle]
+- [洗牌问题和 shuffle 算法][knuth-shuffle]
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/shuffle@3.1.1/packages/shuffle#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/shuffle@3.1.1/packages/shuffle#readme
 [knuth-shuffle]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-knuth-shuffle

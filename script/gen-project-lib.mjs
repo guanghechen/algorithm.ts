@@ -14,7 +14,8 @@ const reporter = new Reporter(chalk, {
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
 const workspaceRoot = path.dirname(__dirname)
 
-const projectNames = fs.readdirSync(path.join(workspaceRoot, 'packages'))
+const projectNames = fs
+  .readdirSync(path.join(workspaceRoot, 'packages'))
   .filter(d => fs.existsSync(path.join(workspaceRoot, 'packages', d, 'package.json')))
 
 /** @type {Promise<import('./nx/project.mjs').IGenNxProjectJsonParams>[]} */

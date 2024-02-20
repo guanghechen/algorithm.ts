@@ -49,11 +49,11 @@
 </header>
 <br/>
 
-
 A typescript implementation of the algorithm to find the maximum [matching][wikipedia-matching] of
 the [bipartite graph][wikipedia-bipartite-graph].
 
-The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki/Matching_(graph_theory)):
+The following definition is quoted from Wikipedia
+(https://en.wikipedia.org/wiki/Matching_(graph_theory)):
 
 > A maximal matching is a matching $M$ of a graph $G$ that is not a subset of any other matching. A
 > matching $M$ of a graph $G$ is maximal if every edge in $G$ has a non-empty intersection with at
@@ -65,26 +65,23 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 > is maximal, but not every maximal matching is a maximum matching. The following figure shows
 > examples of maximum matchings in the same three graphs.
 
-
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/bipartite-matching
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/bipartite-matching
   ```
 
-
 ## Usage
 
-* Simple
+- Simple
 
   ```typescript
   import type { IBipartiteMatcher } from '@algorithm.ts/bipartite-matching'
@@ -103,10 +100,9 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   matching.maxMatch() // => 2
   ```
 
-
 ## Example
 
-* A solution for leetcode "Maximum Students Taking Exam"
+- A solution for leetcode "Maximum Students Taking Exam"
   (https://leetcode.com/problems/maximum-students-taking-exam/):
 
   ```typescript
@@ -167,16 +163,15 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   }
   ```
 
-
 ## Related
 
-* 《算法竞赛入门经典（第2版）》（刘汝佳）： P347-P348 二分图最大匹配
-* [二分图 | 光和尘][bipartite-graph]
-* [Bipartite graph | Wikipedia][wikipedia-bipartite-graph]
-* [Matching (graph theory) | Wikipedia][wikipedia-matching]
+- 《算法竞赛入门经典（第 2 版）》（刘汝佳）： P347-P348 二分图最大匹配
+- [二分图 | 光和尘][bipartite-graph]
+- [Bipartite graph | Wikipedia][wikipedia-bipartite-graph]
+- [Matching (graph theory) | Wikipedia][wikipedia-matching]
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bipartite-matching@3.1.1/packages/bipartite-matching#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bipartite-matching@3.1.1/packages/bipartite-matching#readme
 [wikipedia-bipartite-graph]: https://en.wikipedia.org/wiki/Bipartite_graph
 [wikipedia-matching]: https://en.wikipedia.org/wiki/Matching_(graph_theory)
 [bipartite-graph]: https://me.guanghechen.com/post/algorithm/graph/bipartite-graph/

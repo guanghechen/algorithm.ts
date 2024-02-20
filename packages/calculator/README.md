@@ -49,32 +49,28 @@
 </header>
 <br/>
 
-
 A tiny calculator for number arithmetics such as `+-*/()`.
-
 
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/calculator
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/calculator
   ```
 
-
 ## Usage
-
 
 ```typescript
 // Perform integer arithmetics.
 import calculator from 'algorithm.ts/calculator'
-// or 
+// or
 import { calculator } from 'algorithm.ts/calculator'
 
 // Perform decimal arithmetics.
@@ -84,10 +80,9 @@ import { decimalCalculator } from 'algorithm.ts/calculator'
 import { bigintCalculator } from 'algorithm.ts/calculator'
 ```
 
-
 ## Examples
 
-* integer arithmetics
+- integer arithmetics
 
   ```typescript
   import calculator from '@algorithm.ts/calculator'
@@ -98,7 +93,7 @@ import { bigintCalculator } from 'algorithm.ts/calculator'
   calculator.calculate('(1+(4+5+2)-3)+(6+8)')  // => 23
   ```
 
-* decimal arithmetics
+- decimal arithmetics
 
   ```typescript
   import { decimalCalculator as calculator } from '@algorithm.ts/calculator'
@@ -109,7 +104,7 @@ import { bigintCalculator } from 'algorithm.ts/calculator'
   calculator.calculate('(1+(4+5+2)-3)+(6+8)')  // => 23
   ```
 
-* bigint arithmetics
+- bigint arithmetics
 
   ```typescript
   import { bigintCalculator as calculator } from '@algorithm.ts/calculator'
@@ -118,7 +113,7 @@ import { bigintCalculator } from 'algorithm.ts/calculator'
   // => 74074074074074074073849599999259259259259259259261504n
   ```
 
-* Illegal inputs
+- Illegal inputs
 
   ```typescript
   import calculator from '@algorithm.ts/calculator'
@@ -129,7 +124,7 @@ import { bigintCalculator } from 'algorithm.ts/calculator'
   calculator.calculate('1+(4+5+2')   // => SyntaxError
   ```
 
-* A solution of https://leetcode.com/problems/basic-calculator/
+- A solution of https://leetcode.com/problems/basic-calculator/
 
   ```typescript
   import calculator from '@algorithm.ts/calculator'
@@ -138,7 +133,7 @@ import { bigintCalculator } from 'algorithm.ts/calculator'
   }
   ```
 
-* A solution of https://leetcode.com/problems/basic-calculator-ii/
+- A solution of https://leetcode.com/problems/basic-calculator-ii/
 
   ```typescript
   import calculator from '@algorithm.ts/calculator'
@@ -149,8 +144,7 @@ import { bigintCalculator } from 'algorithm.ts/calculator'
 
 ## Related
 
-* [编译原理-语法制导翻译实现计算器][calculate]
-
+- [编译原理-语法制导翻译实现计算器][calculate]
 
 [homepage]: https://github.com/guanghechen/algorithm.ts/tree/release-3.x.x/packages/calculate#readme
 [calculate]: https://me.guanghechen.com/post/fundamentals-of-compiling/exercise/

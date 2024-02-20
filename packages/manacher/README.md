@@ -49,7 +49,6 @@
 </header>
 <br/>
 
-
 A typescript implementation of the **manacher** algorithm.
 
 Manacher is a linear time algorithm for listing all the palindromes that appear at the start of a
@@ -57,25 +56,23 @@ given string.
 
 If you are curious about this algorithm, you can visit [here][manacher] for more details.
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/manacher
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/manacher
   ```
 
-
 ## Usage
 
-* A solution of https://leetcode.com/problems/palindrome-partitioning-ii/
+- A solution of https://leetcode.com/problems/palindrome-partitioning-ii/
 
   ```typescript
   import manacher from '@algorithm.ts/manacher'
@@ -100,11 +97,10 @@ If you are curious about this algorithm, you can visit [here][manacher] for more
   }
   ```
 
-
 ## Related
 
-* [最长回文子串 Manacher 算法][manacher]
+- [最长回文子串 Manacher 算法][manacher]
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@3.1.1/packages/manacher#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@3.1.1/packages/manacher#readme
 [manacher]: https://me.guanghechen.com/post/algorithm/string/manacher/

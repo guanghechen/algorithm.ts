@@ -4,7 +4,6 @@
 
 No breaking changes.
 
-
 ### @algorithm.ts/bellman-ford
 
 1.  Constructor: Only the `INF` props reserved, the `from`, `dist`, `inq`, `inqTimes` are not
@@ -42,7 +41,6 @@ No breaking changes.
         }
     ```
 
-
 ### @algorithm.ts/binary-index-tree
 
 1. `createBinaryIndexTree1` is removed, use `SingleUpdateIntervalQuery` instead.
@@ -50,15 +48,15 @@ No breaking changes.
 3. No builtin modulo binary index tree, perform the modulus operations through customized `add`
    method:
 
-    ```typescript
-    import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
-    const MOD = 1e9 + 7
-    const bit = SingleUpdateIntervalQuery<number>({
-      operator: {
-        ZERO: 0,
-        add: (x, y) => ((x + y) % MOD + MOD) % MOD,
-      },
-    })
+   ```typescript
+   import { SingleUpdateIntervalQuery } from '@algorithm.ts/binary-index-tree'
+   const MOD = 1e9 + 7
+   const bit = SingleUpdateIntervalQuery<number>({
+     operator: {
+       ZERO: 0,
+       add: (x, y) => ((x + y) % MOD + MOD) % MOD,
+     },
+   })
    ```
 
 ### @algorithm.ts/bipartite-graph-matching
@@ -66,25 +64,21 @@ No breaking changes.
 1. Renamed to `@algorithm.ts/bipartite-matching`.
 2. Use `new HungarianDfs()` (or `new HungarianBfs()`) instead of `createBipartiteGraphMatching`
 
-
 ### @algorithm.ts/calculate
 
 1. Renamed to `@algorithm.ts/calculator`.
 2. Use `calculator.calculate(<expression>)` instead of `calculate(<expression>)`.
-
 
 ## @algorithm.ts/circular-queue
 
 This package is removed, use `@algorithm.ts/queue` instead.
 
 1. Use `.size` instead of `.size()`.
-3. `.end()` is renamed to `.back()`.
-4. `.get()` is removed.
-5. `.set()` is removed.
-6. `.isValidIndex()` is removed.
-7. `.isEmpty()` is removed, use `.size > 0` instead.
-
-
+2. `.end()` is renamed to `.back()`.
+3. `.get()` is removed.
+4. `.set()` is removed.
+5. `.isValidIndex()` is removed.
+6. `.isEmpty()` is removed, use `.size > 0` instead.
 
 ### @algorithm.ts/dijkstra
 
@@ -121,34 +115,32 @@ Removed, use `@algorithm.ts/dijkstra` instead.
 import { dijkstraBigint } from '@algorithm.ts/dijkstra'
 ```
 
-
 ### @algorithm.ts/dinic
 
-1. Use `new Dinic()` instead of `createDinic()` 
+1. Use `new Dinic()` instead of `createDinic()`
 2. `.maxFlow()` is renamed to `.maxflow()`
-3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, 
-    you can try to extend the `Dinic` and export a method such as `getSnapshot()`.
+3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, you
+   can try to extend the `Dinic` and export a method such as `getSnapshot()`.
 
-    ```typescript
-    class CustomDinic extends Dinic {
-      public getSnapshot() {
-        return {
-          N: this._N,
-          source: this._source,
-          sink: this._sink,
-          G: this.G,
-          edges: this._edges,
-          edgesTot: this._edgesTot,
-          dist: this._dist
-        }
-      }
-    }
-    ```
+   ```typescript
+   class CustomDinic extends Dinic {
+     public getSnapshot() {
+       return {
+         N: this._N,
+         source: this._source,
+         sink: this._sink,
+         G: this.G,
+         edges: this._edges,
+         edgesTot: this._edgesTot,
+         dist: this._dist
+       }
+     }
+   }
+   ```
 
 ### @algorithm.ts/dlx
 
-1. Use `new DancingLinkX({ MAX_N: <number> })` instead of `createDLX(<number>)` 
-
+1. Use `new DancingLinkX({ MAX_N: <number> })` instead of `createDLX(<number>)`
 
 ### @algorithm.ts/findset
 
@@ -158,21 +150,17 @@ import { dijkstraBigint } from '@algorithm.ts/dijkstra'
 4. `.size(<number>)` is renamed to `.count(<number>)`.
 5. `.resetNode(<number>)` is removed.
 
-
 ### @algorithm.ts/gcd
 
 No breaking changes.
-
 
 ### @algorithm.ts/gomoku
 
 No breaking changes.
 
-
 ### @algorithm.ts/graph
 
 1. The graph related types is moved to `@algorithm.ts/types`.
-
 
 ### @algorithm.ts/huffman
 
@@ -180,40 +168,36 @@ No breaking changes.
 2. `buildHuffmanTree` is renamed to `fromEncodingTable`.
 3. `createHuffmanTree` is renamed to `fromText`.
 
-
 ### @algorithm.ts/isap
 
-1. Use `new Isap()` instead of `createIsap()` 
+1. Use `new Isap()` instead of `createIsap()`
 2. `.maxFlow()` is renamed to `.maxflow()`
-3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, 
-    you can try to extend the `Isap` and export a method such as `getSnapshot()`.
+3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, you
+   can try to extend the `Isap` and export a method such as `getSnapshot()`.
 
-    ```typescript
-    class CustomIsap extends Isap {
-      public getSnapshot() {
-        return {
-          N: this._N,
-          source: this._source,
-          sink: this._sink,
-          G: this.G,
-          edges: this._edges,
-          edgesTot: this._edgesTot,
-          dist: this._dist
-        }
-      }
-    }
-    ```
-
+   ```typescript
+   class CustomIsap extends Isap {
+     public getSnapshot() {
+       return {
+         N: this._N,
+         source: this._source,
+         sink: this._sink,
+         G: this.G,
+         edges: this._edges,
+         edgesTot: this._edgesTot,
+         dist: this._dist
+       }
+     }
+   }
+   ```
 
 ### @algorithm.ts/knuth-shuffle
 
 1. Renamed to `@algorithm.ts/shuffle`.
 
-
 ### @algorithm.ts/lcs
 
 No breaking changes.
-
 
 ### @algorithm.ts/lower-bound
 
@@ -223,35 +207,32 @@ This package is removed, use `@algorithm.ts/binary-search` instead.
 import { lowerBound } from '@algorithm.ts/binary-search'
 ```
 
-
 ### @algorithm.ts/manacher
 
 1. Return `number[]` instead of `Uint32Array`.
 
-
 ### @algorithm.ts/mcmf
 
-1. Use `new Mcmf()` instead of `createMcmf()` 
+1. Use `new Mcmf()` instead of `createMcmf()`
 2. `.minCostMaxFlow()` return an object instead of tuple.
-3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, 
-    you can try to extend the `Mcmf` and export a method such as `getSnapshot()`.
+3. `.solve()` is removed, if you want to access the residual network after run the `.maxflow()`, you
+   can try to extend the `Mcmf` and export a method such as `getSnapshot()`.
 
-    ```typescript
-    class CustomMcmf extends Mcmf {
-      public getSnapshot() {
-        return {
-          N: this._N,
-          source: this._source,
-          sink: this._sink,
-          G: this.G,
-          edges: this._edges,
-          edgesTot: this._edgesTot,
-          dist: this._dist
-        }
-      }
-    }
-    ```
-
+   ```typescript
+   class CustomMcmf extends Mcmf {
+     public getSnapshot() {
+       return {
+         N: this._N,
+         source: this._source,
+         sink: this._sink,
+         G: this.G,
+         edges: this._edges,
+         edgesTot: this._edgesTot,
+         dist: this._dist
+       }
+     }
+   }
+   ```
 
 ## @algorithm.ts/priority-queue
 
@@ -264,26 +245,21 @@ This package is removed, use `@algorithm.ts/queue` instead.
 5. `.isEmpty()` is removed, use `.size > 0` instead.
 6. `.collect()` is removed, use `Array.from(Q)` instead.
 
-
 ### @algorithm.ts/roman
 
 No breaking changes.
-
 
 ### @algorithm.ts/sieve-prime
 
 1. Renamed to `@algorithm.ts/prime`.
 
-
 ### @algorithm.ts/sieve-totient
 
 1. This package is removed, use `@algorithm.ts/prime` instead.
 
-    ```typescript
-    import { sieveTotient } from '@algorithm.ts/prime'
-    ```
-
-
+   ```typescript
+   import { sieveTotient } from '@algorithm.ts/prime'
+   ```
 
 ### @algorithm.ts/sliding-window
 
@@ -291,9 +267,9 @@ No breaking changes.
 2. `max()` is removed, use `min()` instead. The sliding-window is maintain the minimum value index
    now (the previous version will maintain the maximum value in the window).
 3. Rename `moveForward` to `forwardRightBoundary`.
-4. Support to move the left boundary of the sliding-window through the new method `forwardLeftBoundary`.
-5. `init()` is renamed to `reset()`, and the parameters is changed to object style. 
-
+4. Support to move the left boundary of the sliding-window through the new method
+   `forwardLeftBoundary`.
+5. `init()` is renamed to `reset()`, and the parameters is changed to object style.
 
 ### @algorithm.ts/sudoku
 
@@ -302,37 +278,34 @@ No breaking changes.
 
    Once you still want to get a two-dimension array, here is an example shows that.
 
-    ```typescript
-    import { toMatrixStyleBoardData } from '@algorithm.ts/sudoku'
+   ```typescript
+   import { toMatrixStyleBoardData } from '@algorithm.ts/sudoku'
 
-    // Convert the two-dimensional array to one-dimensional array.
-    const puzzle = oldStylePuzzle.flat()
+   // Convert the two-dimensional array to one-dimensional array.
+   const puzzle = oldStylePuzzle.flat()
 
-    solver.solve(puzzle, solution)
+   solver.solve(puzzle, solution)
 
-    // Convert the one-dimensional array to two-dimensional array.
-    const oldStyleSolution = toMatrixStyleBoardData(solution)
-    ```
+   // Convert the one-dimensional array to two-dimensional array.
+   const oldStyleSolution = toMatrixStyleBoardData(solution)
+   ```
 
 2. `createSudokuBoard()` is renamed to `createSudokuBoardData()`.
 3. `fillSudokuBoard()` is renamed to `fillSudokuBoardData()`.
 4. `copySudokuBoard()` is renamed to `copySudokuBoardData()`.
 5. `checkSudokuSolution` is renamed to `checkSudokuSolution`.
 
-
 ### @algorithm.ts/trie
 
-1. `.insert()` is renamed to `.set()`. 
+1. `.insert()` is renamed to `.set()`.
 2. `.math()` is renamed to `.get()`.
 3. `.hasPrefixMatched` is renamed to `.hasPrefix()`.
 4. `.init()` is removed, use `.clear()` to initialize trie.
-
-
 
 ### @algorithm.ts/upper-bound
 
 1. This package is removed, use `@algorithm.ts/binary-search` instead.
 
-    ```typescript
-    import { upperBound } from '@algorithm.ts/binary-search'
-    ```
+   ```typescript
+   import { upperBound } from '@algorithm.ts/binary-search'
+   ```

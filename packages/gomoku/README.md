@@ -49,16 +49,15 @@
 </header>
 <br/>
 
-
 ## Install
 
-* npm
+- npm
 
   ```bash
   npm install --save @algorithm.ts/gomoku
   ```
 
-* yarn
+- yarn
 
   ```bash
   yarn add @algorithm.ts/gomoku
@@ -66,7 +65,7 @@
 
 ## Usage
 
-* Basic
+- Basic
 
   ```typescript
   import { Solution } from '@algorithm.ts/gomoku'
@@ -98,8 +97,7 @@
   const [r1, c1] = solution.minimaxSearch(1)
   ```
 
-
 ## Related
 
-
-[homepage]: https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@3.1.1/packages/gomoku#readme
+[homepage]:
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@3.1.1/packages/gomoku#readme
