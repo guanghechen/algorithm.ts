@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@4.0.0-alpha.0",
     "directory": "packages/huffman"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@3.1.1/packages/huffman#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@4.0.0-alpha.0/packages/huffman#readme",
   "keywords": [
     "algorithm",
     "huffman",

@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/prime@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/prime@4.0.0-alpha.0",
     "directory": "packages/prime"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/prime@3.1.1/packages/prime#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/prime@4.0.0-alpha.0/packages/prime#readme",
   "keywords": [
     "algorithm",
     "prime",

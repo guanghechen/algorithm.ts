@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@4.0.0-alpha.0",
     "directory": "packages/manacher"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@3.1.1/packages/manacher#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@4.0.0-alpha.0/packages/manacher#readme",
   "keywords": [
     "algorithm",
     "manacher",

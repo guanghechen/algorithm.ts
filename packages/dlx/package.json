@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.0-alpha.0",
     "directory": "packages/dlx"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@3.1.1/packages/dlx#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.0-alpha.0/packages/dlx#readme",
   "keywords": [
     "algorithm",
     "Dancing link",

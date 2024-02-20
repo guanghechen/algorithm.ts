@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@4.0.0-alpha.0",
     "directory": "packages/types"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1/packages/types#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@4.0.0-alpha.0/packages/types#readme",
   "type": "module",
   "exports": {
     "types": "./lib/types/index.d.ts",

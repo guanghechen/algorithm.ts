@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.0-alpha.0",
     "directory": "packages/dijkstra"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@3.1.1/packages/dijkstra#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.0-alpha.0/packages/dijkstra#readme",
   "keywords": [
     "algorithm",
     "dijkstra",

@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/mcmf@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/mcmf@4.0.0-alpha.0",
     "directory": "packages/mcmf"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/mcmf@3.1.1/packages/mcmf#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/mcmf@4.0.0-alpha.0/packages/mcmf#readme",
   "keywords": [
     "algorithm",
     "MCMF",

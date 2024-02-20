@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@4.0.0-alpha.0",
     "directory": "packages/gcd"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@3.1.1/packages/gcd#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@4.0.0-alpha.0/packages/gcd#readme",
   "keywords": [
     "algorithm",
     "gcd",

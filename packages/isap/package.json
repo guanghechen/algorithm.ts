@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.0-alpha.0",
     "directory": "packages/isap"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@3.1.1/packages/isap#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.0-alpha.0/packages/isap#readme",
   "keywords": [
     "algorithm",
     "ISAP",

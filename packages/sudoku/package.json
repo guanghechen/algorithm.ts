@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@4.0.0-alpha.0",
     "directory": "packages/sudoku"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@3.1.1/packages/sudoku#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@4.0.0-alpha.0/packages/sudoku#readme",
   "keywords": [
     "sudoku",
     "sudoku creator",

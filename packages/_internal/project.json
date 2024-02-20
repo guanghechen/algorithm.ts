@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "internal",
+  "name": "_internal",
   "sourceRoot": "packages/_internal/src",
   "projectType": "library",
   "tags": [],

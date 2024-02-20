@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@4.0.0-alpha.0",
     "directory": "packages/calculator"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@3.1.1/packages/calculator#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@4.0.0-alpha.0/packages/calculator#readme",
   "keywords": [
     "calculator",
     "calculator",

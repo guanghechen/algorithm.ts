@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.0-alpha.0",
     "directory": "packages/graph"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.1/packages/graph#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.0-alpha.0/packages/graph#readme",
   "keywords": [
     "algorithm",
     "graph algorithm utils"

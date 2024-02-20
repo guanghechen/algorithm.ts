@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.0-alpha.0",
     "directory": "packages/binary-search"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@3.1.1/packages/binary-search#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.0-alpha.0/packages/binary-search#readme",
   "keywords": [
     "algorithm",
     "lower bound"

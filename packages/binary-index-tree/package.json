@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@3.1.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@4.0.0-alpha.0",
     "directory": "packages/binary-index-tree"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@3.1.1/packages/binary-index-tree#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-index-tree@4.0.0-alpha.0/packages/binary-index-tree#readme",
   "keywords": [
     "data-structure",
     "bit",
