@@ -1,13 +1,13 @@
 import { compress, decode, decompress, encode, fromEncodingTable } from '../src'
 
 describe('basic', function () {
-  test('empty', () => textWrapper(''))
-  test('Hello, world!', () => textWrapper('Hello, world!'))
-  test('Hello, world!1', () => textWrapper('Hello, world!1'))
-  test('Hello, world!11', () => textWrapper('Hello, world!11'))
-  test('Hello, world!111', () => textWrapper('Hello, world!111'))
+  it('empty', () => textWrapper(''))
+  it('Hello, world!', () => textWrapper('Hello, world!'))
+  it('Hello, world!1', () => textWrapper('Hello, world!1'))
+  it('Hello, world!11', () => textWrapper('Hello, world!11'))
+  it('Hello, world!111', () => textWrapper('Hello, world!111'))
 
-  test('中文', () => textWrapper('中文'))
+  it('中文', () => textWrapper('中文'))
 
   function textWrapper(text: string): void {
     const encodeResult = encode(text)
@@ -30,7 +30,7 @@ describe('basic', function () {
   }
 })
 
-test('unexpected', function () {
+it('unexpected', function () {
   const { encodedData, encodingTable } = encode('Hello, world!')
   const { H, ...encodingTable2 } = encodingTable
   const tree2 = fromEncodingTable(encodingTable2)

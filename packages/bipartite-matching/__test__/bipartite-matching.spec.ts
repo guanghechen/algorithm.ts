@@ -18,7 +18,7 @@ function testMatching(matching: IBipartiteMatching, expectCount: number): void {
 
 function testBipartiteMatching(createMatcher: () => IBipartiteMatcher): void {
   describe('basic', function () {
-    test('exceptional', function () {
+    it('exceptional', function () {
       const matcher = createMatcher()
       expect(() => matcher.init(0)).toThrow(
         /The number of nodes \(N\) is expected to be a positive integer, but got/,
@@ -28,7 +28,7 @@ function testBipartiteMatching(createMatcher: () => IBipartiteMatcher): void {
       )
     })
 
-    test('basic', function () {
+    it('basic', function () {
       const matcher = createMatcher()
       matcher.init(4)
       expect(matcher.isPerfectMatch()).toEqual(false)

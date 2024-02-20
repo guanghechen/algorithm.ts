@@ -1,6 +1,6 @@
 import { gcd, gcdBigint } from '../src'
 
-test('gcd', function () {
+it('gcd', function () {
   expect(gcd(3, 6)).toEqual(3)
   expect(gcd(6, 3)).toEqual(3)
   expect(gcd(9, 6)).toEqual(3)
@@ -20,7 +20,7 @@ test('gcd', function () {
   }
 })
 
-test('gcdBigint', function () {
+it('gcdBigint', function () {
   for (let i = 1n; i < 50n; ++i) {
     expect(gcdBigint(i, 0n)).toBe(i)
     expect(gcdBigint(0n, i)).toBe(i)

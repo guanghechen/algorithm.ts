@@ -5,7 +5,7 @@ import { solveSudoku } from './sudoku9x9'
 
 describe('dlx', function () {
   describe('sudoku9x9', function () {
-    test('unique solution', function () {
+    it('unique solution', function () {
       const solution: number[][] = new Array(9)
       for (let r = 0; r < 9; ++r) solution[r] = new Array(9)
 
@@ -15,7 +15,7 @@ describe('dlx', function () {
       }
     })
 
-    test('multiple solution', function () {
+    it('multiple solution', function () {
       const solution: number[][] = new Array(9)
       for (let r = 0; r < 9; ++r) solution[r] = new Array(9)
 
@@ -25,7 +25,7 @@ describe('dlx', function () {
       }
     })
 
-    test('no solution', function () {
+    it('no solution', function () {
       const solution: number[][] = new Array(9)
       for (let r = 0; r < 9; ++r) solution[r] = new Array(9)
 
@@ -37,7 +37,7 @@ describe('dlx', function () {
     })
   })
 
-  test('destroy', function () {
+  it('destroy', function () {
     const dlx = new DancingLinkX({ MAX_N: 10 })
     dlx.init(10)
     dlx.destroy()

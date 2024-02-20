@@ -83,7 +83,7 @@ describe('15x15', () => {
     tester.init([])
   })
 
-  test('overview', async function () {
+  it('overview', async function () {
     const filepaths = fs
       .readdirSync(locateFixtures('15x15'))
       .filter(filename => /pieces\.\d+?\.json$/.test(filename))

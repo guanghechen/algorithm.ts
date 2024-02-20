@@ -8,7 +8,7 @@ import {
 } from '../src'
 
 describe('toMatrixStyleBoardData', () => {
-  test('3x3', function () {
+  it('3x3', function () {
     const size = new SudokuSize(3)
     // prettier-ignore
     const board: ISudokuBoardData = [
@@ -39,7 +39,7 @@ describe('toMatrixStyleBoardData', () => {
 })
 
 describe('createMatrixCodeMap', () => {
-  test('3x3', function () {
+  it('3x3', function () {
     const size = new SudokuSize(3)
     const matCodeMap = createMatrixCodeMap(size)
 
@@ -57,7 +57,7 @@ describe('createMatrixCodeMap', () => {
     ])
   })
 
-  test('4x4', function () {
+  it('4x4', function () {
     const size = new SudokuSize(4)
     const matCodeMap = createMatrixCodeMap(size)
 
@@ -84,7 +84,7 @@ describe('createMatrixCodeMap', () => {
 })
 
 describe('createMatrixCoordinateMap', () => {
-  test('3x3', function () {
+  it('3x3', function () {
     const size = new SudokuSize(3)
     const matCoordinateMap = createMatrixCoordinateMap(size)
 
@@ -102,7 +102,7 @@ describe('createMatrixCoordinateMap', () => {
     ])
   })
 
-  test('4x4', function () {
+  it('4x4', function () {
     const size = new SudokuSize(4)
     const matCoordinateMap = createMatrixCoordinateMap(size)
 
@@ -129,7 +129,7 @@ describe('createMatrixCoordinateMap', () => {
 })
 
 describe('verifySolution', () => {
-  test('3x3', function () {
+  it('3x3', function () {
     const size = new SudokuSize(3)
     // prettier-ignore
     const solution = [
@@ -157,7 +157,7 @@ describe('verifySolution', () => {
     expect(verifySolution(solution, size)).toEqual(true)
   })
 
-  test('3x3 -- not a solution (row)', function () {
+  it('3x3 -- not a solution (row)', function () {
     const size = new SudokuSize(3)
 
     // prettier-ignore
@@ -175,7 +175,7 @@ describe('verifySolution', () => {
     expect(verifySolution(solution, size)).toEqual(false)
   })
 
-  test('3x3 -- not a solution (column)', function () {
+  it('3x3 -- not a solution (column)', function () {
     const size = new SudokuSize(3)
 
     // prettier-ignore
@@ -193,7 +193,7 @@ describe('verifySolution', () => {
     expect(verifySolution(solution, size)).toEqual(false)
   })
 
-  test('3x3 -- not a solution (matrix)', function () {
+  it('3x3 -- not a solution (matrix)', function () {
     const size = new SudokuSize(3)
 
     // prettier-ignore

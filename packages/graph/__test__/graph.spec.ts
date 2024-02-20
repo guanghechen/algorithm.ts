@@ -23,7 +23,7 @@ const graph: DeepReadonly<IDigraph<IDigraphEdge & { from: Nodes; cost: number }>
 }
 
 describe('util', function () {
-  test('extractAdjacencyList', function () {
+  it('extractAdjacencyList', function () {
     const adjList: number[][] = extractAdjacencyList(graph)
     for (let o = 0; o < graph.N; ++o) {
       expect(graph.G[o].length).toEqual(adjList[o].length)
@@ -34,7 +34,7 @@ describe('util', function () {
     }
   })
 
-  test('getShortestPath', function () {
+  it('getShortestPath', function () {
     const bestFrom: number[] = [-1, 0, 1, 2]
     expect(getShortestPath(bestFrom, 0, 0)).toEqual([0])
     expect(getShortestPath(bestFrom, 0, 1)).toEqual([0, 1])
@@ -42,7 +42,7 @@ describe('util', function () {
     expect(getShortestPath(bestFrom, 0, 3)).toEqual([0, 1, 2, 3])
   })
 
-  test('buildEdgeMap', function () {
+  it('buildEdgeMap', function () {
     const G: number[][] = buildEdgeMap(graph.N, graph.edges)
     expect(G).toEqual(graph.G)
   })

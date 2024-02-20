@@ -60,11 +60,11 @@ export function addSortTest<T = unknown>(caseGroup: ISortTestCaseGroup<T>): void
           }
         })
 
-        test('run', async () => {
+        it('run', async () => {
           runs.forEach(run => run())
         })
 
-        test('check', async () => {
+        it('check', async () => {
           checks.forEach(check => check())
         })
       })

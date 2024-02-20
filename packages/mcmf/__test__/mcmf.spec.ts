@@ -2,7 +2,7 @@ import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data
 import { Mcmf } from '../src'
 
 describe('basic', function () {
-  test('simple', function () {
+  it('simple', function () {
     const mcmf = new Mcmf()
     mcmf.init(0, 1, 4)
     mcmf.addEdge(0, 2, 1, 10)

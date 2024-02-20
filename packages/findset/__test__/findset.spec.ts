@@ -13,7 +13,7 @@ describe('HeuristicFindset', () => {
   const findset = new HeuristicFindset()
   testFindset(findset)
 
-  test('count', function () {
+  it('count', function () {
     findset.init(MAX_N)
     for (let i = 0; i < 100; ++i) {
       const x = randomInt(MAX_N - 1) + 1
@@ -33,7 +33,7 @@ describe('EnhancedFindset', () => {
   const findset = new EnhancedFindset()
   testFindset(findset)
 
-  test('merge', function () {
+  it('merge', function () {
     findset.init(MAX_N)
     findset.merge(2, 3)
     expect(findset.count(2)).toEqual(2)
@@ -53,7 +53,7 @@ describe('EnhancedFindset', () => {
     expect(Array.from(findset.getSetOf(2)!).sort()).toEqual([1, 2, 3])
   })
 
-  test('count', function () {
+  it('count', function () {
     findset.init(MAX_N)
     for (let i = 0; i < 100; ++i) {
       const x = randomInt(MAX_N - 1) + 1
@@ -70,7 +70,7 @@ describe('EnhancedFindset', () => {
 })
 
 function testFindset(findset: IFindset): void {
-  test('basic', function () {
+  it('basic', function () {
     findset.init(MAX_N)
     for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toEqual(i)
 
@@ -93,7 +93,7 @@ function testFindset(findset: IFindset): void {
     for (let i = 4; i <= MAX_N; ++i) expect(findset.root(i)).toEqual(i)
   })
 
-  test('out of boundary', function () {
+  it('out of boundary', function () {
     findset.init(MAX_N)
 
     for (let i = 1; i <= MAX_N; ++i) expect(findset.root(i)).toEqual(i)

@@ -8,7 +8,7 @@ const testData = [
 ]
 
 describe('unsafe-trie', function () {
-  test('basic', function () {
+  it('basic', function () {
     const trie: ITrie<string, number> = new UnsafeTrie<string, number>({
       SIGMA_SIZE: 62,
       idx: alphaNumericIdx,
@@ -52,7 +52,7 @@ describe('trie', function () {
 
     const set = new Set<string>()
     for (const { title, data } of testData) {
-      test(`${title}`, async function () {
+      it(`${title}`, async function () {
         const inputs = await data
         for (let caseNo = 0; caseNo < inputs.length; ++caseNo) {
           let failedCount = 0
@@ -89,7 +89,7 @@ describe('trie', function () {
       mergeNodeValue: (x, y) => x + y,
     })
 
-    test('set / delete / get / has', function () {
+    it('set / delete / get / has', function () {
       trie.clear()
 
       expect(trie.size).toEqual(0)
@@ -198,7 +198,7 @@ describe('trie', function () {
       expect(trie.has('apple')).toEqual(false)
     })
 
-    test('hasPrefix', function () {
+    it('hasPrefix', function () {
       trie.clear()
       expect(trie.hasPrefix('')).toEqual(false)
 
@@ -229,7 +229,7 @@ describe('trie', function () {
       expect(trie.hasPrefix('apple', -1, 6)).toEqual(true)
     })
 
-    test('findAll', function () {
+    it('findAll', function () {
       trie.clear()
       trie.set('ban', 2)
       trie.set('banana', 1)
@@ -252,7 +252,7 @@ describe('trie', function () {
     })
   })
 
-  test('mergeNodeValue', function () {
+  it('mergeNodeValue', function () {
     const trie = new Trie<string, number>({
       SIGMA_SIZE: 62,
       idx: alphaNumericIdx,
@@ -275,7 +275,7 @@ describe('trie', function () {
     expect(trie.get('apple')).toEqual(-1)
   })
 
-  test('digitIdx', function () {
+  it('digitIdx', function () {
     const letters: string[] = '0123456789'.split('')
     for (let i = 0; i < letters.length; ++i) {
       const c = letters[i]
@@ -283,7 +283,7 @@ describe('trie', function () {
     }
   })
 
-  test('uppercaseIdx', function () {
+  it('uppercaseIdx', function () {
     const letters: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
     for (let i = 0; i < letters.length; ++i) {
       const c = letters[i]
@@ -291,7 +291,7 @@ describe('trie', function () {
     }
   })
 
-  test('lowercaseIdx', function () {
+  it('lowercaseIdx', function () {
     const letters: string[] = 'abcdefghijklmnopqrstuvwxyz'.split('')
     for (let i = 0; i < letters.length; ++i) {
       const c = letters[i]
@@ -299,7 +299,7 @@ describe('trie', function () {
     }
   })
 
-  test('alphaNumericIdx', function () {
+  it('alphaNumericIdx', function () {
     const digits: string[] = '0123456789'.split('')
     for (let i = 0; i < digits.length; ++i) {
       const c = digits[i]
@@ -320,7 +320,7 @@ describe('trie', function () {
   })
 
   describe('edge', function () {
-    test('constructor', function () {
+    it('constructor', function () {
       expect(
         () => new Trie<string, number>({ SIGMA_SIZE: 0, idx: () => 0, mergeNodeValue: () => -1 }),
       ).toThrow(RangeError)
@@ -332,7 +332,7 @@ describe('trie', function () {
       ).not.toThrow(RangeError)
     })
 
-    test('destroy', function () {
+    it('destroy', function () {
       const trie = new Trie<string, number>({
         SIGMA_SIZE: 62,
         idx: alphaNumericIdx,
@@ -352,7 +352,7 @@ describe('trie', function () {
       expect(() => Array.from(trie.findAll('apple'))).toThrow(/Cannot read properties of undefined/)
     })
 
-    test('custom ranges', function () {
+    it('custom ranges', function () {
       const trie = new Trie<string, number>({
         SIGMA_SIZE: 62,
         idx: alphaNumericIdx,

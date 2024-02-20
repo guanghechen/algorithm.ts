@@ -21,19 +21,19 @@ describe('basic', () => {
     },
   ]
 
-  test('encode', function () {
+  it('encode', function () {
     for (const { plaintext, ciphertext } of kases) {
       expect(encode(getBytes(plaintext))).toEqual(ciphertext)
     }
   })
 
-  test('decode', function () {
+  it('decode', function () {
     for (const { plaintext, ciphertext } of kases) {
       expect(decode(ciphertext)).toEqual(getBytes(plaintext))
     }
   })
 
-  test('validate', function () {
+  it('validate', function () {
     expect(validate('a')).toBe(false)
     expect(validate('aa')).toBe(false)
     expect(validate('aaa')).toBe(false)
@@ -67,13 +67,13 @@ describe('custom', () => {
     },
   ]
 
-  test('encode', function () {
+  it('encode', function () {
     for (const { plaintext, ciphertext } of kases) {
       expect(base64.encode(getBytes(plaintext))).toEqual(ciphertext)
     }
   })
 
-  test('decode', function () {
+  it('decode', function () {
     for (const { plaintext, ciphertext } of kases) {
       expect(base64.decode(ciphertext)).toEqual(getBytes(plaintext))
     }
@@ -81,10 +81,10 @@ describe('custom', () => {
 })
 
 describe('misc', () => {
-  test('%4 == 0', () => testWithBytes(1000))
-  test('%4 == 1', () => testWithBytes(1001))
-  test('%4 == 2', () => testWithBytes(1002))
-  test('%4 == 3', () => testWithBytes(1003))
+  it('%4 == 0', () => testWithBytes(1000))
+  it('%4 == 1', () => testWithBytes(1001))
+  it('%4 == 2', () => testWithBytes(1002))
+  it('%4 == 3', () => testWithBytes(1003))
 
   function testWithBytes(size: number): void {
     const data = new Uint8Array(size)

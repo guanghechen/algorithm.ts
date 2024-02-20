@@ -57,7 +57,7 @@ describe('15x15', () => {
     tester.init([])
   })
 
-  test('init', function () {
+  it('init', function () {
     tester.init([])
     expect(tester.MAX_ROW).toEqual(15)
     expect(tester.MAX_COL).toEqual(15)
@@ -80,7 +80,7 @@ describe('15x15', () => {
     expect(tester.board[tester.idx(1, 4)]).toEqual(1)
   })
 
-  test('forward', function () {
+  it('forward', function () {
     for (let id = 0; id < tester.TOTAL_POS; ++id) {
       const player: 0 | 1 = Math.random() < 0.5 ? 0 : 1
       tester.forward(id, player)
@@ -94,7 +94,7 @@ describe('15x15', () => {
     expect(tester.placedCount).toEqual(tester.TOTAL_POS)
   })
 
-  test('revert', function () {
+  it('revert', function () {
     for (let id = 0; id < tester.TOTAL_POS; ++id) {
       const player: 0 | 1 = Math.random() < 0.5 ? 0 : 1
       tester.forward(id, player)
@@ -113,7 +113,7 @@ describe('15x15', () => {
     expect(tester.placedCount).toEqual(0)
   })
 
-  test('idx', function () {
+  it('idx', function () {
     for (let r = 0; r < tester.MAX_ROW; ++r) {
       for (let c = 0; c < tester.MAX_COL; ++c) {
         const id: number = r * tester.MAX_ROW + c
@@ -123,7 +123,7 @@ describe('15x15', () => {
     }
   })
 
-  test('revIdx', function () {
+  it('revIdx', function () {
     for (let r = 0; r < tester.MAX_ROW; ++r) {
       for (let c = 0; c < tester.MAX_COL; ++c) {
         const id: number = r * tester.MAX_ROW + c
@@ -133,7 +133,7 @@ describe('15x15', () => {
     }
   })
 
-  test('isValidPos', function () {
+  it('isValidPos', function () {
     for (let id = 0; id < tester.TOTAL_POS; ++id) {
       const [r, c] = tester.revIdx(id)
       expect(tester.isValidPos(r, c)).toEqual(true)
@@ -153,7 +153,7 @@ describe('15x15', () => {
     expect(tester.isValidPos(15, 3)).toEqual(false)
   })
 
-  test('isValidIdx', function () {
+  it('isValidIdx', function () {
     for (let id = 0; id < tester.TOTAL_POS; ++id) {
       expect(tester.isValidIdx(id)).toEqual(true)
     }
@@ -162,7 +162,7 @@ describe('15x15', () => {
     expect(tester.isValidIdx(tester.TOTAL_POS)).toEqual(false)
   })
 
-  test('safeMove', function () {
+  it('safeMove', function () {
     const MAX_STEPS: number = Math.max(tester.MAX_ROW, tester.MAX_COL)
     for (const dirType of fullDirectionTypes) {
       const [dr, dc] = GomokuDirections[dirType]
@@ -181,7 +181,7 @@ describe('15x15', () => {
     }
   })
 
-  test('safeMoveOnStep', function () {
+  it('safeMoveOnStep', function () {
     for (const dirType of fullDirectionTypes) {
       const [dr, dc] = GomokuDirections[dirType]
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
@@ -195,7 +195,7 @@ describe('15x15', () => {
     }
   })
 
-  test('fastMove', function () {
+  it('fastMove', function () {
     const MAX_STEPS: number = Math.max(tester.MAX_ROW, tester.MAX_COL)
     for (const dirType of fullDirectionTypes) {
       const [dr, dc] = GomokuDirections[dirType]
@@ -216,7 +216,7 @@ describe('15x15', () => {
     }
   })
 
-  test('fastMoveOnStep', function () {
+  it('fastMoveOnStep', function () {
     for (const dirType of fullDirectionTypes) {
       const [dr, dc] = GomokuDirections[dirType]
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
@@ -232,7 +232,7 @@ describe('15x15', () => {
     }
   })
 
-  test('maxMovableSteps', function () {
+  it('maxMovableSteps', function () {
     for (const dirType of fullDirectionTypes) {
       const [dr, dc] = GomokuDirections[dirType]
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
@@ -259,7 +259,7 @@ describe('15x15', () => {
     }
   })
 
-  test('accessibleNeighbors', function () {
+  it('accessibleNeighbors', function () {
     const { MAX_DISTANCE_OF_NEIGHBOR } = tester
     type INeighbor = number
     const cmp = (x: INeighbor, y: INeighbor): number => x - y
@@ -283,7 +283,7 @@ describe('15x15', () => {
     }
   })
 
-  test('hasPlacedNeighbors', function () {
+  it('hasPlacedNeighbors', function () {
     jest.setTimeout(15 * 1000)
     const hasPlacedNeighbors = (posId: number): boolean => {
       for (const id2 of tester.accessibleNeighbors(posId)) {
@@ -304,7 +304,7 @@ describe('15x15', () => {
     }
   })
 
-  test('getFirstPosId', function () {
+  it('getFirstPosId', function () {
     for (const dirType of fullDirectionTypes) {
       const revDirType: GomokuDirectionType = dirType ^ 1
       for (let id = 0; id < tester.TOTAL_POS; ++id) {
@@ -319,7 +319,7 @@ describe('15x15', () => {
     }
   })
 
-  test('getStartPosSet', function () {
+  it('getStartPosSet', function () {
     const cmp = (x: number, y: number): number => x - y
     for (const dirType of fullDirectionTypes) {
       const revDirType: GomokuDirectionType = dirType ^ 1
@@ -339,7 +339,7 @@ describe('15x15', () => {
     }
   })
 
-  test('getDirCounters -- init', async () => {
+  it('getDirCounters -- init', async () => {
     for (const { filepath, title } of filepaths) {
       const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
       tester.init(pieces)
@@ -355,7 +355,7 @@ describe('15x15', () => {
     }
   })
 
-  test('getDirCounters -- step by step', async () => {
+  it('getDirCounters -- step by step', async () => {
     for (const { filepath, title } of filepaths) {
       const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
       tester.init([])
@@ -395,7 +395,7 @@ describe('15x15', () => {
     }
   })
 
-  test('traverseAllDirections', function () {
+  it('traverseAllDirections', function () {
     const collect = (): unknown[] => {
       const result: unknown[] = []
       tester.traverseAllDirections(dirType => posId => void result.push([posId, dirType]))

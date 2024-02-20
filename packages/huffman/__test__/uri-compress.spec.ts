@@ -6,13 +6,13 @@ import huffman from '../src'
 describe('uri-compress', function () {
   const data = { name: 'alice', age: 33, gender: 'female' }
 
-  test('compress', function () {
+  it('compress', function () {
     expect(compress(JSON.stringify(data))).toEqual(
       'WyIzIiwyMCwiLCIsMTYsIn0iLDM0LCJpIiwzNSwiZyIsMTgsIm4iLDE5LCJsIiwyMSwiciIsNDQsImMiLDkwLCJkIiw5MSwiOiIsMjMsIlwiIiw2LCJlIiwxNCwiYSIsMzAsInsiLDEyNCwiZiIsMTI1LCJtIiw2M10_-BvI)(p7lG1oLi06IEWNvMnvd(l0C',
     )
   })
 
-  test('decompress', function () {
+  it('decompress', function () {
     expect(
       decompress(
         'WyIzIiwyMCwiLCIsMTYsIn0iLDM0LCJpIiwzNSwiZyIsMTgsIm4iLDE5LCJsIiwyMSwiciIsNDQsImMiLDkwLCJkIiw5MSwiOiIsMjMsIlwiIiw2LCJlIiwxNCwiYSIsMzAsInsiLDEyNCwiZiIsMTI1LCJtIiw2M10_-BvI)(p7lG1oLi06IEWNvMnvd(l0C',

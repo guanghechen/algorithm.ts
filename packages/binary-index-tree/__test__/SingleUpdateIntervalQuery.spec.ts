@@ -5,7 +5,7 @@ describe('SingleUpdateIntervalQuery', function () {
   describe('basic', function () {
     const MAX_N = 1000
 
-    test('number', function () {
+    it('number', function () {
       const bit = new SingleUpdateIntervalQuery<number>({
         operator: {
           ZERO: 0,
@@ -40,7 +40,7 @@ describe('SingleUpdateIntervalQuery', function () {
       bit.query(-1)
     })
 
-    test('bigint', function () {
+    it('bigint', function () {
       const bit = new SingleUpdateIntervalQuery<bigint>({
         operator: {
           ZERO: 0n,
@@ -79,7 +79,7 @@ describe('SingleUpdateIntervalQuery', function () {
   describe('modulo', function () {
     const MAX_N = 1000
 
-    test('number', function () {
+    it('number', function () {
       const MOD = 1000 + 17
       const bit = new SingleUpdateIntervalQuery<number>({
         operator: {
@@ -117,7 +117,7 @@ describe('SingleUpdateIntervalQuery', function () {
       bit.query(-1)
     })
 
-    test('bigint', function () {
+    it('bigint', function () {
       const MOD = BigInt(1000 + 17)
       const bit = new SingleUpdateIntervalQuery<bigint>({
         operator: {
@@ -156,7 +156,7 @@ describe('SingleUpdateIntervalQuery', function () {
     })
   })
 
-  test('edge', function () {
+  it('edge', function () {
     const bit = new SingleUpdateIntervalQuery<number>({
       operator: {
         ZERO: 0,

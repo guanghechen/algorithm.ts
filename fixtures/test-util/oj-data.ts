@@ -38,7 +38,7 @@ export function testOjCodes<T extends (...input: any[]) => any>(
   const { title, fetchData } = DATA_MAP[key]
 
   // eslint-disable-next-line jest/valid-title
-  test(title, async function () {
+  it(title, async function () {
     const data = await fetchData()
     const solve: T = isPromise(solution) ? (await solution).default : solution
     for (const { input, answer } of data) expect(solve(...input)).toEqual(answer)

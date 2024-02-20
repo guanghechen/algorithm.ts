@@ -1,6 +1,6 @@
 import manacher from '../src'
 
-test('manacher', function () {
+it('manacher', function () {
   const data: Array<{
     input: Parameters<typeof solution1>
     answer: ReturnType<typeof solution1>

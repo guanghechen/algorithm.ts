@@ -4,7 +4,7 @@ import type { IDijkstraGraph } from '../src'
 import dijkstra, { Dijkstra, dijkstraBigint } from '../src'
 
 describe('basic', function () {
-  test('dijkstra', function () {
+  it('dijkstra', function () {
     const graph: IDijkstraGraph<number> = {
       N: 4,
       source: 0,
@@ -21,7 +21,7 @@ describe('basic', function () {
     expect(result.dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
   })
 
-  test('dijkstraBigint', function () {
+  it('dijkstraBigint', function () {
     const graph: IDijkstraGraph<bigint> = {
       N: 4,
       source: 0,
@@ -40,7 +40,7 @@ describe('basic', function () {
 })
 
 describe('shortest path', function () {
-  test('without negative cycle', function () {
+  it('without negative cycle', function () {
     enum Nodes {
       A = 0,
       B = 1,

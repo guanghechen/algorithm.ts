@@ -2,7 +2,7 @@ import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data
 import { Isap } from '../src'
 
 describe('basic', function () {
-  test('simple', function () {
+  it('simple', function () {
     const isap = new Isap()
     isap.init(0, 1, 4)
     isap.addEdge(0, 2, 1)

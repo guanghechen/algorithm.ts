@@ -5,7 +5,7 @@ describe('factorize', function () {
   const primes: number[] = sievePrime(1000)
   const f = (n: number): IPrimeFactor[] => Array.from(factorize(n, primes))
 
-  test('boundary', function () {
+  it('boundary', function () {
     expect(f(-1)).toEqual([])
     expect(f(0)).toEqual([])
     expect(f(1)).toEqual([])
@@ -26,7 +26,7 @@ describe('factorize', function () {
     ])
   })
 
-  test('basic', function () {
+  it('basic', function () {
     let failedCount = 0
     for (let n = 2; n < 1000; ++n) {
       let x = 1

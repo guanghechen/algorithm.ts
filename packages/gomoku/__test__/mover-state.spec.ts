@@ -248,7 +248,7 @@ describe('15x15', function () {
   const getTester = (): TestHelper => new TestHelper(15, 15)
   const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
 
-  test('overview', async function () {
+  it('overview', async function () {
     const tester = getTester()
     for (const { filepath, title } of filepaths) {
       const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
@@ -272,7 +272,7 @@ describe('15x15', function () {
     }
   })
 
-  test('isFinal', function () {
+  it('isFinal', function () {
     const tester = getTester()
     const posId0 = tester.context.idx(6, 6)
     for (const dirType of fullDirectionTypes) {
@@ -334,7 +334,7 @@ describe('15x15', function () {
     }
   })
 
-  test('candidate ids', async function () {
+  it('candidate ids', async function () {
     jest.setTimeout(10 * 1000)
     const tester = getTester()
     const getCandidateIds = (nextPlayer: number): number[] => {
@@ -372,7 +372,7 @@ describe('15x15', function () {
     }
   })
 
-  test('candidates -- init all', async function () {
+  it('candidates -- init all', async function () {
     const tester = getTester()
     tester.init([])
     expect(tester.expand(0, Number.MAX_SAFE_INTEGER)).toEqual([
@@ -390,7 +390,7 @@ describe('15x15', function () {
     }
   })
 
-  test('candidates -- step by step', async function () {
+  it('candidates -- step by step', async function () {
     const tester = getTester()
     for (const { filepath } of filepaths) {
       tester.init([])
@@ -404,7 +404,7 @@ describe('15x15', function () {
     }
   })
 
-  test('candidate -- forward/revert', async function () {
+  it('candidate -- forward/revert', async function () {
     const tester = getTester()
     for (const { filepath } of filepaths) {
       const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
@@ -423,7 +423,7 @@ describe('15x15', function () {
     }
   })
 
-  test('topCandidate', async function () {
+  it('topCandidate', async function () {
     const tester = getTester()
     for (const { filepath } of filepaths) {
       tester.init([])
@@ -437,7 +437,7 @@ describe('15x15', function () {
     }
   })
 
-  test('pieces.1', async function () {
+  it('pieces.1', async function () {
     const tester = getTester()
     const { default: pieces } = await import('./fixtures/15x15/pieces.1.json', {
       assert: { type: 'json' },
@@ -447,7 +447,7 @@ describe('15x15', function () {
     expect(candidates.length).toEqual(1)
   })
 
-  test('edge case', function () {
+  it('edge case', function () {
     const tester = getTester()
     tester.init([])
     {

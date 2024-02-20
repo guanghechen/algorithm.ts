@@ -6,7 +6,7 @@ import { BellmanFord, bellmanFord, bellmanFordBigint } from '../src'
 
 describe('basic', function () {
   describe('bellmanFord', function () {
-    test('no negative cycle', function () {
+    it('no negative cycle', function () {
       const graph: IBellmanFordGraph<number> = {
         N: 4,
         source: 0,
@@ -26,7 +26,7 @@ describe('basic', function () {
       expect(result.dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
     })
 
-    test('negative cycle', function () {
+    it('negative cycle', function () {
       const graph: IBellmanFordGraph<number> = {
         N: 4,
         source: 0,
@@ -43,7 +43,7 @@ describe('basic', function () {
   })
 
   describe('bellmanFordBigint', function () {
-    test('no negative cycle', function () {
+    it('no negative cycle', function () {
       const graph: IBellmanFordGraph<bigint> = {
         N: 4,
         source: 0,
@@ -63,7 +63,7 @@ describe('basic', function () {
       expect(result.dist.slice(0, graph.N)).toEqual([0n, 2n, 4n, 4n])
     })
 
-    test('negative cycle', function () {
+    it('negative cycle', function () {
       const graph: IBellmanFordGraph<bigint> = {
         N: 4,
         source: 0,
@@ -81,7 +81,7 @@ describe('basic', function () {
 })
 
 describe('shortest path', function () {
-  test('without negative cycle', function () {
+  it('without negative cycle', function () {
     enum Nodes {
       A = 0,
       B = 1,
@@ -127,7 +127,7 @@ describe('shortest path', function () {
     ])
   })
 
-  test('with negative cycle', function () {
+  it('with negative cycle', function () {
     enum Nodes {
       A = 0,
       B = 1,

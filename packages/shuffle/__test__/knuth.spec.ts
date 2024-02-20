@@ -16,17 +16,17 @@ describe('knuth-shuffle', function () {
     }
   }
 
-  test('random', function () {
+  it('random', function () {
     expect(nums.some((x, i) => x !== i)).toEqual(true)
   })
 
-  test('uniformly distribute', function () {
+  it('uniformly distribute', function () {
     const min = Math.min(...count) / shuffleTimes
     const max = Math.max(...count) / shuffleTimes
     expect(max - min).toBeLessThanOrEqual(ebs)
   })
 
-  test('sub-array', function () {
+  it('sub-array', function () {
     const nums: number[] = new Array(size)
     for (let i = 0; i < size; ++i) nums[i] = i
 
@@ -41,7 +41,7 @@ describe('knuth-shuffle', function () {
     expect(diff).toBeGreaterThan(0)
   })
 
-  test('out of boundary', function () {
+  it('out of boundary', function () {
     const nums: number[] = new Array(size)
     for (let i = 0; i < size; ++i) nums[i] = i
 

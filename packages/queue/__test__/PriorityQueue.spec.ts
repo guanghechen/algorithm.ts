@@ -10,13 +10,13 @@ class MyPriorityQueue<T> extends PriorityQueue<T> {
 describe('PriorityQueue', function () {
   const N = 1000
 
-  test('iterator', function () {
+  it('iterator', function () {
     const Q = new MyPriorityQueue<number>({ compare: (x, y) => y - x })
     Q.enqueues([2, 3, 4, 5, 1, 2, 3, 4, 9, 5, 9])
     expect(Array.from(Q)).toEqual(Q.collect())
   })
 
-  test('init - 1', function () {
+  it('init - 1', function () {
     for (let n = N; n <= N + 20; ++n) {
       const randomValues: number[] = new Array(n)
       for (let i = 0; i < n; ++i) randomValues[i] = Math.random()
@@ -43,7 +43,7 @@ describe('PriorityQueue', function () {
     }
   })
 
-  test('init - 2', function () {
+  it('init - 2', function () {
     for (let n = N; n <= N + 20; ++n) {
       const randomValues: number[] = new Array(n)
       for (let i = 0; i < n; ++i) randomValues[i] = Math.random()
@@ -70,7 +70,7 @@ describe('PriorityQueue', function () {
     }
   })
 
-  test('enqueues', function () {
+  it('enqueues', function () {
     const Q = new MyPriorityQueue<number>({ compare: (x, y) => y - x })
     Q.enqueue(2)
     expect(Q.size).toEqual(1)
@@ -110,7 +110,7 @@ describe('PriorityQueue', function () {
     expect(Q.front()).toEqual(15)
   })
 
-  test('splice', function () {
+  it('splice', function () {
     const Q = new MyPriorityQueue<number>({ compare: (x, y) => y - x })
 
     const initialElements: number[] = [1, 3, 7, 8, 9, 2, 3, 4, -2, -7, -4, 11]
@@ -142,7 +142,7 @@ describe('PriorityQueue', function () {
     expect(Q.collect().sort()).toEqual([1, 2])
   })
 
-  test('replaceTop', function () {
+  it('replaceTop', function () {
     const Q = new MyPriorityQueue<number>({ compare: (x, y) => y - x })
 
     Q.init([3, 2, 4, -2, -1, 0])
@@ -182,7 +182,7 @@ describe('PriorityQueue', function () {
     ).toEqual([-2, -1, 0, 2, 2, 4])
   })
 
-  test('front', function () {
+  it('front', function () {
     const Q = new MyPriorityQueue<number>({ compare: (x, y) => y - x })
     const randomValues: number[] = new Array(N)
     for (let i = 0; i < N; ++i) {
@@ -198,7 +198,7 @@ describe('PriorityQueue', function () {
     }
   })
 
-  test('clear', function () {
+  it('clear', function () {
     const Q = new MyPriorityQueue<number>({ compare: numberCompare })
     Q.init()
     expect(Q.size).toEqual(0)
@@ -213,7 +213,7 @@ describe('PriorityQueue', function () {
     expect(Q.size <= 0).toEqual(true)
   })
 
-  test('destroy', function () {
+  it('destroy', function () {
     const Q = new MyPriorityQueue<number>({ compare: numberCompare })
     Q.init([1, 2, 3, 4, 5])
     expect(Q.size).toEqual(5)
@@ -223,7 +223,7 @@ describe('PriorityQueue', function () {
     expect(() => Q.enqueue(0)).toThrow(/Cannot set properties of null/)
   })
 
-  test('edge case', function () {
+  it('edge case', function () {
     const Q = new MyPriorityQueue<number>({ compare: (x, y) => y - x })
     Q.init()
     Q.enqueue(0)

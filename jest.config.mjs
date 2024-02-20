@@ -39,10 +39,44 @@ const coverageMap = {
       statements: 0,
     },
   },
+  //
+  '@algorithm.ts/bipartite-matching': {
+    global: {
+      functions: 87,
+      lines: 95,
+      statements: 95,
+    },
+  },
+  '@algorithm.ts/calculator': {
+    global: {
+      branches: 97,
+      lines: 98,
+      statements: 98,
+    },
+  },
+  '@algorithm.ts/findset': {
+    global: {
+      functions: 88,
+      lines: 96,
+      statements: 96,
+    },
+  },
   '@algorithm.ts/gomoku': {
     global: {
       branches: 92,
       functions: 100,
+      lines: 99,
+      statements: 99,
+    },
+  },
+  '@algorithm.ts/shuffle': {
+    global: {
+      branches: 88,
+    },
+  },
+  '@algorithm.ts/sudoku': {
+    global: {
+      branches: 96,
       lines: 99,
       statements: 99,
     },

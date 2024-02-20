@@ -7,7 +7,7 @@ describe('lowerBound', function () {
     mid =>
       mid === x ? 0 : mid < x ? -1 : 1
 
-  test('basic', function () {
+  it('basic', function () {
     const lft = -(2 ** 30)
     const rht = 2 ** 30
 
@@ -16,7 +16,7 @@ describe('lowerBound', function () {
     }
   })
 
-  test('edge', function () {
+  it('edge', function () {
     const lft = -(2 ** 30)
     const rht = 2 ** 30
 
@@ -39,7 +39,7 @@ describe('lowerBoundBigint', () => {
     mid =>
       mid === x ? 0 : mid < x ? -1 : 1
 
-  test('basic', function () {
+  it('basic', function () {
     const lft = -5000000000000n
     const rht = 500000000000000000000000000n
 
@@ -48,7 +48,7 @@ describe('lowerBoundBigint', () => {
     }
   })
 
-  test('edge', function () {
+  it('edge', function () {
     const lft = -5000000000000n
     const rht = 500000000000000000000000000n
 

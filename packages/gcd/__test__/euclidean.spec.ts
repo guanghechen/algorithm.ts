@@ -1,6 +1,6 @@
 import { euclidean, euclideanBigint, gcd, gcdBigint } from '../src'
 
-test('euclid', function () {
+it('euclid', function () {
   for (let i = 1; i < 50; ++i) {
     for (let j = 1; j < 50; ++j) {
       const [x, y, d] = euclidean(i, j)
@@ -12,7 +12,7 @@ test('euclid', function () {
   }
 })
 
-test('euclidBigint', function () {
+it('euclidBigint', function () {
   for (let i = 1n; i < 50n; ++i) {
     for (let j = 1n; j < 50n; ++j) {
       const [x, y, d] = euclideanBigint(i, j)

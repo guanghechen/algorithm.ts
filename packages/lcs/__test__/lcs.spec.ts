@@ -1,7 +1,7 @@
 import { findLCSOfEveryRightPrefix, findLengthOfLCS, findMinLexicographicalLCS } from '../src'
 
 describe('basic', () => {
-  test('findLengthOfLCS', function () {
+  it('findLengthOfLCS', function () {
     const lenOf = (s1: string | number[], s2: string | number[]): number =>
       findLengthOfLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y])
 
@@ -19,7 +19,7 @@ describe('basic', () => {
     expect(lenOf('abeep boop', 'beep boob blah')).toEqual(8)
   })
 
-  test('findMinLexicographicalLCS', function () {
+  it('findMinLexicographicalLCS', function () {
     const lcsOf = (s1: string | number[], s2: string | number[]): Array<[number, number]> =>
       findMinLexicographicalLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y])
 
@@ -117,7 +117,7 @@ describe('basic', () => {
     ])
   })
 
-  test('findLCSOfEveryRightPrefix', function () {
+  it('findLCSOfEveryRightPrefix', function () {
     const dpOf = (s1: string | number[], s2: string | number[]): number[] | null =>
       findLCSOfEveryRightPrefix(s1.length, s2.length, (x, y) => s1[x] === s2[y])
     expect(

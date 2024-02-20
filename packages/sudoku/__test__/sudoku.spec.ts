@@ -10,7 +10,7 @@ import multipleSudoku9x9 from './fixtures/sudoku9x9/multiple.json'
 import uniqueSudoku9x9 from './fixtures/sudoku9x9/unique.json'
 
 describe('SudokuSize', () => {
-  test('basic', function () {
+  it('basic', function () {
     for (let base = 1; base <= 9; base++) {
       const size = new SudokuSize(base)
       expect(size.BASE_1).toEqual(base ** 1)
@@ -29,7 +29,7 @@ describe('9x9', function () {
   const solver = new SudokuSolver({ childMatrixWidth: size.MATRIX_RANK })
   const creator = new SudokuCreator({ childMatrixWidth: size.MATRIX_RANK })
 
-  test('unique solution', function () {
+  it('unique solution', function () {
     for (const kase of uniqueSudoku9x9) {
       const puzzle: Readonly<ISudokuBoardData> = kase.puzzle.flat()
       const answer: Readonly<ISudokuBoardData> = kase.solution.flat()
@@ -40,7 +40,7 @@ describe('9x9', function () {
     }
   })
 
-  test('multiple solution', function () {
+  it('multiple solution', function () {
     for (const kase of multipleSudoku9x9) {
       const puzzle: Readonly<ISudokuBoardData> = kase.puzzle.flat()
       const solution: ISudokuBoardData = createSudokuBoardData(size)
@@ -49,7 +49,7 @@ describe('9x9', function () {
     }
   })
 
-  test('create puzzle', function () {
+  it('create puzzle', function () {
     for (let difficulty = 0; difficulty <= 1; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
       const solution: ISudokuBoardData = createSudokuBoardData(size)
@@ -74,7 +74,7 @@ describe('16x16', function () {
   const solver = new SudokuSolver({ childMatrixWidth: size.MATRIX_RANK })
   const creator = new SudokuCreator({ childMatrixWidth: size.MATRIX_RANK })
 
-  test('create puzzle', function () {
+  it('create puzzle', function () {
     for (let difficulty = 0; difficulty <= 0.4; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
       const solution: ISudokuBoardData = createSudokuBoardData(size)

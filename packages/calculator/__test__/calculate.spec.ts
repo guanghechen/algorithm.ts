@@ -1,7 +1,7 @@
 import { Calculator, IntegerOperand, bigintCalculator, calculator, decimalCalculator } from '../src'
 
 describe('basic', function () {
-  test('custom', function () {
+  it('custom', function () {
     const calculator = new Calculator(new IntegerOperand())
     expect(calculator.calculate('1+2')).toEqual(3)
     expect(() => calculator.calculate('1+2.2')).toThrow(/Unrecognized symbol/)
@@ -82,7 +82,7 @@ describe('calculate', function () {
 
   for (const kase of data) {
     // eslint-disable-next-line jest/valid-title
-    test(kase.input, function () {
+    it(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(() => decimalCalculator.calculate(kase.input)).toThrow()
@@ -93,7 +93,7 @@ describe('calculate', function () {
     })
   }
 
-  test('exceptional', function () {
+  it('exceptional', function () {
     expect(() => decimalCalculator.calculate('$0.2')).toThrow(/Not a valid arithmetic expression/)
     expect(() => decimalCalculator.calculate('1.1$0.2')).toThrow(
       /Not a valid arithmetic expression/,
@@ -159,7 +159,7 @@ describe('integer calculate', function () {
 
   for (const kase of data) {
     // eslint-disable-next-line jest/valid-title
-    test(kase.input, function () {
+    it(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(() => calculator.calculate(kase.input)).toThrow()
@@ -233,7 +233,7 @@ describe('bigint calculate', function () {
 
   for (const kase of data) {
     // eslint-disable-next-line jest/valid-title
-    test(kase.input, function () {
+    it(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
         // eslint-disable-next-line jest/no-conditional-expect
         expect(() => bigintCalculator.calculate(kase.input)).toThrow()

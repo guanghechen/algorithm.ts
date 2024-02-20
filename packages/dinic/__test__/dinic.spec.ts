@@ -2,7 +2,7 @@ import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data
 import { Dinic } from '../src'
 
 describe('basic', function () {
-  test('simple', function () {
+  it('simple', function () {
     const dinic = new Dinic()
     dinic.init(0, 1, 4)
     dinic.addEdge(0, 2, 1)

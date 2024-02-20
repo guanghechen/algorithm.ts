@@ -2,7 +2,7 @@ import { gcd } from '@algorithm.ts/gcd'
 import { sievePrime, sieveTotient } from '../src'
 
 describe('sievePrime', function () {
-  test('boundary', function () {
+  it('boundary', function () {
     expect(sievePrime(-1)).toEqual([])
     expect(sievePrime(0)).toEqual([])
     expect(sievePrime(1)).toEqual([])
@@ -11,7 +11,7 @@ describe('sievePrime', function () {
     expect(sievePrime(6)).toEqual([2, 3, 5])
   })
 
-  test('basic', function () {
+  it('basic', function () {
     const primes: number[] = sievePrime(1000)
     const answers: number[] = []
     for (let n = 2; n < 1000; ++n) {
@@ -30,7 +30,7 @@ describe('sievePrime', function () {
 })
 
 describe('sieveTotient', function () {
-  test('boundary', function () {
+  it('boundary', function () {
     expect(sieveTotient(-1)).toEqual([[], []])
     expect(sieveTotient(0)).toEqual([[], []])
     expect(sieveTotient(1)).toEqual([[0], []])
@@ -49,7 +49,7 @@ describe('sieveTotient', function () {
     ])
   })
 
-  test('basic', function () {
+  it('basic', function () {
     const [totients, primes] = sieveTotient(1000)
 
     const primeAnswers: number[] = []

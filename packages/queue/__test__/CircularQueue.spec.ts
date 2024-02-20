@@ -2,7 +2,7 @@ import { CircularQueue } from '../src'
 
 describe('CircularQueue', function () {
   describe('fixed size', function () {
-    test('basic', function () {
+    it('basic', function () {
       const SIZE = 1000
       const data = new Array(SIZE).fill(0).map((_x, i) => i)
       const capacity = 7
@@ -25,7 +25,7 @@ describe('CircularQueue', function () {
       }
     })
 
-    test('iterator', function () {
+    it('iterator', function () {
       const Q = new CircularQueue<number>({ autoResize: false })
       Q.resize(5)
 
@@ -42,7 +42,7 @@ describe('CircularQueue', function () {
       expect(Array.from(Q)).toEqual([5, 6, 7, 8, 9])
     })
 
-    test('init', function () {
+    it('init', function () {
       const Q = new CircularQueue<number>({ capacity: 5, autoResize: false })
 
       Q.init()
@@ -87,7 +87,7 @@ describe('CircularQueue', function () {
       expect(Array.from(Q)).toEqual([])
     })
 
-    test('resize', function () {
+    it('resize', function () {
       const Q = new CircularQueue<number>({ autoResize: false })
 
       Q.resize(5)
@@ -112,7 +112,7 @@ describe('CircularQueue', function () {
       expect(() => Q.resize(5)).toThrow(RangeError)
     })
 
-    test('enqueue', function () {
+    it('enqueue', function () {
       const Q = new CircularQueue<number>({ autoResize: false })
       Q.resize(3)
 
@@ -162,7 +162,7 @@ describe('CircularQueue', function () {
       expect(Q.size).toEqual(3)
     })
 
-    test('unshift', function () {
+    it('unshift', function () {
       const Q = new CircularQueue<number>({ autoResize: false })
       Q.resize(3)
 
@@ -194,7 +194,7 @@ describe('CircularQueue', function () {
       expect(Q.size).toEqual(3)
     })
 
-    test('dequeue', function () {
+    it('dequeue', function () {
       const Q = new CircularQueue<number>({ autoResize: false })
 
       Q.resize(5)
@@ -226,7 +226,7 @@ describe('CircularQueue', function () {
       expect(Array.from(Q)).toEqual([-9])
     })
 
-    test('splice', function () {
+    it('splice', function () {
       const Q = new CircularQueue<number>({ capacity: 5, autoResize: false })
 
       Q.init([1, 2, 3, 4, 5])
@@ -257,7 +257,7 @@ describe('CircularQueue', function () {
       expect(Q.size).toEqual(4)
     })
 
-    test('front / back / pop / dequeue / enqueue / unshift', function () {
+    it('front / back / pop / dequeue / enqueue / unshift', function () {
       const Q = new CircularQueue<number>({ autoResize: false })
 
       Q.resize(7)
@@ -337,7 +337,7 @@ describe('CircularQueue', function () {
       expect(Q.pop()).toEqual(undefined)
     })
 
-    test('rearrange', function () {
+    it('rearrange', function () {
       const Q = new CircularQueue<number>({ autoResize: false })
       Q.resize(5)
 
@@ -389,7 +389,7 @@ describe('CircularQueue', function () {
   })
 
   describe('auto-resize', function () {
-    test('basic', function () {
+    it('basic', function () {
       const SIZE = 1000
       const data = new Array(SIZE).fill(0).map((_x, i) => i)
       const capacity = 7
@@ -412,7 +412,7 @@ describe('CircularQueue', function () {
       }
     })
 
-    test('iterator -- autoResize', function () {
+    it('iterator -- autoResize', function () {
       const Q = new CircularQueue<number>({ autoResize: true })
       Q.resize(5)
 
@@ -429,7 +429,7 @@ describe('CircularQueue', function () {
       expect(Array.from(Q)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     })
 
-    test('init', function () {
+    it('init', function () {
       const Q = new CircularQueue<number>({ capacity: 5, autoResize: true })
 
       Q.init()
@@ -474,7 +474,7 @@ describe('CircularQueue', function () {
       expect(Array.from(Q)).toEqual([])
     })
 
-    test('resize', function () {
+    it('resize', function () {
       const Q = new CircularQueue<number>({ autoResize: true })
 
       Q.resize(5)
@@ -499,7 +499,7 @@ describe('CircularQueue', function () {
       expect(() => Q.resize(5)).toThrow(RangeError)
     })
 
-    test('enqueue', function () {
+    it('enqueue', function () {
       const Q = new CircularQueue<number>({ autoResize: true })
       Q.resize(3)
 
@@ -551,7 +551,7 @@ describe('CircularQueue', function () {
       expect(Q.size).toEqual(20)
     })
 
-    test('unshift', function () {
+    it('unshift', function () {
       const Q = new CircularQueue<number>({ autoResize: true })
       Q.resize(3)
 
@@ -583,7 +583,7 @@ describe('CircularQueue', function () {
       expect(Q.size).toEqual(13)
     })
 
-    test('dequeue', function () {
+    it('dequeue', function () {
       const Q = new CircularQueue<number>({ autoResize: true })
 
       Q.resize(5)
@@ -615,7 +615,7 @@ describe('CircularQueue', function () {
       expect(Array.from(Q)).toEqual([-9])
     })
 
-    test('splice', function () {
+    it('splice', function () {
       const Q = new CircularQueue<number>({ capacity: 5, autoResize: true })
 
       Q.init([1, 2, 3, 4, 5])
@@ -646,7 +646,7 @@ describe('CircularQueue', function () {
       expect(Q.size).toEqual(5)
     })
 
-    test('front / back / pop / dequeue / enqueue / unshift', function () {
+    it('front / back / pop / dequeue / enqueue / unshift', function () {
       const Q = new CircularQueue<number>({ autoResize: true })
 
       Q.resize(7)
@@ -726,7 +726,7 @@ describe('CircularQueue', function () {
       expect(Q.pop()).toEqual(undefined)
     })
 
-    test('rearrange', function () {
+    it('rearrange', function () {
       const Q = new CircularQueue<number>({ autoResize: true })
       Q.resize(5)
 
@@ -778,7 +778,7 @@ describe('CircularQueue', function () {
   })
 
   describe('edge', function () {
-    test('constructor', function () {
+    it('constructor', function () {
       expect(() => new CircularQueue({ capacity: -1 })).toThrow(RangeError)
       expect(() => new CircularQueue({ autoResizeExpansionRatio: 1.1 })).toThrow(RangeError)
       expect(() => new CircularQueue({ autoResize: true, autoResizeExpansionRatio: 1.1 })).toThrow(
@@ -789,7 +789,7 @@ describe('CircularQueue', function () {
       ).not.toThrow(RangeError)
     })
 
-    test('destroy', function () {
+    it('destroy', function () {
       const Q = new CircularQueue<number>()
       Q.resize(5)
 

@@ -33,7 +33,7 @@ const caseGroups = [
 ] as const
 
 describe('basic', function () {
-  test('simple', function () {
+  it('simple', function () {
     //                          0  1  2  3  4  5  6  7  8
     const elements: number[] = [1, 9, 3, 5, 4, 7, 6, 8, 2]
     const f = (idx: number | undefined): number | undefined =>
@@ -135,7 +135,7 @@ describe('basic', function () {
     expect(min()).toEqual(2)
   })
 
-  test('peristalsisUntil', function () {
+  it('peristalsisUntil', function () {
     //                          0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
     const elements: number[] = [4, 2, 9, 9, 4, 1, 6, 6, 0, 2, 3, 4, 1, 5, 1, 7, 4, 6, 0, 4]
     const f = (idx: number | undefined): number | undefined =>
@@ -247,7 +247,7 @@ describe('basic', function () {
     for (const caseGroup of caseGroups) {
       describe(`${caseGroup.title}`, function () {
         for (const { title, data } of caseGroup.cases) {
-          test(`${title}`, async () => {
+          it(`${title}`, async () => {
             const inputs = await data
             for (let caseNo = 0; caseNo < inputs.length; ++caseNo) {
               const input = inputs[caseNo]

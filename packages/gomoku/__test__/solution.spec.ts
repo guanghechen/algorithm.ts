@@ -11,7 +11,7 @@ class Solution extends GomokuSolution {
 }
 
 describe('construction', () => {
-  test('default', function () {
+  it('default', function () {
     const solution = new Solution({ MAX_ROW: 15, MAX_COL: 15 })
     expect(solution.moverContext.MAX_ROW).toEqual(15)
     expect(solution.moverContext.MAX_COL).toEqual(15)
@@ -35,7 +35,7 @@ describe('15x15', function () {
 
   const getSolution = (): Solution15x15 => new Solution15x15()
 
-  test('basic', async function () {
+  it('basic', async function () {
     const solution = getSolution()
     solution.init([])
     solution.forward(7, 7, 0)
@@ -54,7 +54,7 @@ describe('15x15', function () {
     expect(Math.abs(c - 7)).toBeLessThanOrEqual(3)
   })
 
-  test('pieces.0', async function () {
+  it('pieces.0', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.0.json', {
       assert: { type: 'json' },
@@ -75,7 +75,7 @@ describe('15x15', function () {
     ]).toContainEqual([r1, c1])
   })
 
-  test('pieces.3', async function () {
+  it('pieces.3', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.3.json', {
       assert: { type: 'json' },
@@ -93,7 +93,7 @@ describe('15x15', function () {
     ]).toContainEqual([r1, c1])
   })
 
-  test('pieces.4', async function () {
+  it('pieces.4', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.4.json', {
       assert: { type: 'json' },
@@ -105,7 +105,7 @@ describe('15x15', function () {
     expect([[-1, -1]]).toContainEqual([r, c])
   })
 
-  test('pieces.5', async function () {
+  it('pieces.5', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.5.json', {
       assert: { type: 'json' },
@@ -119,7 +119,7 @@ describe('15x15', function () {
     ]).toContainEqual([r, c])
   })
 
-  test('pieces.8', async function () {
+  it('pieces.8', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.8.json', {
       assert: { type: 'json' },
@@ -143,7 +143,7 @@ describe('15x15', function () {
     ]).toContainEqual([r1, c1])
   })
 
-  test('pieces.9', async function () {
+  it('pieces.9', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.9.json', {
       assert: { type: 'json' },
@@ -165,7 +165,7 @@ describe('15x15', function () {
     ]).toContainEqual([r1, c1])
   })
 
-  test('pieces.10', async function () {
+  it('pieces.10', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.10.json', {
       assert: { type: 'json' },
@@ -175,7 +175,7 @@ describe('15x15', function () {
     expect([r, c]).toEqual([7, 10])
   })
 
-  test('pieces.11', async function () {
+  it('pieces.11', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.11.json', {
       assert: { type: 'json' },
@@ -191,7 +191,7 @@ describe('15x15', function () {
     expect([r1, c1]).toEqual([8, 2])
   })
 
-  test('pieces.12', async function () {
+  it('pieces.12', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.12.json', {
       assert: { type: 'json' },
@@ -206,7 +206,7 @@ describe('15x15', function () {
     ]).toContainEqual([r, c])
   })
 
-  test('pieces.13', async function () {
+  it('pieces.13', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.13.json', {
       assert: { type: 'json' },
@@ -222,7 +222,7 @@ describe('15x15', function () {
     ]).toContainEqual([r, c])
   })
 
-  test('pieces.15', async function () {
+  it('pieces.15', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.15.json', {
       assert: { type: 'json' },
@@ -236,7 +236,7 @@ describe('15x15', function () {
     ]).toContainEqual([r, c])
   })
 
-  test('pieces.16', async function () {
+  it('pieces.16', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.16.json', {
       assert: { type: 'json' },
@@ -249,7 +249,7 @@ describe('15x15', function () {
     ]).toContainEqual([r, c])
   })
 
-  test('edge case', function () {
+  it('edge case', function () {
     const solution = getSolution()
     solution.init([])
     const [r, c] = solution.minimaxSearch(0)
@@ -269,7 +269,7 @@ describe('5x5', function () {
     }
   }
 
-  test('edge case', function () {
+  it('edge case', function () {
     const solution = new Solution5x5(100)
     solution.init([])
 
