@@ -13,14 +13,9 @@
   },
   "overrides": [
     {
-      "files": ["**/*.js"],
-      "parser": "@babel/eslint-parser",
-      "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module",
-        "requireConfigFile": false,
-        "allowImportExportEverywhere": true
-      }
+      "files": ["**/*.mjs"],
+      "extends": ["@guanghechen", "prettier"],
+      "parser": "@typescript-eslint/parser"
     },
     {
       "files": ["**/*.ts"],
@@ -32,7 +27,7 @@
       }
     },
     {
-      "files": ["**/__test__/*.spec.ts", "**/__test__/util.ts", "**/__test__/*.util.ts"],
+      "files": ["**/__test__/**/*.ts"],
       "extends": ["@guanghechen", "@guanghechen/ts", "plugin:jest/recommended", "prettier"],
       "rules": {
         "@typescript-eslint/ban-ts-comment": 0,
