@@ -5,6 +5,7 @@
   "ignoreChanges": ["*.md", "**/__test__/**/*"],
   "command": {
     "publish": {
+      "changelogPreset": "@guanghechen/conventional-changelog",
       "conventionalCommits": false,
       "forcePublish": false,
       "graphType": "all",
@@ -14,6 +15,7 @@
     },
     "version": {
       "allowBranch": ["main", "release-*"],
+      "changelogPreset": "@guanghechen/conventional-changelog",
       "conventionalCommits": false,
       "forcePublish": false,
       "message": ":bookmark:  release",

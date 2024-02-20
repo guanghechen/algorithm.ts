@@ -38,6 +38,7 @@
   "devDependencies": {
     "@babel/core": "7.23.9",
     "@guanghechen/chalk": "^1.0.0-alpha.12",
+    "@guanghechen/conventional-changelog": "^6.0.0-alpha.0",
     "@guanghechen/eslint-config": "^6.0.0-alpha.1",
     "@guanghechen/eslint-config-ts": "^6.0.0-alpha.6",
     "@guanghechen/jest-config": "^6.0.0-alpha.2",

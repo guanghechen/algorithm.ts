@@ -193,6 +193,7 @@ __metadata:
   dependencies:
     "@babel/core": 7.23.9
     "@guanghechen/chalk": ^1.0.0-alpha.12
+    "@guanghechen/conventional-changelog": ^6.0.0-alpha.0
     "@guanghechen/eslint-config": ^6.0.0-alpha.1
     "@guanghechen/eslint-config-ts": ^6.0.0-alpha.6
     "@guanghechen/jest-config": ^6.0.0-alpha.2
@@ -728,6 +729,15 @@ __metadata:
   dependencies:
     "@guanghechen/chalk.types": ^1.0.0-alpha.9
   checksum: e33b503fcbe523423335414094c1324f3ffd20839c8ee73ab312ff83ac83db8d91f6a08567d53edd546cff52bf1e35cd9a3bca686ad4508d8a2624157aecfe4c
+  languageName: node
+  linkType: hard
+
+"@guanghechen/conventional-changelog@npm:^6.0.0-alpha.0":
+  version: 6.0.0-alpha.0
+  resolution: "@guanghechen/conventional-changelog@npm:6.0.0-alpha.0"
+  dependencies:
+    gitmojis: ^3.14.0
+  checksum: 00690c61802781f43a1bccd266108681dea16c87b5db826a376eb3ae9a0a3ac7c6f5f916dfdb8c55bbe291881bd947cb5720996d7735902d983b0c2d21d7a178
   languageName: node
   linkType: hard
 
@@ -4920,6 +4930,13 @@ __metadata:
   dependencies:
     ini: ^1.3.2
   checksum: e6d2764c15bbab6d1d1000d1181bb907f6b3796bb04f63614dba571b18369e0ecb1beaf27ce8da5b24307ef607e3a5f262a67cb9575510b9446aac697d421beb
+  languageName: node
+  linkType: hard
+
+"gitmojis@npm:^3.14.0":
+  version: 3.14.0
+  resolution: "gitmojis@npm:3.14.0"
+  checksum: b8979133601d946bc815b7e5ba03c65f592f2fbb935b1aa80efc0b81003752034c6ef3f1f223a413092cd151d3caf98f30cd7ae80f5459b51d216b95333aa625
   languageName: node
   linkType: hard
 
