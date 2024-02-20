@@ -1,4 +1,4 @@
-import type { ICompare } from '@algorithm.ts/types'
+import type { ICompare } from '@algorithm.ts/internal'
 import type { IPriorityQueue } from './types'
 
 export interface IPriorityQueueProps<T> {

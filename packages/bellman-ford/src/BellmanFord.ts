@@ -1,6 +1,6 @@
+import type { DeepReadonly } from '@algorithm.ts/internal'
 import type { ICircularQueue } from '@algorithm.ts/queue'
 import { CircularQueue } from '@algorithm.ts/queue'
-import type { DeepReadonly } from '@algorithm.ts/types'
 import type {
   IBellmanFordEdge,
   IBellmanFordGraph,

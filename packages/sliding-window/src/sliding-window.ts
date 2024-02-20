@@ -1,4 +1,4 @@
-import type { ICompare } from '@algorithm.ts/types'
+import type { ICompare } from '@algorithm.ts/internal'
 import type { ISlidingWindow, ISlidingWindowResetOptions } from './types'
 
 export interface ISlidingWindowProps {

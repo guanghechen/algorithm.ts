@@ -1,4 +1,4 @@
-import { BIGINT_ZERO } from '@algorithm.ts/constant'
+import { BIGINT_ZERO } from '@algorithm.ts/internal'
 import type { IOperator } from '@algorithm.ts/types'
 
 const DOT_CHAR_CODE = 46

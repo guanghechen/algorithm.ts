@@ -11,14 +11,13 @@
     "url": "https://github.com/guanghechen/algorithm.ts"
   },
   "homepage": "https://github.com/guanghechen/algorithm.ts",
-  "engines": {
-    "node": ">= 16.0.0"
-  },
   "scripts": {
-    ":publish": "yarn test:coverage && lerna publish",
+    ":publish": "yarn build:production && yarn test:coverage && lerna publish",
+    ":publish-recover": "git stash && lerna publish from-package",
     ":upgrade": "yarn upgrade-interactive && run-s clean format build test",
-    "build": "lerna run build --concurrency 1",
-    "clean": "lerna clean --yes && yarn install",
+    "build": "nx run-many --target=build --all=true --with-deps --parallel=false",
+    "build:production": "nx run-many --target=build --configuration=production --all=true --with-deps --parallel=false",
+    "clean": "nx run-many --target=clean --all=true && yarn install",
     "format": "run-s format:lintfix format:prettier",
     "format:prettier": "prettier . --write",
     "format:lintfix": "eslint . --fix",
@@ -27,10 +26,10 @@
     "postinstall:dev": "is-ci || husky",
     "postpublish": "pinst --enable",
     "rebuild": "run-s clean build",
-    "run:ts": "node -r ts-node/register -r tsconfig-paths/register",
-    "test": "lerna run test --concurrency 1",
-    "test:coverage": "lerna run --concurrency 1 test -- --coverage",
-    "test:update": "lerna run --concurrency 1 test -- -u",
+    "run:ts": "node --loader ts-node/esm",
+    "test": "nx run-many --target=test --all=true",
+    "test:coverage": "nx run-many --target=test --configuration=coverage --all=true",
+    "test:update": "nx run-many --target=test --configuration=update --all=true",
     "version": "yarn && ghc-doc-link-rewrite && git stage -u yarn.lock packages/**/package.json packages/**/*.md"
   },
   "workspaces": [
@@ -38,9 +37,11 @@
   ],
   "devDependencies": {
     "@babel/core": "7.23.9",
+    "@guanghechen/chalk": "^1.0.0-alpha.12",
     "@guanghechen/eslint-config": "^6.0.0-alpha.1",
     "@guanghechen/eslint-config-ts": "^6.0.0-alpha.6",
     "@guanghechen/jest-config": "^6.0.0-alpha.2",
+    "@guanghechen/reporter": "^1.0.0-alpha.27",
     "@guanghechen/rollup-config": "^6.0.0-alpha.3",
     "@guanghechen/script-doc-link": "^6.0.0-alpha.12",
     "@types/jest": "29.5.12",
@@ -56,13 +57,13 @@
     "lerna": "8.1.2",
     "lint-staged": "15.2.2",
     "npm-run-all": "4.1.5",
+    "nx": "^17.3.2",
     "pinst": "3.0.0",
     "prettier": "3.2.5",
     "rimraf": "^5.0.5",
     "rollup": "^4.12.0",
     "ts-jest": "29.1.2",
     "ts-node": "10.9.2",
-    "tsconfig-paths": "4.2.0",
     "typescript": "5.3.3"
   },
   "lint-staged": {

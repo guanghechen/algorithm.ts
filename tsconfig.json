@@ -2,8 +2,8 @@
   "extends": "./tsconfig.settings.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "lib",
     "paths": {
+      "@algorithm.ts/internal": ["packages/_internal/src/index.ts"],
       "@@/fixtures/*": ["fixtures/*"],
       "@algorithm.ts/base64": ["packages/base64/src"],
       "@algorithm.ts/bellman-ford": ["packages/bellman-ford/src"],
@@ -11,7 +11,6 @@
       "@algorithm.ts/binary-search": ["packages/binary-search/src"],
       "@algorithm.ts/bipartite-matching": ["packages/bipartite-matching/src"],
       "@algorithm.ts/calculator": ["packages/calculator/src"],
-      "@algorithm.ts/constant": ["packages/constant/src"],
       "@algorithm.ts/dijkstra": ["packages/dijkstra/src"],
       "@algorithm.ts/dinic": ["packages/dinic/src"],
       "@algorithm.ts/dlx": ["packages/dlx/src"],

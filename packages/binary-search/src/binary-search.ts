@@ -1,4 +1,4 @@
-import { BIGINT_ONE } from '@algorithm.ts/constant'
+import { BIGINT_ONE } from '@algorithm.ts/internal'
 import type { IBinarySearchCheck, IBinarySearchCheckBigint } from './types'
 
 /**

@@ -4,7 +4,7 @@ import {
   CODEPOINT_LOWER_A,
   CODEPOINT_UPPER_A,
   CODEPOINT_UPPER_Z,
-} from '@algorithm.ts/constant'
+} from '@algorithm.ts/internal'
 
 // Calc idx of digit character.
 export const digitIdx = (c: string): number => c.codePointAt(0)! - CODEPOINT_DIGIT_0

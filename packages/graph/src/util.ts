@@ -1,4 +1,5 @@
-import type { DeepReadonly, IDigraph } from '@algorithm.ts/types'
+import type { DeepReadonly } from '@algorithm.ts/internal'
+import type { IDigraph } from '@algorithm.ts/types'
 
 /**
  * ExtractAdjacencyList from graph.

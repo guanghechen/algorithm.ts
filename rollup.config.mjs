@@ -1,38 +1,12 @@
-import { createRollupConfig, tsPresetConfigBuilder } from '@guanghechen/rollup-config'
-import path from 'node:path'
+const VALID_ROLLUP_CONFIG_TYPES = ['cli', 'lib', 'vsc']
+const RAW_ROLLUP_CONFIG_TYPE = process.env.ROLLUP_CONFIG_TYPE ?? ''
+const ROLLUP_CONFIG_TYPE = VALID_ROLLUP_CONFIG_TYPES.includes(RAW_ROLLUP_CONFIG_TYPE)
+  ? RAW_ROLLUP_CONFIG_TYPE
+  : 'lib'
 
-const internalModules = new Set(['@algorithm.ts/constant'])
-
-export default async function rollupConfig() {
-  const { default: manifest } = await import(path.resolve('package.json'), {
-    assert: { type: 'json' },
-  })
-  const tsBuilder = tsPresetConfigBuilder({
-    typescriptOptions: {
-      tsconfig: 'tsconfig.src.json',
-    },
-  })
-
-  const config = await createRollupConfig({
-    manifest,
-    env: {
-      sourcemap: false,
-    },
-    presetConfigBuilders: [
-      {
-        name: tsBuilder.name,
-        build: async ctx => {
-          const config = await tsBuilder.build(ctx)
-          return {
-            ...config,
-            external: (id) => {
-              if (internalModules.has(id)) return false
-              return config.external(id)
-            }
-          }
-        }
-      }
-    ],
-  })
-  return config
+export default async function () {
+  const createRollupConfig = await import(`./rollup.config.${ROLLUP_CONFIG_TYPE}.mjs`).then(
+    md => md.default,
+  )
+  return createRollupConfig()
 }

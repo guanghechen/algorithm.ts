@@ -7,7 +7,10 @@ export default async function () {
   const { default: manifest } = await import(path.resolve('package.json'), {
     assert: { type: 'json' },
   })
-  const baseConfig = await tsMonorepoConfig(__dirname, { useESM: true })
+  const baseConfig = await tsMonorepoConfig(__dirname, {
+    useESM: true,
+    tsconfigFilepath: path.join(__dirname, 'tsconfig.test.json'),
+  })
 
   const config = {
     ...baseConfig,
@@ -27,4 +30,21 @@ export default async function () {
   return config
 }
 
-const coverageMap = {}
+const coverageMap = {
+  '@algorithm.ts/internal': {
+    global: {
+      branches: 0,
+      functions: 0,
+      lines: 0,
+      statements: 0,
+    },
+  },
+  '@algorithm.ts/gomoku': {
+    global: {
+      branches: 92,
+      functions: 100,
+      lines: 99,
+      statements: 99,
+    },
+  },
+}

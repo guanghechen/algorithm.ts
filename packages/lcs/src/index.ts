@@ -1,4 +1,4 @@
-import type { IEquals } from '@algorithm.ts/types'
+import type { IEquals } from '@algorithm.ts/internal'
 
 /**
  * Find a least lexicographical match for the longest common subsequence.

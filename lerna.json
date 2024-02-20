@@ -3,13 +3,9 @@
   "version": "independent",
   "npmClient": "yarn",
   "ignoreChanges": ["*.md", "**/__test__/**/*"],
-  "changelog": {
-    "preset": "@guanghechen/conventional-changelog"
-  },
   "command": {
     "publish": {
-      "changelogPreset": "@guanghechen/conventional-changelog",
-      "conventionalCommits": true,
+      "conventionalCommits": false,
       "forcePublish": false,
       "graphType": "all",
       "message": ":bookmark:  release",
@@ -18,8 +14,7 @@
     },
     "version": {
       "allowBranch": ["main", "release-*"],
-      "changelogPreset": "@guanghechen/conventional-changelog",
-      "conventionalCommits": true,
+      "conventionalCommits": false,
       "forcePublish": false,
       "message": ":bookmark:  release",
       "private": false

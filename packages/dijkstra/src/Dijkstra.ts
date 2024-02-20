@@ -1,6 +1,6 @@
+import type { DeepReadonly } from '@algorithm.ts/internal'
 import type { IPriorityQueue } from '@algorithm.ts/queue'
 import { PriorityQueue } from '@algorithm.ts/queue'
-import type { DeepReadonly } from '@algorithm.ts/types'
 import type { IDijkstraEdge, IDijkstraGraph, IDijkstraOptions, IDijkstraResult } from './types'
 
 interface IStateNode<C extends number | bigint> {

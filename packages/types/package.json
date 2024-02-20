@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/types",
-  "version": "3.1.1",
+  "version": "4.0.0-alpha.0",
   "description": "Common types for the algorithm.ts packages.",
   "author": {
     "name": "guanghechen",
@@ -23,9 +23,6 @@
   "main": "./lib/cjs/index.cjs",
   "module": "./lib/esm/index.mjs",
   "license": "MIT",
-  "engines": {
-    "node": ">= 16.0.0"
-  },
   "files": [
     "lib/",
     "!lib/**/*.map",
@@ -33,15 +30,5 @@
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
-  ],
-  "scripts": {
-    "build": "rimraf lib/ && cross-env NODE_ENV=production rollup -c ../../rollup.config.mjs",
-    "prepublishOnly": "yarn build"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3",
-    "jest": "^29.7.0",
-    "rimraf": "^5.0.5",
-    "rollup": "^4.12.0"
-  }
+  ]
 }
