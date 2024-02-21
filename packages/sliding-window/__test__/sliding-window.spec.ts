@@ -1,7 +1,7 @@
 import { stringOrNumberCompare } from '@@/fixtures/test-util/comparator'
 import { TestDataType, TestDataTypeKey, loadTestData } from '@@/fixtures/test-util/data'
 import { createDebugInfo } from '@@/fixtures/test-util/util'
-import type { ICompare } from '@algorithm.ts/internal'
+import type { ICompare } from '@algorithm.ts/types'
 import { SlidingWindow } from '../src'
 
 const caseGroups = [

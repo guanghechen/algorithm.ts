@@ -1,6 +1,6 @@
 import base64 from '@algorithm.ts/base64'
 import { TextDecoder, TextEncoder } from 'util'
-import type { IHuffmanEncodingTable } from '../src'
+import type { IHuffmanEncodedData, IHuffmanEncodingTable } from '../src'
 import huffman from '../src'
 
 describe('uri-compress', function () {
@@ -73,7 +73,7 @@ function decompressEncodingTable(entries: Array<string | number>): IHuffmanEncod
   for (let i = 0; i < entries.length; i += 2) {
     const value = entries[i] as string
     const p = entries[i + 1] as number
-    const path: Array<0 | 1> = []
+    const path: IHuffmanEncodedData = []
     for (let x = p; x > 1; x >>= 1) path.push((x & 1) as 0 | 1)
     table[value] = path.reverse()
   }

@@ -1,5 +1,4 @@
-export type ICompare<T> = (x: T, y: T) => -1 | 0 | 1 | number
-export type IEquals<T> = (x: T, y: T) => boolean
+export type IKeyOf<T, K = number> = (element: T) => K
 
 /**
  * Make all properties in `T` mutable.
@@ -18,3 +17,14 @@ export type PickPartial<T extends object, K extends keyof T> = Omit<T, K> & Part
 export type DeepReadonly<T extends object> = {
   readonly [P in keyof T]: T[P] extends object ? DeepReadonly<T[P]> : Readonly<T[P]>
 }
+
+/**
+ * Get element type of an array
+ */
+export type ElementOfArray<T extends ReadonlyArray<unknown> | string> = T extends ReadonlyArray<
+  infer ElementType
+>
+  ? ElementType
+  : T extends string
+  ? string
+  : never

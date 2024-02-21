@@ -40,8 +40,5 @@
   ],
   "dependencies": {
     "@algorithm.ts/types": "^4.0.0-alpha.0"
-  },
-  "devDependencies": {
-    "@algorithm.ts/internal": "0.0.0"
   }
 }
