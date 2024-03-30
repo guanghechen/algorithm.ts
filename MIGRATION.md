@@ -1,4 +1,31 @@
-## From 2.x.x
+## 3.x.x -> 4.x.x
+
+### @algorithm.ts/findset
+
+- No longer check the boundary of index of elements in the `*_advance` methods, please ensure the
+  range valid by yourself.
+- Renamed the `VanillaFindset` to `Findset`.
+- Refined the methods, see the `IFindset`, `IHeuristicFindset`, `IEnhancedFindset` interfaces for
+  more details.
+
+### @algorithm.ts/queue
+
+- Added new `Deque` (implemented with linked list).
+- Refined the methods, see the `IQueue`, `ICircularQueue`, `IDeque`, `IPriorityQueue` interfaces for
+  more details.
+
+### @algorithm.ts/trie
+
+- Removed the `UnsafeTrie`, please the use `Trie` directly.
+- No longer check the boundary of index of elements in the `*_advance` methods, please ensure the
+  range valid by yourself.
+- Refined the methods, removed the UnsafeTrie, see the `ITrie` interfaces for more details.
+
+### @algorithm.ts/types
+
+- This package has been removed, some graph related types moved to @algorithm.ts/graph.types
+
+## 2.x.x -> 3.x.x
 
 ### @algorithm.ts/base64
 
@@ -69,7 +96,7 @@ No breaking changes.
 1. Renamed to `@algorithm.ts/calculator`.
 2. Use `calculator.calculate(<expression>)` instead of `calculate(<expression>)`.
 
-## @algorithm.ts/circular-queue
+### @algorithm.ts/circular-queue
 
 This package is removed, use `@algorithm.ts/queue` instead.
 
@@ -234,7 +261,7 @@ import { lowerBound } from '@algorithm.ts/binary-search'
    }
    ```
 
-## @algorithm.ts/priority-queue
+### @algorithm.ts/priority-queue
 
 This package is removed, use `@algorithm.ts/queue` instead.
 
