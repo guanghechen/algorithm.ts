@@ -22,9 +22,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/bellman-ford@workspace:packages/bellman-ford"
   dependencies:
-    "@algorithm.ts/graph.types": ^1.0.0-alpha.0
+    "@algorithm.ts/graph.types": ^1.0.0
     "@algorithm.ts/internal": ^0.0.0
-    "@algorithm.ts/queue": ^4.0.0-alpha.0
+    "@algorithm.ts/queue": ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -46,7 +46,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/bipartite-matching@workspace:packages/bipartite-matching"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.0-alpha.0
+    "@algorithm.ts/queue": ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -62,9 +62,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dijkstra@workspace:packages/dijkstra"
   dependencies:
-    "@algorithm.ts/graph.types": ^1.0.0-alpha.0
+    "@algorithm.ts/graph.types": ^1.0.0
     "@algorithm.ts/internal": ^0.0.0
-    "@algorithm.ts/queue": ^4.0.0-alpha.0
+    "@algorithm.ts/queue": ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -72,11 +72,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dinic@workspace:packages/dinic"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.0-alpha.0
+    "@algorithm.ts/queue": ^4.0.0
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/dlx@^4.0.0-alpha.0, @algorithm.ts/dlx@workspace:packages/dlx":
+"@algorithm.ts/dlx@^4.0.0, @algorithm.ts/dlx@workspace:packages/dlx":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dlx@workspace:packages/dlx"
   languageName: unknown
@@ -100,11 +100,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/gomoku@workspace:packages/gomoku"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.0-alpha.0
+    "@algorithm.ts/queue": ^4.0.0
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/graph.types@^1.0.0-alpha.0, @algorithm.ts/graph.types@workspace:packages/graph.types":
+"@algorithm.ts/graph.types@^1.0.0, @algorithm.ts/graph.types@workspace:packages/graph.types":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/graph.types@workspace:packages/graph.types"
   languageName: unknown
@@ -114,7 +114,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/graph@workspace:packages/graph"
   dependencies:
-    "@algorithm.ts/graph.types": ^1.0.0-alpha.0
+    "@algorithm.ts/graph.types": ^1.0.0
     "@algorithm.ts/internal": ^0.0.0
   languageName: unknown
   linkType: soft
@@ -123,7 +123,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/huffman@workspace:packages/huffman"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.0-alpha.0
+    "@algorithm.ts/queue": ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -137,7 +137,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/isap@workspace:packages/isap"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.0-alpha.0
+    "@algorithm.ts/queue": ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -159,7 +159,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/mcmf@workspace:packages/mcmf"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.0-alpha.0
+    "@algorithm.ts/queue": ^4.0.0
   languageName: unknown
   linkType: soft
 
@@ -169,7 +169,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/queue@^4.0.0-alpha.0, @algorithm.ts/queue@workspace:packages/queue":
+"@algorithm.ts/queue@^4.0.0, @algorithm.ts/queue@workspace:packages/queue":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/queue@workspace:packages/queue"
   dependencies:
@@ -220,7 +220,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/shuffle@^4.0.0-alpha.0, @algorithm.ts/shuffle@workspace:packages/shuffle":
+"@algorithm.ts/shuffle@^4.0.0, @algorithm.ts/shuffle@workspace:packages/shuffle":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/shuffle@workspace:packages/shuffle"
   languageName: unknown
@@ -238,8 +238,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/sudoku@workspace:packages/sudoku"
   dependencies:
-    "@algorithm.ts/dlx": ^4.0.0-alpha.0
-    "@algorithm.ts/shuffle": ^4.0.0-alpha.0
+    "@algorithm.ts/dlx": ^4.0.0
+    "@algorithm.ts/shuffle": ^4.0.0
   languageName: unknown
   linkType: soft
 

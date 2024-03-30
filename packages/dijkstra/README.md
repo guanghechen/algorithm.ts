@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.0-alpha.0/packages/dijkstra#readme">@algorithm.ts/dijkstra</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.0/packages/dijkstra#readme">@algorithm.ts/dijkstra</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/dijkstra">
@@ -162,8 +162,8 @@ The following definition is quoted from Wikipedia
 - [@algorithm.ts/queue][]
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.0-alpha.0/packages/dijkstra#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.0/packages/dijkstra#readme
 [wikipedia-dijkstra]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 [dijkstra]: https://me.guanghechen.com/post/algorithm/graph/shortest-path/dijkstra
 [@algorithm.ts/queue]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.0-alpha.0/packages/queue
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.0/packages/queue

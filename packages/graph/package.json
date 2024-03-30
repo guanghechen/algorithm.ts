@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/graph",
-  "version": "4.0.0-alpha.0",
+  "version": "4.0.0",
   "description": "Types and utils from solving graph problems.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.0-alpha.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.0",
     "directory": "packages/graph"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.0-alpha.0/packages/graph#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.0/packages/graph#readme",
   "keywords": [
     "algorithm",
     "graph algorithm utils"
@@ -36,7 +36,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/graph.types": "^1.0.0-alpha.0"
+    "@algorithm.ts/graph.types": "^1.0.0"
   },
   "devDependencies": {
     "@algorithm.ts/internal": "^0.0.0"

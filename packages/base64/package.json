@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/base64",
-  "version": "4.0.0-alpha.0",
+  "version": "4.0.0",
   "description": "A Base64 encoding implementation.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/base64@4.0.0-alpha.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/base64@4.0.0",
     "directory": "packages/base64"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/base64@4.0.0-alpha.0/packages/base64#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/base64@4.0.0/packages/base64#readme",
   "keywords": [
     "algorithm",
     "base64"

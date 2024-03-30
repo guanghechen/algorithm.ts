@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.0-alpha.0/packages/lcs#readme">@algorithm.ts/lcs</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.0/packages/lcs#readme">@algorithm.ts/lcs</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/lcs">
@@ -116,6 +116,6 @@ The following definition is quoted from Wikipedia
 - [Longest common subsequence problem | Wikipedia][wikipedia-lcs]
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.0-alpha.0/packages/lcs#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.0/packages/lcs#readme
 [lcs]: https://me.guanghechen.com/post/algorithm/lcs/
 [wikipedia-lcs]: https://en.wikipedia.org/wiki/Longest_common_subsequence_problem

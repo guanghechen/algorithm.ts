@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/graph.types",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0",
   "description": "Common types for the graph",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph.types@1.0.0-alpha.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph.types@1.0.0",
     "directory": "packages/graph.types"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph.types@1.0.0-alpha.0/packages/graph.types#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph.types@1.0.0/packages/graph.types#readme",
   "type": "module",
   "exports": {
     "types": "./lib/types/index.d.ts",

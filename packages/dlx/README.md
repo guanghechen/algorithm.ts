@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.0-alpha.0/packages/dlx#readme">@algorithm.ts/dlx</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.0/packages/dlx#readme">@algorithm.ts/dlx</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/dlx">
@@ -166,5 +166,5 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
 - [洗牌问题和 dlx 算法][dlx]
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.0-alpha.0/packages/dlx#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.0/packages/dlx#readme
 [dlx]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-dlx

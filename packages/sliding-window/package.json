@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sliding-window",
-  "version": "4.0.0-alpha.0",
+  "version": "4.0.0",
   "description": "Sliding window",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@4.0.0-alpha.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@4.0.0",
     "directory": "packages/sliding-window"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@4.0.0-alpha.0/packages/sliding-window#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@4.0.0/packages/sliding-window#readme",
   "keywords": [
     "algorithm",
     "sliding-window"
