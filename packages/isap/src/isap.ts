@@ -1,5 +1,5 @@
-import type { ICircularQueue } from '@algorithm.ts/queue'
 import { CircularQueue } from '@algorithm.ts/queue'
+import type { ICircularQueue } from '@algorithm.ts/queue'
 import type { IIsap, IIsapEdge } from './types'
 
 export class Isap implements IIsap {
@@ -9,7 +9,7 @@ export class Isap implements IIsap {
   protected readonly _path: number[] = [] // An edge in an augmented path.
   protected readonly _edges: IIsapEdge[] = []
   protected readonly _G: number[][] = []
-  protected readonly _Q: ICircularQueue<number> = new CircularQueue()
+  protected readonly _Q: ICircularQueue<number> = new CircularQueue({ capacity: 4 })
   protected _N: number // The number of nodes in a network flow
   protected _source: number // The source point in a network flow
   protected _sink: number // The sink in a network flow

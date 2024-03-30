@@ -1,5 +1,5 @@
-import type { DeepReadonly } from '@algorithm.ts/internal'
-import type { ICompare, IDigraph, IDigraphEdge } from '@algorithm.ts/types'
+import type { IDigraph, IDigraphEdge } from '@algorithm.ts/graph.types'
+import type { DeepReadonly, ICompare } from '@algorithm.ts/internal'
 import { buildEdgeMap, extractAdjacencyList, getShortestPath } from '../src'
 
 const enum Nodes {

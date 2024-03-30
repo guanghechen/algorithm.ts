@@ -1,9 +1,9 @@
-import type { ICompare } from '@algorithm.ts/types'
-import type { IPriorityQueue } from './types'
+import type { ICompare } from '@algorithm.ts/internal'
+import type { IPriorityQueue } from './types/priority'
 
 export interface IPriorityQueueProps<T> {
   /**
-   * If the compare(x, y) < 0, then x has a higher precedence than y.
+   * If the compare(x, y) < 0, then x has a higher priority than y.
    */
   compare: ICompare<T>
 }
@@ -13,91 +13,38 @@ export interface IPriorityQueueProps<T> {
  */
 export class PriorityQueue<T> implements IPriorityQueue<T> {
   protected readonly _compare: ICompare<T>
-  protected readonly _elements: T[] = []
-  protected _size = 0
+  protected readonly _elements: T[]
+  protected _size: number
+  protected _destroyed: boolean
 
   constructor(props: IPriorityQueueProps<T>) {
+    this._elements = []
+    this._size = 0
+    this._destroyed = false
     this._compare = props.compare
   }
 
+  /**
+   * !!NOTICE!! The iterator will not be sorted.
+   */
   public *[Symbol.iterator](): IterableIterator<T> {
     const { _elements, _size } = this
     for (let i = 1; i <= _size; ++i) yield _elements[i]
   }
 
-  public init(elements: ReadonlyArray<T> = [], start = 0, end: number = elements.length): void {
-    this.clear()
-    if (start >= 0 && start < end && end <= elements.length) {
-      const { _elements } = this
-      for (let i = start, k = this._size; i < end; ++i) _elements[++k] = elements[i]
-      this._size = end - start
-      this._fastBuild()
-    }
+  public get destroyed(): boolean {
+    return this._destroyed
   }
 
-  public enqueue(element: T): void {
-    this._elements[++this._size] = element
-    this._up(this._size)
+  public get size(): number {
+    return this._size
   }
 
-  public enqueues(elements: ReadonlyArray<T>, start = 0, end: number = elements.length): void {
-    // eslint-disable-next-line no-param-reassign
-    if (start < 0) start = 0
-    // eslint-disable-next-line no-param-reassign
-    if (end > elements.length) end = elements.length
-    if (start >= end) return
-
-    const N: number = end - start
-    if (N * 4 < this._size) {
-      for (let i = start; i < end; ++i) this.enqueue(elements[i])
-      return
-    }
-
-    const { _elements } = this
-    for (let i = start, k = this._size; i < end; ++i) _elements[++k] = elements[i]
-    this._size += N
-    this._fastBuild()
-  }
-
-  public dequeue(element?: T): T | undefined {
-    if (this._size < 1) {
-      if (element !== undefined) {
-        this._size = 1
-        this._elements[1] = element
-      }
-      return undefined
-    }
-
-    const target = this._elements[1]
-    if (element !== undefined) {
-      this._elements[1] = element
-    } else {
-      this._elements[1] = this._elements[this._size--]
-    }
-    this._down(1)
-    return target
-  }
-
-  public splice(
-    filter: (element: T) => boolean,
-    elements: ReadonlyArray<T> = [],
-    start = 0,
-    end: number = elements.length,
-  ): void {
-    const { _size, _elements } = this
-
-    let k = 0
-    for (let i = 1; i <= _size; ++i) {
-      const element: T = _elements[i]
-      if (filter(element)) _elements[++k] = element
-    }
-
-    if (start >= 0 && start < end && end <= elements.length) {
-      for (let i = start; i < end; ++i) _elements[++k] = elements[i]
-    }
-
-    this._size = k
-    this._fastBuild()
+  public count(filter: (element: T) => boolean): number {
+    const { _elements, _size } = this
+    let count: number = 0
+    for (let i = 1; i <= _size; ++i) if (filter(_elements[i])) count += 1
+    return count
   }
 
   public front(): T | undefined {
@@ -105,16 +52,104 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
   }
 
   public destroy(): void {
-    this.clear()
-    ;(this._elements as T[]) = null as unknown as T[]
-  }
+    if (this._destroyed) return
+    this._destroyed = true
 
-  public clear(): void {
     this._size = 0
+    this._elements.length = 0
   }
 
-  public get size(): number {
-    return this._size
+  public init(initialElements?: Iterable<T>): void {
+    if (this._destroyed) {
+      throw new Error('[PriorityQueue] `init` is not allowed since it has been destroyed')
+    }
+
+    let size: number = 0
+
+    if (initialElements !== undefined) {
+      const { _elements } = this
+      for (const element of initialElements) _elements[++size] = element
+    }
+
+    this._size = size
+    this._fastBuild()
+  }
+
+  public *consuming(): IterableIterator<T> {
+    while (this._size > 0) {
+      const target: T = this._elements[1]
+      this._elements[1] = this._elements[this._size--]
+      this._down(1)
+      yield target
+    }
+  }
+
+  public dequeue(element?: T): T | undefined {
+    if (this._size === 0) {
+      if (element !== undefined) {
+        this._size = 1
+        this._elements[1] = element
+      }
+      return undefined
+    }
+
+    const target: T = this._elements[1]
+    if (element !== undefined) this._elements[1] = element
+    else this._elements[1] = this._elements[this._size--]
+
+    this._down(1)
+    return target
+  }
+
+  public enqueue(element: T): void {
+    this._elements[++this._size] = element
+    this._up(this._size)
+  }
+
+  public enqueues(elements: Iterable<T>): void {
+    const _elements: T[] = this._elements
+    const size: number = this._size
+    let nextSize: number = size
+    for (const element of elements) _elements[++nextSize] = element
+
+    if (nextSize === size) return
+
+    this._size = nextSize
+    const newAddedCount: number = nextSize - size
+    if (newAddedCount * Math.log2(nextSize) > nextSize) this._fastBuild()
+    else for (let i = size + 1; i <= nextSize; ++i) this._up(i)
+  }
+
+  public enqueues_advance(elements: ReadonlyArray<T>, start: number, end: number): void {
+    if (end <= start) return
+
+    const _elements: T[] = this._elements
+    const size: number = this._size
+
+    let nextSize: number = size
+    for (let i = start; i < end; ++i) _elements[++nextSize] = elements[i]
+
+    this._size = nextSize
+    const newAddedCount: number = end - start
+    if (newAddedCount * Math.log2(nextSize) > nextSize) this._fastBuild()
+    else for (let i = size + 1; i <= nextSize; ++i) this._up(i)
+  }
+
+  public exclude(filter: (element: T) => boolean): number {
+    let size: number = 0
+    const _elements: T[] = this._elements
+    for (let i = 1, N = this._size + 1; i < N; ++i) {
+      const element: T = _elements[i]
+      if (filter(element)) continue
+      _elements[++size] = element
+    }
+
+    const removedSize: number = this._size - size
+    if (removedSize === 0) return 0
+
+    this._size = size
+    this._fastBuild()
+    return removedSize
   }
 
   protected _down(index: number): void {

@@ -1,14 +1,14 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "types",
-  "sourceRoot": "packages/types/src",
+  "name": "graph.types",
+  "sourceRoot": "packages/graph.types/src",
   "projectType": "library",
   "tags": [],
   "targets": {
     "clean": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "packages/types",
+        "cwd": "packages/graph.types",
         "parallel": false,
         "sourceMap": true,
         "commands": ["rimraf lib"]
@@ -18,7 +18,7 @@
       "executor": "nx:run-commands",
       "dependsOn": ["clean", "^build"],
       "options": {
-        "cwd": "packages/types",
+        "cwd": "packages/graph.types",
         "parallel": false,
         "sourceMap": true,
         "commands": ["cross-env ROLLUP_CONFIG_TYPE=lib rollup -c ../../rollup.config.mjs"]
@@ -35,7 +35,7 @@
     "watch": {
       "executor": "nx:run-commands",
       "options": {
-        "cwd": "packages/types",
+        "cwd": "packages/graph.types",
         "parallel": false,
         "sourceMap": true,
         "commands": ["cross-env ROLLUP_CONFIG_TYPE=lib rollup -c ../../rollup.config.mjs -w"]

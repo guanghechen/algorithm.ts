@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.1/packages/graph#readme">@algorithm.ts/graph</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.0-alpha.0/packages/graph#readme">@algorithm.ts/graph</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/graph">
@@ -71,7 +71,7 @@ Types and utils from solving graph problems.
 
   ```typescript {17}
   import { buildEdgeMap } from '@algorithm.ts/graph'
-  import type { IDigraph, IDigraphEdge } from '@algorithm.ts/types'
+  import type { IDigraph, IDigraphEdge } from '@algorithm.ts/graph.types'
 
   interface IEdge extends IDigraphEdge {
     from: number
@@ -116,8 +116,8 @@ Types and utils from solving graph problems.
 - [@algorithm.ts/dijkstra][]
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@3.1.1/packages/graph#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.0-alpha.0/packages/graph#readme
 [@algorithm.ts/bellman-ford]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1/packages/bellman-ford
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.0-alpha.0/packages/bellman-ford
 [@algorithm.ts/dijkstra]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@3.1.1/packages/dijkstra
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.0-alpha.0/packages/dijkstra

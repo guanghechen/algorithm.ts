@@ -1,10 +1,6 @@
 import { TokenSymbol, idx, ll1Table, sddTable } from './constant'
-import type { IOperand } from './operand'
-import { BigintOperand, DecimalOperand, IntegerOperand } from './operand'
-
-export interface ICalculator<T> {
-  calculate(expression: string): T
-}
+import { bigintOperand, decimalOperand, integerOperand } from './operand'
+import type { ICalculator, IOperand } from './types'
 
 export class Calculator<T> implements ICalculator<T> {
   protected readonly _ZERO: T
@@ -89,7 +85,7 @@ export class Calculator<T> implements ICalculator<T> {
         // 2: A --> -BD
         case 2: {
           const val1: T = execute(tokens[1], _ZERO, _ZERO)
-          return execute(tokens[2], _ZERO, _operand.subtract(_ZERO, val1))
+          return execute(tokens[2], _ZERO, _operand.sub(_ZERO, val1))
         }
 
         // 3: B --> CE
@@ -116,7 +112,7 @@ export class Calculator<T> implements ICalculator<T> {
         // 7: D --> -BD
         case 7: {
           const val1: T = execute(tokens[1], _ZERO, _ZERO)
-          return execute(tokens[2], _ZERO, _operand.subtract(inh, val1))
+          return execute(tokens[2], _ZERO, _operand.sub(inh, val1))
         }
 
         // 8: D --> \varepsilon
@@ -126,13 +122,13 @@ export class Calculator<T> implements ICalculator<T> {
         // 9: E --> *CE
         case 9: {
           const val1: T = execute(tokens[1], _ZERO, _ZERO)
-          return execute(tokens[2], _ZERO, _operand.multiple(inh, val1))
+          return execute(tokens[2], _ZERO, _operand.mul(inh, val1))
         }
 
         // 10: E --> /CE
         case 10: {
           const val1: T = execute(tokens[1], _ZERO, _ZERO)
-          return execute(tokens[2], _ZERO, _operand.divide(inh, val1))
+          return execute(tokens[2], _ZERO, _operand.div(inh, val1))
         }
 
         // 11: E --> \varepsilon
@@ -149,19 +145,18 @@ export class Calculator<T> implements ICalculator<T> {
 }
 
 // Integer calculate.
-export const calculator: ICalculator<number> = new Calculator<number>(
-  new IntegerOperand(),
-  expression => expression.replace(/[\s]+/g, ''),
+export const calculator: ICalculator<number> = new Calculator<number>(integerOperand, expression =>
+  expression.replace(/[\s]+/g, ''),
 )
 
 // Decimal calculate.
 export const decimalCalculator: ICalculator<number> = new Calculator<number>(
-  new DecimalOperand(),
+  decimalOperand,
   expression => expression.replace(/[\s]+/g, '').replace(/(^|[^\d.])\./g, '$10.'),
 )
 
 // Bigint calculate.
 export const bigintCalculator: ICalculator<bigint> = new Calculator<bigint>(
-  new BigintOperand(),
+  bigintOperand,
   expression => expression.replace(/[\s]+/g, ''),
 )

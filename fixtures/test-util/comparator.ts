@@ -1,4 +1,4 @@
-import type { ICompare } from '@algorithm.ts/types'
+import type { ICompare } from '@algorithm.ts/internal'
 import type { IDataWithIndex } from './types'
 
 export const numberCompare: ICompare<number> = (x, y) => x - y

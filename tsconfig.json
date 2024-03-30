@@ -18,6 +18,7 @@
       "@algorithm.ts/gcd": ["packages/gcd/src"],
       "@algorithm.ts/gomoku": ["packages/gomoku/src"],
       "@algorithm.ts/graph": ["packages/graph/src"],
+      "@algorithm.ts/graph.types": ["packages/graph.types/src"],
       "@algorithm.ts/huffman": ["packages/huffman"],
       "@algorithm.ts/isap": ["packages/isap/src"],
       "@algorithm.ts/lcs": ["packages/lcs/src"],
@@ -29,8 +30,7 @@
       "@algorithm.ts/shuffle": ["packages/shuffle/src"],
       "@algorithm.ts/sliding-window": ["packages/sliding-window/src"],
       "@algorithm.ts/sudoku": ["packages/sudoku/src"],
-      "@algorithm.ts/trie": ["packages/trie/src"],
-      "@algorithm.ts/types": ["packages/types/src"]
+      "@algorithm.ts/trie": ["packages/trie/src"]
     }
   },
   "exclude": ["**/__test__/fixtures"]

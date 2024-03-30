@@ -1,5 +1,5 @@
+import type { IDigraph } from '@algorithm.ts/graph.types'
 import type { DeepReadonly } from '@algorithm.ts/internal'
-import type { IDigraph } from '@algorithm.ts/types'
 
 /**
  * ExtractAdjacencyList from graph.
@@ -51,4 +51,29 @@ export const buildEdgeMap = (N: number, edges: ReadonlyArray<{ from: number }>):
     G[edge.from].push(i)
   }
   return G
+}
+
+/**
+ * An algorithm to get topological ordering of node in the graph.
+ *
+ * If i < j, then either topo[i] is the successor node of topo[j] or they are independent nodes
+ * of each other
+ *
+ * @param graph
+ * @returns
+ */
+export function topoSort(graph: DeepReadonly<IDigraph>): number[] {
+  const { N, G, edges } = graph
+  const visited: boolean[] = new Array(N).fill(false)
+  const topo: number[] = []
+  visited.length = 0
+  for (let u = 0; u < N; ++u) dfs(u)
+  return topo
+
+  function dfs(u: number): void {
+    if (visited[u]) return
+    visited[u] = true
+    for (const i of G[u]) dfs(edges[i].to)
+    topo.push(u)
+  }
 }

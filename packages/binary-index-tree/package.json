@@ -35,8 +35,5 @@
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
-  ],
-  "dependencies": {
-    "@algorithm.ts/types": "^4.0.0-alpha.0"
-  }
+  ]
 }

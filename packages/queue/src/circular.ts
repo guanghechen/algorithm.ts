@@ -1,205 +1,68 @@
-import type { ICircularQueue } from './types'
+import type { ICircularQueue } from './types/circular'
 
-export interface ICircularQueueProps {
+export interface IFixedCircularQueueProps {
   /**
    * Initial capacity of the circular queue.
    */
-  capacity?: number
-  /**
-   * Automatically extends the queue capacity when the queue is full.
-   * @default true
-   */
-  autoResize?: boolean
-  /**
-   * @default 1.5
-   */
-  autoResizeExpansionRatio?: number
+  readonly capacity: number
 }
 
 export class CircularQueue<T = unknown> implements ICircularQueue<T> {
   protected readonly _elements: T[]
-  protected readonly _autoResize: (nextExpectedSize: number) => void
   protected _capacity: number
   protected _size: number
   protected _start: number
   protected _end: number
+  protected _destroyed: boolean
 
-  constructor(props: ICircularQueueProps = {}) {
-    const { capacity = 16, autoResize = true, autoResizeExpansionRatio = 1.5 } = props
+  constructor(props: IFixedCircularQueueProps) {
+    const { capacity } = props
     if (!Number.isInteger(capacity) || capacity < 1) {
       throw new RangeError(
         `[CircularQueue] capacity is expected to be a positive integer, but got (${capacity}).`,
       )
     }
 
-    if (autoResize && autoResizeExpansionRatio < 1.2) {
-      throw new RangeError(
-        `[CircularQueue] autoResizeExpansionRatio is expected to be a number greater than 1.2, but got (${autoResizeExpansionRatio}).`,
-      )
-    }
-
+    this._elements = new Array(capacity)
     this._capacity = capacity
     this._size = 0
     this._start = 0
     this._end = -1
-
-    this._elements = new Array(capacity)
-    this._autoResize = autoResize
-      ? (nextExpectedSize: number): void | never => {
-          if (nextExpectedSize <= this._capacity) return
-          const nextCapacity = Math.ceil(this._capacity * autoResizeExpansionRatio)
-          this.resize(Math.max(nextCapacity, nextExpectedSize))
-        }
-      : () => {}
+    this._destroyed = false
   }
 
   public *[Symbol.iterator](): IterableIterator<T> {
-    const { _elements, _size, _start, _capacity } = this
-    if (_size == 0) return
+    const { _elements, _capacity, _size, _start, _end } = this
+    if (_size === 0) return
 
-    const natureCount: number = _capacity - _start
-    if (_size <= natureCount) {
-      for (let i = _start, _end = _start + _size; i < _end; ++i) yield _elements[i]
-      return
-    }
-
-    for (let i = _start, _end = _capacity; i < _end; ++i) yield _elements[i]
-    for (let i = 0, _end = _size - natureCount; i < _end; ++i) yield _elements[i]
-  }
-
-  public init(elements: ReadonlyArray<T> = [], start = 0, end: number = elements.length): void {
-    this.clear()
-
-    // eslint-disable-next-line no-param-reassign
-    if (start < 0) start = 0
-    // eslint-disable-next-line no-param-reassign
-    if (end > elements.length) end = elements.length
-    if (start >= end) return
-
-    const count = end - start
-    if (count > this._capacity) this._capacity = count
-
-    const { _elements } = this
-    for (let i = 0, k = start; k < end; ++i, ++k) _elements[i] = elements[k]
-
-    this._size = count
-    this._start = 0
-    this._end = count - 1
-  }
-
-  public resize(MAX_SIZE: number): void {
-    if (this._size > MAX_SIZE) {
-      throw new RangeError(`[CircularQueue] failed to resize, the new queue space is insufficient.`)
-    }
-    this.rearrange()
-    this._capacity = MAX_SIZE
-  }
-
-  public enqueue(element: T): void {
-    this._autoResize(this._size + 1)
-    this._end = this._forwardIndex(this._end)
-    this._elements[this._end] = element
-    if (this._size < this._capacity) this._size += 1
-    else this._start = this._forwardIndex(this._start)
-  }
-
-  public unshift(element: T): void {
-    if (this._size === 0) this.enqueue(element)
-    else {
-      this._autoResize(this._size + 1)
-      this._start = this._backwardIndex(this._start)
-      this._elements[this._start] = element
-      if (this._size < this._capacity) this._size += 1
-      else this._end = this._backwardIndex(this._end)
-    }
-  }
-
-  public enqueues(elements: ReadonlyArray<T>, start = 0, end: number = elements.length): void {
-    // eslint-disable-next-line no-param-reassign
-    if (start < 0) start = 0
-    // eslint-disable-next-line no-param-reassign
-    if (end > elements.length) end = elements.length
-    if (start >= end) return
-
-    const cnt = end - start
-    const nextSize = this._size + cnt
-    this._autoResize(nextSize)
-
-    const { _capacity, _elements } = this
-    if (nextSize < _capacity) {
-      for (let k = start; k < end; k++) {
-        this._end = this._forwardIndex(this._end)
-        _elements[this._end] = elements[k]
-      }
-      this._size += cnt
+    if (_start <= _end) {
+      for (let i = _start; i <= _end; ++i) yield _elements[i]
     } else {
-      if (cnt < _capacity) {
-        this._start = (this._start + nextSize - _capacity) % _capacity
-        for (let k = start; k < end; ++k) {
-          this._end = this._forwardIndex(this._end)
-          _elements[this._end] = elements[k]
-        }
-        this._size = _capacity
-      } else {
-        for (let i = 0, k = start + cnt - _capacity; i < _capacity; ++i, ++k) {
-          _elements[i] = elements[k]
-        }
-        this._size = _capacity
-        this._start = 0
-        this._end = _capacity - 1
-      }
+      for (let i = _start; i < _capacity; ++i) yield _elements[i]
+      for (let i = 0; i <= _end; ++i) yield _elements[i]
     }
   }
 
-  public dequeue(element?: T): T | undefined {
-    if (this._size === 0) {
-      if (element !== undefined) {
-        this._elements[0] = element
-        this._size = 1
-        this._start = 0
-        this._end = 0
-      }
-      return undefined
-    }
-
-    const target = this._elements[this._start]
-    this._start = this._forwardIndex(this._start)
-    if (element === undefined) this._size -= 1
-    else {
-      this._end = this._forwardIndex(this._end)
-      this._elements[this._end] = element
-    }
-    return target
+  public get destroyed(): boolean {
+    return this._destroyed
   }
 
-  public pop(): T | undefined {
-    if (this._size === 0) return undefined
-    this._size -= 1
-    const target = this._elements[this._end]
-    this._end = this._backwardIndex(this._end)
-    return target
+  public get size(): number {
+    return this._size
   }
 
-  public splice(
-    filter: (element: T) => boolean,
-    elements?: ReadonlyArray<T> | undefined,
-    start?: number | undefined,
-    end?: number | undefined,
-  ): void {
-    let nextSize = 0
-    let nextEnd = this._start
-    const { _elements } = this
-    for (const element of this) {
-      if (filter(element)) {
-        _elements[nextEnd] = element
-        nextEnd = this._forwardIndex(nextEnd)
-        nextSize += 1
-      }
-    }
+  public count(filter: (element: T) => boolean): number {
+    const { _elements, _capacity, _size, _start, _end } = this
+    if (_size == 0) return 0
 
-    this._size = nextSize
-    this._end = this._backwardIndex(nextEnd)
-    if (elements !== undefined) this.enqueues(elements, start, end)
+    let count: number = 0
+    if (_start <= _end) {
+      for (let i = _start; i <= _end; ++i) if (filter(_elements[i])) count += 1
+    } else {
+      for (let i = _start; i < _capacity; ++i) if (filter(_elements[i])) count += 1
+      for (let i = 0; i <= _end; ++i) if (filter(_elements[i])) count += 1
+    }
+    return count
   }
 
   public front(): T | undefined {
@@ -210,48 +73,323 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
     return this._size === 0 ? undefined : this._elements[this._end]
   }
 
-  public rearrange(): void {
-    if (this._start === 0) return
-
-    const { _elements, _start, _size } = this
-    if (_size > 0) {
-      if (_start + _size <= this._capacity) {
-        for (let i = 0, k = _start; i < _size; ++i, ++k) _elements[i] = _elements[k]
-      } else {
-        const tmpArray: T[] = []
-        for (const x of this) tmpArray.push(x)
-        for (let i = 0; i < _size; ++i) _elements[i] = tmpArray[i]
-        tmpArray.length = 0
-      }
-    }
-
-    this._start = 0
-    this._end = _size - 1
-  }
-
   public destroy(): void {
-    this._capacity = 0
-    this.clear()
-    ;(this._elements as T[]) = null as unknown as T[]
-  }
+    if (this._destroyed) return
+    this._destroyed = true
 
-  public clear(): void {
+    this._elements.length = 0
     this._size = 0
     this._start = 0
     this._end = -1
   }
 
-  public get size(): number {
-    return this._size
+  public init(initialElements?: Iterable<T>): void {
+    if (this._destroyed) {
+      throw new Error('[CircularQueue] `init` is not allowed since it has been destroyed')
+    }
+
+    const _elements: T[] = this._elements
+    const capacity: number = this._capacity
+    let size: number = 0
+    let start: number = 0
+    let end: number = -1
+
+    if (initialElements !== undefined) {
+      for (const element of initialElements) {
+        size += 1
+        end = end + 1 === capacity ? 0 : end + 1
+        _elements[end] = element
+      }
+
+      if (size > capacity) {
+        size = capacity
+        start = end + 1 === capacity ? 0 : end + 1
+      }
+    }
+
+    this._size = size
+    this._start = start
+    this._end = end
   }
 
-  protected _forwardIndex(index: number): number {
-    const nextIndex = index + 1
-    return nextIndex === this._capacity ? 0 : nextIndex
+  public resize(newCapacity: number): void {
+    if (!Number.isInteger(newCapacity) || newCapacity < 1) {
+      throw new RangeError(
+        `[CircularQueue] capacity is expected to be a positive integer, but got (${newCapacity}).`,
+      )
+    }
+    if (this._size > newCapacity) {
+      throw new RangeError('[CircularQueue] failed to resize, the new queue space is insufficient.')
+    }
+    this.rearrange()
+    this._capacity = newCapacity
+    this._elements.length = newCapacity
   }
 
-  protected _backwardIndex(index: number): number {
-    const nextIndex = index - 1
-    return nextIndex < 0 ? this._capacity + nextIndex : nextIndex
+  public rearrange(): void {
+    if (this._start === 0) return
+
+    const elements: T[] = this._elements
+    const capacity: number = this._capacity
+    const size: number = this._size
+    const start: number = this._start
+    const end: number = this._end
+
+    if (start <= end) {
+      let i = -1
+      for (let k = start; i < size; ++k) elements[++i] = elements[k]
+    } else {
+      let i = -1
+      const tmpArray: T[] = elements.slice(0, end + 1)
+      for (let k = start; k < capacity; ++k) elements[++i] = elements[k]
+      for (let k = 0; k < tmpArray.length; ++k) elements[++i] = tmpArray[k]
+      tmpArray.length = 0
+    }
+    this._start = 0
+    this._end = size - 1
+  }
+
+  public *consuming(): IterableIterator<T> {
+    while (this._size > 0) {
+      const target: T = this._elements[this._start]
+      this._size -= 1
+      this._start = this._start + 1 === this._capacity ? 0 : this._start + 1
+      yield target
+    }
+
+    if (this._size === 0) {
+      this._size = 0
+      this._start = 0
+      this._end = -1
+    }
+  }
+
+  public dequeue(newElement?: T): T | undefined {
+    if (this._size === 0) {
+      if (newElement !== undefined) {
+        this._size = 1
+        this._start = 0
+        this._end = 0
+        this._elements[0] = newElement
+      }
+      return undefined
+    }
+
+    const target = this._elements[this._start]
+    if (this._size === 1) {
+      if (newElement === undefined) {
+        this._size = 0
+        this._start = 0
+        this._end = -1
+      } else {
+        this._size = 1
+        this._start = 0
+        this._end = 0
+        this._elements[0] = newElement
+      }
+      return target
+    }
+
+    this._start = this._start + 1 === this._capacity ? 0 : this._start + 1
+    if (newElement === undefined) this._size -= 1
+    else {
+      this._end = this._end + 1 === this._capacity ? 0 : this._end + 1
+      this._elements[this._end] = newElement
+    }
+    return target
+  }
+
+  public enqueue(element: T): void {
+    this._end = this._end + 1 === this._capacity ? 0 : this._end + 1
+    this._elements[this._end] = element
+    if (this._size < this._capacity) this._size += 1
+    else this._start = this._start + 1 === this._capacity ? 0 : this._start + 1
+  }
+
+  public enqueues(elements: Iterable<T>): void {
+    const _elements: T[] = this._elements
+    const capacity: number = this._capacity
+    let size: number = this._size
+    let start: number = this._start
+    let end: number = this._end
+
+    for (const element of elements) {
+      size += 1
+      end = end + 1 === capacity ? 0 : end + 1
+      _elements[end] = element
+    }
+
+    if (size > capacity) {
+      size = capacity
+      start = end + 1 === capacity ? 0 : end + 1
+    }
+
+    this._size = size
+    this._start = start
+    this._end = end
+  }
+
+  public enqueues_advance(elements: ReadonlyArray<T>, start: number, end: number): void {
+    if (end <= start) return
+    const _elements: T[] = this._elements
+    const capacity: number = this._capacity
+
+    const count: number = end - start
+    if (count >= capacity) {
+      let _end: number = -1
+      for (let i: number = end - capacity; i < end; ++i) _elements[++_end] = elements[i]
+      this._size = capacity
+      this._start = 0
+      this._end = capacity - 1
+      return
+    }
+
+    {
+      let _end: number = this._end
+      for (let i = start; i < end; ++i) {
+        _end = _end + 1 === capacity ? 0 : _end + 1
+        _elements[_end] = elements[i]
+      }
+
+      const size: number = this._size + count
+      if (size < capacity) {
+        this._size = size
+        this._end = _end
+      } else {
+        const nextStart: number = this._start + size - capacity
+        this._size = capacity
+        this._end = _end
+        this._start = nextStart >= capacity ? nextStart - capacity : nextStart
+      }
+    }
+  }
+
+  public exclude(filter: (element: T) => boolean): number {
+    if (this._size === 0) return 0
+
+    const elements: T[] = this._elements
+    const capacity: number = this._capacity
+    const start: number = this._start
+    const end: number = this._end
+
+    let size: number = 0
+    if (start <= end) {
+      for (let k = start; k <= end; ++k) {
+        const element: T = elements[k]
+        if (filter(element)) continue
+        elements[size++] = element
+      }
+    } else {
+      const tmpArray: T[] = elements.slice(0, end + 1)
+      for (let k = start; k < capacity; ++k) {
+        const element: T = elements[k]
+        if (filter(element)) continue
+        elements[size++] = element
+      }
+      for (let k = 0; k < tmpArray.length; ++k) {
+        const element: T = tmpArray[k]
+        if (filter(element)) continue
+        elements[size++] = element
+      }
+      tmpArray.length = 0
+    }
+
+    const removedSize: number = this._size - size
+    this._size = size
+    this._start = 0
+    this._end = size - 1
+    return removedSize
+  }
+
+  public dequeue_back(): T | undefined {
+    if (this._size === 0) return undefined
+
+    const target = this._elements[this._end]
+
+    if (this._size === 1) {
+      this._size = 0
+      this._start = 0
+      this._end = -1
+      return target
+    }
+
+    this._end = this._end === 0 ? this._capacity - 1 : this._end - 1
+    this._size -= 1
+    return target
+  }
+
+  public enqueue_front(element: T): void {
+    // special case: end = -1
+    if (this._size === 0) {
+      this._size = 1
+      this._start = 0
+      this._end = 0
+      this._elements[0] = element
+      return
+    }
+
+    this._start = this._start === 0 ? this._capacity - 1 : this._start - 1
+    this._elements[this._start] = element
+    if (this._size < this._capacity) this._size += 1
+    else this._end = this._end === 0 ? this._capacity - 1 : this._end - 1
+  }
+
+  public enqueues_front(elements: Iterable<T>): void {
+    const _elements: T[] = this._elements
+    const capacity: number = this._capacity
+    let size: number = this._size
+    let start: number = this._start
+    let end: number = this._end
+
+    for (const element of elements) {
+      size += 1
+      start = start === 0 ? capacity - 1 : start - 1
+      _elements[start] = element
+    }
+
+    if (size > capacity) {
+      size = capacity
+      end = start === 0 ? capacity - 1 : start - 1
+    }
+
+    this._size = size
+    this._start = start
+    this._end = end
+  }
+
+  public enqueues_front_advance(elements: ReadonlyArray<T>, start: number, end: number): void {
+    if (end <= start) return
+
+    const _elements: T[] = this._elements
+    const capacity: number = this._capacity
+
+    const count: number = end - start
+    if (count >= capacity) {
+      let _start: number = capacity
+      for (let i: number = end - capacity; i < end; ++i) _elements[--_start] = elements[i]
+      this._size = capacity
+      this._start = 0
+      this._end = capacity - 1
+      return
+    }
+
+    {
+      let _start: number = this._start
+      for (let i = start; i < end; ++i) {
+        _start = _start === 0 ? capacity - 1 : _start - 1
+        _elements[_start] = elements[i]
+      }
+
+      const size: number = this._size + count
+      if (size < capacity) {
+        this._size = size
+        this._start = _start
+      } else {
+        const nextEnd: number = this._end - size + capacity
+        this._size = capacity
+        this._start = _start
+        this._end = nextEnd < 0 ? nextEnd + capacity : nextEnd
+      }
+    }
   }
 }

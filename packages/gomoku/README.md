@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@3.1.1/packages/gomoku#readme">@algorithm.ts/gomoku</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@4.0.0-alpha.0/packages/gomoku#readme">@algorithm.ts/gomoku</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/gomoku">
@@ -100,4 +100,4 @@
 ## Related
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@3.1.1/packages/gomoku#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@4.0.0-alpha.0/packages/gomoku#readme

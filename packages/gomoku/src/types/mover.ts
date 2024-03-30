@@ -1,4 +1,3 @@
-import type { IReadonlyCollection } from '@algorithm.ts/types'
 import type { IGomokuCandidateState, IGomokuPiece } from './misc'
 
 export interface IGomokuMoverStep {
@@ -6,7 +5,7 @@ export interface IGomokuMoverStep {
    * Initialize context with given pieces.
    * @param pieces
    */
-  init(pieces: IReadonlyCollection<IGomokuPiece> | ReadonlyArray<IGomokuPiece>): void
+  init(pieces: Iterable<IGomokuPiece>): void
 
   /**
    * Place a piece on the given position.

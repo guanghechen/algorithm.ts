@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@3.1.1/packages/sudoku#readme">@algorithm.ts/sudoku</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@4.0.0-alpha.0/packages/sudoku#readme">@algorithm.ts/sudoku</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/sudoku">
@@ -304,6 +304,6 @@ If you are curious about this algorithm, you can visit [here][sudoku] for more d
 - [当你想来一把数独 | 光和尘](https://me.guanghechen.com/post/game/sudoku/)
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@3.1.1/packages/sudoku#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sudoku@4.0.0-alpha.0/packages/sudoku#readme
 [knuth-shuffle]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-knuth-shuffle
 [dlx]: https://me.guanghechen.com/post/algorithm/shuffle/#heading-dlx

@@ -1,5 +1,5 @@
-import type { ICircularQueue } from '@algorithm.ts/queue'
 import { CircularQueue } from '@algorithm.ts/queue'
+import type { ICircularQueue } from '@algorithm.ts/queue'
 import type { IMcmf, IMcmfEdge } from './types'
 
 export interface IMcmfOptions {
@@ -18,7 +18,7 @@ export class Mcmf implements IMcmf {
   protected readonly _path: number[] = [] // An edge in an augmented path.
   protected readonly _edges: IMcmfEdge[] = []
   protected readonly _G: number[][] = []
-  protected readonly _Q: ICircularQueue<number> = new CircularQueue()
+  protected readonly _Q: ICircularQueue<number> = new CircularQueue({ capacity: 4 })
   protected _N: number // The number of nodes in a network flow
   protected _source: number // The source point in a network flow
   protected _sink: number // The sink in a network flow

@@ -36,6 +36,6 @@
     "README.md"
   ],
   "devDependencies": {
-    "@algorithm.ts/internal": "0.0.0"
+    "@algorithm.ts/internal": "^0.0.0"
   }
 }

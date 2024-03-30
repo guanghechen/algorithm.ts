@@ -1,4 +1,3 @@
-import type { IReadonlyCollection } from '@algorithm.ts/types'
 import type { IGomokuCandidateState, IGomokuPiece } from '../types/misc'
 import type { IGomokuMover } from '../types/mover'
 import type { IGomokuMoverContext } from '../types/mover-context'
@@ -28,7 +27,7 @@ export class GomokuMover implements IGomokuMover {
     ;(this.rootPlayerId as number) = rootPlayerId & 1
   }
 
-  public init(pieces: IReadonlyCollection<IGomokuPiece> | ReadonlyArray<IGomokuPiece>): void {
+  public init(pieces: Iterable<IGomokuPiece>): void {
     this.context.init(pieces)
     this.counter.init(pieces)
     this.state.init(pieces)

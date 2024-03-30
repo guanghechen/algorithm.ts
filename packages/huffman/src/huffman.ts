@@ -29,7 +29,8 @@ export function fromText(text: string): IHuffmanNode {
     cost: number
     node: IHuffmanNode
   }>({ compare: (x, y) => x.cost - y.cost })
-  minHeap.init(entries.map(([value, cost]) => ({ cost, node: { value } })))
+  minHeap.init()
+  minHeap.enqueues(entries.map(([value, cost]) => ({ cost, node: { value } })))
 
   while (minHeap.size > 1) {
     const o1 = minHeap.dequeue()!

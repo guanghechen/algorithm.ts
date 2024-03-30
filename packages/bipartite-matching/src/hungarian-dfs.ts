@@ -7,7 +7,7 @@ export class HungarianDfs implements IBipartiteMatcher {
   protected _N = 0
 
   /* istanbul ignore next */
-  public destroy(): void {
+  public clear(): void {
     this._G.length = 0
     this._visited.length = 0
     this._partner.length = 0

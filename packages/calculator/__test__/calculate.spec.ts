@@ -1,8 +1,9 @@
-import { Calculator, IntegerOperand, bigintCalculator, calculator, decimalCalculator } from '../src'
+import { Calculator, bigintCalculator, calculator, decimalCalculator } from '../src'
+import { integerOperand } from '../src/operand'
 
 describe('basic', function () {
   it('custom', function () {
-    const calculator = new Calculator(new IntegerOperand())
+    const calculator = new Calculator(integerOperand)
     expect(calculator.calculate('1+2')).toEqual(3)
     expect(() => calculator.calculate('1+2.2')).toThrow(/Unrecognized symbol/)
   })

@@ -4,7 +4,7 @@ export interface IDancingLinkXProps {
   /**
    * Maximum number of nodes in the dancing-link.
    */
-  MAX_N: number
+  readonly MAX_N: number
 }
 
 /**
@@ -23,6 +23,7 @@ export class DancingLinkX implements IDancingLinkX {
   protected readonly _U: number[] // up pointer of cross-link list
   protected readonly _D: number[] // down pointer of cross-link list
   protected _sz: number // The number of nodes in the dancing-link (including the virtual nodes on the column)
+  protected _destroyed: boolean
 
   constructor(props: IDancingLinkXProps) {
     const { MAX_N } = props
@@ -34,9 +35,17 @@ export class DancingLinkX implements IDancingLinkX {
     this._U = new Array(MAX_N)
     this._D = new Array(MAX_N)
     this._sz = 0
+    this._destroyed = false
+  }
+
+  public get destroyed(): boolean {
+    return this._destroyed
   }
 
   public destroy(): void {
+    if (this._destroyed) return
+    this._destroyed = true
+
     this._sz = 0
     this._count.length = 0
     this._row.length = 0
@@ -48,6 +57,10 @@ export class DancingLinkX implements IDancingLinkX {
   }
 
   public init(columnCount: number): void {
+    if (this._destroyed) {
+      throw new Error('[DancingLink] `init` is not allowed since it has been destroyed')
+    }
+
     const { _L, _R, _U, _D, _count } = this
     const _sz = columnCount + 1
 

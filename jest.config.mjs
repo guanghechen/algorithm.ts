@@ -31,55 +31,28 @@ export default async function () {
 }
 
 const coverageMap = {
-  '@algorithm.ts/internal': {
-    global: {
-      branches: 0,
-      functions: 0,
-      lines: 0,
-      statements: 0,
-    },
-  },
-  //
   '@algorithm.ts/bipartite-matching': {
-    global: {
-      functions: 87,
-      lines: 95,
-      statements: 95,
-    },
+    global: { functions: 87, lines: 95, statements: 95 },
   },
   '@algorithm.ts/calculator': {
-    global: {
-      branches: 97,
-      lines: 98,
-      statements: 98,
-    },
+    global: { branches: 97, lines: 98, statements: 98 },
   },
-  '@algorithm.ts/findset': {
-    global: {
-      branches: 98,
-      functions: 88,
-      lines: 95,
-      statements: 95,
-    },
+  '@algorithm.ts/graph': {
+    global: { functions: 75, lines: 82, statements: 82 },
   },
   '@algorithm.ts/gomoku': {
-    global: {
-      branches: 92,
-      functions: 100,
-      lines: 99,
-      statements: 99,
-    },
+    global: { branches: 92, lines: 99, statements: 99 },
+  },
+  '@algorithm.ts/kth': {
+    global: { branches: 98 },
   },
   '@algorithm.ts/shuffle': {
-    global: {
-      branches: 88,
-    },
+    global: { branches: 88 },
+  },
+  '@algorithm.ts/sort': {
+    global: { branches: 99 },
   },
   '@algorithm.ts/sudoku': {
-    global: {
-      branches: 96,
-      lines: 99,
-      statements: 99,
-    },
+    global: { branches: 96, lines: 99, statements: 99 },
   },
 }

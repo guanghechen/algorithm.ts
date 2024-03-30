@@ -1,5 +1,5 @@
-import { BIGINT_ZERO } from '@algorithm.ts/internal'
 import type { DeepReadonly } from '@algorithm.ts/internal'
+import { BIGINT_ZERO } from '@algorithm.ts/internal'
 import { Dijkstra } from './Dijkstra'
 import type { IDijkstraGraph, IDijkstraOptions, IDijkstraResult } from './types'
 

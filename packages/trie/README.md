@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/trie@3.1.1/packages/trie#readme">@algorithm.ts/trie</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/trie@4.0.0-alpha.0/packages/trie#readme">@algorithm.ts/trie</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/trie">
@@ -75,31 +75,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 
 ## Usage
 
-- Trie: Trie implements the [Collection][] interface.
-
-  - `set(element: Readonly<E>, value: V, start?: number, end?: number): this`: Insert a string (or
-    an array) into the trie.
-
-  - `delete(element: Readonly<E>, start?: number, end?: number): boolean`: Remove a string (or an
-    array) from the trie.
-
-  - `get(element: Readonly<E>, start?: number, end?: number): V | undefined`: Find the value of the
-    element which exactly matched the `element.slice(start, end)`. If there is no such an element,
-    then return undefined.
-
-  - `has(element: Readonly<E>, start?: number, end?: number): boolean`: Check if there is an element
-    exactly matched the `element.slice(start, end)`.
-
-  - `hasPrefix(prefix: Readonly<E>, start?: number, end?: number): boolean`: Check if there is an
-    element which prefix matched the `prefix.slice(start, end)`.
-
-  - `find(element: Readonly<E>, start?: number, end?: number): ITrieNodeData<V> | undefined`: Find
-    word with smallest length in the trie which exact match the `element.slice(start, x)`, where the
-    x is an integer in the range [start, \_end).
-
-  - `findAll(element: Readonly<E>, start?: number, end?: number): Iterable<ITrieNodeData<V>>`: Find
-    all words in the trie which exact match the `element.slice(start, x)`, where the x is an integer
-    in the range [start, \_end).
+- Trie
 
 - Util
 
@@ -125,7 +101,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   export function wordBreak(text: string, wordDict: string[]): string[] {
     if (text.length <= 0) return []
 
-    trie.clear()
+    trie.init()
     for (let i = 0; i < wordDict.length; ++i) {
       const word = wordDict[i]
       trie.set(word, i)
@@ -148,7 +124,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
         return
       }
 
-      for (const { end, val } of trie.findAll(text, pos, text.length)) {
+      for (const { end, val } of trie.findAll_advance(text, pos, text.length)) {
         collect[cur] = val
         dfs(cur + 1, end)
       }
@@ -182,7 +158,7 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
     const C = board[0].length
     if (N <= 0 || R <= 0 || C <= 0) return []
 
-    trie.clear()
+    trie.init()
     for (let i = 0; i < N; ++i) trie.set(words[i], i)
 
     const boardCode: number[][] = []
@@ -235,6 +211,4 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 - https://en.wikipedia.org/wiki/Trie
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/trie@3.1.1/packages/trie#readme
-[Collection]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1/packages/types#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/trie@4.0.0-alpha.0/packages/trie#readme

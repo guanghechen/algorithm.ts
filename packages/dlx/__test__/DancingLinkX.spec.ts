@@ -40,7 +40,18 @@ describe('dlx', function () {
   it('destroy', function () {
     const dlx = new DancingLinkX({ MAX_N: 10 })
     dlx.init(10)
+
+    expect(dlx.destroyed).toBe(false)
     dlx.destroy()
+    expect(dlx.destroyed).toBe(true)
+
+    dlx.destroy()
+    expect(dlx.destroyed).toBe(true)
+
+    expect(() => dlx.init(10)).toThrow(
+      '[DancingLink] `init` is not allowed since it has been destroyed',
+    )
+
     expect(dlx.solve()).toEqual(null)
   })
 })

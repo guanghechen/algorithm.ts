@@ -1,6 +1,5 @@
-import { PriorityQueue } from '@algorithm.ts/queue'
 import type { IPriorityQueue } from '@algorithm.ts/queue'
-import type { IReadonlyCollection } from '@algorithm.ts/types'
+import { PriorityQueue } from '@algorithm.ts/queue'
 import type { GomokuDirectionType } from '../constant'
 import { GomokuDirectionTypeBitset, GomokuDirectionTypes } from '../constant'
 import type {
@@ -97,7 +96,7 @@ export class GomokuMoverState implements IGomokuMoverState {
     this._countOfReachFinalDirMap = _countOfReachFinalDirMap
   }
 
-  public init(pieces: IReadonlyCollection<IGomokuPiece> | ReadonlyArray<IGomokuPiece>): void {
+  public init(pieces: Iterable<IGomokuPiece>): void {
     this._candidateQueues.forEach(Q => Q.init())
     this._candidateInqSets.forEach(inqSets => inqSets.forEach(inqSet => inqSet.clear()))
     this._candidateSet.clear()
@@ -209,24 +208,18 @@ export class GomokuMoverState implements IGomokuMoverState {
     }
 
     if (Q.size > this.context.TOTAL_POS) {
-      Q.splice(
-        item => {
-          if (
-            _candidateScoreExpired[item.posId] > 0 ||
-            item.score !== candidateScores[item.posId]
-          ) {
-            inqSets[item.posId].delete(item.score)
-            return false
-          }
+      Q.exclude(item => {
+        if (_candidateScoreExpired[item.posId] > 0 || item.score !== candidateScores[item.posId]) {
+          inqSets[item.posId].delete(item.score)
           return true
-        },
-        candidates,
-        0,
-        _size,
-      )
-    } else {
-      Q.enqueues(candidates, 0, _size)
+        }
+        return false
+      })
     }
+
+    // eslint-disable-next-line no-param-reassign
+    candidates.length = _size
+    Q.enqueues(candidates)
     return _size
   }
 

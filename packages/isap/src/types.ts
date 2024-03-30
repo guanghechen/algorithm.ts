@@ -1,18 +1,16 @@
-import type { IDigraphEdge } from '@algorithm.ts/types'
-
-export interface IIsapEdge extends IDigraphEdge {
+export interface IIsapEdge {
   /**
    * The starting node of the arc.
    */
-  from: number
+  readonly from: number
   /**
    * The ending node of the arc.
    */
-  to: number
+  readonly to: number
   /**
    * Capacity of the arc.
    */
-  cap: number
+  readonly cap: number
   /**
    * Flow on the arc.
    */

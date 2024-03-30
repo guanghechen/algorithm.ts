@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@3.1.1/packages/queue#readme">@algorithm.ts/queue</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.0-alpha.0/packages/queue#readme">@algorithm.ts/queue</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/queue">
@@ -73,17 +73,22 @@ Priority Queue is a special queue structure, the first element of the queue alwa
 minimum value in the queue, and the amortized time complexity of the enqueue and dequeue operations
 are both $O(\log N)$.
 
-- `IPriorityQueue`: PriorityQueue implements the [Collection][] interface.
+- `IPriorityQueue`: PriorityQueue implements the IPriorityQueue interface.
 
-  |                                   Member                                    |  Return  | Description                                                                                    |
-  | :-------------------------------------------------------------------------: | :------: | :--------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-  |         `init(elements?: T[], startPos?: number, endPos?: number)`          |  `void`  | Initialize priority queue with initial elements.                                               |
-  |                              `enqueue(val: T)`                              |  `void`  | Drop a element into the priority queue.                                                        |
-  |      `enqueues(elements: T[], startIndex?: number, endIndex?: number)`      |  `void`  | Drop multiple elements into the priority queue.                                                |
-  |                          `dequeue(newElement?: T)`                          |    `T    | undefined`                                                                                     | Popup the top element, and push the given `newElement` if it is not `undefined`. |
-  | `splice(filter, newElements?: T[], startIndex?: number, endIndex?: number)` |  `void`  | Remove existed elements which is not passed the filter, then enqueues the additional elements. |
-  |                                  `front()`                                  |    `T    | undefined`                                                                                     | Get the top element.                                                             |
-  |                                   `size`                                    | `number` | Get the number of elements.                                                                    |
+  |                                    Signature                                     | Description                                                                      |
+  | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------- |
+  |                        `consuming(): IterableIterator<T>`                        | Popup the elements from the queue by the `dequeue` order.                        |
+  |                 `count(filter: (element: T) => boolean): number`                 | Count the elements in the queue which matched by the filter.                     |
+  |                     `dequeue(newElement?: T): T\|undefined`                      | Popup the top element, and push the given `newElement` if it is not `undefined`. |
+  |                             `enqueue(val: T): void`                              | Push a element into the priority queue.                                          |
+  |                     `enqueues(elements: Iterable<T>): void`                      | Push multiple elements into the priority queue.                                  |
+  | `enqueues_advance(elements: ReadonlyArray<T>, start: number, end: number): void` | Push multiple elements into the priority queue.                                  |
+  |                 `exclude(filter: (element: T) => boolean): void`                 | Remove elements matched the filter.                                              |
+  |                                `destroy(): void`                                 | Destroy the queue and release the memory.                                        |
+  |                             `front(): T\|undefined`                              | Get the top element from the priority queue.                                     |
+  |                    `init(initialElements?: Iterable<T>: void`                    | Initialize priority queue with initial elements.                                 |
+  |                             `readonly size: number`                              | Get the number of elements.                                                      |
+  |                           `readonly destroyed: number`                           | Indicate whether the priority queue destroyed.                                   |
 
 - `IPriorityQueueProps`
 
@@ -106,21 +111,25 @@ possible on the basis of ordinary queues. Circular queues usually need to specif
 C of the collector. If the number of elements in the queue exceeds C, only the most recent C
 elements are kept in the queue. Other operations are the same as ordinary queues.
 
-- `ICircularQueue`: CircularQueue implements the [Collection][] interface.
+- `ICircularQueue`: CircularQueue implements the ICircularQueue interface.
 
-  | Signature                                                                         | Description                                                                                    |
-  | :-------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-  | `init(elements?: T[], startPos?: number, endPos?: number): void`                  | Initialize circular queue with initial elements.                                               |
-  | `enqueue(val: T): void`                                                           | Drop a element into the circular queue.                                                        |
-  | `enqueues(elements: T[], startIndex?: number, endIndex?: number): void`           | Drop multiple elements into the circular queue.                                                |
-  | `dequeue(newElement?: T): T                                                       | undefined`                                                                                     | Popup the top element, and push the given `newElement` if it is not `undefined`. |
-  | `splice(filter, newElements?: T[], startIndex?: number, endIndex?: number): void` | Remove existed elements which is not passed the filter, then enqueues the additional elements. |
-  | `front(): T                                                                       | undefined`                                                                                     | Get the front element.                                                           |
-  | `pop(): T                                                                         | undefined`                                                                                     | Popup the last element of the queue.                                             |
-  | `back(): T                                                                        | undefined`                                                                                     | Get the last element of the queue.                                               |
-  | `unshift(): T                                                                     | undefined`                                                                                     | Drop an element to the head of the queue.                                        |
-  | `resize(MAX_SIZE: number): void`                                                  | Resize the max-size of queue with the given size.                                              |
-  | `rearrange(): void`                                                               | Rearrange elements, that is, put the first element in place 0-index.                           |
+  |                                    Signature                                     | Description                                                                      |
+  | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------- |
+  |                        `consuming(): IterableIterator<T>`                        | Popup the elements from the queue by the `dequeue` order.                        |
+  |                 `count(filter: (element: T) => boolean): number`                 | Count the elements in the queue which matched by the filter.                     |
+  |                     `dequeue(newElement?: T): T\|undefined`                      | Popup the top element, and push the given `newElement` if it is not `undefined`. |
+  |                             `enqueue(val: T): void`                              | Push a element into the circular queue.                                          |
+  |                     `enqueues(elements: Iterable<T>): void`                      | Push multiple elements into the circular queue.                                  |
+  | `enqueues_advance(elements: ReadonlyArray<T>, start: number, end: number): void` | Push multiple elements into the circular queue.                                  |
+  |                 `exclude(filter: (element: T) => boolean): void`                 | Remove elements matched the filter.                                              |
+  |                                `destroy(): void`                                 | Destroy the queue and release the memory.                                        |
+  |                             `front(): T\|undefined`                              | Get the first enqueued element from the circular queue.                          |
+  |                              `back(): T\|undefined`                              | Get the last enqueued element from the circular queue.                           |
+  |                    `init(initialElements?: Iterable<T>: void`                    | Initialize circular queue with initial elements.                                 |
+  |                         `resize(MAX_SIZE: number): void`                         | Resize the max-size of queue with the given size.                                |
+  |                               `rearrange(): void`                                | Rearrange elements, that is, put the first element in place 0-index.             |
+  |                             `readonly size: number`                              | Get the number of elements.                                                      |
+  |                           `readonly destroyed: number`                           | Indicate whether the circular queue destroyed.                                   |
 
 - `ICircularQueueProps`
 
@@ -224,6 +233,4 @@ elements are kept in the queue. Other operations are the same as ordinary queues
 ## Related
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@3.1.1/packages/queue#readme
-[Collection]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/types@3.1.1/packages/types#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.0-alpha.0/packages/queue#readme

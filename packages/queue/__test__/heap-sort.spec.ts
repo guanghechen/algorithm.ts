@@ -5,7 +5,6 @@ import {
 import { TestDataType, TestDataTypeKey, loadTestData } from '@@/fixtures/test-util/data'
 import { addSortTest } from '@@/fixtures/test-util/sort'
 import type { IDataWithIndex } from '@@/fixtures/test-util/types'
-import type { IPriorityQueue } from '../src'
 import { PriorityQueue } from '../src'
 
 const config = {
@@ -54,8 +53,12 @@ describe('heap-sort', () => {
   })
 
   function createSort<T>(
-    queue: IPriorityQueue<IDataWithIndex<T>>,
-  ): (elements: Array<IDataWithIndex<T>>, start?: number, end?: number) => void {
+    queue: PriorityQueue<IDataWithIndex<T>>,
+  ): (
+    elements: Array<IDataWithIndex<T>>,
+    start: number | undefined,
+    end: number | undefined,
+  ) => void {
     return (elements: Array<IDataWithIndex<T>>, start = 0, end = elements.length): void => {
       // eslint-disable-next-line no-param-reassign
       if (start < 0) start = 0
@@ -63,8 +66,8 @@ describe('heap-sort', () => {
       if (end > elements.length) end = elements.length
       if (start + 1 >= end) return
 
-      queue.clear()
-      queue.enqueues(elements, start, end)
+      queue.init()
+      for (let i = start; i < end; ++i) queue.enqueue(elements[i])
 
       // eslint-disable-next-line no-param-reassign
       for (let i = start; i < end; ++i) elements[i] = queue.dequeue()!

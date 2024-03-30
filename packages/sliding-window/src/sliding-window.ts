@@ -1,4 +1,4 @@
-import type { ICompare } from '@algorithm.ts/types'
+import type { ICompare } from '@algorithm.ts/internal'
 import type { ISlidingWindow, ISlidingWindowResetOptions } from './types'
 
 export interface ISlidingWindowProps {
@@ -7,13 +7,13 @@ export interface ISlidingWindowProps {
    */
   WINDOW_SIZE: number
   /**
-   * Compare two index to determine which one is smaller.
-   */
-  compare: ICompare<number>
-  /**
    * The first index of the input range.
    */
   startIndex?: number
+  /**
+   * Compare two index to determine which one is smaller.
+   */
+  compare: ICompare<number>
 }
 
 export class SlidingWindow implements ISlidingWindow {
@@ -27,7 +27,7 @@ export class SlidingWindow implements ISlidingWindow {
   protected _rightBoundary: number
 
   constructor(props: ISlidingWindowProps) {
-    const { WINDOW_SIZE, compare, startIndex = 0 } = props
+    const { WINDOW_SIZE, startIndex = 0, compare } = props
     this._WINDOW_SIZE = WINDOW_SIZE
     this._compare = compare
     this._window = new Array(WINDOW_SIZE)

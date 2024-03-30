@@ -1,4 +1,3 @@
-import type { IReadonlyCollection } from '@algorithm.ts/types'
 import { GomokuDirectionTypes, GomokuDirections } from '../constant'
 import type { GomokuDirectionType } from '../constant'
 import type { IDirCounter, IGomokuBoard, IGomokuPiece } from '../types/misc'
@@ -133,7 +132,7 @@ export class GomokuMoverContext implements IGomokuMoverContext {
     return this._placedCount
   }
 
-  public init(pieces: IReadonlyCollection<IGomokuPiece> | ReadonlyArray<IGomokuPiece>): void {
+  public init(pieces: Iterable<IGomokuPiece>): void {
     const board = this.board as IGomokuBoard
     board.fill(-1)
     this._placedCount = 0

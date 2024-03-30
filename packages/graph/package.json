@@ -35,7 +35,10 @@
     "LICENSE",
     "README.md"
   ],
+  "dependencies": {
+    "@algorithm.ts/graph.types": "^1.0.0-alpha.0"
+  },
   "devDependencies": {
-    "@algorithm.ts/internal": "0.0.0"
+    "@algorithm.ts/internal": "^0.0.0"
   }
 }

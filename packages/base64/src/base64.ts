@@ -2,14 +2,16 @@ export interface IBase64Props {
   /**
    * @default 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
    */
-  CODES?: string
+  readonly CODES?: string
   /**
    * @default '=''
    */
-  CODE_PADDING?: string
+  readonly CODE_PADDING?: string
 }
 
-const sanitizeRegex = /([*^$\\])/g
+const SANITIZE_REGEX = /([*^$\\])/g
+const DEFAULT_CODES: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+const DEFAULT_CODE_PADDING: string = '='
 
 export class Base64 {
   protected readonly CODE_LIST: string[]
@@ -18,23 +20,24 @@ export class Base64 {
   protected readonly VALIDATE_REGEX: RegExp
 
   constructor(props: IBase64Props = {}) {
-    const CODES =
-      props.CODES?.length === 64
-        ? props.CODES
-        : 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-    const CODE_PADDING = props.CODE_PADDING?.length === 1 ? props.CODE_PADDING : '='
+    const CODES: string = props.CODES?.length === 64 ? props.CODES : DEFAULT_CODES
+    const CODE_PADDING: string =
+      props.CODE_PADDING?.length === 1 ? props.CODE_PADDING : DEFAULT_CODE_PADDING
+    const CODE_LIST: string[] = CODES.split('')
+    const CODE_REFLECT: Record<string, number> = { [CODE_PADDING]: 0 }
+    for (const [idx, v] of CODE_LIST.entries()) CODE_REFLECT[v] = idx
 
-    this.CODE_LIST = CODES.split('')
-    this.CODE_REFLECT = this.CODE_LIST.reduce((acc, v, idx) => ({ ...acc, [v]: idx }), {
-      [CODE_PADDING]: 0,
-    })
-    this.VALIDATE_REGEX = new RegExp(
-      `^[${CODES.replace(sanitizeRegex, '\\$1')}]+${CODE_PADDING.replace(
-        sanitizeRegex,
+    const VALIDATE_REGEX: RegExp = new RegExp(
+      `^[${CODES.replace(SANITIZE_REGEX, '\\$1')}]+${CODE_PADDING.replace(
+        SANITIZE_REGEX,
         '\\$1',
       )}{0,2}$`,
     )
+
+    this.CODE_LIST = CODE_LIST
+    this.CODE_REFLECT = CODE_REFLECT
     this.CODE_PADDING = CODE_PADDING
+    this.VALIDATE_REGEX = VALIDATE_REGEX
   }
 
   public encode(data: Uint8Array): string {
@@ -60,20 +63,18 @@ export class Base64 {
   }
 
   public decode(text: string): Uint8Array | never {
-    if (text.length <= 0 || !this.validate(text)) {
-      throw new TypeError('Invalid base64 string.')
-    }
+    if (text.length <= 0 || !this.validate(text)) throw new TypeError('Invalid base64 string.')
 
     let countOfPadding = 0
     const { CODE_PADDING } = this
     for (let i = text.length - 1; i >= 0 && text[i] === CODE_PADDING; --i) countOfPadding += 1
+
     const _size: number = (text.length >> 2) * 3 - countOfPadding
     const result: Uint8Array = new Uint8Array(_size)
 
-    const _end: number = ((text.length - countOfPadding) >> 2) << 2
     let i = 0
     let j = 0
-    for (; i < _end; i += 4, j += 3) {
+    for (const _end = ((text.length - countOfPadding) >> 2) << 2; i < _end; i += 4, j += 3) {
       const v: number = this._decodeUint(text, i)
       result[j] = v >> 16
       result[j + 1] = (v >> 8) & 0xff

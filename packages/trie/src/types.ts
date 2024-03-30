@@ -1,4 +1,4 @@
-import type { ICollection } from '@algorithm.ts/types'
+export type ITrieValue = number | string | boolean | null | bigint | symbol | object
 
 /**
  * > In computer science, a trie, also called digital tree or prefix tree, is a
@@ -11,72 +11,160 @@ import type { ICollection } from '@algorithm.ts/types'
  *
  * @see https://en.wikipedia.org/wiki/Trie
  */
-export interface ITrie<E extends unknown[] | string, V> extends ICollection<V> {
+export interface ITrie<E, V extends ITrieValue> {
+  /**
+   * Iterable.
+   */
+  [Symbol.iterator](): IterableIterator<V>
+
+  /**
+   * Determine if the trie has been destroyed.
+   */
+  readonly destroyed: boolean
+
+  /**
+   * Count the element in the collection.
+   * @getter
+   */
+  readonly size: number
+
+  /**
+   * Destroy the trie and release the resources.
+   */
+  destroy(): void
+
+  /**
+   * Reset the collection and insert the initial elements.
+   */
+  init(): void
+
   /**
    * Insert a string (or an array) into the trie.
    *
-   * @param element the data to be inserted.
-   * @param value   the value of this element represented (or maps).
-   * @param start   the starting position of the element. (default: 0)
-   * @param end     the ending position of the element. (default: element.length)
+   * @param elements  the path to be inserted.
+   * @param value     the value of this element represented (or maps).
    */
-  set(element: Readonly<E>, value: V, start?: number, end?: number): this
+  set(elements: Iterable<E>, value: V): this
+
+  /**
+   * Insert a string (or an array) into the trie.
+   *
+   * @param elements  the path to be inserted.
+   * @param value     the value of this element represented (or maps).
+   * @param start     the starting position of the element.
+   * @param end       the ending position of the element.
+   */
+  set_advance(
+    elements: E extends string ? string : ReadonlyArray<E>,
+    value: V,
+    start: number,
+    end: number,
+  ): this
+
   /**
    * Remove a string (or an array) from the trie.
    *
-   * @param element
-   * @param start   the starting position of the element. (default: 0)
-   * @param end     the ending position of the element. (default: element.length)
+   * @param elements  the path to be removed.
    * @returns true if an element in the Trie existed and has been removed, or false if the element does not exist.
    */
-  delete(element: Readonly<E>, start?: number, end?: number): boolean
+  delete(elements: Iterable<E>): boolean
+
+  /**
+   * Remove a string (or an array) from the trie.
+   *
+   * @param elements  the path to be removed.
+   * @param start     the starting position of the element.
+   * @param end       the ending position of the element.
+   * @returns true if an element in the Trie existed and has been removed, or false if the element does not exist.
+   */
+  delete_advance(
+    elements: E extends string ? string : ReadonlyArray<E>,
+    start: number,
+    end: number,
+  ): boolean
+
+  /**
+   * Find the value of the element which exactly matched the given elements.
+   * If there is no such an element, then return undefined.
+   *
+   * @param elements  the path to be matched.
+   */
+  get(elements: Iterable<E>): V | undefined
+
   /**
    * Find the value of the element which exactly matched the `element.slice(start, end)`.
    * If there is no such an element, then return undefined.
    *
-   * @param element
-   * @param start   the starting position of the element. (default: 0)
-   * @param end     the ending position of the element. (default: element.length)
+   * @param elements  the path to be matched.
+   * @param start     the starting position of the element.
+   * @param end       the ending position of the element.
    */
-  get(element: Readonly<E>, start?: number, end?: number): V | undefined
+  get_advance(
+    elements: E extends string ? string : ReadonlyArray<E>,
+    start: number,
+    end: number,
+  ): V | undefined
+
   /**
-   * Check if there is an element exactly matched the `element.slice(start, end)`.
+   * Check if there is an element **exactly** matched the given elements.
    *
-   * @param element  the prefix to be matched.
-   * @param start   the starting position of the prefix. (default: 0)
-   * @param end     the ending position of the prefix. (default: prefix.length)
+   * @param elements  the path to be matched.
    */
-  has(element: Readonly<E>, start?: number, end?: number): boolean
+  has(elements: Iterable<E>): boolean
+
+  /**
+   * Check if there is an element **exactly** matched the `element.slice(start, end)`.
+   *
+   * @param elements  the path to be matched.
+   * @param start     the starting position of the prefix.
+   * @param end       the ending position of the prefix.
+   */
+  has_advance(
+    elements: E extends string ? string : ReadonlyArray<E>,
+    start: number,
+    end: number,
+  ): boolean
+
+  /**
+   * Check if there is an element which prefix matched the given elements
+   *
+   * @param prefix    the prefix to be matched.
+   */
+  hasPrefix(prefix: Iterable<E>): boolean
+
   /**
    * Check if there is an element which prefix matched the `prefix.slice(start, end)`.
    *
-   * @param prefix
-   * @param start
-   * @param end
+   * @param prefix    the prefix to be matched.
+   * @param start     the starting position of the prefix.
+   * @param end       the ending position of the prefix.
    */
-  hasPrefix(prefix: Readonly<E>, start?: number, end?: number): boolean
+  hasPrefix_advance(
+    prefix: E extends string ? string : ReadonlyArray<E>,
+    start: number,
+    end: number,
+  ): boolean
+
   /**
-   * Find the element with smallest length and exact match the `element.slice(start, x)`, where the
-   * x is an integer in the range [start, end).
+   * Find all elements in the trie which contained in the elements with the same prefix.
    *
-   * For example, if the trie contains the elements {"abc": 101, "abcd":102, "abcde": 103},
-   * when you execute `trie.find("abcde"), the result `{ end: 2, val: 101 }` will returned,
-   * because `abc` is the smallest element which exactly matched the `element.slice(start, 2)`.
-   *
-   * @param element
-   * @param start   the starting position of the element. (default: 0)
-   * @param end     the ending position of the element. (default: element.length)
+   * @param elements  the path to be matched.
    */
-  find(element: Readonly<E>, start?: number, end?: number): ITrieNodeData<V> | undefined
+  findAll(elements: Iterable<E>): Iterable<ITrieNodeData<V>>
+
   /**
    * Find all elements in the trie which exact match the element.slice(start, x),
    * where the x is an integer in the range [start, end).
    *
-   * @param element
-   * @param start   the starting position of the element. (default: 0)
-   * @param end     the ending position of the element. (default: element.length)
+   * @param elements  the path to be matched.
+   * @param start     the starting position of the element.
+   * @param end       the ending position of the element.
    */
-  findAll(element: Readonly<E>, start?: number, end?: number): Iterable<ITrieNodeData<V>>
+  findAll_advance(
+    elements: E extends string ? string : ReadonlyArray<E>,
+    start: number,
+    end: number,
+  ): Iterable<ITrieNodeData<V>>
 }
 
 /**
@@ -96,7 +184,7 @@ export interface ITrieNodeData<T> {
 /**
  * Options for create trie.
  */
-export interface ITrieOptions<E extends unknown[] | string, V = number> {
+export interface ITrieOptions<E, V = number> {
   /**
    * The maximum number of children a parent node can have.
    */
@@ -104,7 +192,7 @@ export interface ITrieOptions<E extends unknown[] | string, V = number> {
   /**
    * Map a character to an integer in the range [0, SIGMA_SIZE)
    */
-  idx(c: E[number]): number
+  idx(c: E): number
   /**
    * Specify how to merge additional values of a same trie node.
    * When the same word is inserted in multiple times, there will be multiple node values,

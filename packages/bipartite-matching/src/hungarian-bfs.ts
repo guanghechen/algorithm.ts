@@ -1,9 +1,9 @@
-import type { ICircularQueue } from '@algorithm.ts/queue'
 import { CircularQueue } from '@algorithm.ts/queue'
+import type { ICircularQueue } from '@algorithm.ts/queue'
 import type { IBipartiteMatcher, IBipartiteMatching } from './types'
 
 export class HungarianBfs implements IBipartiteMatcher {
-  protected readonly _Q: ICircularQueue<number> = new CircularQueue()
+  protected readonly _Q: ICircularQueue<number> = new CircularQueue({ capacity: 4 })
   protected readonly _G: number[][] = []
   protected readonly _visited: number[] = []
   protected readonly _prev: number[] = []
@@ -11,8 +11,8 @@ export class HungarianBfs implements IBipartiteMatcher {
   protected _N = 0
 
   /* istanbul ignore next */
-  public destroy(): void {
-    this._Q.destroy()
+  public clear(): void {
+    this._Q.init()
     this._G.length = 0
     this._visited.length = 0
     this._partner.length = 0
@@ -27,7 +27,8 @@ export class HungarianBfs implements IBipartiteMatcher {
     }
 
     this._N = N
-    this._Q.clear()
+    this._Q.init()
+    this._Q.resize(N + 1)
     this._G.length = N
     this._visited.length = N
     this._prev.length = N
@@ -74,7 +75,7 @@ export class HungarianBfs implements IBipartiteMatcher {
     return total
 
     function match(o: number): boolean {
-      _Q.clear()
+      _Q.init()
       _Q.enqueue(o)
       _prev[o] = -1
       _visited[o] = o

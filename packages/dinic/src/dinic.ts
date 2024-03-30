@@ -1,5 +1,5 @@
-import type { ICircularQueue } from '@algorithm.ts/queue'
 import { CircularQueue } from '@algorithm.ts/queue'
+import type { ICircularQueue } from '@algorithm.ts/queue'
 import type { IDinic, IDinicEdge } from './types'
 
 export class Dinic implements IDinic {
@@ -7,7 +7,7 @@ export class Dinic implements IDinic {
   protected readonly _dist: number[] = [] // The distance from the source node to the i-th node.
   protected readonly _edges: IDinicEdge[] = []
   protected readonly _G: number[][] = []
-  protected readonly _Q: ICircularQueue<number> = new CircularQueue()
+  protected readonly _Q: ICircularQueue<number> = new CircularQueue({ capacity: 4 })
   protected _N: number // The number of nodes in a network flow
   protected _source: number // The source point in a network flow
   protected _sink: number // The sink in a network flow

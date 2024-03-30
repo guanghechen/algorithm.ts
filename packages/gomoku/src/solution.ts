@@ -1,4 +1,3 @@
-import type { IReadonlyCollection } from '@algorithm.ts/types'
 import { GomokuMoverContext } from './mover/context'
 import { GomokuMoverCounter } from './mover/counter'
 import { GomokuMover } from './mover/mover'
@@ -68,10 +67,7 @@ export class GomokuSolution {
     this._searcher = _searcher
   }
 
-  public init(
-    pieces: IReadonlyCollection<IGomokuPiece> | ReadonlyArray<IGomokuPiece>,
-    searcher?: IGomokuSearcher,
-  ): void {
+  public init(pieces: Iterable<IGomokuPiece>, searcher?: IGomokuSearcher): void {
     this.mover.init(pieces)
 
     if (searcher != null) {

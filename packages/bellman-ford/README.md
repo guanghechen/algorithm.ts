@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1/packages/bellman-ford#readme">@algorithm.ts/bellman-ford</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.0-alpha.0/packages/bellman-ford#readme">@algorithm.ts/bellman-ford</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/bellman-ford">
@@ -81,7 +81,7 @@ The following definition is quoted from Wikipedia
 - Simple
 
   ```typescript
-  import type { IGraph } from '@algorithm.ts/bellman-ford'
+  import type { IBellmanFordGraph } from '@algorithm.ts/bellman-ford'
   import bellmanFord from '@algorithm.ts/bellman-ford'
 
   const graph: IBellmanFordGraph<number> = {
@@ -125,6 +125,7 @@ The following definition is quoted from Wikipedia
 - Get shortest path.
 
   ```typescript
+  import type { IBellmanFordGraph } from '@algorithm.ts/bellman-ford'
   import bellmanFord from '@algorithm.ts/bellman-ford'
   import { getShortestPath } from '@algorithm.ts/graph'
 
@@ -133,7 +134,7 @@ The following definition is quoted from Wikipedia
   const C = 2
   const D = 3
 
-  const graph: IGraph = {
+  const graph: IBellmanFordGraph<number> = {
     N: 4,
     source: A,
     edges: [
@@ -219,7 +220,7 @@ The following definition is quoted from Wikipedia
 - [@algorithm.ts/queue][]
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@3.1.1/packages/bellman-ford#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.0-alpha.0/packages/bellman-ford#readme
 [wikipedia-bellman-ford]: https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
 [@algorithm.ts/queue]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@3.1.1/packages/queue
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.0-alpha.0/packages/queue

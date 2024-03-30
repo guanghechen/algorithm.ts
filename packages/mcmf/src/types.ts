@@ -1,21 +1,19 @@
-import type { IDigraphEdge } from '@algorithm.ts/types'
-
 /**
  * An arc (or edge) in the residual network.
  */
-export interface IMcmfEdge extends IDigraphEdge {
+export interface IMcmfEdge {
   /**
    * The starting node of the arc.
    */
-  from: number
+  readonly from: number
   /**
    * The ending node of the arc.
    */
-  to: number
+  readonly to: number
   /**
    * Capacity of the arc.
    */
-  cap: number
+  readonly cap: number
   /**
    * Flow on the arc.
    */

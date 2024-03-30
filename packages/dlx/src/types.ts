@@ -13,6 +13,10 @@
  */
 export interface IDancingLinkX {
   /**
+   * Determine if the data-structure has been destroyed.
+   */
+  readonly destroyed: boolean
+  /**
    * Release memory variables.
    */
   destroy(): void

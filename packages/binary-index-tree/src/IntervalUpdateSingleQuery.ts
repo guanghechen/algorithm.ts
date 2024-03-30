@@ -1,6 +1,9 @@
-import type { IOperator } from '@algorithm.ts/types'
+export interface IIntervalUpdateSingleQueryOperator<T> {
+  readonly ZERO: T
 
-export type IIntervalUpdateSingleQueryOperator<T> = Pick<IOperator<T>, 'ZERO' | 'add'>
+  // x + y
+  add(x: T, y: T): T
+}
 
 export interface IIntervalUpdateSingleQueryProps<T> {
   readonly operator: IIntervalUpdateSingleQueryOperator<T>

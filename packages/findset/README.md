@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@3.1.1/packages/findset#readme">@algorithm.ts/findset</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@4.0.0-alpha.0/packages/findset#readme">@algorithm.ts/findset</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/findset">
@@ -149,9 +149,9 @@ support to perform the following operations under the amortized constant time co
   (https://leetcode.com/problems/find-all-people-with-secret/):
 
   ```typescript
-  import { UnsafeEnhancedFindset } from '@algorithm.ts/findset'
+  import { EnhancedFindset } from '@algorithm.ts/findset'
 
-  class MyFindset extends UnsafeEnhancedFindset {
+  class MyFindset extends EnhancedFindset {
     public resetNode(x: number): void {
       this._parent[x] = 0
       this._sets[x].clear()
@@ -225,5 +225,5 @@ support to perform the following operations under the amortized constant time co
 - [Disjoint-set data structure | Wikipedia][wiki-find-set]
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@3.1.1/packages/findset#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/findset@4.0.0-alpha.0/packages/findset#readme
 [wiki-find-set]: https://en.wikipedia.org/wiki/Disjoint-set_data_structure

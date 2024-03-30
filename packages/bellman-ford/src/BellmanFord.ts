@@ -5,19 +5,9 @@ import type {
   IBellmanFordEdge,
   IBellmanFordGraph,
   IBellmanFordOptions,
+  IBellmanFordProps,
   IBellmanFordResult,
 } from './types'
-
-export interface IBellmanFordProps<C extends number | bigint> {
-  /**
-   * The value represent the zero cost, 0 for number and 0n for bigint.
-   */
-  ZERO: C
-  /**
-   * A big number / bigint, representing the unreachable cost.
-   */
-  INF: C
-}
 
 export class BellmanFord<C extends number | bigint> {
   protected readonly ZERO: C
@@ -42,7 +32,7 @@ export class BellmanFord<C extends number | bigint> {
     this.dist = []
     this.inq = []
     this.inqTimes = []
-    this.Q = new CircularQueue<number>()
+    this.Q = new CircularQueue<number>({ capacity: 1 })
   }
 
   public bellmanFord(
@@ -69,17 +59,15 @@ export class BellmanFord<C extends number | bigint> {
     Q.resize(N + 1)
     Q.enqueue(source)
 
-    let edge: DeepReadonly<IBellmanFordEdge<C>>
     let to: number
     let candidate: C
-    while (Q.size > 0) {
-      const o: number = Q.dequeue()!
+    let edge: DeepReadonly<IBellmanFordEdge<C>>
+    for (const o of Q.consuming()) {
       inq[o] = false
-
       for (let i = 0, g = G[o], _size = g.length; i < _size; ++i) {
         edge = edges[g[i]]
         to = edge.to
-        candidate = ((dist[o] as number) + (edge.cost as unknown as number)) as C
+        candidate = ((dist[o] as number) + (edge.cost as number)) as C
         if (dist[to] > candidate) {
           dist[to] = candidate
           bestFrom[to] = o

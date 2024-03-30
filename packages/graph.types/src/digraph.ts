@@ -7,20 +7,20 @@ export interface IDigraphEdge {
   /**
    * Target point of the edge.
    */
-  to: number
+  readonly to: number
 }
 
 export interface IDigraph<E extends IDigraphEdge = IDigraphEdge> {
   /**
    * The number of nodes in the graph. (0-index)
    */
-  N: number
+  readonly N: number
   /**
    * Adjacency list. G[i] represent the index list of the edges start from node i.
    */
-  G: number[][]
+  readonly G: number[][]
   /**
    *
    */
-  edges: E[]
+  readonly edges: E[]
 }

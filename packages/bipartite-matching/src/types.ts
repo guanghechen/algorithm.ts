@@ -13,7 +13,7 @@ export interface IBipartiteMatcher {
   /**
    * Release memory.
    */
-  destroy(): void
+  clear(): void
   /**
    * Initialize the algorithm.
    * @param N the number of nodes

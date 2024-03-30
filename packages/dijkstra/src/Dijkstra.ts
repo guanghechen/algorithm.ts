@@ -1,22 +1,17 @@
 import type { DeepReadonly } from '@algorithm.ts/internal'
-import type { IPriorityQueue } from '@algorithm.ts/queue'
 import { PriorityQueue } from '@algorithm.ts/queue'
-import type { IDijkstraEdge, IDijkstraGraph, IDijkstraOptions, IDijkstraResult } from './types'
+import type { IPriorityQueue } from '@algorithm.ts/queue'
+import type {
+  IDijkstraEdge,
+  IDijkstraGraph,
+  IDijkstraOptions,
+  IDijkstraProps,
+  IDijkstraResult,
+} from './types'
 
 interface IStateNode<C extends number | bigint> {
-  pos: number
-  cost: C
-}
-
-export interface IDijkstraProps<C extends number | bigint> {
-  /**
-   * The value represent the zero cost, 0 for number and 0n for bigint.
-   */
-  ZERO: C
-  /**
-   * A big number / bigint, representing the unreachable cost.
-   */
-  INF: C
+  readonly pos: number
+  readonly cost: C
 }
 
 /**
