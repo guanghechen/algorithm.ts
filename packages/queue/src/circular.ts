@@ -51,6 +51,13 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
     return this._size
   }
 
+  public at(index: number): T | undefined {
+    if (index < 0 || index >= this._size) return undefined
+    let idx = this._start + index
+    if (idx >= this._capacity) idx -= this._capacity
+    return this._elements[idx]
+  }
+
   public count(filter: (element: T) => boolean): number {
     const { _elements, _capacity, _size, _start, _end } = this
     if (_size == 0) return 0

@@ -25,6 +25,32 @@ describe('CircularQueue', function () {
     expect(() => new CircularQueue({ capacity: 1 })).not.toThrow()
   })
 
+  it('at', () => {
+    expect(Q.size).toEqual(0)
+    expect(Array.from(Q)).toEqual([])
+    expect(Q.at(0)).toEqual(undefined)
+
+    Q.enqueues([1, 2, 3, 4])
+    expect(Q.size).toEqual(4)
+    expect(Q.at(-1)).toEqual(undefined)
+    expect(Q.at(0)).toEqual(1)
+    expect(Q.at(1)).toEqual(2)
+    expect(Q.at(2)).toEqual(3)
+    expect(Q.at(3)).toEqual(4)
+    expect(Q.at(4)).toEqual(undefined)
+    expect(Array.from(Q)).toEqual([1, 2, 3, 4])
+
+    Q.enqueue(5)
+    expect(Q.size).toEqual(4)
+    expect(Q.at(-1)).toEqual(undefined)
+    expect(Q.at(0)).toEqual(2)
+    expect(Q.at(1)).toEqual(3)
+    expect(Q.at(2)).toEqual(4)
+    expect(Q.at(3)).toEqual(5)
+    expect(Q.at(4)).toEqual(undefined)
+    expect(Array.from(Q)).toEqual([2, 3, 4, 5])
+  })
+
   it('count', () => {
     expect(Q.size).toEqual(0)
     expect(Array.from(Q)).toEqual([])
