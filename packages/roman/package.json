@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/roman",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Conversion between Roman numerals and Arabic numerals",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/roman@4.0.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/roman@4.0.1",
     "directory": "packages/roman"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/roman@4.0.0/packages/roman#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/roman@4.0.1/packages/roman#readme",
   "keywords": [
     "algorithm",
     "roman numerics"

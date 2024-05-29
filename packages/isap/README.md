@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.0/packages/isap#readme">@algorithm.ts/isap</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.1/packages/isap#readme">@algorithm.ts/isap</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/isap">
@@ -205,10 +205,10 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
 
 ## Related
 
-- [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.0/packages/isap)
-- [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/mcmf@4.0.0/packages/mcmf)
+- [@algorithm.ts/isap](https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.1/packages/isap)
+- [@algorithm.ts/mcmf](https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/mcmf@4.0.1/packages/mcmf)
 - [网络流 24 题](https://me.guanghechen.com/post/algorithm/graph/network-flow/24-problems/)
 - [网络流基础之最大权闭合图](https://me.guanghechen.com/post/algorithm/graph/network-flow/%E6%9C%80%E5%A4%A7%E6%9D%83%E9%97%AD%E5%90%88%E5%9B%BE/)
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.0/packages/isap#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.1/packages/isap#readme

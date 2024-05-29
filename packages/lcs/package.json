@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/lcs",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Find the longest common subsequence.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.1",
     "directory": "packages/lcs"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.0/packages/lcs#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.1/packages/lcs#readme",
   "keywords": [
     "algorithm",
     "lcs",

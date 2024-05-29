@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/binary-search",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Find the index of first elements which greater or equals than the target element.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.1",
     "directory": "packages/binary-search"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.0/packages/binary-search#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.1/packages/binary-search#readme",
   "keywords": [
     "algorithm",
     "lower bound"
