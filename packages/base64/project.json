@@ -10,7 +10,6 @@
       "options": {
         "cwd": "packages/base64",
         "parallel": false,
-        "sourceMap": true,
         "commands": ["rimraf lib"]
       }
     },

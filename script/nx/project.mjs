@@ -90,7 +90,6 @@ export async function genNxProjectJson(params) {
       options: {
         cwd: projectDir,
         parallel: false,
-        sourceMap: true,
         commands: [`rimraf ${targetDir}`],
       },
     }

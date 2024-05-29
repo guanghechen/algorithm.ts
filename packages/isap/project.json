@@ -10,7 +10,6 @@
       "options": {
         "cwd": "packages/isap",
         "parallel": false,
-        "sourceMap": true,
         "commands": ["rimraf lib"]
       }
     },

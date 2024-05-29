@@ -10,7 +10,6 @@
       "options": {
         "cwd": "packages/dinic",
         "parallel": false,
-        "sourceMap": true,
         "commands": ["rimraf lib"]
       }
     },

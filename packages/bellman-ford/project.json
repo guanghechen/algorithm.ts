@@ -10,7 +10,6 @@
       "options": {
         "cwd": "packages/bellman-ford",
         "parallel": false,
-        "sourceMap": true,
         "commands": ["rimraf lib"]
       }
     },
