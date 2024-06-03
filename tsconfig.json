@@ -22,6 +22,7 @@
       "@algorithm.ts/huffman": ["packages/huffman"],
       "@algorithm.ts/isap": ["packages/isap/src"],
       "@algorithm.ts/lcs": ["packages/lcs/src"],
+      "@algorithm.ts/lis": ["packages/lis/src"],
       "@algorithm.ts/manacher": ["packages/manacher/src"],
       "@algorithm.ts/mcmf": ["packages/mcmf/src"],
       "@algorithm.ts/prime": ["packages/prime/src"],

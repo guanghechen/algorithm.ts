@@ -21,12 +21,15 @@ export const GomokuDirections: ReadonlyArray<[dr: number, dc: number]> = Array.f
     [GomokuDirectionType.BOTTOM_LEFT]: [1, -1],
     [GomokuDirectionType.LEFT]: [0, -1],
     [GomokuDirectionType.TOP_LEFT]: [-1, -1],
-  }).reduce((acc, [key, value]) => {
-    const index = Number(key)
-    // eslint-disable-next-line no-param-reassign
-    acc[index] = value as [dr: number, dc: number]
-    return acc
-  }, [] as Array<[dr: number, dc: number]>),
+  }).reduce(
+    (acc, [key, value]) => {
+      const index = Number(key)
+      // eslint-disable-next-line no-param-reassign
+      acc[index] = value as [dr: number, dc: number]
+      return acc
+    },
+    [] as Array<[dr: number, dc: number]>,
+  ),
 )
 
 export const GomokuDirectionTypes = {

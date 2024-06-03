@@ -13,13 +13,8 @@ export type Mutable<T extends object> = { -readonly [P in keyof T]: T[P] }
 /**
  * Get element type of an array
  */
-export type ElementOfArray<T extends ReadonlyArray<unknown> | string> = T extends ReadonlyArray<
-  infer ElementType
->
-  ? ElementType
-  : T extends string
-  ? string
-  : never
+export type ElementOfArray<T extends ReadonlyArray<unknown> | string> =
+  T extends ReadonlyArray<infer ElementType> ? ElementType : T extends string ? string : never
 
 /**
  * Make a set of properties by key `K` become optional from `T`.

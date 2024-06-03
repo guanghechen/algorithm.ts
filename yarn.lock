@@ -27,7 +27,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/binary-search@workspace:packages/binary-search":
+"@algorithm.ts/binary-search@^4.0.1, @algorithm.ts/binary-search@workspace:packages/binary-search":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/binary-search@workspace:packages/binary-search"
   dependencies:
@@ -138,6 +138,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/lcs@workspace:packages/lcs"
   dependencies:
+    "@algorithm.ts/internal": ^0.0.0
+    "@algorithm.ts/lis": ^1.0.0
+  languageName: unknown
+  linkType: soft
+
+"@algorithm.ts/lis@^1.0.0, @algorithm.ts/lis@workspace:packages/lis":
+  version: 0.0.0-use.local
+  resolution: "@algorithm.ts/lis@workspace:packages/lis"
+  dependencies:
+    "@algorithm.ts/binary-search": ^4.0.1
     "@algorithm.ts/internal": ^0.0.0
   languageName: unknown
   linkType: soft
