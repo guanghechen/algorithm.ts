@@ -107,21 +107,27 @@ export function findLCSOfEveryRightPrefix(
   if (N1 <= 0 || N2 <= 0) return null
 
   // dp[j] represent that the length of longest common subsequence of A[0..N1] and B[0..j]
-  const dp: number[] = new Array(N2).fill(0)
-  for (let i = 0; i < N1; ++i) {
-    for (let j = N2 - 1; j > 0; --j) {
-      if (equals(i, j)) {
-        const candidate: number = dp[j - 1] + 1
-        // Found a longer common subsequence.
-        if (dp[j] < candidate) dp[j] = candidate
+  const dp: number[] = new Array(N2)
+
+  {
+    let first_j: number = 0
+    while (first_j < N2 && equals(0, first_j) === false) ++first_j
+    dp.fill(0, 0, first_j)
+    dp.fill(1, first_j, N2)
+  }
+
+  for (let i = 1; i < N1; ++i) {
+    let prev_ij: number = dp[0]
+    if (dp[0] === 0 && equals(i, 0)) dp[0] = 1
+
+    for (let j = 1; j < N2; ++j) {
+      const z: number = dp[j]
+      if (equals(i, j)) dp[j] = prev_ij + 1
+      else {
+        const y: number = dp[j - 1]
+        dp[j] = y < z ? z : y
       }
-    }
-
-    if (equals(i, 0)) dp[0] = 1
-
-    for (let j = 1, x = dp[0]; j < N2; ++j) {
-      if (dp[j] < x) dp[j] = x
-      else x = dp[j]
+      prev_ij = z
     }
   }
   return dp
