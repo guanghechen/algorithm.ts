@@ -14,6 +14,10 @@ export default async function () {
 
   const config = {
     ...baseConfig,
+    coveragePathIgnorePatterns: [
+      ...(baseConfig.coveragePathIgnorePatterns || []),
+      '<rootDir>/src/dev.ts',
+    ],
     coverageThreshold: {
       ...coverageMap[manifest.name],
 

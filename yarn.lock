@@ -139,11 +139,10 @@ __metadata:
   resolution: "@algorithm.ts/lcs@workspace:packages/lcs"
   dependencies:
     "@algorithm.ts/internal": ^0.0.0
-    "@algorithm.ts/lis": ^1.0.0
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/lis@^1.0.0, @algorithm.ts/lis@workspace:packages/lis":
+"@algorithm.ts/lis@workspace:packages/lis":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/lis@workspace:packages/lis"
   dependencies:

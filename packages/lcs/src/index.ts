@@ -19,30 +19,49 @@ export function findMinLexicographicalLCS(
 ): Array<[number, number]> {
   if (N1 <= 0 || N2 <= 0) return []
 
-  const dp: Uint32Array[] = new Array(N1)
-  for (let i = 0; i < N1; ++i) dp[i] = new Uint32Array(N2)
+  const dp: number[][] = new Array(N1)
+  for (let i = 0; i < N1; ++i) dp[i] = new Array(N2)
 
-  dp[0][0] = equals(0, 0) ? 1 : 0
-  for (let i = 1; i < N1; ++i) dp[i][0] = dp[i - 1][0] | (equals(i, 0) ? 1 : 0)
-  for (let j = 1; j < N2; ++j) dp[0][j] = dp[0][j - 1] | (equals(0, j) ? 1 : 0)
+  {
+    let first_i: number = 0
+    let first_j: number = 0
+    while (first_i < N1 && equals(first_i, 0) === false) ++first_i
+    while (first_j < N2 && equals(0, first_j) === false) ++first_j
+
+    dp[0].fill(0, 0, first_j)
+    dp[0].fill(1, first_j, N2)
+
+    for (let i = 0; i < first_i; ++i) dp[i][0] = 0
+    for (let i = first_i; i < N1; ++i) dp[i][0] = 1
+  }
 
   for (let i = 1; i < N1; ++i) {
     for (let j = 1; j < N2; ++j) {
-      dp[i][j] = equals(i, j) ? dp[i - 1][j - 1] + 1 : Math.max(dp[i][j - 1], dp[i - 1][j])
-    }
-  }
-
-  const pairs: Array<[number, number]> = []
-  for (let len = dp[N1 - 1][N2 - 1], i = N1 - 1; len > 0; --len) {
-    for (let j = 0; j < N2; ++j) {
-      if (dp[i][j] === len) {
-        while (i >= 0 && dp[i][j] === len) i -= 1
-        pairs.push([i + 1, j])
-        break
+      if (equals(i, j)) {
+        dp[i][j] = dp[i - 1][j - 1] + 1
+      } else {
+        const x: number = dp[i][j - 1]
+        const y: number = dp[i - 1][j]
+        dp[i][j] = x < y ? y : x
       }
     }
   }
-  return pairs.reverse()
+
+  const N: number = dp[N1 - 1][N2 - 1]
+  const firsts: number[] = new Array(N + 1)
+  for (let i = 0, j = N2 - 1, n = 1; n <= N; ++n) {
+    while (dp[i][j] < n) ++i
+    firsts[n] = i
+  }
+
+  const pairs: Array<[number, number]> = new Array(N)
+  for (let j = N2 - 1, n = N; n > 0; --n) {
+    let i: number = firsts[n]
+    while (dp[i][j] < n) ++i
+    while (j >= 0 && dp[i][j] === n) --j
+    pairs[n - 1] = [i, j + 1]
+  }
+  return pairs
 }
 
 /**
