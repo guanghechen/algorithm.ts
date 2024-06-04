@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/bellman-ford",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Bellman-ford algorithm.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.2",
     "directory": "packages/bellman-ford"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.1/packages/bellman-ford#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.2/packages/bellman-ford#readme",
   "keywords": [
     "algorithm",
     "bellman-ford",
@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "@algorithm.ts/graph.types": "^1.0.1",
-    "@algorithm.ts/queue": "^4.0.1"
+    "@algorithm.ts/queue": "^4.0.2"
   },
   "devDependencies": {
     "@algorithm.ts/internal": "^0.0.0"

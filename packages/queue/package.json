@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/queue",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Typescript implementation of queues, such as priority queue and circular queue.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.2",
     "directory": "packages/queue"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.1/packages/queue#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.2/packages/queue#readme",
   "keywords": [
     "algorithm",
     "data structure",

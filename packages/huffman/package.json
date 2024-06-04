@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/huffman",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "huffman + Euclidean algorithm",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@4.0.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@4.0.2",
     "directory": "packages/huffman"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@4.0.1/packages/huffman#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/huffman@4.0.2/packages/huffman#readme",
   "keywords": [
     "algorithm",
     "huffman",
@@ -37,6 +37,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/queue": "^4.0.1"
+    "@algorithm.ts/queue": "^4.0.2"
   }
 }

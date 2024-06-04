@@ -17,7 +17,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/graph.types": ^1.0.1
     "@algorithm.ts/internal": ^0.0.0
-    "@algorithm.ts/queue": ^4.0.1
+    "@algorithm.ts/queue": ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -27,7 +27,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/binary-search@^4.0.1, @algorithm.ts/binary-search@workspace:packages/binary-search":
+"@algorithm.ts/binary-search@^4.0.2, @algorithm.ts/binary-search@workspace:packages/binary-search":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/binary-search@workspace:packages/binary-search"
   dependencies:
@@ -39,7 +39,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/bipartite-matching@workspace:packages/bipartite-matching"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.1
+    "@algorithm.ts/queue": ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -57,7 +57,7 @@ __metadata:
   dependencies:
     "@algorithm.ts/graph.types": ^1.0.1
     "@algorithm.ts/internal": ^0.0.0
-    "@algorithm.ts/queue": ^4.0.1
+    "@algorithm.ts/queue": ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -65,7 +65,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dinic@workspace:packages/dinic"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.1
+    "@algorithm.ts/queue": ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -93,7 +93,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/gomoku@workspace:packages/gomoku"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.1
+    "@algorithm.ts/queue": ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -116,7 +116,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/huffman@workspace:packages/huffman"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.1
+    "@algorithm.ts/queue": ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -130,7 +130,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/isap@workspace:packages/isap"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.1
+    "@algorithm.ts/queue": ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -146,7 +146,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/lis@workspace:packages/lis"
   dependencies:
-    "@algorithm.ts/binary-search": ^4.0.1
+    "@algorithm.ts/binary-search": ^4.0.2
     "@algorithm.ts/internal": ^0.0.0
   languageName: unknown
   linkType: soft
@@ -161,7 +161,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/mcmf@workspace:packages/mcmf"
   dependencies:
-    "@algorithm.ts/queue": ^4.0.1
+    "@algorithm.ts/queue": ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -171,7 +171,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/queue@^4.0.1, @algorithm.ts/queue@workspace:packages/queue":
+"@algorithm.ts/queue@^4.0.2, @algorithm.ts/queue@workspace:packages/queue":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/queue@workspace:packages/queue"
   dependencies:

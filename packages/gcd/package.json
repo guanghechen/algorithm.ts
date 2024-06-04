@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/gcd",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "GCD + Euclidean algorithm",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@4.0.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@4.0.2",
     "directory": "packages/gcd"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@4.0.1/packages/gcd#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gcd@4.0.2/packages/gcd#readme",
   "keywords": [
     "algorithm",
     "gcd",

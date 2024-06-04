@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/isap",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "The ISAP algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.2",
     "directory": "packages/isap"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.1/packages/isap#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/isap@4.0.2/packages/isap#readme",
   "keywords": [
     "algorithm",
     "ISAP",
@@ -39,6 +39,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/queue": "^4.0.1"
+    "@algorithm.ts/queue": "^4.0.2"
   }
 }
