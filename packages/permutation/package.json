@@ -1,0 +1,38 @@
+{
+  "name": "@algorithm.ts/permutation",
+  "version": "1.0.0",
+  "description": "Tranverse the permutation of a list.",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/permutation@1.0.0",
+    "directory": "packages/lcs"
+  },
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/permutation@1.0.0/packages/permutation#readme",
+  "keywords": [
+    "algorithm",
+    "permutation"
+  ],
+  "type": "module",
+  "exports": {
+    "types": "./lib/types/index.d.ts",
+    "import": "./lib/esm/index.mjs",
+    "require": "./lib/cjs/index.cjs"
+  },
+  "source": "./src/index.ts",
+  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "license": "MIT",
+  "files": [
+    "lib/",
+    "!lib/**/*.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ]
+}

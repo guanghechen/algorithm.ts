@@ -25,6 +25,7 @@
       "@algorithm.ts/lis": ["packages/lis/src"],
       "@algorithm.ts/manacher": ["packages/manacher/src"],
       "@algorithm.ts/mcmf": ["packages/mcmf/src"],
+      "@algorithm.ts/permutation": ["packages/permutation/src"],
       "@algorithm.ts/prime": ["packages/prime/src"],
       "@algorithm.ts/queue": ["packages/queue/src"],
       "@algorithm.ts/roman": ["packages/roman/src"],

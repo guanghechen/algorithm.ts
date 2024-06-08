@@ -165,6 +165,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@algorithm.ts/permutation@workspace:packages/permutation":
+  version: 0.0.0-use.local
+  resolution: "@algorithm.ts/permutation@workspace:packages/permutation"
+  languageName: unknown
+  linkType: soft
+
 "@algorithm.ts/prime@workspace:packages/prime":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/prime@workspace:packages/prime"
