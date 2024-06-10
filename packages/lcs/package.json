@@ -35,8 +35,5 @@
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
-  ],
-  "devDependencies": {
-    "@algorithm.ts/internal": "^0.0.0"
-  }
+  ]
 }
