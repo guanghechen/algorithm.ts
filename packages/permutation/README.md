@@ -73,8 +73,18 @@ Create all permutations of the given natural number.
   import { permutation } from '@algorithm.ts/permutation'
 
   for (const nums of permutation(7)) {
-    // Tranverse the permutation of [1, 2, 3 ,4, 5, 6, 7]
+    // Tranverse the permutation of [0, 1, 2, 3 ,4, 5, 6]
   }
+
+  Array.from(permutation(3, 1))
+  // [
+  //   [1, 2, 3],
+  //   [1, 3, 2],
+  //   [2, 1, 3],
+  //   [2, 3, 1],
+  //   [3, 1, 2],
+  //   [3, 2, 1]
+  // ]
   ```
 
 ## Related
