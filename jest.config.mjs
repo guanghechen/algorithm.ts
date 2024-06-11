@@ -47,6 +47,9 @@ const coverageMap = {
   '@algorithm.ts/gomoku': {
     global: { branches: 92, lines: 99, statements: 99 },
   },
+  '@algorithm.ts/lcs': {
+    global: { branches: 95, lines: 97, statements: 97 },
+  },
   '@algorithm.ts/kth': {
     global: { branches: 98 },
   },

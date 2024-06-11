@@ -51,6 +51,31 @@
 
 A typescript implementation to find the **lcs** (Longest Common Subsequence).
 
+This package provide three different implementation of lcs algorithm. To measure the complexity of
+these algorithms, let the $N_1$ and $N_2$ be the subsequences length of two sequences respectively.
+And let $L$ be the length of the longest common subsequences, then the $D = 2L - N1 - N2$.
+
+1. `myers_lcs(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`:
+   The vanilla algorithm introduced by this paper
+   [_An O(ND) Difference Algorithm and Its Variations_](https://mailserver.org/diff2.pdf).
+
+   - Time complexity: `O((N1 + N2) * D)`
+   - Memory complexity: `O(N1 * N2)`
+
+2. `myers_lcs_linear_space(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`:
+   The linear space refinement algorithm from
+   [_An O(ND) Difference Algorithm and Its Variations_](https://mailserver.org/diff2.pdf).
+
+   - Time complexity: `O((N1 + N2) * D)`
+   - Memory complexity: `O(N1 + N2)`
+
+3. `lcs_dp(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`
+   This implementation is based on dynamic programming, and can find the minimal lexicographical
+   lcs.
+
+   - Time complexity: `O(N1 * N2)`
+   - Memory complexity: `O(N1 * N2)`
+
 The following definition is quoted from Wikipedia
 (https://en.wikipedia.org/wiki/Longest_common_subsequence_problem):
 
@@ -82,14 +107,14 @@ The following definition is quoted from Wikipedia
 - Basic
 
   ```typescript
-  import { findLengthOfLCS, findMinLexicographicalLCS } from '@algorithm.ts/lcs'
+  import { lcs_dp, lcs_myers_size } from '@algorithm.ts/lcs'
 
   const s1: number[] = [1, 2, 3, 4, 6, 6, 7, 8, 6]
   const s2: number[] = [2, 3, 4, 7, 9, 8, 2, 3, 5, 2]
 
-  findLengthOfLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y]) // => 5
+  lcs_myers_size(s1.length, s2.length, (x, y) => s1[x] === s2[y]) // => 5
 
-  findMinLexicographicalLCS(s1.length, s2.length, (x, y) => s1[x] === s2[y])
+  lcs_dp(s1.length, s2.length, (x, y) => s1[x] === s2[y])
   // => [ [1, 0], [2, 1], [3, 2], [6, 3], [7, 5] ]
   //
   //    Here is why:
@@ -112,6 +137,7 @@ The following definition is quoted from Wikipedia
 
 ## Related
 
+- [An O(ND) Difference Algorithm and Its Variations](https://mailserver.org/diff2.pdf).
 - [最长公共子序列（LCS） | 光和尘][lcs]
 - [Longest common subsequence problem | Wikipedia][wikipedia-lcs]
 
