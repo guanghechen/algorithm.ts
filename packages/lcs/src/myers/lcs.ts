@@ -8,18 +8,17 @@ export function lcs_myers(
 ): Array<[number, number]> {
   if (N1 <= 0 || N2 <= 0) return []
 
-  let x0 = 0
-  for (let y0: number = 0; x0 < N1 && y0 < N2 && equals(x0, y0); ++x0, ++y0);
-
-  if (x0 === N1 || x0 === N2) {
-    const answers: Array<[number, number]> = []
-    for (let i = 0; i < x0; ++i) answers.push([i, i])
+  const fx0: number = fast_forward(0, 0)
+  if (fx0 === N1 || fx0 === N2) {
+    const answers: Array<[number, number]> = new Array(fx0)
+    for (let i = 0; i < fx0; ++i) answers[i] = [i, i]
     return answers
   }
 
+  const K: number = N1 - N2
   const L: number = N1 + N2 + 1
   const diagonals: number[] = new Array(L)
-  diagonals[0] = x0
+  diagonals[0] = fx0
 
   const parents: Map<number, -1 | 1 | undefined> = new Map()
   const count: number = (N1 + N2 - lcs()) / 2
@@ -38,30 +37,32 @@ export function lcs_myers(
       const kl: number = -(step < N2 ? step : N2)
       const kr: number = step < N1 ? step : N1
 
-      if (step <= N2) {
-        const k: number = -step
-        let x: number = 0
-        for (let y: number = x - k; x < N1 && y < N2 && equals(x, y); ++x, ++y);
-        diagonals[k + L] = x
+      if (step <= N1) {
+        const fk: number = step
+        diagonals[fk < 0 ? fk + L : fk] = fast_forward(fk, step)
       }
 
-      if (step <= N1) {
-        const k: number = step
-        let x: number = step
-        for (let y: number = x - k; x < N1 && y < N2 && equals(x, y); ++x, ++y);
-        diagonals[k] = x
+      if (step <= N2) {
+        const fk: number = -step
+        diagonals[fk < 0 ? fk + L : fk] = fast_forward(fk, 0)
       }
 
       for (let k = -parity; k >= kl; k -= 2) {
         const x: number = forward(kl, kr, k)
-        if (x === N1 && x - k === N2) return step
+        if (x === N1 && k === K) return step
       }
 
       for (let k = parity; k <= kr; k += 2) {
         const x: number = forward(kl, kr, k)
-        if (x === N1 && x - k === N2) return step
+        if (x === N1 && k === K) return step
       }
     }
+  }
+
+  function fast_forward(k: number, x0: number): number {
+    let x: number = x0
+    for (let y: number = x - k; x < N1 && y < N2 && equals(x, y); ++x, ++y);
+    return x
   }
 
   function forward(kl: number, kr: number, k: number): number {
@@ -72,9 +73,9 @@ export function lcs_myers(
         const kl: number = k - 1
         const xl: number = diagonals[kl < 0 ? kl + L : kl]
         if (x <= xl && xl < N1) {
-          const p: number = position(k - 1, xl)
-          parents.set(p, -1)
           x = xl + 1
+          const p: number = (x - k) * N1 + x
+          parents.set(p, -1)
         }
       }
 
@@ -82,9 +83,9 @@ export function lcs_myers(
         const kr: number = k + 1
         const xr: number = diagonals[kr < 0 ? kr + L : kr]
         if (x < xr) {
-          const p: number = position(k + 1, xr)
-          parents.set(p, 1)
           x = xr
+          const p: number = (x - k) * N1 + x
+          parents.set(p, 1)
         }
       }
 
@@ -92,10 +93,5 @@ export function lcs_myers(
       diagonals[kid] = x
     }
     return x
-  }
-
-  function position(k: number, x: number): number {
-    const y: number = x - k
-    return y * N1 + x
   }
 }
