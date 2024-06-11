@@ -91,7 +91,9 @@ A typescript implementation to find the **diff** of two sequences or strings.
 - [An O(ND) Difference Algorithm and Its Variations](https://mailserver.org/diff2.pdf).
 - [最长公共子序列（lcs） | 光和尘][lcs]
 - [Longest common subsequence problem | Wikipedia][wikipedia-lcs]
-- [@algorithm.ts/lcs][https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.3/packages/lcs#readme]
+- [@algorithm.ts/lcs](https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/lcs@4.0.3/packages/lcs#readme)
 
 [homepage]:
   https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/diff@1.0.1/packages/diff#readme
+[lcs]: https://me.guanghechen.com/post/algorithm/lcs/
+[wikipedia-lcs]: https://en.wikipedia.org/wiki/Longest_common_subsequence_problem

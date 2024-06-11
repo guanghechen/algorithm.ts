@@ -63,7 +63,7 @@ third-party dependencies)
 |   [@algorithm.ts/binary-search][]    | Binary search related algorithms, includes `binarySearch`, `lowerBound` and `upperBound`.                   |
 |     [@algorithm.ts/calculator][]     | A tiny calculator for number arithmetics.                                                                   |
 |        [@algorithm.ts/diff][]        | To find the minium difference between two subsequence or string.                                            |
-|      [@algorithm.ts/dijkstra][]      | Dijkstra algorithm optimized with [@algorithm.ts/priority-queue][]. #ShortestPath                           |
+|      [@algorithm.ts/dijkstra][]      | Dijkstra algorithm optimized with [priority-queue][@algorithm.ts/queue]. #ShortestPath                      |
 |       [@algorithm.ts/dinic][]        | Dinic algorithm. #MaxFlow, #NetworkFlow.                                                                    |
 |        [@algorithm.ts/dlx][]         | DLX algorithm.                                                                                              |
 |      [@algorithm.ts/findset][]       | Find set.                                                                                                   |

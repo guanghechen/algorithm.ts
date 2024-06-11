@@ -53,28 +53,28 @@ A typescript implementation to find the **lcs** (Longest Common Subsequence).
 
 This package provide three different implementation of lcs algorithm. To measure the complexity of
 these algorithms, let the $N_1$ and $N_2$ be the subsequences length of two sequences respectively.
-And let $L$ be the length of the longest common subsequences, then the $D = 2L - N1 - N2$.
+And let $L$ be the length of the longest common subsequences, then the $D = 2L - N_1 - N_2$.
 
 1. `myers_lcs(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`:
    The vanilla algorithm introduced by this paper
    [_An O(ND) Difference Algorithm and Its Variations_](https://mailserver.org/diff2.pdf).
 
-   - Time complexity: `O((N1 + N2) * D)`
-   - Memory complexity: `O(N1 * N2)`
+   - Time complexity: $O((N_1 + N_2) \times D)$
+   - Memory complexity: $O(N_1 \times N_2)$
 
 2. `myers_lcs_linear_space(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`:
    The linear space refinement algorithm from
    [_An O(ND) Difference Algorithm and Its Variations_](https://mailserver.org/diff2.pdf).
 
-   - Time complexity: `O((N1 + N2) * D)`
-   - Memory complexity: `O(N1 + N2)`
+   - Time complexity: $O((N_1 + N_2) * D)$
+   - Memory complexity: $O(N_1 + N_2)$
 
 3. `lcs_dp(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`
    This implementation is based on dynamic programming, and can find the minimal lexicographical
    lcs.
 
-   - Time complexity: `O(N1 * N2)`
-   - Memory complexity: `O(N1 * N2)`
+   - Time complexity: $O(N_1 \times N_2)$
+   - Memory complexity: $O(N_1 \times N_2)$
 
 The following definition is quoted from Wikipedia
 (https://en.wikipedia.org/wiki/Longest_common_subsequence_problem):
