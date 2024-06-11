@@ -1,0 +1,41 @@
+{
+  "name": "@algorithm.ts/diff",
+  "version": "1.0.0",
+  "description": "Find the diff between of two sequence or string.",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/diff@1.0.0",
+    "directory": "packages/diff"
+  },
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/diff@1.0.0/packages/diff#readme",
+  "keywords": [
+    "algorithm",
+    "diff"
+  ],
+  "type": "module",
+  "exports": {
+    "types": "./lib/types/index.d.ts",
+    "import": "./lib/esm/index.mjs",
+    "require": "./lib/cjs/index.cjs"
+  },
+  "source": "./src/index.ts",
+  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "license": "MIT",
+  "files": [
+    "lib/",
+    "!lib/**/*.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "@algorithm.ts/lcs": "^4.0.2"
+  }
+}

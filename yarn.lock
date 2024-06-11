@@ -51,6 +51,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@algorithm.ts/diff@workspace:packages/diff":
+  version: 0.0.0-use.local
+  resolution: "@algorithm.ts/diff@workspace:packages/diff"
+  dependencies:
+    "@algorithm.ts/lcs": ^4.0.2
+  languageName: unknown
+  linkType: soft
+
 "@algorithm.ts/dijkstra@workspace:packages/dijkstra":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/dijkstra@workspace:packages/dijkstra"
@@ -134,11 +142,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/lcs@workspace:packages/lcs":
+"@algorithm.ts/lcs@^4.0.2, @algorithm.ts/lcs@workspace:packages/lcs":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/lcs@workspace:packages/lcs"
-  dependencies:
-    "@algorithm.ts/internal": ^0.0.0
   languageName: unknown
   linkType: soft
 

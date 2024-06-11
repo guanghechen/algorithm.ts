@@ -11,6 +11,7 @@
       "@algorithm.ts/binary-search": ["packages/binary-search/src"],
       "@algorithm.ts/bipartite-matching": ["packages/bipartite-matching/src"],
       "@algorithm.ts/calculator": ["packages/calculator/src"],
+      "@algorithm.ts/diff": ["packages/diff/src"],
       "@algorithm.ts/dijkstra": ["packages/dijkstra/src"],
       "@algorithm.ts/dinic": ["packages/dinic/src"],
       "@algorithm.ts/dlx": ["packages/dlx/src"],
