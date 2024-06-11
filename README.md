@@ -62,6 +62,7 @@ third-party dependencies)
 | [@algorithm.ts/bipartite-matching][] | The algorithm to find the maximum [matching][wiki-matching] of the [bipartite graph][wiki-bipartite-graph]. |
 |   [@algorithm.ts/binary-search][]    | Binary search related algorithms, includes `binarySearch`, `lowerBound` and `upperBound`.                   |
 |     [@algorithm.ts/calculator][]     | A tiny calculator for number arithmetics.                                                                   |
+|        [@algorithm.ts/diff][]        | To find the minium difference between two subsequence or string.                                            |
 |      [@algorithm.ts/dijkstra][]      | Dijkstra algorithm optimized with [@algorithm.ts/priority-queue][]. #ShortestPath                           |
 |       [@algorithm.ts/dinic][]        | Dinic algorithm. #MaxFlow, #NetworkFlow.                                                                    |
 |        [@algorithm.ts/dlx][]         | DLX algorithm.                                                                                              |
@@ -71,7 +72,7 @@ third-party dependencies)
 |      [@algorithm.ts/huffman][]       | A [Huffman][wiki-huffman] coding implementation.                                                            |
 |        [@algorithm.ts/isap][]        | ISAP algorithm. #MaxFlow, #NetworkFlow.                                                                     |
 |      [@algorithm.ts/shuffle][]       | Includes Knuth-Shuffle algorithm.                                                                           |
-|        [@algorithm.ts/lcs][]         | Find the Longest Common Subsequence.                                                                        |
+|        [@algorithm.ts/lcs][]         | Find the Longest Common Subsequence (include a linear space impelmentation to find a lcs).                  |
 |      [@algorithm.ts/manacher][]      | The manacher algorithm for solving palindrome string problems.                                              |
 |        [@algorithm.ts/mcmf][]        | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.                                                              |
 |       [@algorithm.ts/queue][]        | Queues, includes priority-queue (Min Heap), circular-queue.                                                 |
@@ -97,6 +98,7 @@ algorithm.ts is
 [@algorithm.ts/binary-search]: ./packages/binary-search
 [@algorithm.ts/bipartite-matching]: ./packages/bipartite-matching
 [@algorithm.ts/calculator]: ./packages/calculator
+[@algorithm.ts/diff]: ./packages/diff
 [@algorithm.ts/dijkstra]: ./packages/dijkstra
 [@algorithm.ts/dinic]: ./packages/dinic
 [@algorithm.ts/dlx]: ./packages/dlx
