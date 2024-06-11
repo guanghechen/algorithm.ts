@@ -1,7 +1,7 @@
 /**
  * Find a least lexicographical match for the longest common subsequence.
  */
-export function myers(
+export function lcs_myers(
   N1: number,
   N2: number,
   equals: (x: number, y: number) => boolean,

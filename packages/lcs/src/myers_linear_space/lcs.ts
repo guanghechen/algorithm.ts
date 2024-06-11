@@ -7,7 +7,7 @@
  * @returns
  * @see http://www.xmailserver.org/diff2.pdf An O(ND) Difference Algorithm and Its Variations
  */
-export function myers_linear_space(
+export function lcs_myers_linear_space(
   N1: number,
   N2: number,
   equals: (x: number, y: number) => boolean,
