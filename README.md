@@ -54,33 +54,34 @@ third-party dependencies)
 
 ## Overview
 
-|               Package                | Description                                                                                                 |
-| :----------------------------------: | :---------------------------------------------------------------------------------------------------------- |
-|       [@algorithm.ts/base64][]       | A [Base64][wiki-base64] encoding implementation.                                                            |
-|    [@algorithm.ts/bellman-ford][]    | Bellman-ford algorithm. #ShortestPath                                                                       |
+| Package                              | Description                                                                                                 |
+| :----------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| [@algorithm.ts/base64][]             | A [Base64][wiki-base64] encoding implementation.                                                            |
+| [@algorithm.ts/bellman-ford][]       | Bellman-ford algorithm. #ShortestPath                                                                       |
 | [@algorithm.ts/binary-index-tree][]  | Binary Index Tree.                                                                                          |
 | [@algorithm.ts/bipartite-matching][] | The algorithm to find the maximum [matching][wiki-matching] of the [bipartite graph][wiki-bipartite-graph]. |
-|   [@algorithm.ts/binary-search][]    | Binary search related algorithms, includes `binarySearch`, `lowerBound` and `upperBound`.                   |
-|     [@algorithm.ts/calculator][]     | A tiny calculator for number arithmetics.                                                                   |
-|        [@algorithm.ts/diff][]        | To find the minium difference between two subsequence or string.                                            |
-|      [@algorithm.ts/dijkstra][]      | Dijkstra algorithm optimized with [priority-queue][@algorithm.ts/queue]. #ShortestPath                      |
-|       [@algorithm.ts/dinic][]        | Dinic algorithm. #MaxFlow, #NetworkFlow.                                                                    |
-|        [@algorithm.ts/dlx][]         | DLX algorithm.                                                                                              |
-|      [@algorithm.ts/findset][]       | Find set.                                                                                                   |
-|        [@algorithm.ts/gcd][]         | Greatest Common Divisor (GCD) and extended Euclidean algorithm.                                             |
-|       [@algorithm.ts/graph][]        | Types and utils from solving graph problems.                                                                |
-|      [@algorithm.ts/huffman][]       | A [Huffman][wiki-huffman] coding implementation.                                                            |
-|        [@algorithm.ts/isap][]        | ISAP algorithm. #MaxFlow, #NetworkFlow.                                                                     |
-|      [@algorithm.ts/shuffle][]       | Includes Knuth-Shuffle algorithm.                                                                           |
-|        [@algorithm.ts/lcs][]         | Find the Longest Common Subsequence (include a linear space impelmentation to find a lcs).                  |
-|      [@algorithm.ts/manacher][]      | The manacher algorithm for solving palindrome string problems.                                              |
-|        [@algorithm.ts/mcmf][]        | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.                                                              |
-|       [@algorithm.ts/queue][]        | Queues, includes priority-queue (Min Heap), circular-queue.                                                 |
-|       [@algorithm.ts/roman][]        | Support the mutual conversion between Roman numerals and Arabic numerals.                                   |
-|   [@algorithm.ts/sliding-window][]   | Sliding window algorithm.                                                                                   |
-|       [@algorithm.ts/prime][]        | A linear time algorithm to sieve prime numbers and totient.                                                 |
-|       [@algorithm.ts/sudoku][]       | A collection of utilities to generate / solve Sudoku problems.                                              |
-|        [@algorithm.ts/trie][]        | Trie. (digital tree or prefix tree)                                                                         |
+| [@algorithm.ts/binary-search][]      | Binary search related algorithms, includes `binarySearch`, `lowerBound` and `upperBound`.                   |
+| [@algorithm.ts/calculator][]         | A tiny calculator for number arithmetics.                                                                   |
+| [@algorithm.ts/diff][]               | To find the minium difference between two subsequence or string.                                            |
+| [@algorithm.ts/dijkstra][]           | Dijkstra algorithm optimized with [priority-queue][@algorithm.ts/queue]. #ShortestPath                      |
+| [@algorithm.ts/dinic][]              | Dinic algorithm. #MaxFlow, #NetworkFlow.                                                                    |
+| [@algorithm.ts/dlx][]                | DLX algorithm.                                                                                              |
+| [@algorithm.ts/findset][]            | Find set.                                                                                                   |
+| [@algorithm.ts/gcd][]                | Greatest Common Divisor (GCD) and extended Euclidean algorithm.                                             |
+| [@algorithm.ts/graph][]              | Types and utils from solving graph problems.                                                                |
+| [@algorithm.ts/huffman][]            | A [Huffman][wiki-huffman] coding implementation.                                                            |
+| [@algorithm.ts/isap][]               | ISAP algorithm. #MaxFlow, #NetworkFlow.                                                                     |
+| [@algorithm.ts/shuffle][]            | Includes Knuth-Shuffle algorithm.                                                                           |
+| [@algorithm.ts/lcs][]                | Find the Longest Common Subsequence (include a linear space impelmentation to find a lcs).                  |
+| [@algorithm.ts/manacher][]           | The manacher algorithm for solving palindrome string problems.                                              |
+| [@algorithm.ts/mcmf][]               | MCMF algorithm. #MinCostMaxFlow, #NetworkFlow.                                                              |
+| [@algorithm.ts/queue][]              | Queues, includes priority-queue (Min Heap), circular-queue.                                                 |
+| [@algorithm.ts/roman][]              | Support the mutual conversion between Roman numerals and Arabic numerals.                                   |
+| [@algorithm.ts/sliding-window][]     | Sliding window algorithm.                                                                                   |
+| [@algorithm.ts/stack][]              | Stacks, includes circular-queue.                                                                            |
+| [@algorithm.ts/prime][]              | A linear time algorithm to sieve prime numbers and totient.                                                 |
+| [@algorithm.ts/sudoku][]             | A collection of utilities to generate / solve Sudoku problems.                                              |
+| [@algorithm.ts/trie][]               | Trie. (digital tree or prefix tree)                                                                         |
 
 ## License
 
@@ -115,5 +116,6 @@ algorithm.ts is
 [@algorithm.ts/roman]: ./packages/roman
 [@algorithm.ts/prime]: ./packages/prime
 [@algorithm.ts/sliding-window]: ./packages/sliding-window
+[@algorithm.ts/stack]: ./packages/stack
 [@algorithm.ts/sudoku]: ./packages/sudoku
 [@algorithm.ts/trie]: ./packages/trie
