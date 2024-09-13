@@ -1,0 +1,40 @@
+{
+  "name": "@algorithm.ts/stack",
+  "version": "1.0.0",
+  "description": "Typescript implementation of stacks. (circular stack and etc)",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/stack@1.0.0",
+    "directory": "packages/stack"
+  },
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/stack@1.0.0/packages/stack#readme",
+  "keywords": [
+    "algorithm",
+    "data structure",
+    "circular stack",
+    "stack"
+  ],
+  "type": "module",
+  "exports": {
+    "types": "./lib/types/index.d.ts",
+    "import": "./lib/esm/index.mjs",
+    "require": "./lib/cjs/index.cjs"
+  },
+  "source": "./src/index.ts",
+  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "license": "MIT",
+  "files": [
+    "lib/",
+    "!lib/**/*.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ]
+}
