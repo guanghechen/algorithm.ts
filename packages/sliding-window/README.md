@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@4.0.2/packages/sliding-window#readme">@algorithm.ts/sliding-window</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@4.0.3/packages/sliding-window#readme">@algorithm.ts/sliding-window</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/sliding-window">
@@ -114,4 +114,4 @@ A typescript implementation of the **sliding-window** algorithm.
 ## Related
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@4.0.2/packages/sliding-window#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/sliding-window@4.0.3/packages/sliding-window#readme

@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.2/packages/graph#readme">@algorithm.ts/graph</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.3/packages/graph#readme">@algorithm.ts/graph</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/graph">
@@ -116,8 +116,8 @@ Types and utils from solving graph problems.
 - [@algorithm.ts/dijkstra][]
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.2/packages/graph#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/graph@4.0.3/packages/graph#readme
 [@algorithm.ts/bellman-ford]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.2/packages/bellman-ford
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.3/packages/bellman-ford
 [@algorithm.ts/dijkstra]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.2/packages/dijkstra
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.3/packages/dijkstra

@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/history",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple data structure to manage history through circular stack.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.1",
     "directory": "packages/history"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.0/packages/history#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.1/packages/history#readme",
   "keywords": [
     "algorithm",
     "data structure",
@@ -37,6 +37,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/stack": "^1.0.0"
+    "@algorithm.ts/stack": "^1.0.1"
   }
 }

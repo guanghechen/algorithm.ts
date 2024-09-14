@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/stack",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript implementation of stacks. (circular stack and etc)",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/stack@1.0.0",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/stack@1.0.1",
     "directory": "packages/stack"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/stack@1.0.0/packages/stack#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/stack@1.0.1/packages/stack#readme",
   "keywords": [
     "algorithm",
     "data structure",

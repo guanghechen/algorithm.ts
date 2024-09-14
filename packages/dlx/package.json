@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dlx",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Dancing link + Algorithm X",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.1",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.2",
     "directory": "packages/dlx"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.1/packages/dlx#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dlx@4.0.2/packages/dlx#readme",
   "keywords": [
     "algorithm",
     "Dancing link",

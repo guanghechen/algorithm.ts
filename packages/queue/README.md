@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.2/packages/queue#readme">@algorithm.ts/queue</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.3/packages/queue#readme">@algorithm.ts/queue</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/queue">
@@ -233,4 +233,4 @@ elements are kept in the queue. Other operations are the same as ordinary queues
 ## Related
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.2/packages/queue#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.3/packages/queue#readme

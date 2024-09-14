@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/calculator",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "A tiny calculator for number arithmetics such as '+-*/()'",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@4.0.2",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@4.0.3",
     "directory": "packages/calculator"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@4.0.2/packages/calculator#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/calculator@4.0.3/packages/calculator#readme",
   "keywords": [
     "calculator",
     "calculator",
