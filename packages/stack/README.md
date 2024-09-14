@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/stack@4.0.2/packages/stack#readme">@algorithm.ts/stack</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/stack@1.0.0/packages/stack#readme">@algorithm.ts/stack</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/stack">

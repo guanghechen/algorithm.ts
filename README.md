@@ -69,6 +69,7 @@ third-party dependencies)
 | [@algorithm.ts/findset][]            | Find set.                                                                                                   |
 | [@algorithm.ts/gcd][]                | Greatest Common Divisor (GCD) and extended Euclidean algorithm.                                             |
 | [@algorithm.ts/graph][]              | Types and utils from solving graph problems.                                                                |
+| [@algorithm.ts/history][]            | A simple data structure to manage history through circular stack.                                           |
 | [@algorithm.ts/huffman][]            | A [Huffman][wiki-huffman] coding implementation.                                                            |
 | [@algorithm.ts/isap][]               | ISAP algorithm. #MaxFlow, #NetworkFlow.                                                                     |
 | [@algorithm.ts/shuffle][]            | Includes Knuth-Shuffle algorithm.                                                                           |
@@ -106,6 +107,7 @@ algorithm.ts is
 [@algorithm.ts/findset]: ./packages/findset
 [@algorithm.ts/gcd]: ./packages/gcd
 [@algorithm.ts/graph]: ./packages/graph
+[@algorithm.ts/history]: ./packages/history
 [@algorithm.ts/huffman]: ./packages/huffman
 [@algorithm.ts/isap]: ./packages/isap
 [@algorithm.ts/shuffle]: ./packages/shuffle

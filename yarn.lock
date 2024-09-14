@@ -120,6 +120,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@algorithm.ts/history@workspace:packages/history":
+  version: 0.0.0-use.local
+  resolution: "@algorithm.ts/history@workspace:packages/history"
+  dependencies:
+    "@algorithm.ts/stack": ^1.0.0
+  languageName: unknown
+  linkType: soft
+
 "@algorithm.ts/huffman@workspace:packages/huffman":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/huffman@workspace:packages/huffman"
@@ -248,11 +256,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@algorithm.ts/stack@workspace:packages/stack":
+"@algorithm.ts/stack@^1.0.0, @algorithm.ts/stack@workspace:packages/stack":
   version: 0.0.0-use.local
   resolution: "@algorithm.ts/stack@workspace:packages/stack"
-  dependencies:
-    "@algorithm.ts/internal": ^0.0.0
   languageName: unknown
   linkType: soft
 

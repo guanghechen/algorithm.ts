@@ -1,0 +1,42 @@
+{
+  "name": "@algorithm.ts/history",
+  "version": "1.0.0",
+  "description": "A simple data structure to manage history through circular stack.",
+  "author": {
+    "name": "guanghechen",
+    "url": "https://github.com/guanghechen/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.0",
+    "directory": "packages/history"
+  },
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.0/packages/history#readme",
+  "keywords": [
+    "algorithm",
+    "data structure",
+    "history"
+  ],
+  "type": "module",
+  "exports": {
+    "types": "./lib/types/index.d.ts",
+    "import": "./lib/esm/index.mjs",
+    "require": "./lib/cjs/index.cjs"
+  },
+  "source": "./src/index.ts",
+  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/esm/index.mjs",
+  "license": "MIT",
+  "files": [
+    "lib/",
+    "!lib/**/*.map",
+    "package.json",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {
+    "@algorithm.ts/stack": "^1.0.0"
+  }
+}

@@ -20,6 +20,7 @@
       "@algorithm.ts/gomoku": ["packages/gomoku/src"],
       "@algorithm.ts/graph": ["packages/graph/src"],
       "@algorithm.ts/graph.types": ["packages/graph.types/src"],
+      "@algorithm.ts/history": ["packages/history/src"],
       "@algorithm.ts/huffman": ["packages/huffman"],
       "@algorithm.ts/isap": ["packages/isap/src"],
       "@algorithm.ts/lcs": ["packages/lcs/src"],
