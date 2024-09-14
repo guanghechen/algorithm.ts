@@ -2,15 +2,15 @@ export type IFilter<T> = (element: T, index: number) => boolean
 
 export interface IReadonlyStack<T> {
   /**
-   * Iterable.
+   * .Iterator the stack by the reverse order of push-in.
    */
   [Symbol.iterator](): IterableIterator<T>
 
   /**
-   * The count of the elements in the stack.
+   * Return the capacity of the history.
    * @getter
    */
-  readonly size: number
+  readonly capacity: number
 
   /**
    * Count the element in the stack which is accepted by the filter.

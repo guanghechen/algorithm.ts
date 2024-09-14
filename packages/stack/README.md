@@ -77,13 +77,14 @@ kept in the stack. Other operations are the same as ordinary stacks.
 - `ICircularStack`: CircularStack implements the ICircularStack interface.
 
   | Signature                                                         | Description                                                                      |
-  | :---------------------------------------------------------------- | :------------------------------------------------------------------------------- | ----------------------------------- |
+  | :---------------------------------------------------------------- | :------------------------------------------------------------------------------- |
+  | `readonly capacity: number`                                       | The capacity of stack, which also means the max elements of the stack.           |
   | `readonly size: number`                                           | The count of the elements in the stack.                                          |
-  | `at(index: number): T                                             | undefined`                                                                       | Get the element at the given index. |
+  | `at(index: number): T \| undefined`                               | Get the element at the given index.                                              |
   | `clear(): void`                                                   | Clear the stack.                                                                 |
   | `consuming(): IterableIterator<T>`                                | Popup the elements from the stack one by one.                                    |
   | `count(filter: (element: T, index: number) => boolean): number`   | Count the elements in the stack which matched by the filter.                     |
-  | `pop(newElement?: T): T\|undefined`                               | Popup the top element, and push the given `newElement` if it is not `undefined`. |
+  | `pop(newElement?: T): T \| undefined`                             | Popup the top element, and push the given `newElement` if it is not `undefined`. |
   | `push(element: T): this`                                          | Push a element into the stack.                                                   |
   | `rearrange(filter: (element: T, index: number) => boolean): void` | Only preserve the elements matched the filter.                                   |
   | `resize(capacity: number): void`                                  | Resize the capacity of stack with the given size.                                |

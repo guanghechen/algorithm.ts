@@ -42,6 +42,10 @@ export class CircularStack<T = unknown> implements ICircularStack<T> {
     }
   }
 
+  public get capacity(): number {
+    return this._capacity
+  }
+
   public get size(): number {
     return this._size
   }
