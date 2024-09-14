@@ -14,6 +14,10 @@ export interface ICircularStack<T> extends IReadonlyCircularStack<T>, IStack<T> 
    */
   at(index: number): T | undefined
   /**
+   * Fork the stack. (Similar as `clone`)
+   */
+  fork(): ICircularStack<T>
+  /**
    * Resize the capacity of stack with the given size.
    */
   resize(capacity: number): void

@@ -141,6 +141,57 @@ describe('CircularStack', function () {
     expect(stack.count(() => false)).toEqual(0)
   })
 
+  it('fork', () => {
+    expect(stack.capacity).toEqual(4)
+    expect(stack.size).toEqual(0)
+    expect(Array.from(stack)).toEqual([])
+
+    const stack1 = stack.fork()
+    expect(stack1.size).toEqual(0)
+    expect(Array.from(stack1)).toEqual([])
+
+    stack.push(1)
+    const stack2 = stack.fork()
+    expect(stack2.size).toEqual(1)
+    expect(Array.from(stack2)).toEqual([1])
+
+    stack.push(2)
+    const stack3 = stack.fork()
+    expect(stack1.size).toEqual(0)
+    expect(Array.from(stack1)).toEqual([])
+    expect(stack2.size).toEqual(1)
+    expect(Array.from(stack2)).toEqual([1])
+    expect(stack3.size).toEqual(2)
+    expect(Array.from(stack3)).toEqual([2, 1])
+
+    stack.push(3).push(4).push(5)
+    expect(stack.capacity).toEqual(4)
+    expect(stack.size).toEqual(4)
+    expect(Array.from(stack)).toEqual([5, 4, 3, 2])
+
+    const stack4 = stack.fork()
+    expect(stack4.capacity).toEqual(4)
+    expect(stack4.size).toEqual(4)
+    expect(Array.from(stack4)).toEqual([5, 4, 3, 2])
+
+    stack.push(6)
+    expect(stack.capacity).toEqual(4)
+    expect(stack.size).toEqual(4)
+    expect(Array.from(stack)).toEqual([6, 5, 4, 3])
+
+    expect(stack4.capacity).toEqual(4)
+    expect(stack4.size).toEqual(4)
+    expect(Array.from(stack4)).toEqual([5, 4, 3, 2])
+
+    const stack5 = stack.fork()
+    expect(stack4.capacity).toEqual(4)
+    expect(stack4.size).toEqual(4)
+    expect(Array.from(stack4)).toEqual([5, 4, 3, 2])
+    expect(stack5.capacity).toEqual(4)
+    expect(stack5.size).toEqual(4)
+    expect(Array.from(stack5)).toEqual([6, 5, 4, 3])
+  })
+
   it('pop', () => {
     expect(stack.capacity).toEqual(4)
     expect(stack.size).toEqual(0)

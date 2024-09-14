@@ -89,6 +89,30 @@ export class CircularStack<T = unknown> implements ICircularStack<T> {
     return count
   }
 
+  public fork(): ICircularStack<T> {
+    const size: number = this._size
+    const capacity: number = this._capacity
+    const stack = new CircularStack<T>({ capacity })
+
+    if (size > 0) {
+      let k: number = 0
+      const start: number = this._start
+      const end: number = this._end
+      const elements: T[] = this._elements
+      if (start <= end) {
+        for (let i = start; i <= end; ++i) stack._elements[k++] = elements[i]
+      } else {
+        for (let i = start; i < capacity; ++i) stack._elements[k++] = elements[i]
+        for (let i = 0; i <= end; ++i) stack._elements[k++] = elements[i]
+      }
+    }
+
+    stack._size = size
+    stack._start = 0
+    stack._end = size - 1
+    return stack
+  }
+
   public pop(): T | undefined {
     if (this._size < 1) return undefined
 

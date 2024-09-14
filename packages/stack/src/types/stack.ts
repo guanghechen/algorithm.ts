@@ -33,6 +33,10 @@ export interface IStack<T> extends IReadonlyStack<T> {
    */
   consuming(): IterableIterator<T>
   /**
+   * Fork the stack. (Similar as `clone`)
+   */
+  fork(): IStack<T>
+  /**
    * Popup the front element from the stack.
    * @param newElement if specified, the element will be enstackd, it is for better performance.
    */
