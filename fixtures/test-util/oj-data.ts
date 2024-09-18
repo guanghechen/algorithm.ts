@@ -37,7 +37,6 @@ export function testOjCodes<T extends (...input: any[]) => any>(
   const isPromise = (object: unknown): object is Promise<unknown> => !!(object as any).then
   const { title, fetchData } = DATA_MAP[key]
 
-  // eslint-disable-next-line jest/valid-title
   it(title, async function () {
     const data = await fetchData()
     const solve: T = isPromise(solution) ? (await solution).default : solution

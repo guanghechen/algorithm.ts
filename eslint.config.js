@@ -25,11 +25,18 @@ export default [
   },
   ...ghcConfigs,
   {
+    files: ['**/*.{ts,cts,mts}'],
+    rules: {
+      'no-plusplus': 'off',
+      'space-in-parens': 'off',
+    },
+  },
+  {
     files: ['**/__test__/oj/*.ts'],
     rules: {
-      'no-plusplus': 0,
-      'no-return-assign': 0,
-      'no-param-reassign': 0,
+      'no-plusplus': 'off',
+      'no-return-assign': 'off',
+      'no-param-reassign': 'off',
     },
   },
 ]

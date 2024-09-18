@@ -76,7 +76,6 @@ export class BellmanFord<C extends number | bigint> {
             Q.enqueue(to)
             inq[to] = true
 
-            // eslint-disable-next-line no-plusplus
             if (++inqTimes[to] > N) return { hasNegativeCycle: true }
           }
         }

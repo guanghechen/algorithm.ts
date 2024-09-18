@@ -82,13 +82,10 @@ describe('calculate', function () {
   ]
 
   for (const kase of data) {
-    // eslint-disable-next-line jest/valid-title
     it(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(() => decimalCalculator.calculate(kase.input)).toThrow()
       } else {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(decimalCalculator.calculate(kase.input)).toEqual(kase.answer)
       }
     })
@@ -159,13 +156,10 @@ describe('integer calculate', function () {
   ]
 
   for (const kase of data) {
-    // eslint-disable-next-line jest/valid-title
     it(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(() => calculator.calculate(kase.input)).toThrow()
       } else {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(calculator.calculate(kase.input)).toEqual(kase.answer)
       }
     })
@@ -233,13 +227,10 @@ describe('bigint calculate', function () {
   ]
 
   for (const kase of data) {
-    // eslint-disable-next-line jest/valid-title
     it(kase.input, function () {
       if (Number.isNaN(kase.answer)) {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(() => bigintCalculator.calculate(kase.input)).toThrow()
       } else {
-        // eslint-disable-next-line jest/no-conditional-expect
         expect(bigintCalculator.calculate(kase.input)).toEqual(kase.answer)
       }
     })

@@ -11,12 +11,14 @@ class TesterHelper extends GomokuMoverCounter {
     super(context)
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   public override init(pieces: ReadonlyArray<IGomokuPiece>): void {
     this.context.init(pieces)
     super.init()
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   public override forward(posId: number, playerId: number): void {
     if (this.context.isValidIdx(posId) && this.context.board[posId] < 0) {
@@ -25,6 +27,7 @@ class TesterHelper extends GomokuMoverCounter {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   public override revert(posId: number): void {
     if (this.context.isValidIdx(posId) && this.context.board[posId] >= 0) {

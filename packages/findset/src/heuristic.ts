@@ -23,6 +23,7 @@ export class HeuristicFindset implements IHeuristicFindset {
 
   public root(x: number): number {
     const y = this._parent[x]
+    // eslint-disable-next-line no-return-assign
     return !y ? x : (this._parent[x] = this.root(y))
   }
 

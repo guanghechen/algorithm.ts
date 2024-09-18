@@ -34,6 +34,7 @@ class TestHelper extends GomokuMoverState {
     super.init(pieces)
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   public override forward(posId: number, playerId: number): void {
     const { context } = this
@@ -53,6 +54,7 @@ class TestHelper extends GomokuMoverState {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   public override expand(nextPlayer: number, candidateGrowthFactor: number): IGomokuCandidate[] {
     const candidates: IGomokuCandidateState[] = []
@@ -203,7 +205,7 @@ class TestHelper extends GomokuMoverState {
 
     if (candidateIds.length === 1 && candidateIds[0] !== $candidateIds[0]) {
       const posId = candidateIds[0]
-      // eslint-disable-next-line jest/no-standalone-expect
+
       expect([
         message,
         this.$candidateCouldReachFinal(0, posId) || this.$candidateCouldReachFinal(1, posId),
@@ -211,7 +213,6 @@ class TestHelper extends GomokuMoverState {
       return
     }
 
-    // eslint-disable-next-line jest/no-standalone-expect
     expect([message, candidateIds]).toEqual([message, $candidateIds])
   }
 
@@ -221,7 +222,7 @@ class TestHelper extends GomokuMoverState {
 
     if (candidates.length === 1 && candidates[0].posId !== $candidates[0].posId) {
       const posId = candidates[0].posId
-      // eslint-disable-next-line jest/no-standalone-expect
+
       expect(
         this.$candidateCouldReachFinal(0, posId) || this.$candidateCouldReachFinal(1, posId),
       ).toEqual(true)
@@ -229,17 +230,16 @@ class TestHelper extends GomokuMoverState {
     }
 
     for (let i = 1; i < candidates.length; ++i) {
-      // eslint-disable-next-line jest/no-standalone-expect
       expect(candidates[i].score).toBeLessThanOrEqual(candidates[i - 1].score)
     }
-    // eslint-disable-next-line jest/no-standalone-expect
+
     expect(candidates.sort(compareCandidate)).toEqual($candidates.sort(compareCandidate))
   }
 
   public $checkTopCandidate(nextPlayerId: number): void {
     const $candidates = this.$getCandidates(nextPlayerId, Number.MAX_SAFE_INTEGER)
     const candidate = this.topCandidate(nextPlayerId)!
-    // eslint-disable-next-line jest/no-standalone-expect
+
     expect($candidates.every($candidate => $candidate.score <= candidate.score)).toEqual(true)
   }
 }

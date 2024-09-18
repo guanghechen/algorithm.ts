@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-spaces */
 import type { ISudokuBoardData } from '../src'
 import {
   SudokuSize,

@@ -45,7 +45,7 @@ export class Calculator<T> implements ICalculator<T> {
 
           // No valid number found.
           if (cur >= nextCur) {
-            throw new SyntaxError(`Invalid number`)
+            throw new SyntaxError('Invalid number')
           }
 
           cur = nextCur

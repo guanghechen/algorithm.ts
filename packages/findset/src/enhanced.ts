@@ -26,6 +26,7 @@ export class EnhancedFindset implements IEnhancedFindset {
 
   public root(x: number): number {
     const y = this._parent[x]
+    // eslint-disable-next-line no-return-assign
     return y ? (this._parent[x] = this.root(y)) : x
   }
 

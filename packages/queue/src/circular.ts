@@ -60,7 +60,7 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
 
   public count(filter: (element: T) => boolean): number {
     const { _elements, _capacity, _size, _start, _end } = this
-    if (_size == 0) return 0
+    if (_size === 0) return 0
 
     let count: number = 0
     if (_start <= _end) {

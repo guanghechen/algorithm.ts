@@ -169,7 +169,7 @@ export class GomokuMoverContext implements IGomokuMoverContext {
             posId2 = this.fastMoveOneStep(posId2, dirType)
             if (board[posId2] !== playerId) break
           }
-          // eslint-disable-next-line no-plusplus
+
           counters[index++] = { playerId, count: i2 - i }
         }
         counters.length = index

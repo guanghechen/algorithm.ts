@@ -775,7 +775,7 @@ describe('CircularHistory', function () {
     expect(history.isBot()).toEqual(false)
     expect(history.isTop()).toEqual(true)
 
-    history.rearrange(x => x % 2 == 1)
+    history.rearrange(x => x % 2 === 1)
     expect(Array.from(history)).toEqual([3, 1])
     expect(history.capacity).toEqual(4)
     expect(history.size).toEqual(2)

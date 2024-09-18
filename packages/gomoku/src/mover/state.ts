@@ -200,7 +200,7 @@ export class GomokuMoverState implements IGomokuMoverState {
           break
         }
 
-        // eslint-disable-next-line no-param-reassign, no-plusplus
+        // eslint-disable-next-line no-param-reassign
         candidates[_size++] = item
       } else {
         inqSets[item.posId].delete(item.score)

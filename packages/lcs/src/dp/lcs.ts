@@ -1,8 +1,9 @@
 /**
  * Find a least lexicographical match for the longest common subsequence.
  *
- * The returned value is an tuple array (called `pairs`), where each element (pair=[i,j]) indicates that
- * the i-th element of the first sequence is paired with the j-th element of the second sequence.
+ * The returned value is an tuple array (called `pairs`), where each element (pair=[i,j]) indicates
+ * that the i-th element of the first sequence is paired with the j-th element of the second
+ * sequence.
  *
  * @param N1
  * @param N2

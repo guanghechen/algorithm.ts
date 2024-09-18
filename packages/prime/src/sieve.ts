@@ -12,7 +12,6 @@ export function sievePrime(N: number): number[] {
   const isNotPrime: Uint8Array = new Uint8Array(N)
 
   for (let x = 2; x < N; ++x) {
-    // eslint-disable-next-line no-plusplus
     if (!isNotPrime[x]) primes[tot++] = x
     for (let i = 0; i < tot; ++i) {
       if (primes[i] * x >= N) break
@@ -45,7 +44,6 @@ export function sieveTotient(N: number): [totients: number[], primes: number[]] 
   phi[1] = 1
   for (let x = 2; x < N; ++x) {
     if (phi[x] === 0) {
-      // eslint-disable-next-line no-plusplus
       primes[tot++] = x
       phi[x] = x - 1
     }

@@ -6,6 +6,7 @@ export * from './compress'
 export * from './encode'
 export * from './huffman'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   encode,
   decode,
