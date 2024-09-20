@@ -34,7 +34,6 @@ class TestHelper extends GomokuMoverState {
     super.init(pieces)
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   public override forward(posId: number, playerId: number): void {
     const { context } = this
@@ -54,7 +53,6 @@ class TestHelper extends GomokuMoverState {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   public override expand(nextPlayer: number, candidateGrowthFactor: number): IGomokuCandidate[] {
     const candidates: IGomokuCandidateState[] = []
