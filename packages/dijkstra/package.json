@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dijkstra",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "Dijkstra algorithm optimized with priority queue.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.3",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.4",
     "directory": "packages/dijkstra"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.3/packages/dijkstra#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dijkstra@4.0.4/packages/dijkstra#readme",
   "keywords": [
     "algorithm",
     "dijkstra",
@@ -39,8 +39,8 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/graph.types": "^1.0.2",
-    "@algorithm.ts/queue": "^4.0.3"
+    "@algorithm.ts/graph.types": "^1.0.3",
+    "@algorithm.ts/queue": "^4.0.4"
   },
   "devDependencies": {
     "@algorithm.ts/internal": "^0.0.0"

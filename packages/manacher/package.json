@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/manacher",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "The manacher algorithm for solving palindrome string problems",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@4.0.2",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@4.0.3",
     "directory": "packages/manacher"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@4.0.2/packages/manacher#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/manacher@4.0.3/packages/manacher#readme",
   "keywords": [
     "algorithm",
     "manacher",

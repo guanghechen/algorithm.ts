@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.1/packages/history#readme">@algorithm.ts/history</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.2/packages/history#readme">@algorithm.ts/history</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/history">
@@ -139,4 +139,4 @@ preserved in the history. Other operations are the same as ordinary historys.
 ## Related
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.1/packages/history#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/history@1.0.2/packages/history#readme

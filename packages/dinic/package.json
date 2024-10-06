@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dinic",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "The dinic algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dinic@4.0.3",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dinic@4.0.4",
     "directory": "packages/dinic"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dinic@4.0.3/packages/dinic#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/dinic@4.0.4/packages/dinic#readme",
   "keywords": [
     "algorithm",
     "dinic",
@@ -39,6 +39,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/queue": "^4.0.3"
+    "@algorithm.ts/queue": "^4.0.4"
   }
 }

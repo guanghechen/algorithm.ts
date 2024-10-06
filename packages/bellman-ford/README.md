@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.3/packages/bellman-ford#readme">@algorithm.ts/bellman-ford</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.4/packages/bellman-ford#readme">@algorithm.ts/bellman-ford</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/bellman-ford">
@@ -220,7 +220,7 @@ The following definition is quoted from Wikipedia
 - [@algorithm.ts/queue][]
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.3/packages/bellman-ford#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/bellman-ford@4.0.4/packages/bellman-ford#readme
 [wikipedia-bellman-ford]: https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
 [@algorithm.ts/queue]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.3/packages/queue
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/queue@4.0.4/packages/queue

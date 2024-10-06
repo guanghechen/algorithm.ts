@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.3/packages/binary-search#readme">@algorithm.ts/binary-search</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.4/packages/binary-search#readme">@algorithm.ts/binary-search</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/binary-search">
@@ -160,4 +160,4 @@ This package contains three binary search related algorithm implemented in Types
 ## Related
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.3/packages/binary-search#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/binary-search@4.0.4/packages/binary-search#readme

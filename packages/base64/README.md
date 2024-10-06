@@ -1,6 +1,6 @@
 <header>
   <h1 align="center">
-    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/base64@4.0.2/packages/base64/#readme">@algorithm.ts/base64</a>
+    <a href="https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/base64@4.0.3/packages/base64/#readme">@algorithm.ts/base64</a>
   </h1>
   <div align="center">
     <a href="https://www.npmjs.com/package/@algorithm.ts/base64">
@@ -146,4 +146,4 @@ project uses `Uint8Array` to represent byte streams.
 - [`btoa()` | MDN](https://developer.mozilla.org/en-US/docs/Web/API/btoa)
 
 [homepage]:
-  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/base64@4.0.2/packages/base64#readme
+  https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/base64@4.0.3/packages/base64#readme

@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/diff",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Find the diff between of two sequence or string.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/diff@1.0.2",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/diff@1.0.3",
     "directory": "packages/diff"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/diff@1.0.2/packages/diff#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/diff@1.0.3/packages/diff#readme",
   "keywords": [
     "algorithm",
     "diff"
@@ -36,6 +36,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/lcs": "^4.0.4"
+    "@algorithm.ts/lcs": "^4.0.5"
   }
 }

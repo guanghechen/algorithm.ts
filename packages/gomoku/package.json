@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/gomoku",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "A algorithm based on minimax search and alpha-beta prune to solve gomoku game.",
   "author": {
     "name": "guanghechen",
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@4.0.3",
+    "url": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@4.0.4",
     "directory": "packages/gomoku"
   },
-  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@4.0.3/packages/gomoku#readme",
+  "homepage": "https://github.com/guanghechen/algorithm.ts/tree/@algorithm.ts/gomoku@4.0.4/packages/gomoku#readme",
   "keywords": [
     "algorithm",
     "gomoku",
@@ -38,6 +38,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/queue": "^4.0.3"
+    "@algorithm.ts/queue": "^4.0.4"
   }
 }
