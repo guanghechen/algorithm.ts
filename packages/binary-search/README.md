@@ -66,18 +66,15 @@ This package contains three binary search related algorithm implemented in Types
 
 - binary-search (integer / bigint): Find a number in the given interval such that it satisfies the
   given condition.
-
   - If there is no such a number, return `null`.
   - if there are multiple such numbers, return any one of them.
 
 - lower-bound (integer / bigint): Find the smallest number in the given interval such that it
   satisfies the given condition.
-
   - If there is no such a number, return the first number that greater than the target number.
 
 - upper-bound (integer / bigint): Find the smallest number in the given interval such that it is
   greater than the target number.
-
   - If there is no such a number, return the right boundary of the given interval + 1.
 
 ## Install

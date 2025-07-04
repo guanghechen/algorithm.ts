@@ -58,21 +58,18 @@ And let $L$ be the length of the longest common subsequences, then the $D = 2L -
 1. `myers_lcs(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`:
    The vanilla algorithm introduced by this paper
    [_An O(ND) Difference Algorithm and Its Variations_](https://mailserver.org/diff2.pdf).
-
    - Time complexity: $O((N_1 + N_2) \times D)$
    - Memory complexity: $O(N_1 \times N_2)$
 
 2. `myers_lcs_linear_space(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`:
    The linear space refinement algorithm from
    [_An O(ND) Difference Algorithm and Its Variations_](https://mailserver.org/diff2.pdf).
-
    - Time complexity: $O((N_1 + N_2) * D)$
    - Memory complexity: $O(N_1 + N_2)$
 
 3. `lcs_dp(N1: number, N2: number, equals: (x: number, y: number) => boolean): [x: number, y: number][]`
    This implementation is based on dynamic programming, and can find the minimal lexicographical
    lcs.
-
    - Time complexity: $O(N_1 \times N_2)$
    - Memory complexity: $O(N_1 \times N_2)$
 

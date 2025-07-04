@@ -78,7 +78,6 @@ A typescript implementation of the **sliding-window** algorithm.
   |                    `min()`                    |     `number     | undefined`                                                       | Return the minimum element in the Sliding Window. |
 
 - `ISlidingWindowProps`
-
   - `WINDOW_SIZE`: (required) the width of the sliding window.
 
   - `compare`: (required) compare two index to determine which one is smaller.

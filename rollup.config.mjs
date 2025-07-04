@@ -12,7 +12,7 @@ const externals = new Set(['./index.mjs'])
 
 export default async function rollupConfig() {
   const { default: manifest } = await import(path.resolve('package.json'), {
-    assert: { type: 'json' },
+    with: { type: 'json' },
   })
   const config = await createRollupConfig({
     manifest,

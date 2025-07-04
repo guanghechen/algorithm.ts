@@ -249,7 +249,7 @@ describe('15x15', function () {
   it('overview', async function () {
     const tester = getTester()
     for (const { filepath, title } of filepaths) {
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       const result: Array<{ currentPlayer: number; scoreForPlayer: number; score: number }> = []
       tester.init([])
 
@@ -346,7 +346,7 @@ describe('15x15', function () {
       tester.init([])
       expect([title, getCandidateIds(0)]).toEqual([title, [112]])
       expect([title, getCandidateIds(1)]).toEqual([title, [112]])
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       for (const { r, c, p } of pieces) {
         const id: number = tester.context.idx(r, c)
         const message = `${title} id=${id}`
@@ -381,7 +381,7 @@ describe('15x15', function () {
     ])
 
     for (const { filepath } of filepaths) {
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       tester.init(pieces)
       tester.$checkCandidates(0)
       tester.$checkCandidates(1)
@@ -392,7 +392,7 @@ describe('15x15', function () {
     const tester = getTester()
     for (const { filepath } of filepaths) {
       tester.init([])
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       for (const { r, c, p } of pieces) {
         const id: number = tester.context.idx(r, c)
         tester.forward(id, p)
@@ -405,7 +405,7 @@ describe('15x15', function () {
   it('candidate -- forward/revert', async function () {
     const tester = getTester()
     for (const { filepath } of filepaths) {
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       tester.init(pieces)
       for (const { r, c } of pieces.slice()) {
         const id: number = tester.context.idx(r, c)
@@ -425,7 +425,7 @@ describe('15x15', function () {
     const tester = getTester()
     for (const { filepath } of filepaths) {
       tester.init([])
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       for (const { r, c, p } of pieces) {
         const id: number = tester.context.idx(r, c)
         tester.forward(id, p)
@@ -438,7 +438,7 @@ describe('15x15', function () {
   it('pieces.1', async function () {
     const tester = getTester()
     const { default: pieces } = await import('./fixtures/15x15/pieces.1.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     tester.init(pieces)
     const candidates = tester.expand(0, Number.MAX_SAFE_INTEGER)

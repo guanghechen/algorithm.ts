@@ -57,7 +57,7 @@ describe('15x15', function () {
   it('pieces.0', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.0.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
 
@@ -78,7 +78,7 @@ describe('15x15', function () {
   it('pieces.3', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.3.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
 
@@ -96,7 +96,7 @@ describe('15x15', function () {
   it('pieces.4', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.4.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init([])
     for (const { r, c, p } of pieces) solution.forward(r, c, p)
@@ -108,7 +108,7 @@ describe('15x15', function () {
   it('pieces.5', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.5.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
     const [r, c] = solution.minimaxSearch(1)
@@ -122,7 +122,7 @@ describe('15x15', function () {
   it('pieces.8', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.8.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
 
@@ -146,7 +146,7 @@ describe('15x15', function () {
   it('pieces.9', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.9.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
 
@@ -168,7 +168,7 @@ describe('15x15', function () {
   it('pieces.10', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.10.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
     const [r, c] = solution.minimaxSearch(1)
@@ -178,7 +178,7 @@ describe('15x15', function () {
   it('pieces.11', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.11.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
@@ -194,7 +194,7 @@ describe('15x15', function () {
   it('pieces.12', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.12.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
@@ -209,7 +209,7 @@ describe('15x15', function () {
   it('pieces.13', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.13.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
@@ -225,7 +225,7 @@ describe('15x15', function () {
   it('pieces.15', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.15.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)
@@ -239,7 +239,7 @@ describe('15x15', function () {
   it('pieces.16', async function () {
     const solution = getSolution()
     const { default: pieces } = await import('./fixtures/15x15/pieces.16.json', {
-      assert: { type: 'json' },
+      with: { type: 'json' },
     })
     solution.init(pieces)
     const [r, c] = solution.minimaxSearch(0)

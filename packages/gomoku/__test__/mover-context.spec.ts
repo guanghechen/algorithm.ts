@@ -341,7 +341,7 @@ describe('15x15', () => {
 
   it('getDirCounters -- init', async () => {
     for (const { filepath, title } of filepaths) {
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       tester.init(pieces)
       for (const dirType of halfDirectionTypes) {
         for (const startPosId of tester.getStartPosSet(dirType)) {
@@ -357,7 +357,7 @@ describe('15x15', () => {
 
   it('getDirCounters -- step by step', async () => {
     for (const { filepath, title } of filepaths) {
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       tester.init([])
       for (const { r, c, p } of pieces) {
         const posId = tester.idx(r, c)

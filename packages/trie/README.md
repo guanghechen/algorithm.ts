@@ -78,7 +78,6 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
 - Trie
 
 - Util
-
   - `digitIdx(c: string): number`: Calc idx of digit character.
   - `uppercaseIdx(c: string): number`: Calc idx of uppercase English letter.
   - `lowercaseIdx(c: string): number`: Calc idx of lowercase English letter.

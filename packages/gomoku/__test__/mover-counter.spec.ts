@@ -91,7 +91,7 @@ describe('15x15', () => {
       .filter(filepath => fs.statSync(filepath).isFile())
     expect(filepaths.length).toBeGreaterThan(0)
     for (const filepath of filepaths) {
-      const { default: pieces } = await import(filepath, { assert: { type: 'json' } })
+      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
       tester.init([])
       for (let i = 0; i < pieces.length; ++i) {
         const { r, c, p } = pieces[i]
