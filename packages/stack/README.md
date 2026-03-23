@@ -59,10 +59,10 @@ A typescript implementation of **Circular Stack**.
   npm install --save @algorithm.ts/stack
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/stack
+  pnpm add @algorithm.ts/stack
   ```
 
 ## Usage

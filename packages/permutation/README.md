@@ -59,10 +59,10 @@ Create all permutations of the given natural number.
   npm install --save @algorithm.ts/permutation
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/permutation
+  pnpm add @algorithm.ts/permutation
   ```
 
 ## Usage

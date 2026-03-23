@@ -61,10 +61,10 @@ The **ISAP** algorithm is an algorithm for solving network flow problems.
   npm install --save @algorithm.ts/isap
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/isap
+  pnpm add @algorithm.ts/isap
   ```
 
 ## Usage

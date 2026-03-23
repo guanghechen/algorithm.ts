@@ -13,12 +13,12 @@
   "homepage": "https://github.com/guanghechen/algorithm.ts",
   "type": "module",
   "scripts": {
-    ":publish": "yarn build:production && yarn test:coverage && lerna publish",
+    ":publish": "pnpm build:production && pnpm test:coverage && lerna publish",
     ":publish-recover": "git stash && lerna publish from-package",
-    ":upgrade": "yarn upgrade-interactive && run-s clean format build test",
+    ":upgrade": "pnpm update -i && run-s clean format build test",
     "build": "nx run-many --target=build --all=true --parallel=false",
     "build:production": "nx run-many --target=build --configuration=production --all=true --parallel=false",
-    "clean": "nx reset --clear-cache-and-daemon && nx run-many --target=clean --all=true && yarn install",
+    "clean": "nx reset --clear-cache-and-daemon && nx run-many --target=clean --all=true && pnpm install",
     "format": "run-s format:lintfix format:prettier",
     "format:prettier": "prettier . --write",
     "format:lintfix": "eslint . --fix",
@@ -31,11 +31,8 @@
     "test": "nx run-many --target=test --all=true",
     "test:coverage": "nx run-many --target=test --configuration=coverage --all=true",
     "test:update": "nx run-many --target=test --configuration=update --all=true",
-    "version": "yarn && ghc-doc-link-rewrite && git stage -u yarn.lock packages/**/package.json packages/**/*.md"
+    "version": "pnpm install && ghc-doc-link-rewrite && git stage -u pnpm-lock.yaml packages/**/package.json packages/**/*.md"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "devDependencies": {
     "@guanghechen/chalk": "^1.0.4",
     "@guanghechen/conventional-changelog": "^6.0.3",
@@ -73,5 +70,5 @@
       "prettier --write"
     ]
   },
-  "packageManager": "yarn@3.3.1"
+  "packageManager": "pnpm@10.7.1"
 }

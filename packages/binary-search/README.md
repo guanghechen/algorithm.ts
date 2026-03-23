@@ -85,10 +85,10 @@ This package contains three binary search related algorithm implemented in Types
   npm install --save @algorithm.ts/binary-search
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/binary-search
+  pnpm add @algorithm.ts/binary-search
   ```
 
 ## Usage

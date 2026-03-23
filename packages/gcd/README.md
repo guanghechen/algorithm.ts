@@ -64,10 +64,10 @@ A typescript implementation of the **gcd** and **Extended Euclidean** algorithm.
   npm install --save @algorithm.ts/gcd
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/gcd
+  pnpm add @algorithm.ts/gcd
   ```
 
 ## Usage

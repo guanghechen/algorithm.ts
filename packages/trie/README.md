@@ -67,10 +67,10 @@ The following definition is quoted from Wikipedia (https://en.wikipedia.org/wiki
   npm install --save @algorithm.ts/trie
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/trie
+  pnpm add @algorithm.ts/trie
   ```
 
 ## Usage

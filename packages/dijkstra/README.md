@@ -66,10 +66,10 @@ The following definition is quoted from Wikipedia
   npm install --save @algorithm.ts/dijkstra
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/dijkstra
+  pnpm add @algorithm.ts/dijkstra
   ```
 
 ## Usage

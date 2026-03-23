@@ -70,10 +70,10 @@ The following definition is quoted from Wikipedia
   npm install --save @algorithm.ts/bellman-ford
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/bellman-ford
+  pnpm add @algorithm.ts/bellman-ford
   ```
 
 ## Usage

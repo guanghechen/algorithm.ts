@@ -59,10 +59,10 @@ A typescript implementation of the **sliding-window** algorithm.
   npm install --save @algorithm.ts/sliding-window
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/sliding-window
+  pnpm add @algorithm.ts/sliding-window
   ```
 
 ## Usage

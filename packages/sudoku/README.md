@@ -77,10 +77,10 @@ If you are curious about this algorithm, you can visit [here][sudoku] for more d
   npm install --save @algorithm.ts/sudoku
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/sudoku
+  pnpm add @algorithm.ts/sudoku
   ```
 
 ## Usage

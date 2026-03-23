@@ -59,10 +59,10 @@ Types and utils from solving graph problems.
   npm install --save @algorithm.ts/graph
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/graph
+  pnpm add @algorithm.ts/graph
   ```
 
 ## Usage

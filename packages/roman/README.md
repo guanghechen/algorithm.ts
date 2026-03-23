@@ -59,10 +59,10 @@ This package is written to support the mutual conversion between Roman numerals 
   npm install --save @algorithm.ts/roman
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/roman
+  pnpm add @algorithm.ts/roman
   ```
 
 ## Usage

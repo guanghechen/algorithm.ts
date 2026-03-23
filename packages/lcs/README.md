@@ -93,10 +93,10 @@ The following definition is quoted from Wikipedia
   npm install --save @algorithm.ts/lcs
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/lcs
+  pnpm add @algorithm.ts/lcs
   ```
 
 ## Usage

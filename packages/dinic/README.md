@@ -64,10 +64,10 @@ while `to` is not reachable.
   npm install --save @algorithm.ts/dinic
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/dinic
+  pnpm add @algorithm.ts/dinic
   ```
 
 ## Usage

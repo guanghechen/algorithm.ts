@@ -59,10 +59,10 @@ A simple data structure to manage history through circular stack.
   npm install --save @algorithm.ts/history
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/history
+  pnpm add @algorithm.ts/history
   ```
 
 ## Usage

@@ -61,10 +61,10 @@ If you are curious about this algorithm, you can visit [here][prime] for more de
   npm install --save @algorithm.ts/prime
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/prime
+  pnpm add @algorithm.ts/prime
   ```
 
 ## Usage

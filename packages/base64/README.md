@@ -60,10 +60,10 @@ project uses `Uint8Array` to represent byte streams.
   npm install --save @algorithm.ts/base64
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/base64
+  pnpm add @algorithm.ts/base64
   ```
 
 ## Usage

@@ -61,10 +61,10 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
   npm install --save @algorithm.ts/mcmf
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/mcmf
+  pnpm add @algorithm.ts/mcmf
   ```
 
 ## Usage

@@ -59,10 +59,10 @@ A typescript implementation of the **huffman** coding.
   npm install --save @algorithm.ts/huffman
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/huffman
+  pnpm add @algorithm.ts/huffman
   ```
 
 ## Usage

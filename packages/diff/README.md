@@ -59,10 +59,10 @@ A typescript implementation to find the **diff** of two sequences or strings.
   npm install --save @algorithm.ts/diff
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/diff
+  pnpm add @algorithm.ts/diff
   ```
 
 ## Usage

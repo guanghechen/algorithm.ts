@@ -78,10 +78,10 @@ understand.
   npm install --save @algorithm.ts/binary-index-tree
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/binary-index-tree
+  pnpm add @algorithm.ts/binary-index-tree
   ```
 
 ## Usage

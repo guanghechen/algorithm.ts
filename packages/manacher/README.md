@@ -64,10 +64,10 @@ If you are curious about this algorithm, you can visit [here][manacher] for more
   npm install --save @algorithm.ts/manacher
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/manacher
+  pnpm add @algorithm.ts/manacher
   ```
 
 ## Usage

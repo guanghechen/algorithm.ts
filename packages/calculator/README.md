@@ -59,10 +59,10 @@ A tiny calculator for number arithmetics such as `+-*/()`.
   npm install --save @algorithm.ts/calculator
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/calculator
+  pnpm add @algorithm.ts/calculator
   ```
 
 ## Usage

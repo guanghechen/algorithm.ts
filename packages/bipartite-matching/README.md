@@ -73,10 +73,10 @@ The following definition is quoted from Wikipedia
   npm install --save @algorithm.ts/bipartite-matching
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/bipartite-matching
+  pnpm add @algorithm.ts/bipartite-matching
   ```
 
 ## Usage

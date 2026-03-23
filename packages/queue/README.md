@@ -59,10 +59,10 @@ A typescript implementation of **Priority Queue** (based on min-heap) and **Circ
   npm install --save @algorithm.ts/queue
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/queue
+  pnpm add @algorithm.ts/queue
   ```
 
 ## Usage

@@ -66,10 +66,10 @@ support to perform the following operations under the amortized constant time co
   npm install --save @algorithm.ts/findset
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/findset
+  pnpm add @algorithm.ts/findset
   ```
 
 ## Usage

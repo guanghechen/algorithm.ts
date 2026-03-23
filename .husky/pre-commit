@@ -1,1 +1,1 @@
-yarn lint-staged --allow-empty
+pnpm lint-staged --allow-empty

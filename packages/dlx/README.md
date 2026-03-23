@@ -64,10 +64,10 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
   npm install --save @algorithm.ts/dlx
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/dlx
+  pnpm add @algorithm.ts/dlx
   ```
 
 ## Usage

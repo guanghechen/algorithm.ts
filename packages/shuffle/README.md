@@ -64,10 +64,10 @@ If you are curious about this algorithm, you can visit [here][knuth-shuffle] for
   npm install --save @algorithm.ts/shuffle
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/shuffle
+  pnpm add @algorithm.ts/shuffle
   ```
 
 ## Usage

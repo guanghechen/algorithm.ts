@@ -57,10 +57,10 @@
   npm install --save @algorithm.ts/gomoku
   ```
 
-- yarn
+- pnpm
 
   ```bash
-  yarn add @algorithm.ts/gomoku
+  pnpm add @algorithm.ts/gomoku
   ```
 
 ## Usage
