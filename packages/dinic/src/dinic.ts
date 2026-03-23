@@ -74,10 +74,10 @@ export class Dinic implements IDinic {
   public mincut(): Array<Readonly<IDinicEdge>> {
     this.maxflow()
     const results: Array<Readonly<IDinicEdge>> = []
-    const { _edges, _edgesTot } = this
+    const { _edges, _edgesTot, _dist } = this
     for (let i = 0; i < _edgesTot; ++i) {
       const e = _edges[i]
-      if (e.cap > 0 && e.flow === e.cap) results.push(e)
+      if (_dist[e.from] !== -1 && _dist[e.to] === -1 && e.cap > 0) results.push(e)
     }
     return results
   }
