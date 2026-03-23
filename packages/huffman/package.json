@@ -38,5 +38,12 @@
   ],
   "dependencies": {
     "@algorithm.ts/queue": "^4.0.4"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "rollup -c ../../rollup.config.mjs",
+    "test": "vitest run --config ../../vitest.config.ts",
+    "test:coverage": "vitest run --config ../../vitest.config.ts --coverage",
+    "test:update": "vitest run --config ../../vitest.config.ts -u"
   }
 }

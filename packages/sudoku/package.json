@@ -39,5 +39,12 @@
   "dependencies": {
     "@algorithm.ts/dlx": "^4.0.3",
     "@algorithm.ts/shuffle": "^4.0.3"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "rollup -c ../../rollup.config.mjs",
+    "test": "vitest run --config ../../vitest.config.ts",
+    "test:coverage": "vitest run --config ../../vitest.config.ts --coverage",
+    "test:update": "vitest run --config ../../vitest.config.ts -u"
   }
 }
