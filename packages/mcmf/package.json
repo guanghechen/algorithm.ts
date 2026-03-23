@@ -39,7 +39,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/queue": "^4.0.4"
+    "@algorithm.ts/queue": "workspace:^"
   },
   "scripts": {
     "clean": "rimraf lib",

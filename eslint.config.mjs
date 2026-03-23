@@ -15,14 +15,12 @@ export default [
       '**/coverage/',
       '**/lib/',
       '**/node_modules/',
-      '**/doc/',
-      '**/example/',
     ],
   },
   eslint.configs.recommended,
   importX.flatConfigs.recommended,
   {
-    files: ['**/*.{mjs,ts,mts}'],
+    files: ['**/*.{mjs,ts}'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
@@ -51,7 +49,6 @@ export default [
       quotes: ['error', 'single', { avoidEscape: true }],
       semi: ['error', 'never'],
       'sort-imports': ['error', { ignoreDeclarationSort: true }],
-      'space-in-parens': 'off',
     },
   },
   ...tseslint.configs.recommended,
@@ -132,7 +129,7 @@ export default [
     },
   },
   {
-    files: ['**/__test__/**/*.ts'],
+    files: ['**/__test__/**/*.ts', 'vitest.helper.mts'],
     languageOptions: {
       globals: { ...globals.node },
     },
@@ -142,14 +139,6 @@ export default [
       'import-x/no-extraneous-dependencies': 'off',
       'no-plusplus': 'off',
       'no-template-curly-in-string': 'off',
-    },
-  },
-  {
-    files: ['**/__test__/oj/*.ts'],
-    rules: {
-      'no-plusplus': 'off',
-      'no-return-assign': 'off',
-      'no-param-reassign': 'off',
     },
   },
   {

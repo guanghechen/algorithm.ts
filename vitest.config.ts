@@ -12,17 +12,21 @@ interface ICoverageThresholdValue {
   statements?: number
 }
 
-function getCurrentPackageName(): string {
-  const manifestPath = path.resolve(process.cwd(), 'package.json')
-  if (!fs.existsSync(manifestPath)) return ''
+interface ICoverageThresholdFile {
+  global?: ICoverageThresholdValue
+  files?: Record<string, ICoverageThresholdValue>
+}
 
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'))
-  return typeof manifest.name === 'string' ? manifest.name : ''
+function getPackageDirName(): string {
+  const cwd = process.cwd()
+  const match = cwd.match(/packages[/\\]([^/\\]+)$/)
+  return match ? match[1] : ''
 }
 
 function getPackageAliases(): Record<string, string> {
   const aliases: Record<string, string> = {}
   const packagesDir = path.resolve(__dirname, 'packages')
+
   if (!fs.existsSync(packagesDir)) return aliases
 
   const packageDirs = fs
@@ -42,75 +46,53 @@ function getPackageAliases(): Record<string, string> {
       aliases[packageName] = srcPath
     }
   }
+
   return aliases
 }
 
-function getCoverageThresholds(): ICoverageThresholdValue {
-  const packageName = getCurrentPackageName()
-  const defaults: ICoverageThresholdValue = {
+function loadCoverageThresholds(): Record<string, ICoverageThresholdValue | number> {
+  const packageDir = getPackageDirName()
+  const defaults: Record<string, ICoverageThresholdValue | number> = {
     branches: 100,
     functions: 100,
     lines: 100,
     statements: 100,
   }
 
-  if (!packageName) return defaults
+  if (!packageDir) {
+    return defaults
+  }
+
+  const thresholdPath = path.resolve(__dirname, 'packages', packageDir, 'coverage.thresholds.json')
+  if (!fs.existsSync(thresholdPath)) {
+    return defaults
+  }
+
+  const thresholdFile: ICoverageThresholdFile = JSON.parse(fs.readFileSync(thresholdPath, 'utf-8'))
+  const globalThresholds = thresholdFile.global ?? {}
+  const fileThresholds = thresholdFile.files ?? {}
 
   return {
     ...defaults,
-    ...(coverageMap[packageName] ?? {}),
+    ...globalThresholds,
+    ...Object.fromEntries(
+      Object.entries(fileThresholds).map(([filePath, thresholds]) => [filePath, thresholds]),
+    ),
   }
 }
 
-const coverageMap: Record<string, ICoverageThresholdValue> = {
-  '@algorithm.ts/bipartite-matching': {
-    functions: 87,
-    lines: 95,
-    statements: 95,
-  },
-  '@algorithm.ts/calculator': {
-    branches: 96,
-    lines: 98,
-    statements: 98,
-  },
-  '@algorithm.ts/dijkstra': {
-    branches: 91,
-  },
-  '@algorithm.ts/graph': {
-    functions: 75,
-    lines: 82,
-    statements: 82,
-  },
-  '@algorithm.ts/gomoku': {
-    branches: 91,
-    lines: 99,
-    statements: 99,
-  },
-  '@algorithm.ts/isap': {
-    branches: 96,
-  },
-  '@algorithm.ts/kth': {
-    branches: 98,
-  },
-  '@algorithm.ts/lcs': {
-    branches: 94,
-    lines: 97,
-    statements: 97,
-  },
-  '@algorithm.ts/queue': {
-    branches: 99,
-  },
-  '@algorithm.ts/shuffle': {
-    branches: 88,
-  },
-  '@algorithm.ts/sort': {
-    branches: 99,
-  },
-  '@algorithm.ts/sudoku': {
-    branches: 92,
-    lines: 99,
-    statements: 98,
-  },
+// Get all package directory names to exclude from coverage (except current package)
+function getOtherPackageExcludes(): string[] {
+  const packagesDir = path.resolve(__dirname, 'packages')
+  const currentPackage = getPackageDirName()
+  if (!fs.existsSync(packagesDir)) return []
+
+  const packages = fs
+    .readdirSync(packagesDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory() && dirent.name !== currentPackage)
+    .map(dirent => `${path.resolve(packagesDir, dirent.name, 'src')}/**`)
+
+  return packages
 }
 
 export default defineConfig({
@@ -121,13 +103,14 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
-      exclude: ['**/node_modules/**', '**/__test__/fixtures/**', 'src/dev.ts'],
-      thresholds: getCoverageThresholds(),
+      exclude: ['**/node_modules/**', '**/__test__/**', ...getOtherPackageExcludes()],
+      thresholds: loadCoverageThresholds(),
     },
   },
   resolve: {
     alias: {
       '@@': __dirname,
+      'vitest.helper': path.resolve(__dirname, 'vitest.helper.mts'),
       ...getPackageAliases(),
     },
   },

@@ -36,10 +36,10 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/binary-search": "^4.0.4"
+    "@algorithm.ts/binary-search": "workspace:^"
   },
   "devDependencies": {
-    "@algorithm.ts/internal": "^0.0.0"
+    "@algorithm.ts/internal": "workspace:^"
   },
   "scripts": {
     "clean": "rimraf lib",

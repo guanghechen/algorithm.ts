@@ -37,7 +37,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/stack": "^1.0.2"
+    "@algorithm.ts/stack": "workspace:^"
   },
   "scripts": {
     "clean": "rimraf lib",

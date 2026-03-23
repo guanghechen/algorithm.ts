@@ -37,7 +37,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@algorithm.ts/internal": "0.0.0"
+    "@algorithm.ts/internal": "workspace:^"
   },
   "scripts": {
     "clean": "rimraf lib",

@@ -37,8 +37,8 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/dlx": "^4.0.3",
-    "@algorithm.ts/shuffle": "^4.0.3"
+    "@algorithm.ts/dlx": "workspace:^",
+    "@algorithm.ts/shuffle": "workspace:^"
   },
   "scripts": {
     "clean": "rimraf lib",

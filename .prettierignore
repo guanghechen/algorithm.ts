@@ -1,15 +1,20 @@
+.DS_Store
 .eslintignore
 .prettierignore
-**/*.DS_Store
+README.md
+pnpm-lock.yaml
 
-.nx/
-.yarn/
+**/*.hbs
+
+**/resource
+!packages/resource
+
 **/coverage/
 **/dist/
 **/doc/
 **/lib/
 **/node_modules/
 **/resource/
-**/test-workspace
+**/spec/
 **/__test__/cases/
 **/__test__/fixtures/

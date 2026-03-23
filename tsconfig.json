@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "vitest.helper": ["vitest.helper.mts"],
       "@algorithm.ts/internal": ["packages/_internal/src/index.ts"],
       "@@/fixtures/*": ["fixtures/*"],
       "@algorithm.ts/base64": ["packages/base64/src"],

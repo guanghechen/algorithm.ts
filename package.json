@@ -13,8 +13,9 @@
   "homepage": "https://github.com/guanghechen/algorithm.ts",
   "type": "module",
   "scripts": {
-    ":publish": "pnpm clean && pnpm build:production && pnpm test:coverage && pnpm -r publish --no-git-checks",
+    ":publish": "pnpm clean && pnpm build:production && pnpm test:coverage && changeset publish",
     ":publish:all": "pnpm -r exec npm version patch --no-git-tag-version && pnpm -r publish --no-git-checks",
+    ":version": "changeset version",
     ":upgrade": "pnpm update -i && pnpm clean && pnpm format && pnpm build && pnpm test",
     "build": "cross-env NODE_ENV=production ROLLUP_SHOULD_SOURCEMAP=true pnpm -r run build",
     "build:production": "cross-env NODE_ENV=production ROLLUP_SHOULD_SOURCEMAP=false pnpm -r run build",
@@ -26,39 +27,38 @@
     "postinstall": "is-ci || husky",
     "postpublish": "pinst --enable",
     "rebuild": "pnpm clean && pnpm build",
-    "run:ts": "node --loader ts-node/esm",
     "test": "pnpm -r run --if-present test",
     "test:coverage": "pnpm -r run --if-present test:coverage",
     "test:update": "pnpm -r run --if-present test:update",
     "version": "pnpm install && node script/sync-doc-link.mjs && git stage -u pnpm-lock.yaml packages/**/package.json packages/**/*.md"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@guanghechen/reporter": "^3.3.0",
-    "@rollup/plugin-commonjs": "^29.0.2",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-typescript": "^12.3.0",
+    "@changesets/changelog-github": "0.6.0",
+    "@changesets/cli": "2.30.0",
+    "@eslint/js": "10.0.1",
+    "@guanghechen/reporter": "3.3.0",
+    "@rollup/plugin-commonjs": "29.0.2",
+    "@rollup/plugin-json": "6.1.0",
+    "@rollup/plugin-node-resolve": "16.0.3",
+    "@rollup/plugin-typescript": "12.3.0",
     "@types/node": "25.5.0",
     "@vitest/coverage-v8": "4.1.0",
     "cross-env": "10.1.0",
     "eslint": "10.1.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-import-x": "^4.16.2",
-    "globals": "^17.4.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-import-x": "4.16.2",
+    "globals": "17.4.0",
     "husky": "9.1.7",
     "is-ci": "4.1.0",
     "lint-staged": "16.4.0",
-    "p-try": "^2.2.0",
     "pinst": "3.0.0",
     "prettier": "3.8.1",
     "rimraf": "6.1.3",
     "rollup": "4.60.0",
-    "rollup-plugin-dts": "^6.4.1",
-    "ts-node": "10.9.2",
+    "rollup-plugin-dts": "6.4.1",
     "tslib": "2.8.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "^8.57.1",
+    "typescript-eslint": "8.57.1",
     "vitest": "4.1.0"
   },
   "lint-staged": {
@@ -69,6 +69,5 @@
     "*.{json,eslintrc}": [
       "prettier --write"
     ]
-  },
-  "packageManager": "pnpm@10.7.1"
+  }
 }

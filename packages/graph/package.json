@@ -36,10 +36,10 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/graph.types": "^1.0.3"
+    "@algorithm.ts/graph.types": "workspace:^"
   },
   "devDependencies": {
-    "@algorithm.ts/internal": "^0.0.0"
+    "@algorithm.ts/internal": "workspace:^"
   },
   "scripts": {
     "clean": "rimraf lib",

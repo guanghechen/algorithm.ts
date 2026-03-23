@@ -36,7 +36,7 @@
     "README.md"
   ],
   "dependencies": {
-    "@algorithm.ts/lcs": "^4.0.5"
+    "@algorithm.ts/lcs": "workspace:^"
   },
   "scripts": {
     "clean": "rimraf lib",

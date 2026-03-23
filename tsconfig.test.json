@@ -8,5 +8,5 @@
     "sourceMap": true,
     "types": ["vitest/globals", "node"]
   },
-  "include": ["packages/*/src", "packages/*/__test__", "vitest.config.ts"]
+  "include": ["packages/*/src", "packages/*/__test__", "vitest.helper.mts", "vitest.config.ts"]
 }
