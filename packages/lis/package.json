@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/lis",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Find the longest increase subsequent.",
   "author": {
     "name": "guanghechen",

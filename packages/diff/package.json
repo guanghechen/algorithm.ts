@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/diff",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Find the diff between of two sequence or string.",
   "author": {
     "name": "guanghechen",

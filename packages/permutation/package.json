@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/permutation",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Tranverse the permutation of a list.",
   "author": {
     "name": "guanghechen",

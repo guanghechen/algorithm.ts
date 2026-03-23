@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/graph",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Types and utils from solving graph problems.",
   "author": {
     "name": "guanghechen",

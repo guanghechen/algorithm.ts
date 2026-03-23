@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dijkstra",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Dijkstra algorithm optimized with priority queue.",
   "author": {
     "name": "guanghechen",

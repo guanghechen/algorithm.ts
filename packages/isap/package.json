@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/isap",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "The ISAP algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",

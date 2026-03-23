@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/graph.types",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Common types for the graph",
   "author": {
     "name": "guanghechen",

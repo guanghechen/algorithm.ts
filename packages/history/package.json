@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/history",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple data structure to manage history through circular stack.",
   "author": {
     "name": "guanghechen",

@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/sudoku",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "description": "A efficient Sudoku solver and creator.",
   "author": {
     "name": "guanghechen",

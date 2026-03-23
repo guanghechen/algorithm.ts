@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/lcs",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Find the longest common subsequence.",
   "author": {
     "name": "guanghechen",

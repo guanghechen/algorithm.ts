@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/bellman-ford",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Bellman-ford algorithm.",
   "author": {
     "name": "guanghechen",

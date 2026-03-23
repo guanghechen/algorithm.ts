@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/dinic",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "The dinic algorithm implemented in typescript",
   "author": {
     "name": "guanghechen",

@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/stack",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Typescript implementation of stacks. (circular stack and etc)",
   "author": {
     "name": "guanghechen",
