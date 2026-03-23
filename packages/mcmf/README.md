@@ -53,6 +53,9 @@ A typescript implementation of the **MCMF (Min Cost Max Flow)** algorithm.
 
 The **MCMF** algorithm is an algorithm for solving network flow problems.
 
+`mincut()` returns strict minimum-cut edges: `from` is reachable from source in residual graph,
+while `to` is not reachable.
+
 ## Install
 
 - npm

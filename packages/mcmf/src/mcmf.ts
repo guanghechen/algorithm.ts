@@ -107,10 +107,10 @@ export class Mcmf implements IMcmf {
   public mincut(): Array<Readonly<IMcmfEdge>> {
     void this.minCostMaxFlow()
     const results: Array<Readonly<IMcmfEdge>> = []
-    const { _edges, _edgesTot } = this
+    const { _edges, _edgesTot, _dist, _INF } = this
     for (let i = 0; i < _edgesTot; ++i) {
       const e = _edges[i]
-      if (e.cap > 0 && e.flow === e.cap) results.push(e)
+      if (_dist[e.from] !== _INF && _dist[e.to] === _INF && e.cap > 0) results.push(e)
     }
     return results
   }

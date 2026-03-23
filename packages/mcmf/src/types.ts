@@ -45,7 +45,8 @@ export interface IMcmf {
    */
   minCostMaxFlow(): { mincost: number; maxflow: number }
   /**
-   * Calculate the minium cut of the residual network.
+   * Calculate strict minimum-cut edges of the residual network.
+   * `from` is reachable from source in residual graph, while `to` is unreachable.
    */
   mincut(): Array<Readonly<IMcmfEdge>>
 }
