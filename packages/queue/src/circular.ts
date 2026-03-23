@@ -62,7 +62,7 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
     const { _elements, _capacity, _size, _start, _end } = this
     if (_size === 0) return 0
 
-    let count: number = 0
+    let count = 0
     if (_start <= _end) {
       for (let i = _start; i <= _end; ++i) if (filter(_elements[i])) count += 1
     } else {
@@ -97,9 +97,9 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
 
     const _elements: T[] = this._elements
     const capacity: number = this._capacity
-    let size: number = 0
-    let start: number = 0
-    let end: number = -1
+    let size = 0
+    let start = 0
+    let end = -1
 
     if (initialElements !== undefined) {
       for (const element of initialElements) {
@@ -144,12 +144,21 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
 
     if (start <= end) {
       let i = -1
-      for (let k = start; i < size; ++k) elements[++i] = elements[k]
+      for (let k = start; i < size; ++k) {
+        i += 1
+        elements[i] = elements[k]
+      }
     } else {
       let i = -1
       const tmpArray: T[] = elements.slice(0, end + 1)
-      for (let k = start; k < capacity; ++k) elements[++i] = elements[k]
-      for (let k = 0; k < tmpArray.length; ++k) elements[++i] = tmpArray[k]
+      for (let k = start; k < capacity; ++k) {
+        i += 1
+        elements[i] = elements[k]
+      }
+      for (const element of tmpArray) {
+        i += 1
+        elements[i] = element
+      }
       tmpArray.length = 0
     }
     this._start = 0
@@ -164,11 +173,9 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
       yield target
     }
 
-    if (this._size === 0) {
-      this._size = 0
-      this._start = 0
-      this._end = -1
-    }
+    this._size = 0
+    this._start = 0
+    this._end = -1
   }
 
   public dequeue(newElement?: T): T | undefined {
@@ -243,8 +250,11 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
 
     const count: number = end - start
     if (count >= capacity) {
-      let _end: number = -1
-      for (let i: number = end - capacity; i < end; ++i) _elements[++_end] = elements[i]
+      let _end = -1
+      for (let i = end - capacity; i < end; ++i) {
+        _end += 1
+        _elements[_end] = elements[i]
+      }
       this._size = capacity
       this._start = 0
       this._end = capacity - 1
@@ -279,24 +289,26 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
     const start: number = this._start
     const end: number = this._end
 
-    let size: number = 0
+    let size = 0
     if (start <= end) {
       for (let k = start; k <= end; ++k) {
         const element: T = elements[k]
         if (filter(element)) continue
-        elements[size++] = element
+        elements[size] = element
+        size += 1
       }
     } else {
       const tmpArray: T[] = elements.slice(0, end + 1)
       for (let k = start; k < capacity; ++k) {
         const element: T = elements[k]
         if (filter(element)) continue
-        elements[size++] = element
+        elements[size] = element
+        size += 1
       }
-      for (let k = 0; k < tmpArray.length; ++k) {
-        const element: T = tmpArray[k]
+      for (const element of tmpArray) {
         if (filter(element)) continue
-        elements[size++] = element
+        elements[size] = element
+        size += 1
       }
       tmpArray.length = 0
     }
@@ -373,7 +385,10 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
     const count: number = end - start
     if (count >= capacity) {
       let _start: number = capacity
-      for (let i: number = end - capacity; i < end; ++i) _elements[--_start] = elements[i]
+      for (let i = end - capacity; i < end; ++i) {
+        _start -= 1
+        _elements[_start] = elements[i]
+      }
       this._size = capacity
       this._start = 0
       this._end = capacity - 1

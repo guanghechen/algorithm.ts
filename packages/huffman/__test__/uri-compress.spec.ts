@@ -8,14 +8,14 @@ describe('uri-compress', function () {
 
   it('compress', function () {
     expect(compress(JSON.stringify(data))).toEqual(
-      'WyIzIiwyMCwiLCIsMTYsIn0iLDM0LCJpIiwzNSwiZyIsMTgsIm4iLDE5LCJsIiwyMSwiciIsNDQsImMiLDkwLCJkIiw5MSwiOiIsMjMsIlwiIiw2LCJlIiwxNCwiYSIsMzAsInsiLDEyNCwiZiIsMTI1LCJtIiw2M10_-BvI)(p7lG1oLi06IEWNvMnvd(l0C',
+      'WyIzIiw1MywibiIsMTYsImwiLDE3LCIsIiwxOCwifSIsMzgsImkiLDM5LCJcIiIsNSwiYSIsMTIsInIiLDUyLCI6IiwyNywiZSIsMTQsImMiLDEyMCwiZCIsMTIxLCJnIiw2MSwieyIsMTI0LCJmIiwxMjUsIm0iLDYzXQ__-BvEJ(NsE(GSZ3N1qT3BzqNvu(Bwm',
     )
   })
 
   it('decompress', function () {
     expect(
       decompress(
-        'WyIzIiwyMCwiLCIsMTYsIn0iLDM0LCJpIiwzNSwiZyIsMTgsIm4iLDE5LCJsIiwyMSwiciIsNDQsImMiLDkwLCJkIiw5MSwiOiIsMjMsIlwiIiw2LCJlIiwxNCwiYSIsMzAsInsiLDEyNCwiZiIsMTI1LCJtIiw2M10_-BvI)(p7lG1oLi06IEWNvMnvd(l0C',
+        'WyIzIiw1MywibiIsMTYsImwiLDE3LCIsIiwxOCwifSIsMzgsImkiLDM5LCJcIiIsNSwiYSIsMTIsInIiLDUyLCI6IiwyNywiZSIsMTQsImMiLDEyMCwiZCIsMTIxLCJnIiw2MSwieyIsMTI0LCJmIiwxMjUsIm0iLDYzXQ__-BvEJ(NsE(GSZ3N1qT3BzqNvu(Bwm',
       ),
     ).toEqual('{"name":"alice","age":33,"gender":"female"}')
   })

@@ -298,4 +298,23 @@ describe('PriorityQueue', function () {
     expect(Q.exclude(x => x === 5)).toEqual(1)
     expect(Array.from(Q.consuming())).toEqual([1, 2, 3, 4])
   })
+
+  it('internal sift guard should ignore invalid index', () => {
+    Q.init([1, 3, 2, 5, 4])
+
+    const internalQueue = Q as unknown as {
+      _down(index: number): void
+      _downToBottomThenUp(index: number): void
+    }
+
+    const snapshot = Array.from(Q)
+
+    internalQueue._down(-1)
+    internalQueue._down(Q.size)
+    internalQueue._downToBottomThenUp(-1)
+    internalQueue._downToBottomThenUp(Q.size)
+
+    expect(Array.from(Q)).toEqual(snapshot)
+    expect(Array.from(Q.consuming())).toEqual([1, 2, 3, 4, 5])
+  })
 })

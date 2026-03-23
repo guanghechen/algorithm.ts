@@ -4,38 +4,17 @@ exports[`basic > Hello, world! 1`] = `
 {
   "encodedData": [
     1,
-    1,
-    1,
-    0,
-    1,
-    0,
-    0,
-    1,
-    0,
-    1,
-    0,
-    1,
-    1,
-    1,
     0,
     0,
     0,
     1,
-    1,
     0,
-    1,
-    1,
+    0,
     1,
     0,
     1,
     0,
     1,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
     1,
     1,
     0,
@@ -43,21 +22,41 @@ exports[`basic > Hello, world! 1`] = `
     0,
     1,
     1,
+    0,
+    1,
+    0,
+    1,
+    0,
     1,
     1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
   ],
   "encodingTable": {
     " ": [
       1,
       0,
       1,
-      1,
+      0,
     ],
     "!": [
-      1,
-      1,
-      1,
-      1,
+      0,
+      0,
+      0,
     ],
     ",": [
       0,
@@ -66,15 +65,15 @@ exports[`basic > Hello, world! 1`] = `
     ],
     "H": [
       1,
-      1,
-      1,
+      0,
+      0,
       0,
     ],
     "d": [
       1,
-      0,
-      0,
-      0,
+      1,
+      1,
+      1,
     ],
     "e": [
       1,
@@ -92,22 +91,23 @@ exports[`basic > Hello, world! 1`] = `
       0,
     ],
     "r": [
-      0,
-      0,
+      1,
+      1,
+      1,
       0,
     ],
     "w": [
       1,
       0,
       1,
-      0,
+      1,
     ],
   },
   "tree": {
     "left": {
       "left": {
         "left": {
-          "value": "r",
+          "value": "!",
         },
         "right": {
           "value": ",",
@@ -121,7 +121,7 @@ exports[`basic > Hello, world! 1`] = `
       "left": {
         "left": {
           "left": {
-            "value": "d",
+            "value": "H",
           },
           "right": {
             "value": "e",
@@ -129,10 +129,10 @@ exports[`basic > Hello, world! 1`] = `
         },
         "right": {
           "left": {
-            "value": "w",
+            "value": " ",
           },
           "right": {
-            "value": " ",
+            "value": "w",
           },
         },
       },
@@ -142,10 +142,10 @@ exports[`basic > Hello, world! 1`] = `
         },
         "right": {
           "left": {
-            "value": "H",
+            "value": "r",
           },
           "right": {
-            "value": "!",
+            "value": "d",
           },
         },
       },
@@ -157,12 +157,12 @@ exports[`basic > Hello, world! 1`] = `
 exports[`basic > Hello, world! 2`] = `
 Uint8Array [
   2,
-  233,
+  137,
   92,
-  110,
-  176,
-  99,
-  3,
+  106,
+  247,
+  62,
+  0,
 ]
 `;
 
@@ -172,33 +172,25 @@ exports[`basic > Hello, world!1 1`] = `
     1,
     0,
     0,
-    0,
-    0,
+    1,
+    1,
     1,
     1,
     0,
     0,
     0,
     0,
-    0,
-    1,
-    1,
     0,
     0,
     1,
     1,
     1,
-    0,
-    1,
-    0,
-    1,
-    0,
-    0,
     1,
     1,
     1,
     0,
     1,
+    0,
     1,
     1,
     0,
@@ -208,6 +200,10 @@ exports[`basic > Hello, world!1 1`] = `
     1,
     1,
     1,
+    0,
+    1,
+    0,
+    0,
     1,
     0,
     1,
@@ -215,6 +211,10 @@ exports[`basic > Hello, world!1 1`] = `
     1,
     0,
     1,
+    0,
+    1,
+    0,
+    0,
     0,
   ],
   "encodingTable": {
@@ -227,10 +227,10 @@ exports[`basic > Hello, world!1 1`] = `
       1,
       0,
       1,
-      1,
+      0,
     ],
     ",": [
-      0,
+      1,
       1,
       1,
       1,
@@ -238,23 +238,23 @@ exports[`basic > Hello, world!1 1`] = `
     "1": [
       1,
       0,
-      1,
+      0,
       0,
     ],
     "H": [
       1,
       0,
       0,
-      0,
+      1,
     ],
     "d": [
       1,
-      1,
+      0,
       1,
       1,
     ],
     "e": [
-      0,
+      1,
       1,
       1,
       0,
@@ -264,21 +264,21 @@ exports[`basic > Hello, world!1 1`] = `
       0,
     ],
     "o": [
-      1,
-      1,
       0,
+      1,
+      1,
     ],
     "r": [
       1,
       1,
-      1,
       0,
+      1,
     ],
     "w": [
       1,
-      0,
-      0,
       1,
+      0,
+      0,
     ],
   },
   "tree": {
@@ -291,12 +291,7 @@ exports[`basic > Hello, world!1 1`] = `
           "value": " ",
         },
         "right": {
-          "left": {
-            "value": "e",
-          },
-          "right": {
-            "value": ",",
-          },
+          "value": "o",
         },
       },
     },
@@ -304,31 +299,36 @@ exports[`basic > Hello, world!1 1`] = `
       "left": {
         "left": {
           "left": {
-            "value": "H",
+            "value": "1",
           },
           "right": {
-            "value": "w",
+            "value": "H",
           },
         },
         "right": {
           "left": {
-            "value": "1",
+            "value": "!",
           },
           "right": {
-            "value": "!",
+            "value": "d",
           },
         },
       },
       "right": {
         "left": {
-          "value": "o",
+          "left": {
+            "value": "w",
+          },
+          "right": {
+            "value": "r",
+          },
         },
         "right": {
           "left": {
-            "value": "r",
+            "value": "e",
           },
           "right": {
-            "value": "d",
+            "value": ",",
           },
         },
       },
@@ -340,47 +340,18 @@ exports[`basic > Hello, world!1 1`] = `
 exports[`basic > Hello, world!1 2`] = `
 Uint8Array [
   7,
-  134,
-  12,
-  234,
-  119,
-  31,
-  58,
+  158,
+  7,
+  235,
+  30,
+  151,
+  40,
 ]
 `;
 
 exports[`basic > Hello, world!11 1`] = `
 {
   "encodedData": [
-    0,
-    1,
-    0,
-    0,
-    0,
-    1,
-    1,
-    1,
-    0,
-    0,
-    0,
-    0,
-    1,
-    0,
-    1,
-    1,
-    1,
-    1,
-    0,
-    1,
-    1,
-    1,
-    1,
-    1,
-    0,
-    0,
-    0,
-    1,
-    0,
     1,
     1,
     0,
@@ -388,10 +359,24 @@ exports[`basic > Hello, world!11 1`] = `
     1,
     0,
     0,
+    1,
+    0,
+    0,
+    0,
+    0,
     0,
     1,
     1,
+    1,
+    1,
+    1,
     0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
     0,
     1,
     0,
@@ -400,6 +385,21 @@ exports[`basic > Hello, world!11 1`] = `
     1,
     0,
     1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0,
     1,
     0,
   ],
@@ -411,9 +411,9 @@ exports[`basic > Hello, world!11 1`] = `
       1,
     ],
     "!": [
-      0,
       1,
       0,
+      1,
       1,
     ],
     ",": [
@@ -423,26 +423,26 @@ exports[`basic > Hello, world!11 1`] = `
       0,
     ],
     "1": [
-      1,
+      0,
       1,
       0,
     ],
     "H": [
-      0,
+      1,
       1,
       0,
       0,
     ],
     "d": [
+      1,
       0,
-      1,
-      1,
+      0,
       0,
     ],
     "e": [
+      1,
       0,
-      1,
-      1,
+      0,
       1,
     ],
     "l": [
@@ -450,21 +450,21 @@ exports[`basic > Hello, world!11 1`] = `
       0,
     ],
     "o": [
-      1,
       0,
+      1,
       1,
     ],
     "r": [
       1,
       0,
-      0,
       1,
+      0,
     ],
     "w": [
       1,
+      1,
       0,
-      0,
-      0,
+      1,
     ],
   },
   "tree": {
@@ -474,20 +474,10 @@ exports[`basic > Hello, world!11 1`] = `
       },
       "right": {
         "left": {
-          "left": {
-            "value": "H",
-          },
-          "right": {
-            "value": "!",
-          },
+          "value": "1",
         },
         "right": {
-          "left": {
-            "value": "d",
-          },
-          "right": {
-            "value": "e",
-          },
+          "value": "o",
         },
       },
     },
@@ -495,19 +485,29 @@ exports[`basic > Hello, world!11 1`] = `
       "left": {
         "left": {
           "left": {
-            "value": "w",
+            "value": "d",
           },
           "right": {
-            "value": "r",
+            "value": "e",
           },
         },
         "right": {
-          "value": "o",
+          "left": {
+            "value": "r",
+          },
+          "right": {
+            "value": "!",
+          },
         },
       },
       "right": {
         "left": {
-          "value": "1",
+          "left": {
+            "value": "H",
+          },
+          "right": {
+            "value": "w",
+          },
         },
         "right": {
           "left": {
@@ -526,12 +526,12 @@ exports[`basic > Hello, world!11 1`] = `
 exports[`basic > Hello, world!11 2`] = `
 Uint8Array [
   2,
-  71,
-  11,
+  201,
+  7,
   223,
-  22,
-  70,
-  93,
+  174,
+  136,
+  180,
   2,
 ]
 `;
@@ -539,21 +539,17 @@ Uint8Array [
 exports[`basic > Hello, world!111 1`] = `
 {
   "encodedData": [
+    1,
+    0,
+    0,
     0,
     1,
     1,
     0,
     1,
-    1,
     0,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
-    1,
+    0,
+    0,
     0,
     0,
     1,
@@ -563,21 +559,17 @@ exports[`basic > Hello, world!111 1`] = `
     1,
     0,
     1,
-    1,
     0,
     1,
-    0,
-    0,
     1,
-    0,
+    1,
     0,
     0,
     1,
     0,
     1,
-    1,
-    1,
-    1,
+    0,
+    0,
     1,
     1,
     0,
@@ -585,13 +577,21 @@ exports[`basic > Hello, world!111 1`] = `
     0,
     1,
     1,
+    0,
+    0,
+    0,
     1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
   ],
   "encodingTable": {
     " ": [
@@ -613,13 +613,14 @@ exports[`basic > Hello, world!111 1`] = `
       0,
     ],
     "1": [
-      0,
-      0,
+      1,
+      1,
+      1,
     ],
     "H": [
+      1,
       0,
-      1,
-      1,
+      0,
       0,
     ],
     "d": [
@@ -635,45 +636,39 @@ exports[`basic > Hello, world!111 1`] = `
       1,
     ],
     "l": [
-      1,
-      1,
-      1,
+      0,
+      0,
     ],
     "o": [
-      1,
       0,
+      1,
       0,
     ],
     "r": [
       0,
       1,
-      0,
       1,
+      0,
     ],
     "w": [
-      0,
       1,
       0,
       0,
+      1,
     ],
   },
   "tree": {
     "left": {
       "left": {
-        "value": "1",
+        "value": "l",
       },
       "right": {
         "left": {
-          "left": {
-            "value": "w",
-          },
-          "right": {
-            "value": "r",
-          },
+          "value": "o",
         },
         "right": {
           "left": {
-            "value": "H",
+            "value": "r",
           },
           "right": {
             "value": "!",
@@ -684,7 +679,12 @@ exports[`basic > Hello, world!111 1`] = `
     "right": {
       "left": {
         "left": {
-          "value": "o",
+          "left": {
+            "value": "H",
+          },
+          "right": {
+            "value": "w",
+          },
         },
         "right": {
           "left": {
@@ -705,7 +705,7 @@ exports[`basic > Hello, world!111 1`] = `
           },
         },
         "right": {
-          "value": "l",
+          "value": "1",
         },
       },
     },
@@ -716,13 +716,13 @@ exports[`basic > Hello, world!111 1`] = `
 exports[`basic > Hello, world!111 2`] = `
 Uint8Array [
   5,
-  109,
-  254,
-  85,
-  164,
-  95,
-  142,
-  0,
+  141,
+  5,
+  87,
+  41,
+  140,
+  127,
+  31,
 ]
 `;
 
