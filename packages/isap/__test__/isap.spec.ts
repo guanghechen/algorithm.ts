@@ -11,6 +11,18 @@ describe('basic', function () {
     expect(isap.maxflow()).toEqual(1)
     expect(isap.mincut()).toEqual([{ cap: 1, flow: 1, from: 3, to: 1 }])
   })
+
+  it('mincut should use strict reachable partition instead of all saturated edges', function () {
+    const isap = new Isap()
+    isap.init(0, 3, 4)
+    isap.addEdge(0, 1, 10)
+    isap.addEdge(1, 3, 1)
+    isap.addEdge(1, 2, 9)
+    isap.addEdge(2, 3, 9)
+
+    expect(isap.maxflow()).toEqual(10)
+    expect(isap.mincut()).toEqual([{ cap: 10, flow: 10, from: 0, to: 1 }])
+  })
 })
 
 describe('oj', function () {

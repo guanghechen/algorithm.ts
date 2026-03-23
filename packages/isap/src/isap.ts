@@ -100,7 +100,9 @@ export class Isap implements IIsap {
             if (e.cap > e.flow && d > _dist[e.to]) d = _dist[e.to]
           }
 
-          if (--_cnt[_dist[o]] === 0) break
+          const currentDist = _dist[o]
+          _cnt[currentDist] -= 1
+          if (_cnt[currentDist] === 0) break
 
           _dist[o] = d + 1
           _cnt[d + 1] += 1
@@ -118,10 +120,30 @@ export class Isap implements IIsap {
   public mincut(): Array<Readonly<IIsapEdge>> {
     this.maxflow()
     const results: Array<Readonly<IIsapEdge>> = []
-    const { _edges, _edgesTot } = this
+    const { _N, _source, _edges, _edgesTot, _G, _Q } = this
+
+    const reachable: boolean[] = new Array(_N).fill(false)
+    _Q.init()
+    _Q.resize(_N + 1)
+    _Q.enqueue(_source)
+    reachable[_source] = true
+
+    while (_Q.size > 0) {
+      const u = _Q.dequeue()!
+      for (const edgeId of _G[u]) {
+        const e = _edges[edgeId]
+        if (!reachable[e.to] && e.cap > e.flow) {
+          reachable[e.to] = true
+          _Q.enqueue(e.to)
+        }
+      }
+    }
+
     for (let i = 0; i < _edgesTot; ++i) {
       const e = _edges[i]
-      if (e.cap > 0 && e.flow === e.cap) results.push(e)
+      if (e.cap > 0 && reachable[e.from] && !reachable[e.to]) {
+        results.push(e)
+      }
     }
     return results
   }
