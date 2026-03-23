@@ -1,4 +1,3 @@
-import { jest } from '@jest/globals'
 import type { GomokuDirectionType, IDirCounter } from '../src'
 import { GomokuDirectionTypes, GomokuDirections, GomokuMoverContext } from '../src'
 import { PieceDataDirName, locatePieceDataFilepaths, stringify } from './util'
@@ -283,26 +282,29 @@ describe('15x15', () => {
     }
   })
 
-  it('hasPlacedNeighbors', function () {
-    jest.setTimeout(15 * 1000)
-    const hasPlacedNeighbors = (posId: number): boolean => {
-      for (const id2 of tester.accessibleNeighbors(posId)) {
-        if (id2 >= 0 && tester.board[id2] >= 0) return true
+  it(
+    'hasPlacedNeighbors',
+    function () {
+      const hasPlacedNeighbors = (posId: number): boolean => {
+        for (const id2 of tester.accessibleNeighbors(posId)) {
+          if (id2 >= 0 && tester.board[id2] >= 0) return true
+        }
+        return false
       }
-      return false
-    }
 
-    const MAX_TEST_TIMES = 1000
-    for (let t = 0; t < MAX_TEST_TIMES; ++t) {
-      let posId: number = Math.round(Math.random() * tester.TOTAL_POS)
-      if (posId >= tester.TOTAL_POS) posId = tester.TOTAL_POS - 1
-      if (Math.random() < 0.5) tester.forward(posId, Math.random() < 0.5 ? 0 : 1)
-      else tester.revert(posId)
-      for (let id = 0; id < tester.TOTAL_POS; ++id) {
-        expect(tester.hasPlacedNeighbors(id)).toEqual(hasPlacedNeighbors(id))
+      const MAX_TEST_TIMES = 1000
+      for (let t = 0; t < MAX_TEST_TIMES; ++t) {
+        let posId: number = Math.round(Math.random() * tester.TOTAL_POS)
+        if (posId >= tester.TOTAL_POS) posId = tester.TOTAL_POS - 1
+        if (Math.random() < 0.5) tester.forward(posId, Math.random() < 0.5 ? 0 : 1)
+        else tester.revert(posId)
+        for (let id = 0; id < tester.TOTAL_POS; ++id) {
+          expect(tester.hasPlacedNeighbors(id)).toEqual(hasPlacedNeighbors(id))
+        }
       }
-    }
-  })
+    },
+    15 * 1000,
+  )
 
   it('getFirstPosId', function () {
     for (const dirType of fullDirectionTypes) {

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`basic Hello, world! 1`] = `
+exports[`basic > Hello, world! 1`] = `
 {
   "encodedData": [
     1,
@@ -154,7 +154,7 @@ exports[`basic Hello, world! 1`] = `
 }
 `;
 
-exports[`basic Hello, world! 2`] = `
+exports[`basic > Hello, world! 2`] = `
 Uint8Array [
   2,
   233,
@@ -166,7 +166,7 @@ Uint8Array [
 ]
 `;
 
-exports[`basic Hello, world!1 1`] = `
+exports[`basic > Hello, world!1 1`] = `
 {
   "encodedData": [
     1,
@@ -337,7 +337,7 @@ exports[`basic Hello, world!1 1`] = `
 }
 `;
 
-exports[`basic Hello, world!1 2`] = `
+exports[`basic > Hello, world!1 2`] = `
 Uint8Array [
   7,
   134,
@@ -349,7 +349,7 @@ Uint8Array [
 ]
 `;
 
-exports[`basic Hello, world!11 1`] = `
+exports[`basic > Hello, world!11 1`] = `
 {
   "encodedData": [
     0,
@@ -523,7 +523,7 @@ exports[`basic Hello, world!11 1`] = `
 }
 `;
 
-exports[`basic Hello, world!11 2`] = `
+exports[`basic > Hello, world!11 2`] = `
 Uint8Array [
   2,
   71,
@@ -536,7 +536,7 @@ Uint8Array [
 ]
 `;
 
-exports[`basic Hello, world!111 1`] = `
+exports[`basic > Hello, world!111 1`] = `
 {
   "encodedData": [
     0,
@@ -713,7 +713,7 @@ exports[`basic Hello, world!111 1`] = `
 }
 `;
 
-exports[`basic Hello, world!111 2`] = `
+exports[`basic > Hello, world!111 2`] = `
 Uint8Array [
   5,
   109,
@@ -726,7 +726,7 @@ Uint8Array [
 ]
 `;
 
-exports[`basic empty 1`] = `
+exports[`basic > empty 1`] = `
 {
   "encodedData": [],
   "encodingTable": {},
@@ -734,13 +734,13 @@ exports[`basic empty 1`] = `
 }
 `;
 
-exports[`basic empty 2`] = `
+exports[`basic > empty 2`] = `
 Uint8Array [
   0,
 ]
 `;
 
-exports[`basic 中文 1`] = `
+exports[`basic > 中文 1`] = `
 {
   "encodedData": [
     0,
@@ -765,7 +765,7 @@ exports[`basic 中文 1`] = `
 }
 `;
 
-exports[`basic 中文 2`] = `
+exports[`basic > 中文 2`] = `
 Uint8Array [
   2,
   1,

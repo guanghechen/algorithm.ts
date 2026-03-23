@@ -30,10 +30,10 @@
         src="https://github.com/guanghechen/algorithm.ts/actions/workflows/ci.yml/badge.svg"
       />
     </a>
-    <a href="https://github.com/facebook/jest">
+    <a href="https://github.com/vitest-dev/vitest">
       <img
         alt="Tested with Jest"
-        src="https://img.shields.io/badge/tested_with-jest-9c465e.svg"
+        src="https://img.shields.io/badge/tested_with-vitest-6E9F18.svg"
       />
     </a>
     <a href="https://github.com/prettier/prettier">

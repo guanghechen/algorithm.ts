@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`15x15 overview: pieces.0 1`] = `
+exports[`15x15 > overview > pieces.0 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -125,7 +125,7 @@ exports[`15x15 overview: pieces.0 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.1 1`] = `
+exports[`15x15 > overview > pieces.1 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -470,7 +470,7 @@ exports[`15x15 overview: pieces.1 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.2 1`] = `
+exports[`15x15 > overview > pieces.2 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -995,7 +995,7 @@ exports[`15x15 overview: pieces.2 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.3 1`] = `
+exports[`15x15 > overview > pieces.3 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -1640,7 +1640,7 @@ exports[`15x15 overview: pieces.3 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.4 1`] = `
+exports[`15x15 > overview > pieces.4 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -1965,7 +1965,7 @@ exports[`15x15 overview: pieces.4 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.5 1`] = `
+exports[`15x15 > overview > pieces.5 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -2150,7 +2150,7 @@ exports[`15x15 overview: pieces.5 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.6 1`] = `
+exports[`15x15 > overview > pieces.6 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -3595,7 +3595,7 @@ exports[`15x15 overview: pieces.6 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.7 1`] = `
+exports[`15x15 > overview > pieces.7 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -4200,7 +4200,7 @@ exports[`15x15 overview: pieces.7 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.8 1`] = `
+exports[`15x15 > overview > pieces.8 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -5065,7 +5065,7 @@ exports[`15x15 overview: pieces.8 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.9 1`] = `
+exports[`15x15 > overview > pieces.9 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -5290,7 +5290,7 @@ exports[`15x15 overview: pieces.9 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.10 1`] = `
+exports[`15x15 > overview > pieces.10 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -5815,7 +5815,7 @@ exports[`15x15 overview: pieces.10 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.11 1`] = `
+exports[`15x15 > overview > pieces.11 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -6600,7 +6600,7 @@ exports[`15x15 overview: pieces.11 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.12 1`] = `
+exports[`15x15 > overview > pieces.12 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -6785,7 +6785,7 @@ exports[`15x15 overview: pieces.12 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.13 1`] = `
+exports[`15x15 > overview > pieces.13 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -7170,7 +7170,7 @@ exports[`15x15 overview: pieces.13 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.14 1`] = `
+exports[`15x15 > overview > pieces.14 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -7755,7 +7755,7 @@ exports[`15x15 overview: pieces.14 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.15 1`] = `
+exports[`15x15 > overview > pieces.15 1`] = `
 [
   {
     "currentPlayer": 0,
@@ -8500,7 +8500,7 @@ exports[`15x15 overview: pieces.15 1`] = `
 ]
 `;
 
-exports[`15x15 overview: pieces.16 1`] = `
+exports[`15x15 > overview > pieces.16 1`] = `
 [
   {
     "currentPlayer": 0,

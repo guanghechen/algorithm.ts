@@ -36,6 +36,10 @@ describe('basic', function () {
 
     const result = dijkstraBigint(graph)
     expect(result.dist.slice(0, graph.N)).toEqual([0n, 2n, 4n, 4n])
+
+    // Call again to cover the cached singleton branch.
+    const result2 = dijkstraBigint(graph)
+    expect(result2.dist.slice(0, graph.N)).toEqual([0n, 2n, 4n, 4n])
   })
 })
 

@@ -1,4 +1,3 @@
-import { jest } from '@jest/globals'
 import type { GomokuDirectionType, IGomokuCandidateState, IGomokuPiece } from '../src'
 import {
   GomokuDirectionTypes,
@@ -332,43 +331,46 @@ describe('15x15', function () {
     }
   })
 
-  it('candidate ids', async function () {
-    jest.setTimeout(10 * 1000)
-    const tester = getTester()
-    const getCandidateIds = (nextPlayer: number): number[] => {
-      return tester
-        .expand(nextPlayer, Number.MAX_SAFE_INTEGER)
-        .sort(compareCandidate)
-        .map(candidate => candidate.posId)
-    }
-
-    for (const { filepath, title } of filepaths) {
-      tester.init([])
-      expect([title, getCandidateIds(0)]).toEqual([title, [112]])
-      expect([title, getCandidateIds(1)]).toEqual([title, [112]])
-      const { default: pieces } = await import(filepath, { with: { type: 'json' } })
-      for (const { r, c, p } of pieces) {
-        const id: number = tester.context.idx(r, c)
-        const message = `${title} id=${id}`
-        tester.$checkCandidateIds(message, 0)
-        tester.$checkCandidateIds(message, 1)
-        tester.forward(id, p)
-        tester.$checkCandidateIds(message, 0)
-        tester.$checkCandidateIds(message, 1)
-        tester.revert(id)
-        tester.$checkCandidateIds(message, 0)
-        tester.$checkCandidateIds(message, 1)
-        tester.forward(id, p)
+  it(
+    'candidate ids',
+    async function () {
+      const tester = getTester()
+      const getCandidateIds = (nextPlayer: number): number[] => {
+        return tester
+          .expand(nextPlayer, Number.MAX_SAFE_INTEGER)
+          .sort(compareCandidate)
+          .map(candidate => candidate.posId)
       }
 
-      for (let id = 0; id < tester.context.TOTAL_POS; ++id) {
-        const message = `${title} id=${id}`
-        tester.revert(id)
-        tester.$checkCandidateIds(message, 0)
-        tester.$checkCandidateIds(message, 1)
+      for (const { filepath, title } of filepaths) {
+        tester.init([])
+        expect([title, getCandidateIds(0)]).toEqual([title, [112]])
+        expect([title, getCandidateIds(1)]).toEqual([title, [112]])
+        const { default: pieces } = await import(filepath, { with: { type: 'json' } })
+        for (const { r, c, p } of pieces) {
+          const id: number = tester.context.idx(r, c)
+          const message = `${title} id=${id}`
+          tester.$checkCandidateIds(message, 0)
+          tester.$checkCandidateIds(message, 1)
+          tester.forward(id, p)
+          tester.$checkCandidateIds(message, 0)
+          tester.$checkCandidateIds(message, 1)
+          tester.revert(id)
+          tester.$checkCandidateIds(message, 0)
+          tester.$checkCandidateIds(message, 1)
+          tester.forward(id, p)
+        }
+
+        for (let id = 0; id < tester.context.TOTAL_POS; ++id) {
+          const message = `${title} id=${id}`
+          tester.revert(id)
+          tester.$checkCandidateIds(message, 0)
+          tester.$checkCandidateIds(message, 1)
+        }
       }
-    }
-  })
+    },
+    10 * 1000,
+  )
 
   it('candidates -- init all', async function () {
     const tester = getTester()

@@ -1,6 +1,6 @@
 import type { IDigraph, IDigraphEdge } from '@algorithm.ts/graph.types'
 import type { DeepReadonly, ICompare } from '@algorithm.ts/internal'
-import { buildEdgeMap, extractAdjacencyList, getShortestPath } from '../src'
+import { buildEdgeMap, extractAdjacencyList, getShortestPath, topoSort } from '../src'
 
 const enum Nodes {
   A = 0,
@@ -45,5 +45,10 @@ describe('util', function () {
   it('buildEdgeMap', function () {
     const G: number[][] = buildEdgeMap(graph.N, graph.edges)
     expect(G).toEqual(graph.G)
+  })
+
+  it('topoSort', function () {
+    const topo: number[] = topoSort(graph)
+    expect(topo).toEqual([Nodes.D, Nodes.C, Nodes.B, Nodes.A])
   })
 })
