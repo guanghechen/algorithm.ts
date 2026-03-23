@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.0.6
+
+### Patch Changes
+
+- - @algorithm.ts/isap:
+    - :bug: fix(isap): return strict mincut edges by reachable partition
+
 ## 4.0.5
 
 ### Patch Changes
