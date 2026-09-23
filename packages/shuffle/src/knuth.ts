@@ -12,9 +12,9 @@ export function knuthShuffle<T = unknown>(
   start = 0,
   end: number = elements.length,
 ): void {
-  // eslint-disable-next-line no-param-reassign
+  // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
   if (start < 0) start = 0
-  // eslint-disable-next-line no-param-reassign
+  // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
   if (end > elements.length) end = elements.length
   if (start + 1 >= end) return
 
@@ -22,9 +22,9 @@ export function knuthShuffle<T = unknown>(
   for (let n = N - 1, j = end - 1; n > 0; --n, --j) {
     const i: number = randomInt(n) + start
     const x: T = elements[i]
-    // eslint-disable-next-line no-param-reassign
+    // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
     elements[i] = elements[j]
-    // eslint-disable-next-line no-param-reassign
+    // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
     elements[j] = x
   }
 }

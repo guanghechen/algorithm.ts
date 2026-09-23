@@ -16,7 +16,7 @@ export class IntervalUpdateSingleQuery<T> {
   protected readonly _operator: IIntervalUpdateSingleQueryOperator<T>
   protected readonly _nodes: T[]
 
-  constructor(props: IIntervalUpdateSingleQueryProps<T>) {
+  public constructor(props: IIntervalUpdateSingleQueryProps<T>) {
     this._operator = props.operator
     this._nodes = [this._operator.ZERO]
   }

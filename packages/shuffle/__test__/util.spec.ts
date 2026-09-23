@@ -1,6 +1,6 @@
 import { randomInt } from '../src'
 
-it('randomInt', function () {
+it('randomInt', () => {
   const size = 1e2
   const nums: number[] = new Array(size)
 

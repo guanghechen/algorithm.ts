@@ -1,5 +1,5 @@
-import { fromText, toEncodingTable } from './huffman'
 import type { IHuffmanEncodedData, IHuffmanEncodingTable, IHuffmanNode } from './huffman'
+import { fromText, toEncodingTable } from './huffman'
 
 /**
  * Encode texts through Huffman encode algorithm.

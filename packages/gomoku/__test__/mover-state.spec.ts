@@ -13,7 +13,7 @@ const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirect
 type IGomokuCandidate = IGomokuCandidateState
 const compareCandidate = (x: IGomokuCandidate, y: IGomokuCandidate): number => x.posId - y.posId
 class TestHelper extends GomokuMoverState {
-  constructor(MAX_ROW: number, MAX_COL: number) {
+  public constructor(MAX_ROW: number, MAX_COL: number) {
     const context = new GomokuMoverContext({
       MAX_ROW,
       MAX_COL,
@@ -33,7 +33,7 @@ class TestHelper extends GomokuMoverState {
     super.init(pieces)
   }
 
-  // @ts-ignore
+  // @ts-expect-error
   public override forward(posId: number, playerId: number): void {
     const { context } = this
     if (context.isValidIdx(posId) && context.board[posId] < 0) {
@@ -52,7 +52,7 @@ class TestHelper extends GomokuMoverState {
     }
   }
 
-  // @ts-ignore
+  // @ts-expect-error
   public override expand(nextPlayer: number, candidateGrowthFactor: number): IGomokuCandidate[] {
     const candidates: IGomokuCandidateState[] = []
     const _size: number = super.expand(nextPlayer, candidates, candidateGrowthFactor)
@@ -241,11 +241,11 @@ class TestHelper extends GomokuMoverState {
   }
 }
 
-describe('15x15', function () {
+describe('15x15', () => {
   const getTester = (): TestHelper => new TestHelper(15, 15)
   const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
 
-  it('overview', async function () {
+  it('overview', async () => {
     const tester = getTester()
     for (const { filepath, title } of filepaths) {
       const { default: pieces } = await import(filepath, { with: { type: 'json' } })
@@ -269,7 +269,7 @@ describe('15x15', function () {
     }
   })
 
-  it('isFinal', function () {
+  it('isFinal', () => {
     const tester = getTester()
     const posId0 = tester.context.idx(6, 6)
     for (const dirType of fullDirectionTypes) {
@@ -333,7 +333,7 @@ describe('15x15', function () {
 
   it(
     'candidate ids',
-    async function () {
+    async () => {
       const tester = getTester()
       const getCandidateIds = (nextPlayer: number): number[] => {
         return tester
@@ -372,7 +372,7 @@ describe('15x15', function () {
     10 * 1000,
   )
 
-  it('candidates -- init all', async function () {
+  it('candidates -- init all', async () => {
     const tester = getTester()
     tester.init([])
     expect(tester.expand(0, Number.MAX_SAFE_INTEGER)).toEqual([
@@ -390,7 +390,7 @@ describe('15x15', function () {
     }
   })
 
-  it('candidates -- step by step', async function () {
+  it('candidates -- step by step', async () => {
     const tester = getTester()
     for (const { filepath } of filepaths) {
       tester.init([])
@@ -404,7 +404,7 @@ describe('15x15', function () {
     }
   })
 
-  it('candidate -- forward/revert', async function () {
+  it('candidate -- forward/revert', async () => {
     const tester = getTester()
     for (const { filepath } of filepaths) {
       const { default: pieces } = await import(filepath, { with: { type: 'json' } })
@@ -423,7 +423,7 @@ describe('15x15', function () {
     }
   })
 
-  it('topCandidate', async function () {
+  it('topCandidate', async () => {
     const tester = getTester()
     for (const { filepath } of filepaths) {
       tester.init([])
@@ -437,7 +437,7 @@ describe('15x15', function () {
     }
   })
 
-  it('pieces.1', async function () {
+  it('pieces.1', async () => {
     const tester = getTester()
     const { default: pieces } = await import('./fixtures/15x15/pieces.1.json', {
       with: { type: 'json' },
@@ -447,7 +447,7 @@ describe('15x15', function () {
     expect(candidates.length).toEqual(1)
   })
 
-  it('edge case', function () {
+  it('edge case', () => {
     const tester = getTester()
     tester.init([])
     {

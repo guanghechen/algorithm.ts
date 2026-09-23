@@ -15,7 +15,7 @@ export class CircularStack<T = unknown> implements ICircularStack<T> {
   protected _start: number
   protected _end: number
 
-  constructor(props: ICircularStackProps) {
+  public constructor(props: ICircularStackProps) {
     const { capacity } = props
     if (!Number.isInteger(capacity) || capacity < 1) {
       throw new RangeError(

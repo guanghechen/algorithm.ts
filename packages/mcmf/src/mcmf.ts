@@ -1,5 +1,5 @@
-import { CircularQueue } from '@algorithm.ts/queue'
 import type { ICircularQueue } from '@algorithm.ts/queue'
+import { CircularQueue } from '@algorithm.ts/queue'
 import type { IMcmf, IMcmfEdge } from './types'
 
 export interface IMcmfOptions {
@@ -28,7 +28,7 @@ export class Mcmf implements IMcmf {
   protected _modifiedTimestamp: number
   protected _resolvedTimestamp: number
 
-  constructor(options: IMcmfOptions = {}) {
+  public constructor(options: IMcmfOptions = {}) {
     const { INF = DEFAULT_INF } = options
     this._INF = INF
     this._N = 0

@@ -1,13 +1,13 @@
 import type { IBinarySearchCheck, IBinarySearchCheckBigint } from '../src'
 import { upperBound, upperBoundBigint } from '../src'
 
-describe('upperBound', function () {
+describe('upperBound', () => {
   const hitFor =
     (x: number): IBinarySearchCheck =>
     mid =>
       mid === x ? 0 : mid < x ? -1 : 1
 
-  it('basic', function () {
+  it('basic', () => {
     const lft = -(2 ** 30)
     const rht = 2 ** 30
 
@@ -16,7 +16,7 @@ describe('upperBound', function () {
     }
   })
 
-  it('edge', function () {
+  it('edge', () => {
     const lft = -(2 ** 30)
     const rht = 2 ** 30
 
@@ -40,7 +40,7 @@ describe('upperBoundBigint', () => {
     mid =>
       mid === x ? 0 : mid < x ? -1 : 1
 
-  it('basic', function () {
+  it('basic', () => {
     const lft = -5000000000000n
     const rht = 500000000000000000000000000n
 
@@ -49,7 +49,7 @@ describe('upperBoundBigint', () => {
     }
   })
 
-  it('edge', function () {
+  it('edge', () => {
     const lft = -5000000000000n
     const rht = 500000000000000000000000000n
 

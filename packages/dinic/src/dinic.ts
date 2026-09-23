@@ -1,5 +1,5 @@
-import { CircularQueue } from '@algorithm.ts/queue'
 import type { ICircularQueue } from '@algorithm.ts/queue'
+import { CircularQueue } from '@algorithm.ts/queue'
 import type { IDinic, IDinicEdge } from './types'
 
 export class Dinic implements IDinic {
@@ -16,7 +16,7 @@ export class Dinic implements IDinic {
   protected _modifiedTimestamp: number
   protected _resolvedTimestamp: number
 
-  constructor() {
+  public constructor() {
     this._N = 0
     this._source = -1
     this._sink = -1
@@ -121,7 +121,7 @@ export class Dinic implements IDinic {
         e.flow += f
         _edges[x ^ 1].flow -= f
         flow += f
-        // eslint-disable-next-line no-param-reassign
+        // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
         mif -= f
         if (mif === 0) break
       }

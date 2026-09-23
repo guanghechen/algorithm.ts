@@ -10,7 +10,7 @@ export const getReleaseLine = async changeset => {
 
   let result = `- ${firstLine}`
   if (rest.length > 0) {
-    result += '\n' + rest.map(l => `  ${l}`).join('\n')
+    result += `\n${rest.map(l => `  ${l}`).join('\n')}`
   }
 
   return result

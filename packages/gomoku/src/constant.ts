@@ -24,7 +24,7 @@ export const GomokuDirections: ReadonlyArray<[dr: number, dc: number]> = Array.f
   }).reduce(
     (acc, [key, value]) => {
       const index = Number(key)
-      // eslint-disable-next-line no-param-reassign
+      // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
       acc[index] = value as [dr: number, dc: number]
       return acc
     },

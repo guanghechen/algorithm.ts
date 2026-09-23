@@ -1,6 +1,6 @@
 import { compress, decode, decompress, encode, fromEncodingTable } from '../src'
 
-describe('basic', function () {
+describe('basic', () => {
   it('empty', () => textWrapper(''))
   it('Hello, world!', () => textWrapper('Hello, world!'))
   it('Hello, world!1', () => textWrapper('Hello, world!1'))
@@ -30,7 +30,7 @@ describe('basic', function () {
   }
 })
 
-it('unexpected', function () {
+it('unexpected', () => {
   const { encodedData, encodingTable } = encode('Hello, world!')
   const { H, ...encodingTable2 } = encodingTable
   const tree2 = fromEncodingTable(encodingTable2)

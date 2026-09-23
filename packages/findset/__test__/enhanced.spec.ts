@@ -69,7 +69,7 @@ describe('EnhancedFindset', () => {
     expect(() => findset.init(2)).not.toThrow()
   })
 
-  it('merge', function () {
+  it('merge', () => {
     findset.merge(2, 3)
     expect(findset.count(2)).toEqual(2)
     expect(findset.count(3)).toEqual(2)
@@ -108,7 +108,7 @@ describe('EnhancedFindset', () => {
     expect(findset.count(5)).toEqual((MAX_N >> 1) - 2)
   })
 
-  it('count', function () {
+  it('count', () => {
     findset.init(MAX_N)
     for (let i = 0; i < 100; ++i) {
       const x = randomInt(MAX_N - 1) + 1

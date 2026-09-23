@@ -47,7 +47,6 @@ export function solveSudoku(puzzle: ReadonlyArray<number[]>, solution: number[][
     code = Math.floor(code / 9 + ebs)
     const a = code
 
-    // eslint-disable-next-line no-param-reassign
     solution[a][b] = c
   }
   return true

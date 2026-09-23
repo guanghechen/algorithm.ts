@@ -1,5 +1,5 @@
-import { CircularQueue } from '@algorithm.ts/queue'
 import type { ICircularQueue } from '@algorithm.ts/queue'
+import { CircularQueue } from '@algorithm.ts/queue'
 import type { IIsap, IIsapEdge } from './types'
 
 export class Isap implements IIsap {
@@ -18,7 +18,7 @@ export class Isap implements IIsap {
   protected _modifiedTimestamp: number
   protected _resolvedTimestamp: number
 
-  constructor() {
+  public constructor() {
     this._N = 0
     this._source = -1
     this._sink = -1

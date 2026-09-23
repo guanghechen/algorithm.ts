@@ -9,7 +9,7 @@ export class EnhancedFindset implements IEnhancedFindset {
   protected _size: number
   protected _destroyed: boolean
 
-  constructor() {
+  public constructor() {
     this._parent = [0]
     this._sets = [new Set<number>()]
     this._size = 0
@@ -26,7 +26,7 @@ export class EnhancedFindset implements IEnhancedFindset {
 
   public root(x: number): number {
     const y = this._parent[x]
-    // eslint-disable-next-line no-return-assign
+    // biome-ignore lint/suspicious/noReturnAssign lint/suspicious/noAssignInExpressions: Path compression stores and returns the representative.
     return y ? (this._parent[x] = this.root(y)) : x
   }
 

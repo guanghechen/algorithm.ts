@@ -1,11 +1,11 @@
 import type { IPrimeFactor } from '../src'
 import { factorize, sievePrime } from '../src'
 
-describe('factorize', function () {
+describe('factorize', () => {
   const primes: number[] = sievePrime(1000)
   const f = (n: number): IPrimeFactor[] => Array.from(factorize(n, primes))
 
-  it('boundary', function () {
+  it('boundary', () => {
     expect(f(-1)).toEqual([])
     expect(f(0)).toEqual([])
     expect(f(1)).toEqual([])
@@ -26,7 +26,7 @@ describe('factorize', function () {
     ])
   })
 
-  it('basic', function () {
+  it('basic', () => {
     let failedCount = 0
     for (let n = 2; n < 1000; ++n) {
       let x = 1

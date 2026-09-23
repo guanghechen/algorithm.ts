@@ -26,7 +26,7 @@ export class SlidingWindow implements ISlidingWindow {
   protected _leftBoundary: number
   protected _rightBoundary: number
 
-  constructor(props: ISlidingWindowProps) {
+  public constructor(props: ISlidingWindowProps) {
     const { WINDOW_SIZE, startIndex = 0, compare } = props
     this._WINDOW_SIZE = WINDOW_SIZE
     this._compare = compare

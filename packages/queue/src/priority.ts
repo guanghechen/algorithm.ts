@@ -17,7 +17,7 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
   protected _size: number
   protected _destroyed: boolean
 
-  constructor(props: IPriorityQueueProps<T>) {
+  public constructor(props: IPriorityQueueProps<T>) {
     this._elements = []
     this._size = 0
     this._destroyed = false

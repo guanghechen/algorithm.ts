@@ -1,7 +1,7 @@
 import type { IHistory } from '../src'
 import { History } from '../src'
 
-describe('CircularHistory', function () {
+describe('CircularHistory', () => {
   let history: IHistory<number>
 
   beforeEach(() => {

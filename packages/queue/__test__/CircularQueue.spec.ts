@@ -1,7 +1,7 @@
 import type { ICircularQueue } from '../src'
 import { CircularQueue } from '../src'
 
-describe('CircularQueue', function () {
+describe('CircularQueue', () => {
   let Q: ICircularQueue<number>
 
   beforeEach(() => {

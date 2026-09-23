@@ -107,7 +107,7 @@ describe('HeuristicFindset', () => {
     expect(findset.count(5)).toEqual((MAX_N >> 1) - 2)
   })
 
-  it('count', function () {
+  it('count', () => {
     findset.init(MAX_N)
     for (let i = 0; i < 100; ++i) {
       const x = randomInt(MAX_N - 1) + 1

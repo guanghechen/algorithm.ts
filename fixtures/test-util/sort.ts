@@ -15,9 +15,9 @@ export interface ISortTestCaseGroup<T = unknown> {
 
 export function addSortTest<T = unknown>(caseGroup: ISortTestCaseGroup<T>): void {
   const { cases, stable, sort } = caseGroup
-  describe(caseGroup.title, function () {
+  describe(caseGroup.title, () => {
     for (const { title, data } of cases) {
-      describe(title, function () {
+      describe(title, () => {
         let runs: Array<() => void>
         let checks: Array<() => void>
 
@@ -61,11 +61,15 @@ export function addSortTest<T = unknown>(caseGroup: ISortTestCaseGroup<T>): void
         })
 
         it('run', async () => {
-          runs.forEach(run => run())
+          runs.forEach(run => {
+            run()
+          })
         })
 
         it('check', async () => {
-          checks.forEach(check => check())
+          checks.forEach(check => {
+            check()
+          })
         })
       })
     }

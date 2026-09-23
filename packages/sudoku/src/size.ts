@@ -9,7 +9,7 @@ export class SudokuSize implements ISudokuSize {
   public readonly MATRIX: number
   public readonly BOARD: number
 
-  constructor(SUDOKU_CHILD_MATRIX_WIDTH: number) {
+  public constructor(SUDOKU_CHILD_MATRIX_WIDTH: number) {
     const BASE_1: number = SUDOKU_CHILD_MATRIX_WIDTH
     const BASE_2: number = BASE_1 * BASE_1
     const BASE_3: number = BASE_2 * BASE_1

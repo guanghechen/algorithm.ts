@@ -15,7 +15,7 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
   protected _end: number
   protected _destroyed: boolean
 
-  constructor(props: IFixedCircularQueueProps) {
+  public constructor(props: IFixedCircularQueueProps) {
     const { capacity } = props
     if (!Number.isInteger(capacity) || capacity < 1) {
       throw new RangeError(

@@ -37,7 +37,7 @@ export function testOjCodes<T extends (...input: any[]) => any>(
   const isPromise = (object: unknown): object is Promise<unknown> => !!(object as any).then
   const { title, fetchData } = DATA_MAP[key]
 
-  it(title, async function () {
+  it(title, async () => {
     const data = await fetchData()
     const solve: T = isPromise(solution) ? (await solution).default : solution
     for (const { input, answer } of data) expect(solve(...input)).toEqual(answer)

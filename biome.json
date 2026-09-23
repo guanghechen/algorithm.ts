@@ -1,0 +1,152 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.13/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!!**/.vscode",
+      "!!**/__tmp__",
+      "!!**/__test__/fixtures",
+      "!!**/__test__/cases",
+      "!!**/coverage",
+      "!!**/dist",
+      "!!**/doc",
+      "!!**/lib",
+      "!!**/resource",
+      "!!**/spec",
+      "!!fixtures/test-data"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 100,
+    "lineEnding": "lf"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "double",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all",
+      "arrowParentheses": "asNeeded",
+      "bracketSpacing": true
+    }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [[":NODE:", ":PACKAGE:"], ":ALIAS:", ":PATH:"],
+            "identifierOrder": "lexicographic"
+          }
+        }
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "correctness": {
+        "noUndeclaredDependencies": "error",
+        "noUnusedVariables": "warn",
+        "noUnusedFunctionParameters": "warn"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noImportCycles": "error",
+        "noReturnAssign": "error",
+        "noConstEnum": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "noParameterAssign": {
+          "level": "error",
+          "options": {
+            "propertyAssignment": "deny"
+          }
+        },
+        "useEnumInitializers": "error",
+        "useImportType": {
+          "level": "error",
+          "options": {
+            "style": "separatedType"
+          }
+        },
+        "useConsistentTypeDefinitions": {
+          "level": "warn",
+          "options": {
+            "style": "interface"
+          }
+        },
+        "useShorthandFunctionType": "off"
+      },
+      "nursery": {
+        "noFloatingPromises": "error",
+        "noMisusedPromises": "error",
+        "useImportsFirst": "error"
+      },
+      "preset": "recommended"
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "linter": {
+        "rules": {
+          "nursery": {
+            "useExplicitReturnType": {
+              "level": "error",
+              "options": {
+                "allowExpressions": true
+              }
+            }
+          },
+          "style": {
+            "useConsistentMemberAccessibility": {
+              "level": "error",
+              "options": {
+                "accessibility": "explicit"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/__test__/**/*.ts"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedFunctionParameters": "off",
+            "noUndeclaredDependencies": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["script/**", "fixtures/test-util/**"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUndeclaredDependencies": "off"
+          }
+        }
+      }
+    }
+  ]
+}

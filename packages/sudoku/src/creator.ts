@@ -31,7 +31,7 @@ export class SudokuCreator {
   protected readonly tmpBoard: ISudokuBoardData
   protected difficulty: number
 
-  constructor(options: ISudokuCreatorOptions) {
+  public constructor(options: ISudokuCreatorOptions) {
     const { childMatrixWidth, difficulty = 0.2 } = options
     const size = new SudokuSize(childMatrixWidth)
     const solver = new SudokuSolver({ childMatrixWidth })

@@ -1,8 +1,8 @@
-import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
 import { Dinic } from '../src'
+import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
 
-describe('basic', function () {
-  it('simple', function () {
+describe('basic', () => {
+  it('simple', () => {
     const dinic = new Dinic()
     dinic.init(0, 1, 4)
     dinic.addEdge(0, 2, 1)
@@ -12,7 +12,7 @@ describe('basic', function () {
     expect(dinic.mincut()).toEqual([{ cap: 1, flow: 1, from: 3, to: 1 }])
   })
 
-  it('mincut should follow strict reachable partition definition', function () {
+  it('mincut should follow strict reachable partition definition', () => {
     const dinic = new Dinic()
     dinic.init(0, 3, 4)
     dinic.addEdge(0, 1, 10)
@@ -24,7 +24,7 @@ describe('basic', function () {
     expect(dinic.mincut()).toEqual([{ cap: 10, flow: 10, from: 0, to: 1 }])
   })
 
-  it('mincut should include all cut edges crossing reachable partition', function () {
+  it('mincut should include all cut edges crossing reachable partition', () => {
     const dinic = new Dinic()
     dinic.init(0, 3, 4)
     dinic.addEdge(0, 1, 3)
@@ -40,7 +40,7 @@ describe('basic', function () {
     ])
   })
 
-  it('mincut should ignore zero-capacity edges', function () {
+  it('mincut should ignore zero-capacity edges', () => {
     const dinic = new Dinic()
     dinic.init(0, 1, 2)
     dinic.addEdge(0, 1, 0)
@@ -49,7 +49,7 @@ describe('basic', function () {
     expect(dinic.mincut()).toEqual([])
   })
 
-  it('mincut capacity should equal maxflow on random small graphs', function () {
+  it('mincut capacity should equal maxflow on random small graphs', () => {
     const createRng = (seed: number): (() => number) => {
       let state = seed % 2147483647
       if (state <= 0) state += 2147483646
@@ -85,7 +85,7 @@ describe('basic', function () {
   })
 })
 
-describe('oj', function () {
+describe('oj', () => {
   testOjCodes(TestOjDataProblemKey.CODEFORCES_1082_G, import('./oj/codeforces-1082-g'))
   testOjCodes(
     TestOjDataProblemKey.LEETCODE_MAXIMUM_STUDENTS_TAKING_EXAM,

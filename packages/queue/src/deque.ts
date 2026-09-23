@@ -14,7 +14,7 @@ export class Deque<T = unknown> implements IDeque<T> {
   protected _tail: IDequeNode<T> | undefined
   protected _destroyed: boolean
 
-  constructor() {
+  public constructor() {
     this._pool = []
     this._poolSize = 0
     this._size = 0

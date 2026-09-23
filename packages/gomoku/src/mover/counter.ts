@@ -12,7 +12,7 @@ export class GomokuMoverCounter implements IGomokuMoverCounter {
   protected readonly _mustWinPosSet: Array<Set<number>> // [playerId] => <must-drop position set>
   protected readonly _candidateCouldReachFinal: number[][] // [playerId][posId]
 
-  constructor(context: Readonly<IGomokuMoverContext>) {
+  public constructor(context: Readonly<IGomokuMoverContext>) {
     this.context = context
     this._mustWinPosSet = createHighDimensionArray(() => new Set<number>(), context.TOTAL_PLAYER)
     this._candidateCouldReachFinal = createHighDimensionArray(
@@ -23,8 +23,12 @@ export class GomokuMoverCounter implements IGomokuMoverCounter {
   }
 
   public init(): void {
-    this._candidateCouldReachFinal.forEach(item => item.fill(0))
-    this._mustWinPosSet.forEach(set => set.clear())
+    this._candidateCouldReachFinal.forEach(item => {
+      item.fill(0)
+    })
+    this._mustWinPosSet.forEach(set => {
+      set.clear()
+    })
 
     const { context } = this
     const { TOTAL_POS, board } = context

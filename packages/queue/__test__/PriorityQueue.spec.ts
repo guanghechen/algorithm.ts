@@ -1,7 +1,7 @@
 import type { IPriorityQueue } from '../src'
 import { PriorityQueue } from '../src'
 
-describe('PriorityQueue', function () {
+describe('PriorityQueue', () => {
   let Q: IPriorityQueue<number>
 
   beforeEach(() => {

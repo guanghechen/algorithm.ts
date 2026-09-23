@@ -51,7 +51,6 @@ export function loadTestData(
 ): ITestDataString
 export function loadTestData(key: TestDataTypeKey): ITestData {
   const { type, title, fetchData } = DATA_MAP[key]
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return { type, title, data: fetchData() } as ITestData
 }
 

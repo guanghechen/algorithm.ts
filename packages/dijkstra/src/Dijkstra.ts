@@ -1,6 +1,6 @@
 import type { DeepReadonly } from '@algorithm.ts/internal'
-import { PriorityQueue } from '@algorithm.ts/queue'
 import type { IPriorityQueue } from '@algorithm.ts/queue'
+import { PriorityQueue } from '@algorithm.ts/queue'
 import type {
   IDijkstraEdge,
   IDijkstraGraph,
@@ -35,7 +35,7 @@ export class Dijkstra<C extends number | bigint> {
   protected readonly done: boolean[]
   protected readonly Q: IPriorityQueue<IStateNode<C>>
 
-  constructor(props: IDijkstraProps<C>) {
+  public constructor(props: IDijkstraProps<C>) {
     this.ZERO = props.ZERO
     this.INF = props.INF
     this.bestFrom = []

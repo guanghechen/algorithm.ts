@@ -1,7 +1,7 @@
 import type { ICircularStack } from '../src'
 import { CircularStack } from '../src'
 
-describe('CircularStack', function () {
+describe('CircularStack', () => {
   let stack: ICircularStack<number>
 
   beforeEach(() => {

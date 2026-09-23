@@ -3,9 +3,9 @@ import multipleSudoku3x3 from './fixtures/sudoku9x9/multiple.json'
 import uniqueSudoku3x3 from './fixtures/sudoku9x9/unique.json'
 import { solveSudoku } from './sudoku9x9'
 
-describe('dlx', function () {
-  describe('sudoku9x9', function () {
-    it('unique solution', function () {
+describe('dlx', () => {
+  describe('sudoku9x9', () => {
+    it('unique solution', () => {
       const solution: number[][] = new Array(9)
       for (let r = 0; r < 9; ++r) solution[r] = new Array(9)
 
@@ -15,7 +15,7 @@ describe('dlx', function () {
       }
     })
 
-    it('multiple solution', function () {
+    it('multiple solution', () => {
       const solution: number[][] = new Array(9)
       for (let r = 0; r < 9; ++r) solution[r] = new Array(9)
 
@@ -25,7 +25,7 @@ describe('dlx', function () {
       }
     })
 
-    it('no solution', function () {
+    it('no solution', () => {
       const solution: number[][] = new Array(9)
       for (let r = 0; r < 9; ++r) solution[r] = new Array(9)
 
@@ -37,7 +37,7 @@ describe('dlx', function () {
     })
   })
 
-  it('destroy', function () {
+  it('destroy', () => {
     const dlx = new DancingLinkX({ MAX_N: 10 })
     dlx.init(10)
 

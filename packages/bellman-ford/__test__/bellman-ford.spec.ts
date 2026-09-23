@@ -1,12 +1,12 @@
-import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
+import assert from 'node:assert'
 import { buildEdgeMap, getShortestPath } from '@algorithm.ts/graph'
-import assert from 'assert'
 import type { IBellmanFordGraph } from '../src'
 import { BellmanFord, bellmanFord, bellmanFordBigint } from '../src'
+import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
 
-describe('basic', function () {
-  describe('bellmanFord', function () {
-    it('no negative cycle', function () {
+describe('basic', () => {
+  describe('bellmanFord', () => {
+    it('no negative cycle', () => {
       const graph: IBellmanFordGraph<number> = {
         N: 4,
         source: 0,
@@ -26,7 +26,7 @@ describe('basic', function () {
       expect(result.dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
     })
 
-    it('negative cycle', function () {
+    it('negative cycle', () => {
       const graph: IBellmanFordGraph<number> = {
         N: 4,
         source: 0,
@@ -42,8 +42,8 @@ describe('basic', function () {
     })
   })
 
-  describe('bellmanFordBigint', function () {
-    it('no negative cycle', function () {
+  describe('bellmanFordBigint', () => {
+    it('no negative cycle', () => {
       const graph: IBellmanFordGraph<bigint> = {
         N: 4,
         source: 0,
@@ -63,7 +63,7 @@ describe('basic', function () {
       expect(result.dist.slice(0, graph.N)).toEqual([0n, 2n, 4n, 4n])
     })
 
-    it('negative cycle', function () {
+    it('negative cycle', () => {
       const graph: IBellmanFordGraph<bigint> = {
         N: 4,
         source: 0,
@@ -80,8 +80,8 @@ describe('basic', function () {
   })
 })
 
-describe('shortest path', function () {
-  it('without negative cycle', function () {
+describe('shortest path', () => {
+  it('without negative cycle', () => {
     enum Nodes {
       A = 0,
       B = 1,
@@ -127,7 +127,7 @@ describe('shortest path', function () {
     ])
   })
 
-  it('with negative cycle', function () {
+  it('with negative cycle', () => {
     enum Nodes {
       A = 0,
       B = 1,
@@ -157,7 +157,7 @@ describe('shortest path', function () {
   })
 })
 
-describe('oj', function () {
+describe('oj', () => {
   // https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
   testOjCodes(
     TestOjDataProblemKey.LEETCODE_NUMBER_OF_WAYS_TO_ARRIVE_AT_DESTINATION,

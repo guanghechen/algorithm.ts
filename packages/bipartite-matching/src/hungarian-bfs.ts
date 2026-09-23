@@ -1,5 +1,5 @@
-import { CircularQueue } from '@algorithm.ts/queue'
 import type { ICircularQueue } from '@algorithm.ts/queue'
+import { CircularQueue } from '@algorithm.ts/queue'
 import type { IBipartiteMatcher, IBipartiteMatching } from './types'
 
 export class HungarianBfs implements IBipartiteMatcher {

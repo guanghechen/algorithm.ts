@@ -69,7 +69,7 @@ export const MAX_SYMBOLS = 8
 export const ll1Table: Int8Array[] = new Array(MAX_TOKENS + 1)
 
 // Initialize LL1Table
-
+// biome-ignore lint/complexity/noUselessLoneBlockStatements: Group the LL1 table initialization.
 {
   for (let i = 0; i <= MAX_TOKENS; ++i) {
     ll1Table[i] = new Int8Array(MAX_SYMBOLS + 1).fill(-1)

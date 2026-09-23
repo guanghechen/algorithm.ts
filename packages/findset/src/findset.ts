@@ -8,7 +8,7 @@ export class Findset implements IFindset {
   protected _size: number
   protected _destroyed: boolean
 
-  constructor() {
+  public constructor() {
     this._parent = [0]
     this._size = 0
     this._destroyed = false
@@ -24,7 +24,7 @@ export class Findset implements IFindset {
 
   public root(x: number): number {
     const y = this._parent[x]
-    // eslint-disable-next-line no-return-assign
+    // biome-ignore lint/suspicious/noReturnAssign lint/suspicious/noAssignInExpressions: Path compression stores and returns the representative.
     return !y ? x : (this._parent[x] = this.root(y))
   }
 

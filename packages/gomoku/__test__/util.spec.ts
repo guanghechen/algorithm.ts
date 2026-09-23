@@ -1,23 +1,23 @@
 import { createHighDimensionArray, createScoreMap } from '../src'
 
-describe('createScoreMap', function () {
-  it('MAX_ADJACENT - 5', function () {
+describe('createScoreMap', () => {
+  it('MAX_ADJACENT - 5', () => {
     expect(createScoreMap(5)).toMatchSnapshot()
   })
 })
 
-describe('createHighDimensionArray', function () {
-  it('dimension - 1', function () {
+describe('createHighDimensionArray', () => {
+  it('dimension - 1', () => {
     expect(createHighDimensionArray(() => -1, 20)).toEqual(new Array(20).fill(-1))
   })
 
-  it('dimension - 2', function () {
+  it('dimension - 2', () => {
     expect(createHighDimensionArray(() => -1, 20, 30)).toEqual(
       new Array(20).fill(-1).map(() => new Array(30).fill(-1)),
     )
   })
 
-  it('dimension - 3', function () {
+  it('dimension - 3', () => {
     expect(createHighDimensionArray(() => -1, 20, 30, 10)).toEqual(
       new Array(20).fill(-1).map(() => new Array(30).fill(-1).map(() => new Array(10).fill(-1))),
     )

@@ -10,7 +10,7 @@ import multipleSudoku9x9 from './fixtures/sudoku9x9/multiple.json'
 import uniqueSudoku9x9 from './fixtures/sudoku9x9/unique.json'
 
 describe('SudokuSize', () => {
-  it('basic', function () {
+  it('basic', () => {
     for (let base = 1; base <= 9; base++) {
       const size = new SudokuSize(base)
       expect(size.BASE_1).toEqual(base ** 1)
@@ -24,12 +24,12 @@ describe('SudokuSize', () => {
   })
 })
 
-describe('9x9', function () {
+describe('9x9', () => {
   const size = new SudokuSize(3)
   const solver = new SudokuSolver({ childMatrixWidth: size.MATRIX_RANK })
   const creator = new SudokuCreator({ childMatrixWidth: size.MATRIX_RANK })
 
-  it('unique solution', function () {
+  it('unique solution', () => {
     for (const kase of uniqueSudoku9x9) {
       const puzzle: Readonly<ISudokuBoardData> = kase.puzzle.flat()
       const answer: Readonly<ISudokuBoardData> = kase.solution.flat()
@@ -40,7 +40,7 @@ describe('9x9', function () {
     }
   })
 
-  it('multiple solution', function () {
+  it('multiple solution', () => {
     for (const kase of multipleSudoku9x9) {
       const puzzle: Readonly<ISudokuBoardData> = kase.puzzle.flat()
       const solution: ISudokuBoardData = createSudokuBoardData(size)
@@ -49,7 +49,7 @@ describe('9x9', function () {
     }
   })
 
-  it('create puzzle', function () {
+  it('create puzzle', () => {
     for (let difficulty = 0; difficulty <= 1; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
       const solution: ISudokuBoardData = createSudokuBoardData(size)
@@ -69,12 +69,12 @@ describe('9x9', function () {
   })
 })
 
-describe('16x16', function () {
+describe('16x16', () => {
   const size = new SudokuSize(4)
   const solver = new SudokuSolver({ childMatrixWidth: size.MATRIX_RANK })
   const creator = new SudokuCreator({ childMatrixWidth: size.MATRIX_RANK })
 
-  it('create puzzle', function () {
+  it('create puzzle', () => {
     for (let difficulty = 0; difficulty <= 0.4; difficulty += 0.1) {
       const { puzzle, solution: answer } = creator.createSudoku(difficulty)
       const solution: ISudokuBoardData = createSudokuBoardData(size)

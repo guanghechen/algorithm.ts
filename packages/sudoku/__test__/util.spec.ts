@@ -1,4 +1,3 @@
-/* eslint-disable no-multi-spaces */
 import type { ISudokuBoardData } from '../src'
 import {
   SudokuSize,
@@ -9,9 +8,9 @@ import {
 } from '../src'
 
 describe('toMatrixStyleBoardData', () => {
-  it('3x3', function () {
+  it('3x3', () => {
     const size = new SudokuSize(3)
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     const board: ISudokuBoardData = [
     0,  1,  2,  3,  4,  5,  6,  7,  8,
     9,  10, 11, 12, 13, 14, 15, 16, 17,
@@ -24,7 +23,7 @@ describe('toMatrixStyleBoardData', () => {
     72, 73, 74, 75, 76, 77, 78, 79, 80,
   ]
 
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     expect(toMatrixStyleBoardData(board, size)).toEqual([
       [0,   1,  2,  3,  4,  5,  6,  7,  8],
       [9,  10, 11, 12, 13, 14, 15, 16, 17],
@@ -40,11 +39,11 @@ describe('toMatrixStyleBoardData', () => {
 })
 
 describe('createMatrixCodeMap', () => {
-  it('3x3', function () {
+  it('3x3', () => {
     const size = new SudokuSize(3)
     const matCodeMap = createMatrixCodeMap(size)
 
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     expect(matCodeMap).toEqual([
       0, 0, 0, 1, 1, 1, 2, 2, 2,
       0, 0, 0, 1, 1, 1, 2, 2, 2,
@@ -58,11 +57,11 @@ describe('createMatrixCodeMap', () => {
     ])
   })
 
-  it('4x4', function () {
+  it('4x4', () => {
     const size = new SudokuSize(4)
     const matCodeMap = createMatrixCodeMap(size)
 
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     expect(matCodeMap).toEqual([
       0,  0,  0,  0,  1,  1,  1,  1,  2,  2,  2,  2,  3,  3,  3,  3,
       0,  0,  0,  0,  1,  1,  1,  1,  2,  2,  2,  2,  3,  3,  3,  3,
@@ -85,11 +84,11 @@ describe('createMatrixCodeMap', () => {
 })
 
 describe('createMatrixCoordinateMap', () => {
-  it('3x3', function () {
+  it('3x3', () => {
     const size = new SudokuSize(3)
     const matCoordinateMap = createMatrixCoordinateMap(size)
 
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     expect(matCoordinateMap).toEqual([
       0,  0,  0,  3,  3,  3,  6,  6,  6,
       0,  0,  0,  3,  3,  3,  6,  6,  6,
@@ -103,11 +102,11 @@ describe('createMatrixCoordinateMap', () => {
     ])
   })
 
-  it('4x4', function () {
+  it('4x4', () => {
     const size = new SudokuSize(4)
     const matCoordinateMap = createMatrixCoordinateMap(size)
 
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     expect(matCoordinateMap).toEqual([
       0,   0,   0,   0,   4,   4,   4,   4,   8,   8,   8,   8,   12,  12,  12,  12,
       0,   0,   0,   0,   4,   4,   4,   4,   8,   8,   8,   8,   12,  12,  12,  12,
@@ -130,9 +129,9 @@ describe('createMatrixCoordinateMap', () => {
 })
 
 describe('verifySolution', () => {
-  it('3x3', function () {
+  it('3x3', () => {
     const size = new SudokuSize(3)
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     const solution = [
       4, 0, 6, 2, 3, 8, 1, 5, 7,
       5, 2, 3, 6, 7, 1, 8, 0, 4,
@@ -158,10 +157,10 @@ describe('verifySolution', () => {
     expect(verifySolution(solution, size)).toEqual(true)
   })
 
-  it('3x3 -- not a solution (row)', function () {
+  it('3x3 -- not a solution (row)', () => {
     const size = new SudokuSize(3)
 
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     const solution = [
       4, 0, 6, 2, 3, 8, 1, 5, 7,
       5, 2, 3, 6, 7, 1, 8, 0, 4,
@@ -176,10 +175,10 @@ describe('verifySolution', () => {
     expect(verifySolution(solution, size)).toEqual(false)
   })
 
-  it('3x3 -- not a solution (column)', function () {
+  it('3x3 -- not a solution (column)', () => {
     const size = new SudokuSize(3)
 
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     const solution = [
       4, 0, 6, 2, 3, 8, 1, 5, 7,
       5, 2, 3, 6, 7, 1, 8, 0, 4,
@@ -194,10 +193,10 @@ describe('verifySolution', () => {
     expect(verifySolution(solution, size)).toEqual(false)
   })
 
-  it('3x3 -- not a solution (matrix)', function () {
+  it('3x3 -- not a solution (matrix)', () => {
     const size = new SudokuSize(3)
 
-    // prettier-ignore
+    // biome-ignore format: Preserve the Sudoku grid layout.
     const solution = [
       0, 1, 2, 3, 4, 5, 6, 7, 8,
       1, 2, 3, 4, 5, 6, 7, 8, 0,

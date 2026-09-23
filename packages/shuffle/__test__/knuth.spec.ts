@@ -1,6 +1,6 @@
 import { knuthShuffle } from '../src'
 
-describe('knuth-shuffle', function () {
+describe('knuth-shuffle', () => {
   const size = 1e3
   const ebs = size / 10
   const shuffleTimes = 1e3
@@ -16,17 +16,17 @@ describe('knuth-shuffle', function () {
     }
   }
 
-  it('random', function () {
+  it('random', () => {
     expect(nums.some((x, i) => x !== i)).toEqual(true)
   })
 
-  it('uniformly distribute', function () {
+  it('uniformly distribute', () => {
     const min = Math.min(...count) / shuffleTimes
     const max = Math.max(...count) / shuffleTimes
     expect(max - min).toBeLessThanOrEqual(ebs)
   })
 
-  it('sub-array', function () {
+  it('sub-array', () => {
     const nums: number[] = new Array(size)
     for (let i = 0; i < size; ++i) nums[i] = i
 
@@ -41,7 +41,7 @@ describe('knuth-shuffle', function () {
     expect(diff).toBeGreaterThan(0)
   })
 
-  it('out of boundary', function () {
+  it('out of boundary', () => {
     const nums: number[] = new Array(size)
     for (let i = 0; i < size; ++i) nums[i] = i
 

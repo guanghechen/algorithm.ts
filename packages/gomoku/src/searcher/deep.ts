@@ -13,7 +13,7 @@ export class DeepSearcher implements IGomokuSearcher {
   public readonly MIN_PROMOTION_SCORE: number
   public readonly mover: Readonly<IGomokuMover>
 
-  constructor(props: IDeepSearcherProps) {
+  public constructor(props: IDeepSearcherProps) {
     this.MAX_SEARCH_DEPTH = props.MAX_SEARCH_DEPTH
     this.MIN_PROMOTION_SCORE = props.MIN_PROMOTION_SCORE
     this.mover = props.mover

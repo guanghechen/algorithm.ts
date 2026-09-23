@@ -1,8 +1,8 @@
-import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
 import { Isap } from '../src'
+import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
 
-describe('basic', function () {
-  it('simple', function () {
+describe('basic', () => {
+  it('simple', () => {
     const isap = new Isap()
     isap.init(0, 1, 4)
     isap.addEdge(0, 2, 1)
@@ -12,7 +12,7 @@ describe('basic', function () {
     expect(isap.mincut()).toEqual([{ cap: 1, flow: 1, from: 3, to: 1 }])
   })
 
-  it('mincut should use strict reachable partition instead of all saturated edges', function () {
+  it('mincut should use strict reachable partition instead of all saturated edges', () => {
     const isap = new Isap()
     isap.init(0, 3, 4)
     isap.addEdge(0, 1, 10)
@@ -25,7 +25,7 @@ describe('basic', function () {
   })
 })
 
-describe('oj', function () {
+describe('oj', () => {
   testOjCodes(TestOjDataProblemKey.CODEFORCES_1082_G, import('./oj/codeforces-1082-g'))
   testOjCodes(
     TestOjDataProblemKey.LEETCODE_MAXIMUM_STUDENTS_TAKING_EXAM,

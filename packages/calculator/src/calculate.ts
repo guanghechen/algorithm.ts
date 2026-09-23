@@ -7,7 +7,7 @@ export class Calculator<T> implements ICalculator<T> {
   protected readonly _operand: IOperand<T>
   protected readonly _resolveExpression?: (expression: string) => string
 
-  constructor(operand: IOperand<T>, resolveExpression?: (expression: string) => string) {
+  public constructor(operand: IOperand<T>, resolveExpression?: (expression: string) => string) {
     this._ZERO = operand.ZERO
     this._operand = operand
     this._resolveExpression = resolveExpression

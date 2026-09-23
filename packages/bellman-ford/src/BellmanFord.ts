@@ -25,7 +25,7 @@ export class BellmanFord<C extends number | bigint> {
   protected readonly inqTimes: number[]
   protected readonly Q: ICircularQueue<number>
 
-  constructor(props: IBellmanFordProps<C>) {
+  public constructor(props: IBellmanFordProps<C>) {
     this.ZERO = props.ZERO
     this.INF = props.INF
     this.bestFrom = []

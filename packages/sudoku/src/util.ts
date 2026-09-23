@@ -15,7 +15,7 @@ export const copySudokuBoardData = (
   size: Readonly<ISudokuSize>,
 ): void => {
   const { BOARD } = size
-  // eslint-disable-next-line no-param-reassign
+  // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
   for (let i = 0; i < BOARD; ++i) dstBoard[i] = srcBoard[i]
 }
 export const toMatrixStyleBoardData = (

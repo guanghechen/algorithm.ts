@@ -23,7 +23,7 @@ export class History<T = unknown> implements IHistory<T> {
   protected readonly _stack: ICircularStack<T>
   protected _present: number
 
-  constructor(props: IHistoryProps<T>) {
+  public constructor(props: IHistoryProps<T>) {
     const { capacity } = props
     if (!Number.isInteger(capacity) || capacity < 1) {
       throw new RangeError(

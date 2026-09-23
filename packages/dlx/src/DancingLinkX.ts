@@ -25,7 +25,7 @@ export class DancingLinkX implements IDancingLinkX {
   protected _sz: number // The number of nodes in the dancing-link (including the virtual nodes on the column)
   protected _destroyed: boolean
 
-  constructor(props: IDancingLinkXProps) {
+  public constructor(props: IDancingLinkXProps) {
     const { MAX_N } = props
     this._count = new Array(MAX_N)
     this._row = new Array(MAX_N)
@@ -131,7 +131,7 @@ export class DancingLinkX implements IDancingLinkX {
     // Find a solution when the dancing-link is empty.
     if (_R[0] === 0) {
       // Clip the length of the solution.
-      // eslint-disable-next-line no-param-reassign
+      // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
       selectedRowNos.length = dep
       return true
     }
@@ -148,7 +148,7 @@ export class DancingLinkX implements IDancingLinkX {
     // Remove this column.
     this._removeColumn(c)
     for (let i = _D[c]; i !== c; i = _D[i]) {
-      // eslint-disable-next-line no-param-reassign
+      // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
       selectedRowNos[dep] = _row[i]
       for (let j = _R[i]; j !== i; j = _R[j]) this._removeColumn(_col[j])
 

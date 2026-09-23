@@ -6,7 +6,7 @@ export class HeuristicFindset implements IHeuristicFindset {
   protected _size: number
   protected _destroyed: boolean
 
-  constructor() {
+  public constructor() {
     this._parent = [0]
     this._count = [0]
     this._size = 0
@@ -23,7 +23,7 @@ export class HeuristicFindset implements IHeuristicFindset {
 
   public root(x: number): number {
     const y = this._parent[x]
-    // eslint-disable-next-line no-return-assign
+    // biome-ignore lint/suspicious/noReturnAssign lint/suspicious/noAssignInExpressions: Path compression stores and returns the representative.
     return !y ? x : (this._parent[x] = this.root(y))
   }
 

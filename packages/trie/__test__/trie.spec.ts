@@ -1,7 +1,7 @@
-import { TestDataTypeKey, loadTestData } from '@@/fixtures/test-util/data'
 import { alphaNumericIdx, digitIdx, lowercaseIdx, uppercaseIdx } from '@algorithm.ts/internal'
 import type { ITrie } from '../src'
 import { Trie } from '../src'
+import { TestDataTypeKey, loadTestData } from '@@/fixtures/test-util/data'
 
 const testData = [
   loadTestData(TestDataTypeKey.STRING_FEW),

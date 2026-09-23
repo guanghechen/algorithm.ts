@@ -1,12 +1,11 @@
 export * from './dp/lcs'
+export { lcs_dp as findMinLexicographicalLCS } from './dp/lcs'
 export * from './dp/lcs_size'
+export { lcs_size_dp as findLengthOfLCS } from './dp/lcs_size'
 export * from './myers/lcs'
 export * from './myers/lcs_size'
 export * from './myers_linear_space/lcs'
 export * from './myers_linear_space/lcs_size'
-
-export { lcs_dp as findMinLexicographicalLCS } from './dp/lcs'
-export { lcs_size_dp as findLengthOfLCS } from './dp/lcs_size'
 
 /**
  * Find Longest Common Subsequence with Dynamic Programming.

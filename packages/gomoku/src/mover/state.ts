@@ -38,7 +38,7 @@ export class GomokuMoverState implements IGomokuMoverState {
   protected readonly _countOfReachFinal: number[] // [playerId] => <count of reach final>
   protected readonly _countOfReachFinalDirMap: number[][][] // [playerId][startPosId][dirType]
 
-  constructor(props: IGomokuStateProps) {
+  public constructor(props: IGomokuStateProps) {
     const { context, counter, scoreMap } = props
 
     const _candidateQueues: Array<IPriorityQueue<IGomokuCandidateState>> = createHighDimensionArray(
@@ -97,8 +97,14 @@ export class GomokuMoverState implements IGomokuMoverState {
   }
 
   public init(pieces: Iterable<IGomokuPiece>): void {
-    this._candidateQueues.forEach(Q => Q.init())
-    this._candidateInqSets.forEach(inqSets => inqSets.forEach(inqSet => inqSet.clear()))
+    this._candidateQueues.forEach(Q => {
+      Q.init()
+    })
+    this._candidateInqSets.forEach(inqSets => {
+      inqSets.forEach(inqSet => {
+        inqSet.clear()
+      })
+    })
     this._candidateSet.clear()
     this._candidateScoreExpired.fill(allDirectionTypeBitset)
     this._stateScores.fill(0)
@@ -177,7 +183,7 @@ export class GomokuMoverState implements IGomokuMoverState {
     const topCandidate = this.topCandidate(nextPlayerId)
     if (topCandidate === undefined) return 0
     if (topCandidate.score === Number.MAX_VALUE) {
-      // eslint-disable-next-line no-param-reassign
+      // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
       candidates[0] = topCandidate
       return 1
     }
@@ -200,7 +206,7 @@ export class GomokuMoverState implements IGomokuMoverState {
           break
         }
 
-        // eslint-disable-next-line no-param-reassign
+        // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
         candidates[_size++] = item
       } else {
         inqSets[item.posId].delete(item.score)
@@ -217,7 +223,7 @@ export class GomokuMoverState implements IGomokuMoverState {
       })
     }
 
-    // eslint-disable-next-line no-param-reassign
+    // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
     candidates.length = _size
     Q.enqueues(candidates)
     return _size

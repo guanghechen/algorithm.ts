@@ -18,7 +18,7 @@ export class AlphaBetaSearcher implements IGomokuSearcher {
   public readonly deeperSearcher: IGomokuSearcher
   protected readonly _candidateCache: IGomokuCandidateState[]
 
-  constructor(props: IAlphaBetaSearcherProps) {
+  public constructor(props: IAlphaBetaSearcherProps) {
     this.MAX_CANDIDATE_COUNT = props.MAX_CANDIDATE_COUNT
     this.MIN_PROMOTION_SCORE = props.MIN_PROMOTION_SCORE
     this.CANDIDATE_GROWTH_FACTOR = props.CANDIDATE_GROWTH_FACTOR
@@ -53,7 +53,7 @@ export class AlphaBetaSearcher implements IGomokuSearcher {
       searchContext.revert(posId)
 
       if (alpha < gamma) {
-        // eslint-disable-next-line no-param-reassign
+        // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
         alpha = gamma
         // Update answer.
         bestMoveId = posId

@@ -1,5 +1,5 @@
-import { GomokuDirectionTypes, GomokuDirections } from '../constant'
 import type { GomokuDirectionType } from '../constant'
+import { GomokuDirectionTypes, GomokuDirections } from '../constant'
 import type { IDirCounter, IGomokuBoard, IGomokuPiece } from '../types/misc'
 import type { IGomokuMoverContext } from '../types/mover-context'
 import { createHighDimensionArray } from '../util/createHighDimensionArray'
@@ -35,7 +35,7 @@ export class GomokuMoverContext implements IGomokuMoverContext {
   protected readonly _rightHalfDirCountMap: IDirCounter[][][] // [dirType][startPosId] => <Counters>
   protected _placedCount: number
 
-  constructor(props: IGomokuMoverContextProps) {
+  public constructor(props: IGomokuMoverContextProps) {
     const { MAX_ROW, MAX_COL, MAX_ADJACENT, MAX_DISTANCE_OF_NEIGHBOR } = props
     const _MAX_ROW: number = Math.max(1, MAX_ROW)
     const _MAX_COL: number = Math.max(1, MAX_COL)

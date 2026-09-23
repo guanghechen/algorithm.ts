@@ -1,8 +1,8 @@
+import type { ICompare } from '@algorithm.ts/internal'
+import { SlidingWindow } from '../src'
 import { stringOrNumberCompare } from '@@/fixtures/test-util/comparator'
 import { TestDataType, TestDataTypeKey, loadTestData } from '@@/fixtures/test-util/data'
 import { createDebugInfo } from '@@/fixtures/test-util/util'
-import type { ICompare } from '@algorithm.ts/internal'
-import { SlidingWindow } from '../src'
 
 const caseGroups = [
   {
@@ -32,8 +32,8 @@ const caseGroups = [
   },
 ] as const
 
-describe('basic', function () {
-  it('simple', function () {
+describe('basic', () => {
+  it('simple', () => {
     //                          0  1  2  3  4  5  6  7  8
     const elements: number[] = [1, 9, 3, 5, 4, 7, 6, 8, 2]
     const f = (idx: number | undefined): number | undefined =>
@@ -135,7 +135,7 @@ describe('basic', function () {
     expect(min()).toEqual(2)
   })
 
-  it('peristalsisUntil', function () {
+  it('peristalsisUntil', () => {
     //                          0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
     const elements: number[] = [4, 2, 9, 9, 4, 1, 6, 6, 0, 2, 3, 4, 1, 5, 1, 7, 4, 6, 0, 4]
     const f = (idx: number | undefined): number | undefined =>
@@ -243,9 +243,9 @@ describe('basic', function () {
     expect(min()).toEqual(0)
   })
 
-  describe('basic', function () {
+  describe('basic', () => {
     for (const caseGroup of caseGroups) {
-      describe(`${caseGroup.title}`, function () {
+      describe(`${caseGroup.title}`, () => {
         for (const { title, data } of caseGroup.cases) {
           it(`${title}`, async () => {
             const inputs = await data

@@ -19,7 +19,7 @@ export class Base64 {
   protected readonly CODE_PADDING: string
   protected readonly VALIDATE_REGEX: RegExp
 
-  constructor(props: IBase64Props = {}) {
+  public constructor(props: IBase64Props = {}) {
     const CODES: string = props.CODES?.length === 64 ? props.CODES : DEFAULT_CODES
     const CODE_PADDING: string =
       props.CODE_PADDING?.length === 1 ? props.CODE_PADDING : DEFAULT_CODE_PADDING

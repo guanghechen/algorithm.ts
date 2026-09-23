@@ -1,10 +1,10 @@
-import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
 import { buildEdgeMap, getShortestPath } from '@algorithm.ts/graph'
 import type { IDijkstraGraph } from '../src'
 import dijkstra, { Dijkstra, dijkstraBigint } from '../src'
+import { TestOjDataProblemKey, testOjCodes } from '@@/fixtures/test-util/oj-data'
 
-describe('basic', function () {
-  it('dijkstra', function () {
+describe('basic', () => {
+  it('dijkstra', () => {
     const graph: IDijkstraGraph<number> = {
       N: 4,
       source: 0,
@@ -21,7 +21,7 @@ describe('basic', function () {
     expect(result.dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
   })
 
-  it('dijkstraBigint', function () {
+  it('dijkstraBigint', () => {
     const graph: IDijkstraGraph<bigint> = {
       N: 4,
       source: 0,
@@ -43,8 +43,8 @@ describe('basic', function () {
   })
 })
 
-describe('shortest path', function () {
-  it('without negative cycle', function () {
+describe('shortest path', () => {
+  it('without negative cycle', () => {
     enum Nodes {
       A = 0,
       B = 1,
@@ -86,7 +86,7 @@ describe('shortest path', function () {
   })
 })
 
-describe('oj', function () {
+describe('oj', () => {
   // https://leetcode.com/problems/number-of-ways-to-arrive-at-destination/
   testOjCodes(
     TestOjDataProblemKey.LEETCODE_NUMBER_OF_WAYS_TO_ARRIVE_AT_DESTINATION,

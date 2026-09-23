@@ -39,10 +39,10 @@
         src="https://img.shields.io/badge/tested_with-vitest-6E9F18.svg"
       />
     </a>
-    <a href="https://github.com/prettier/prettier">
+    <a href="https://biomejs.dev/">
       <img
-        alt="Code Style: prettier"
-        src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"
+        alt="Code Style: Biome"
+        src="https://img.shields.io/badge/code_style-Biome-60a5fa.svg?style=flat-square"
       />
     </a>
   </div>
@@ -124,7 +124,6 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
       code = Math.floor(code / 9 + ebs)
       const a = code
 
-      // eslint-disable-next-line no-param-reassign
       solution[a][b] = c
     }
     return true

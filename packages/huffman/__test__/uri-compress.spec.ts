@@ -1,18 +1,18 @@
+import { TextDecoder, TextEncoder } from 'node:util'
 import base64 from '@algorithm.ts/base64'
-import { TextDecoder, TextEncoder } from 'util'
 import type { IHuffmanEncodedData, IHuffmanEncodingTable } from '../src'
 import huffman from '../src'
 
-describe('uri-compress', function () {
+describe('uri-compress', () => {
   const data = { name: 'alice', age: 33, gender: 'female' }
 
-  it('compress', function () {
+  it('compress', () => {
     expect(compress(JSON.stringify(data))).toEqual(
       'WyIzIiw1MywibiIsMTYsImwiLDE3LCIsIiwxOCwifSIsMzgsImkiLDM5LCJcIiIsNSwiYSIsMTIsInIiLDUyLCI6IiwyNywiZSIsMTQsImMiLDEyMCwiZCIsMTIxLCJnIiw2MSwieyIsMTI0LCJmIiwxMjUsIm0iLDYzXQ__-BvEJ(NsE(GSZ3N1qT3BzqNvu(Bwm',
     )
   })
 
-  it('decompress', function () {
+  it('decompress', () => {
     expect(
       decompress(
         'WyIzIiw1MywibiIsMTYsImwiLDE3LCIsIiwxOCwifSIsMzgsImkiLDM5LCJcIiIsNSwiYSIsMTIsInIiLDUyLCI6IiwyNywiZSIsMTQsImMiLDEyMCwiZCIsMTIxLCJnIiw2MSwieyIsMTI0LCJmIiwxMjUsIm0iLDYzXQ__-BvEJ(NsE(GSZ3N1qT3BzqNvu(Bwm',
@@ -31,7 +31,7 @@ function compress(text: string): string {
   const encodingTableText = base64.encode(
     textEncoder.encode(JSON.stringify(compressEncodingTable(encodingTable))),
   )
-  const compressedText = (encodingTableText + '-' + cipherText)
+  const compressedText = `${encodingTableText}-${cipherText}`
     .replace(/\//g, '(')
     .replace(/\+/g, ')')
     .replace(/=/g, '_')
@@ -58,13 +58,11 @@ function decompress(compressedText: string): string {
 }
 
 function compressEncodingTable(table: IHuffmanEncodingTable): Array<string | number> {
-  const entries = Object.entries(table)
-    .map(([value, path]) => {
-      let p = 1
-      for (const x of path) p = (p << 1) | x
-      return [value, p] as [string, number]
-    })
-    .flat()
+  const entries = Object.entries(table).flatMap(([value, path]) => {
+    let p = 1
+    for (const x of path) p = (p << 1) | x
+    return [value, p] as [string, number]
+  })
   return entries
 }
 

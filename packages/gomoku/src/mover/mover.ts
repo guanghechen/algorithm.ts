@@ -16,7 +16,7 @@ export class GomokuMover implements IGomokuMover {
   protected readonly counter: Readonly<IGomokuMoverCounter>
   protected readonly state: Readonly<IGomokuMoverState>
 
-  constructor(props: IGomokuMoverProps) {
+  public constructor(props: IGomokuMoverProps) {
     this.context = props.context
     this.counter = props.counter
     this.state = props.state

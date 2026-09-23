@@ -21,19 +21,19 @@ describe('basic', () => {
     },
   ]
 
-  it('encode', function () {
+  it('encode', () => {
     for (const { plaintext, ciphertext } of kases) {
       expect(encode(getBytes(plaintext))).toEqual(ciphertext)
     }
   })
 
-  it('decode', function () {
+  it('decode', () => {
     for (const { plaintext, ciphertext } of kases) {
       expect(decode(ciphertext)).toEqual(getBytes(plaintext))
     }
   })
 
-  it('validate', function () {
+  it('validate', () => {
     expect(validate('a')).toBe(false)
     expect(validate('aa')).toBe(false)
     expect(validate('aaa')).toBe(false)
@@ -67,13 +67,13 @@ describe('custom', () => {
     },
   ]
 
-  it('encode', function () {
+  it('encode', () => {
     for (const { plaintext, ciphertext } of kases) {
       expect(base64.encode(getBytes(plaintext))).toEqual(ciphertext)
     }
   })
 
-  it('decode', function () {
+  it('decode', () => {
     for (const { plaintext, ciphertext } of kases) {
       expect(base64.decode(ciphertext)).toEqual(getBytes(plaintext))
     }

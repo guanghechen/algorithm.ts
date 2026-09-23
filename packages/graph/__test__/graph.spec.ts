@@ -2,7 +2,7 @@ import type { IDigraph, IDigraphEdge } from '@algorithm.ts/graph.types'
 import type { DeepReadonly, ICompare } from '@algorithm.ts/internal'
 import { buildEdgeMap, extractAdjacencyList, getShortestPath, topoSort } from '../src'
 
-const enum Nodes {
+enum Nodes {
   A = 0,
   B = 1,
   C = 2,
@@ -22,8 +22,8 @@ const graph: DeepReadonly<IDigraph<IDigraphEdge & { from: Nodes; cost: number }>
   ],
 }
 
-describe('util', function () {
-  it('extractAdjacencyList', function () {
+describe('util', () => {
+  it('extractAdjacencyList', () => {
     const adjList: number[][] = extractAdjacencyList(graph)
     for (let o = 0; o < graph.N; ++o) {
       expect(graph.G[o].length).toEqual(adjList[o].length)
@@ -34,7 +34,7 @@ describe('util', function () {
     }
   })
 
-  it('getShortestPath', function () {
+  it('getShortestPath', () => {
     const bestFrom: number[] = [-1, 0, 1, 2]
     expect(getShortestPath(bestFrom, 0, 0)).toEqual([0])
     expect(getShortestPath(bestFrom, 0, 1)).toEqual([0, 1])
@@ -42,12 +42,12 @@ describe('util', function () {
     expect(getShortestPath(bestFrom, 0, 3)).toEqual([0, 1, 2, 3])
   })
 
-  it('buildEdgeMap', function () {
+  it('buildEdgeMap', () => {
     const G: number[][] = buildEdgeMap(graph.N, graph.edges)
     expect(G).toEqual(graph.G)
   })
 
-  it('topoSort', function () {
+  it('topoSort', () => {
     const topo: number[] = topoSort(graph)
     expect(topo).toEqual([Nodes.D, Nodes.C, Nodes.B, Nodes.A])
   })

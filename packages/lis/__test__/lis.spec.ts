@@ -1,8 +1,8 @@
+import type { ICompare } from '@algorithm.ts/internal'
+import { findLengthOfLIS, findMinLexicographicalLIS } from '@algorithm.ts/lis'
 import { stringOrNumberCompare } from '@@/fixtures/test-util/comparator'
 import { TestDataType, TestDataTypeKey, loadTestData } from '@@/fixtures/test-util/data'
 import { createDebugInfo } from '@@/fixtures/test-util/util'
-import type { ICompare } from '@algorithm.ts/internal'
-import { findLengthOfLIS, findMinLexicographicalLIS } from '@algorithm.ts/lis'
 
 const caseGroups = [
   {
@@ -34,7 +34,7 @@ const caseGroups = [
 
 describe('findLengthOfLIS', () => {
   for (const caseGroup of caseGroups) {
-    describe(`${caseGroup.title}`, function () {
+    describe(`${caseGroup.title}`, () => {
       for (const { title, data } of caseGroup.cases) {
         test(`${title}`, async () => {
           const inputs = await data
@@ -56,7 +56,7 @@ describe('findLengthOfLIS', () => {
 
 describe('findMinLexicographicalLIS', () => {
   for (const caseGroup of caseGroups) {
-    describe(`${caseGroup.title}`, function () {
+    describe(`${caseGroup.title}`, () => {
       for (const { title, data } of caseGroup.cases) {
         test(`${title}`, async () => {
           const inputs = await data

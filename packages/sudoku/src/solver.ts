@@ -35,7 +35,7 @@ export class SudokuSolver {
   protected readonly matCodeMap: ReadonlyArray<number>
   protected readonly constraints: SudokuConstraint[] = new Array<SudokuConstraint>(4)
 
-  constructor(options: ISudokuSolverOptions) {
+  public constructor(options: ISudokuSolverOptions) {
     const { childMatrixWidth } = options
     const size = new SudokuSize(childMatrixWidth)
     const DL_TOTAL_COLUMNS = size.BOARD * 4
@@ -98,7 +98,7 @@ export class SudokuSolver {
         const v = code % MATRIX
         const id = (code / MATRIX) >> 0 // Math.floor
 
-        // eslint-disable-next-line no-param-reassign
+        // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
         solution[id] = v
       }
     }

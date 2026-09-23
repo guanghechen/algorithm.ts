@@ -1,4 +1,3 @@
-export { digitIdx, lowercaseIdx, uppercaseIdx, alphaNumericIdx } from '@algorithm.ts/internal'
-
+export { alphaNumericIdx, digitIdx, lowercaseIdx, uppercaseIdx } from '@algorithm.ts/internal'
 export * from './trie'
 export * from './types'

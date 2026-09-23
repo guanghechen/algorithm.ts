@@ -10,7 +10,7 @@ export class Trie<E, V extends ITrieValue> implements ITrie<E, V> {
   protected _wordCount: number
   protected _destroyed: boolean
 
-  constructor(props: ITrieOptions<E, V>) {
+  public constructor(props: ITrieOptions<E, V>) {
     const { SIGMA_SIZE, idx, mergeNodeValue } = props
     if (!Number.isInteger(SIGMA_SIZE) || SIGMA_SIZE < 1) {
       throw new RangeError(

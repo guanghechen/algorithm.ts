@@ -1,15 +1,15 @@
 import { Calculator, bigintCalculator, calculator, decimalCalculator } from '../src'
 import { integerOperand } from '../src/operand'
 
-describe('basic', function () {
-  it('custom', function () {
+describe('basic', () => {
+  it('custom', () => {
     const calculator = new Calculator(integerOperand)
     expect(calculator.calculate('1+2')).toEqual(3)
     expect(() => calculator.calculate('1+2.2')).toThrow(/Unrecognized symbol/)
   })
 })
 
-describe('calculate', function () {
+describe('calculate', () => {
   const data = [
     {
       input: '-0',
@@ -82,7 +82,7 @@ describe('calculate', function () {
   ]
 
   for (const kase of data) {
-    it(kase.input, function () {
+    it(kase.input, () => {
       if (Number.isNaN(kase.answer)) {
         expect(() => decimalCalculator.calculate(kase.input)).toThrow()
       } else {
@@ -91,7 +91,7 @@ describe('calculate', function () {
     })
   }
 
-  it('exceptional', function () {
+  it('exceptional', () => {
     expect(() => decimalCalculator.calculate('$0.2')).toThrow(/Not a valid arithmetic expression/)
     expect(() => decimalCalculator.calculate('1.1$0.2')).toThrow(
       /Not a valid arithmetic expression/,
@@ -99,7 +99,7 @@ describe('calculate', function () {
   })
 })
 
-describe('integer calculate', function () {
+describe('integer calculate', () => {
   const data = [
     {
       input: '-2+1',
@@ -156,7 +156,7 @@ describe('integer calculate', function () {
   ]
 
   for (const kase of data) {
-    it(kase.input, function () {
+    it(kase.input, () => {
       if (Number.isNaN(kase.answer)) {
         expect(() => calculator.calculate(kase.input)).toThrow()
       } else {
@@ -166,7 +166,7 @@ describe('integer calculate', function () {
   }
 })
 
-describe('bigint calculate', function () {
+describe('bigint calculate', () => {
   const data = [
     {
       input: '-2+1',
@@ -227,7 +227,7 @@ describe('bigint calculate', function () {
   ]
 
   for (const kase of data) {
-    it(kase.input, function () {
+    it(kase.input, () => {
       if (Number.isNaN(kase.answer)) {
         expect(() => bigintCalculator.calculate(kase.input)).toThrow()
       } else {

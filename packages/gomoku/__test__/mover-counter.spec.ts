@@ -6,18 +6,18 @@ import { locateFixtures } from './util'
 const { rightHalf: halfDirectionTypes } = GomokuDirectionTypes
 
 class TesterHelper extends GomokuMoverCounter {
-  constructor(props: IGomokuMoverContextProps) {
+  public constructor(props: IGomokuMoverContextProps) {
     const context = new GomokuMoverContext(props)
     super(context)
   }
 
-  // @ts-ignore
+  // @ts-expect-error
   public override init(pieces: ReadonlyArray<IGomokuPiece>): void {
     this.context.init(pieces)
     super.init()
   }
 
-  // @ts-ignore
+  // @ts-expect-error
   public override forward(posId: number, playerId: number): void {
     if (this.context.isValidIdx(posId) && this.context.board[posId] < 0) {
       this.context.forward(posId, playerId)
@@ -25,7 +25,6 @@ class TesterHelper extends GomokuMoverCounter {
     }
   }
 
-  // @ts-ignore
   public override revert(posId: number): void {
     if (this.context.isValidIdx(posId) && this.context.board[posId] >= 0) {
       this.context.revert(posId)
@@ -83,7 +82,7 @@ describe('15x15', () => {
     tester.init([])
   })
 
-  it('overview', async function () {
+  it('overview', async () => {
     const filepaths = fs
       .readdirSync(locateFixtures('15x15'))
       .filter(filename => /pieces\.\d+?\.json$/.test(filename))

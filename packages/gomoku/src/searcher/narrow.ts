@@ -20,7 +20,7 @@ export class NarrowSearcher implements IGomokuSearcher {
   public readonly deeperSearcher: IGomokuSearcher
   protected readonly _candidatesListCache: Record<number, IGomokuCandidateState[]>
 
-  constructor(props: INarrowSearcherProps) {
+  public constructor(props: INarrowSearcherProps) {
     this.MAX_SEARCH_DEPTH = props.MAX_SEARCH_DEPTH
     this.MAX_CANDIDATE_COUNT = props.MAX_CANDIDATE_COUNT
     this.MIN_PROMOTION_SCORE = props.MIN_PROMOTION_SCORE
@@ -64,10 +64,10 @@ export class NarrowSearcher implements IGomokuSearcher {
       mover.revert(posId)
 
       if (curPlayerId === rootPlayerId) {
-        // eslint-disable-next-line no-param-reassign
+        // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
         if (alpha < gamma) alpha = gamma
       } else {
-        // eslint-disable-next-line no-param-reassign
+        // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
         if (beta > gamma) beta = gamma
       }
       if (beta <= alpha) break

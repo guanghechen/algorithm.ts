@@ -1,11 +1,11 @@
 import { randomInt } from '@algorithm.ts/shuffle'
 import { SingleUpdateIntervalQuery } from '../src'
 
-describe('SingleUpdateIntervalQuery', function () {
-  describe('basic', function () {
+describe('SingleUpdateIntervalQuery', () => {
+  describe('basic', () => {
     const MAX_N = 1000
 
-    it('number', function () {
+    it('number', () => {
       const bit = new SingleUpdateIntervalQuery<number>({
         operator: {
           ZERO: 0,
@@ -40,7 +40,7 @@ describe('SingleUpdateIntervalQuery', function () {
       bit.query(-1)
     })
 
-    it('bigint', function () {
+    it('bigint', () => {
       const bit = new SingleUpdateIntervalQuery<bigint>({
         operator: {
           ZERO: 0n,
@@ -76,10 +76,10 @@ describe('SingleUpdateIntervalQuery', function () {
     })
   })
 
-  describe('modulo', function () {
+  describe('modulo', () => {
     const MAX_N = 1000
 
-    it('number', function () {
+    it('number', () => {
       const MOD = 1000 + 17
       const bit = new SingleUpdateIntervalQuery<number>({
         operator: {
@@ -117,7 +117,7 @@ describe('SingleUpdateIntervalQuery', function () {
       bit.query(-1)
     })
 
-    it('bigint', function () {
+    it('bigint', () => {
       const MOD = BigInt(1000 + 17)
       const bit = new SingleUpdateIntervalQuery<bigint>({
         operator: {
@@ -156,7 +156,7 @@ describe('SingleUpdateIntervalQuery', function () {
     })
   })
 
-  it('edge', function () {
+  it('edge', () => {
     const bit = new SingleUpdateIntervalQuery<number>({
       operator: {
         ZERO: 0,

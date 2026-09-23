@@ -195,7 +195,7 @@ function test_lcs_minimal_lexicographical(lcs: ILcs): void {
   )
 }
 
-describe('lcs size', function () {
+describe('lcs size', () => {
   it('dp', () => {
     test_lcs_size(lcs_size_dp)
   })
@@ -209,7 +209,7 @@ describe('lcs size', function () {
   })
 })
 
-describe('lcs', function () {
+describe('lcs', () => {
   it('dp', () => {
     test_lcs(lcs_dp)
   })
@@ -238,7 +238,7 @@ describe('lcs (minimal lexicographical)', () => {
 })
 
 describe('others', () => {
-  it('findLCSOfEveryRightPrefix', function () {
+  it('findLCSOfEveryRightPrefix', () => {
     const dpOf = (s1: string | number[], s2: string | number[]): number[] | null =>
       findLCSOfEveryRightPrefix(s1.length, s2.length, (x, y) => s1[x] === s2[y])
     expect(

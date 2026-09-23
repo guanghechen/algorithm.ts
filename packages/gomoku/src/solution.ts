@@ -27,7 +27,7 @@ export class GomokuSolution {
   protected readonly _moverContext: Readonly<IGomokuMoverContext>
   protected readonly _searcher: IGomokuSearcher
 
-  constructor(props: IGomokuSolutionProps) {
+  public constructor(props: IGomokuSolutionProps) {
     const {
       MAX_ROW,
       MAX_COL,
