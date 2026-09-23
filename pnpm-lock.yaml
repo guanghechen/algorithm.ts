@@ -17,6 +17,9 @@ importers:
       '@changesets/cli':
         specifier: 2.30.0
         version: 2.30.0(@types/node@25.5.0)
+      '@guanghechen/githooks':
+        specifier: 1.0.0
+        version: 1.0.0
       '@guanghechen/reporter':
         specifier: 3.3.0
         version: 3.3.0
@@ -29,18 +32,9 @@ importers:
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
-      husky:
-        specifier: 9.1.7
-        version: 9.1.7
-      is-ci:
-        specifier: 4.1.0
-        version: 4.1.0
       lint-staged:
         specifier: 16.4.0
         version: 16.4.0
-      pinst:
-        specifier: 3.0.0
-        version: 3.0.0
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -366,6 +360,11 @@ packages:
 
   '@epic-web/invariant@1.0.0':
     resolution: {integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==}
+
+  '@guanghechen/githooks@1.0.0':
+    resolution: {integrity: sha512-r1EKAEtNNw8dNVXQXvkoLtj6KOjnDlejk4GCJSeZI5xN84he6SPiV+SLu3+gKPJu2pIzC4F44omvMYskCsMHog==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
 
   '@guanghechen/reporter@3.3.0':
     resolution: {integrity: sha512-mRBkWXCPaIl4gf4ni78nWkAz8tKZcbkwPr3UoS8z1mtsku/KVW/KN31x6VjoSxJCWb1MjVTLxbP/XsIwplWMGA==}
@@ -887,10 +886,6 @@ packages:
   chardet@2.2.0:
     resolution: {integrity: sha512-rddelWYNPRrXq6PtNEN2S3f6t9ILzvqaN5pVgi4kqt9jHQaXIial9PznB5iSPVlQSLNaaH22ItWz3EJtQ10+OA==}
 
-  ci-info@4.4.0:
-    resolution: {integrity: sha512-77PSwercCZU2Fc4sX94eF8k8Pxte6JAwL4/ICZLFjJLqegs7kCuAsqqj/70NQF6TvDpgFjkubQB2FW2ZZddvQg==}
-    engines: {node: '>=8'}
-
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
     engines: {node: '>=18'}
@@ -1059,11 +1054,6 @@ packages:
     resolution: {integrity: sha512-zPGsiS+dWoTZtZ4AtpA9Y+BdSFSNWvnouNlWNoUFyAM6xHOHmdCvqO3k8AIbdamCOv4gUFUVNPf6rJFfc4UiJw==}
     hasBin: true
 
-  husky@9.1.7:
-    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   iconv-lite@0.7.3:
     resolution: {integrity: sha512-IKXpvIzjnC9XTAUbVBcMfGS0EPaIXtW6v+zr+RRp+hqULEpo0owZax6wyRwPOJbWbzjYspQwusTsfVr0ifh4uQ==}
     engines: {node: '>=0.10.0'}
@@ -1075,10 +1065,6 @@ packages:
   import-without-cache@0.4.1:
     resolution: {integrity: sha512-vXoV9PjKHEednCUu01e98TkImxy67e3BJXbTIOmIq4Hyzw3IAwYRcuPkfeTzJzwyyts4kjuA73x+pWJLc4f86A==}
     engines: {node: ^22.18.0 || >=24.0.0}
-
-  is-ci@4.1.0:
-    resolution: {integrity: sha512-Ab9bQDQ11lWootZUI5qxgN2ZXwxNI5hTwnsvOc1wyxQ7zQ8OkEDw79mI0+9jI3x432NfwbVRru+3noJfXF6lSQ==}
-    hasBin: true
 
   is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
@@ -1353,11 +1339,6 @@ packages:
   pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
-
-  pinst@3.0.0:
-    resolution: {integrity: sha512-cengSmBxtCyaJqtRSvJorIIZXMXg+lJ3sIljGmtBGUVonMnMsVJbnzl6jGN1HkOWwxNuJynCJ2hXxxqCQrFDdw==}
-    engines: {node: '>=12.0.0'}
-    hasBin: true
 
   postcss@8.5.28:
     resolution: {integrity: sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==}
@@ -1922,6 +1903,8 @@ snapshots:
 
   '@epic-web/invariant@1.0.0': {}
 
+  '@guanghechen/githooks@1.0.0': {}
+
   '@guanghechen/reporter@3.3.0': {}
 
   '@inquirer/external-editor@1.0.3(@types/node@25.5.0)':
@@ -2275,8 +2258,6 @@ snapshots:
 
   chardet@2.2.0: {}
 
-  ci-info@4.4.0: {}
-
   cli-cursor@5.0.0:
     dependencies:
       restore-cursor: 5.1.0
@@ -2419,8 +2400,6 @@ snapshots:
 
   human-id@4.2.1: {}
 
-  husky@9.1.7: {}
-
   iconv-lite@0.7.3:
     dependencies:
       safer-buffer: 2.1.2
@@ -2428,10 +2407,6 @@ snapshots:
   ignore@5.3.2: {}
 
   import-without-cache@0.4.1: {}
-
-  is-ci@4.1.0:
-    dependencies:
-      ci-info: 4.4.0
 
   is-extglob@2.1.1: {}
 
@@ -2653,8 +2628,6 @@ snapshots:
   picomatch@4.0.7: {}
 
   pify@4.0.1: {}
-
-  pinst@3.0.0: {}
 
   postcss@8.5.28:
     dependencies:
