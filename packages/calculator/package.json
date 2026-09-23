@@ -43,7 +43,7 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "build": "rollup -c ../../rollup.config.mjs",
+    "build": "tsdown --config ../../tsdown.config.mjs",
     "test": "vitest run --config ../../vitest.config.ts",
     "test:coverage": "vitest run --config ../../vitest.config.ts --coverage",
     "test:update": "vitest run --config ../../vitest.config.ts -u"

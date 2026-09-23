@@ -33,6 +33,6 @@
   ],
   "scripts": {
     "clean": "rimraf lib",
-    "build": "rollup -c ../../rollup.config.mjs"
+    "build": "tsdown --config ../../tsdown.config.mjs"
   }
 }
