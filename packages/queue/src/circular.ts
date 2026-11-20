@@ -369,6 +369,8 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
     if (size > capacity) {
       size = capacity
       end = start === 0 ? capacity - 1 : start - 1
+    } else if (end === -1 && size > 0) {
+      end = capacity - 1
     }
 
     this._size = size
@@ -406,6 +408,7 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
       if (size < capacity) {
         this._size = size
         this._start = _start
+        if (this._end === -1) this._end = capacity - 1
       } else {
         const nextEnd: number = this._end - size + capacity
         this._size = capacity

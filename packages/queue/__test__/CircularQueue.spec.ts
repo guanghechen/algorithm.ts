@@ -836,6 +836,63 @@ describe('CircularQueue', () => {
     expect(Array.from(Q)).toEqual([18, 17, 16, 15])
   })
 
+  describe.each(['enqueues_front', 'enqueues_front_advance'] as const)('%s tail', method => {
+    function prepend(queue: ICircularQueue<number>, values: readonly number[]): void {
+      if (method === 'enqueues_front') queue.enqueues_front(values.values())
+      else queue.enqueues_front_advance([-99, ...values, -99], 1, values.length + 1)
+    }
+
+    it('can remove the only prepended item from the back', () => {
+      prepend(Q, [1])
+      expect(Q.back()).toBe(1)
+      expect(Q.dequeue_back()).toBe(1)
+      expect(Q.size).toBe(0)
+    })
+
+    it('preserves the tail when a consumer has just yielded the last item', () => {
+      Q.enqueue(7)
+      const consumer = Q.consuming()
+      expect(consumer.next().value).toBe(7)
+      prepend(Q, [])
+      prepend(Q, [1, 2])
+      expect(Q.dequeue_back()).toBe(1)
+      expect(consumer.next().value).toBe(2)
+      expect(consumer.next().done).toBe(true)
+    })
+
+    it('matches a bounded array across ring positions and batch sizes', () => {
+      for (let capacity = 1; capacity <= 4; ++capacity) {
+        const queue = new CircularQueue<number>({ capacity })
+        for (let offset = 0; offset < capacity; ++offset) {
+          const seed = Array.from({ length: capacity + offset }, (_, index) => -index - 1)
+          for (let initialSize = 0; initialSize <= capacity; ++initialSize) {
+            for (let count = 0; count <= 2 * capacity + 1; ++count) {
+              queue.init(seed)
+              while (queue.size > initialSize) queue.dequeue_back()
+              const batch = Array.from({ length: count }, (_, index) => index + 1)
+              const expected = seed.slice(-capacity).slice(0, initialSize)
+              for (const value of batch) expected.unshift(value)
+              if (expected.length > capacity) expected.length = capacity
+
+              prepend(queue, batch)
+              const label = `capacity=${capacity}, offset=${offset}, initialSize=${initialSize}, count=${count}`
+              expect(queue.size, label).toBe(expected.length)
+              expect(queue.front(), label).toBe(expected[0])
+              expect(queue.back(), label).toBe(expected.at(-1))
+              expect(Array.from(queue), label).toEqual(expected)
+
+              queue.enqueue(0)
+              for (const value of [...expected, 0].slice(-capacity).reverse()) {
+                expect(queue.dequeue_back(), label).toBe(value)
+              }
+              expect(queue.size, label).toBe(0)
+            }
+          }
+        }
+      }
+    })
+  })
+
   it('exclude', () => {
     expect(Q.size).toEqual(0)
 
