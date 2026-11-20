@@ -3,6 +3,7 @@ import { Base64, decode, encode, validate } from '../src'
 
 describe('basic', () => {
   const kases = [
+    { plaintext: '', ciphertext: '' },
     {
       plaintext: 'Hello, world!',
       ciphertext: 'SGVsbG8sIHdvcmxkIQ==',
@@ -34,11 +35,14 @@ describe('basic', () => {
   })
 
   it('validate', () => {
+    expect(validate('')).toBe(true)
     expect(validate('a')).toBe(false)
     expect(validate('aa')).toBe(false)
     expect(validate('aaa')).toBe(false)
     expect(validate('a===')).toBe(false)
+    expect(validate('====')).toBe(false)
     expect(() => decode('a')).toThrow(/Invalid base64 string/)
+    expect(() => decode('====')).toThrow(TypeError)
   })
 })
 
@@ -49,6 +53,7 @@ describe('custom', () => {
   })
 
   const kases = [
+    { plaintext: '', ciphertext: '' },
     {
       plaintext: 'Hello, world!',
       ciphertext: 'I6LiR6yi87TlScna8G**',
@@ -77,6 +82,12 @@ describe('custom', () => {
     for (const { plaintext, ciphertext } of kases) {
       expect(base64.decode(ciphertext)).toEqual(getBytes(plaintext))
     }
+  })
+
+  it('validate', () => {
+    expect(base64.validate('')).toBe(true)
+    expect(base64.validate('****')).toBe(false)
+    expect(() => base64.decode('****')).toThrow(TypeError)
   })
 })
 

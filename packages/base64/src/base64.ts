@@ -63,7 +63,7 @@ export class Base64 {
   }
 
   public decode(text: string): Uint8Array | never {
-    if (text.length <= 0 || !this.validate(text)) throw new TypeError('Invalid base64 string.')
+    if (!this.validate(text)) throw new TypeError('Invalid base64 string.')
 
     let countOfPadding = 0
     const { CODE_PADDING } = this
@@ -101,7 +101,7 @@ export class Base64 {
   public validate(text: string): boolean {
     // The length of a Base64 encoded string should be a multiple of 4.
     if (text.length & 3) return false
-    return this.VALIDATE_REGEX.test(text)
+    return text === '' || this.VALIDATE_REGEX.test(text)
   }
 
   protected _encodeUnit(v: number): string {
