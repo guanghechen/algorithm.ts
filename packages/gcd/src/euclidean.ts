@@ -30,7 +30,7 @@ export function euclidean(a: number, b: number): [number, number, number] {
       const Y = x
 
       x = X
-      y = Y - Math.floor(_a / _b) * X
+      y = Y - Math.trunc(_a / _b) * X
     }
   }
 }

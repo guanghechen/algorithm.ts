@@ -12,6 +12,22 @@ it('euclid', () => {
   }
 })
 
+it.each([
+  [3, -8],
+  [-30, 4],
+  [1, -30],
+  [-3, -8],
+  [0, -8],
+  [-8, 0],
+  [0, 0],
+])('euclidean(%i, %i) satisfies the Bézout identity', (first, second) => {
+  const solution = euclidean(first, second)
+  const [firstCoefficient, secondCoefficient, divisor] = solution
+  expect(first * firstCoefficient + second * secondCoefficient).toBe(divisor)
+  expect(divisor).toBe(gcd(first, second))
+  expect(solution.map(BigInt)).toEqual(euclideanBigint(BigInt(first), BigInt(second)))
+})
+
 it('euclidBigint', () => {
   for (let i = 1n; i < 50n; ++i) {
     for (let j = 1n; j < 50n; ++j) {
