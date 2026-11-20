@@ -1,14 +1,15 @@
 import { randomInt } from '../src'
 
-it('randomInt', () => {
-  const size = 1e2
-  const nums: number[] = new Array(size)
+afterEach(() => {
+  vi.restoreAllMocks()
+})
 
-  for (let i = 0; i < size; ++i) {
-    nums[i] = randomInt(size)
-  }
-
-  expect(nums.some(x => x !== nums[0])).toBe(true)
-  expect(nums.every(x => x >= 0 && x < size)).toBe(true)
-  expect(nums.every(x => Math.floor(x) === x)).toBe(true)
+it.each([
+  { bound: 100, draw: 0, expected: 0 },
+  { bound: 3, draw: 0.5, expected: 1 },
+  { bound: 2 ** 31 + 1, draw: 1 - Number.EPSILON, expected: 2 ** 31 },
+  { bound: 2 ** 32 - 1, draw: 1 - Number.EPSILON, expected: 2 ** 32 - 2 },
+])('randomInt($bound) maps $draw to $expected', ({ bound, draw, expected }) => {
+  vi.spyOn(Math, 'random').mockReturnValue(draw)
+  expect(randomInt(bound)).toBe(expected)
 })

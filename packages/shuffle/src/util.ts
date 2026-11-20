@@ -3,7 +3,7 @@
  * @param n
  */
 export function randomInt(n: number): number {
-  const x = (Math.random() * n) >> 0
+  const x = Math.floor(Math.random() * n)
   /* istanbul ignore next */
   return x === n ? n - 1 : x
 }

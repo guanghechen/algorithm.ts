@@ -20,7 +20,7 @@ export function knuthShuffle<T = unknown>(
 
   const N = end - start
   for (let n = N - 1, j = end - 1; n > 0; --n, --j) {
-    const i: number = randomInt(n) + start
+    const i: number = randomInt(n + 1) + start
     const x: T = elements[i]
     // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
     elements[i] = elements[j]

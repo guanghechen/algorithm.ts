@@ -1,59 +1,55 @@
 import { knuthShuffle } from '../src'
 
 describe('knuth-shuffle', () => {
-  const size = 1e3
-  const ebs = size / 10
-  const shuffleTimes = 1e3
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
 
-  const nums: number[] = new Array(size)
-  const count: number[] = new Array(size).fill(0)
-
-  for (let i = 0; i < size; ++i) nums[i] = i
-  for (let t = 0; t < shuffleTimes; ++t) {
-    knuthShuffle(nums)
-    for (let i = 0; i < size; ++i) {
-      count[i] += nums[i]
+  it.each([
+    { size: 2, total: 2 },
+    { size: 3, total: 6 },
+    { size: 4, total: 24 },
+    { size: 5, total: 120 },
+  ])('produces all $total permutations exactly once', ({ size, total }) => {
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0)
+    const original = Array.from({ length: size }, (_, index) => index)
+    let paths: number[][] = [[]]
+    for (let remaining = size; remaining > 1; --remaining) {
+      const draws = Array.from({ length: remaining }, (_, index) => (index + 0.5) / remaining)
+      paths = paths.flatMap(prefix => draws.map(draw => [...prefix, draw]))
     }
-  }
 
-  it('random', () => {
-    expect(nums.some((x, i) => x !== i)).toEqual(true)
+    const outcomes = new Set<string>()
+    for (const path of paths) {
+      for (const draw of path) random.mockReturnValueOnce(draw)
+      const shuffled = original.slice()
+      knuthShuffle(shuffled)
+      outcomes.add(shuffled.join(','))
+      expect(shuffled.sort((first, second) => first - second)).toEqual(original)
+    }
+    expect(outcomes.size).toBe(total)
+    expect(random).toHaveBeenCalledTimes(total * (size - 1))
   })
 
-  it('uniformly distribute', () => {
-    const min = Math.min(...count) / shuffleTimes
-    const max = Math.max(...count) / shuffleTimes
-    expect(max - min).toBeLessThanOrEqual(ebs)
+  it.each([
+    { start: 1, end: 4, draw: 0, expected: [0, 2, 3, 1, 4] },
+    { start: 1, end: 4, draw: 1 - Number.EPSILON, expected: [0, 1, 2, 3, 4] },
+    { start: -2, end: 3, draw: 0, expected: [1, 2, 0, 3, 4] },
+    { start: 3, end: 8, draw: 0, expected: [0, 1, 2, 4, 3] },
+  ])('only shuffles [$start, $end) at draw $draw', ({ start, end, draw, expected }) => {
+    vi.spyOn(Math, 'random').mockReturnValue(draw)
+    const values = [0, 1, 2, 3, 4]
+    knuthShuffle(values, start, end)
+    expect(values).toEqual(expected)
   })
 
-  it('sub-array', () => {
-    const nums: number[] = new Array(size)
-    for (let i = 0; i < size; ++i) nums[i] = i
-
-    const start = 10
-    const end = 70
-    knuthShuffle(nums, start, end)
-    for (let i = 0; i < start; ++i) expect(nums[i]).toEqual(i)
-    for (let i = end; i < size; ++i) expect(nums[i]).toEqual(i)
-
-    let diff = 0
-    for (let i = start; i < end; ++i) diff = nums[i] === i ? 0 : 1
-    expect(diff).toBeGreaterThan(0)
-  })
-
-  it('out of boundary', () => {
-    const nums: number[] = new Array(size)
-    for (let i = 0; i < size; ++i) nums[i] = i
-
-    knuthShuffle(nums, 200, 1)
-    expect(nums.every((x, i) => x === i)).toEqual(true)
-
-    knuthShuffle(nums, -2, 50)
-    for (let i = 50; i < size; ++i) expect(nums[i]).toEqual(i)
-
-    for (let i = 0; i < size; ++i) nums[i] = i
-    knuthShuffle(nums, -1, size + 1)
-    const diff = nums.reduce((acc, v, i) => acc + (v === i ? 0 : 1), 0)
-    expect(diff).toBeGreaterThan(0)
+  it('does not draw a random number for fewer than two elements', () => {
+    const random = vi.spyOn(Math, 'random')
+    const values = [0, 1, 2]
+    knuthShuffle([])
+    knuthShuffle(values, 1, 2)
+    knuthShuffle(values, 2, 1)
+    expect(random).not.toHaveBeenCalled()
+    expect(values).toEqual([0, 1, 2])
   })
 })
