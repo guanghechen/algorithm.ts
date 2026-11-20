@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.6
+
+### Patch Changes
+
+- Encode each occurrence of a lone symbol with one bit so single-symbol strings round-trip without losing their length.
+
 ## 4.0.5
 
 ### Patch Changes

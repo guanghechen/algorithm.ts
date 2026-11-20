@@ -1,6 +1,6 @@
 {
   "name": "@algorithm.ts/huffman",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "huffman + Euclidean algorithm",
   "author": {
     "name": "guanghechen",

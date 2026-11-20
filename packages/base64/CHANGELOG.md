@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.5
+
+### Patch Changes
+
+- Accept the empty string as valid Base64 and decode it to an empty byte array.
+
 ## 4.0.4
 
 ### Patch Changes
