@@ -9,6 +9,22 @@ describe('basic', () => {
 
   it('中文', () => textWrapper('中文'))
 
+  it.each([
+    { symbol: 'a', count: 1 },
+    { symbol: 'a', count: 4 },
+    { symbol: '😀', count: 9 },
+  ])('single-symbol round trip: $symbol (count: $count)', ({ symbol, count }) => {
+    const text = symbol.repeat(count)
+    const { encodedData, encodingTable, tree } = encode(text)
+    expect(encodingTable).toEqual({ [symbol]: [0] })
+    expect(encodedData).toEqual(Array(count).fill(0))
+    expect(decode(encodedData, tree)).toBe(text)
+
+    const rebuiltTree = fromEncodingTable(encodingTable)
+    expect(rebuiltTree).toEqual(tree)
+    expect(decode(decompress(compress(encodedData)), rebuiltTree)).toBe(text)
+  })
+
   function textWrapper(text: string): void {
     const encodeResult = encode(text)
     expect(encodeResult).toMatchSnapshot()

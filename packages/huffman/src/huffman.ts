@@ -24,6 +24,7 @@ export function fromText(text: string): IHuffmanNode {
 
   const entries = Object.entries(costMap)
   if (entries.length <= 0) return {}
+  if (entries.length === 1) return { left: { value: entries[0][0] } }
 
   const minHeap = new PriorityQueue<{
     cost: number
