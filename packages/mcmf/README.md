@@ -56,6 +56,10 @@ The **MCMF** algorithm is an algorithm for solving network flow problems.
 `mincut()` returns strict minimum-cut edges: `from` is reachable from source in residual graph,
 while `to` is not reachable.
 
+After `addEdge()`, the next `minCostMaxFlow()` or `mincut()` solves the updated network from zero
+flow. Queries without further changes reuse the computed flow. Edge costs may be negative, but
+the input network must not contain a negative-cost cycle of positive-capacity edges.
+
 ## Install
 
 - npm

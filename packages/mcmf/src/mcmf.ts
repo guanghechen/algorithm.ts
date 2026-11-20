@@ -76,8 +76,13 @@ export class Mcmf implements IMcmf {
 
   public minCostMaxFlow(): { mincost: number; maxflow: number } {
     if (this._resolvedTimestamp < this._modifiedTimestamp) {
-      let { _maxflow, _mincost } = this
-      const { _INF, _source, _sink, _edges, _dist, _path } = this
+      const { _INF, _source, _sink, _edges, _edgesTot, _dist, _path } = this
+      if (this._maxflow > 0) {
+        for (let edgeId = 0; edgeId < _edgesTot; ++edgeId) _edges[edgeId].flow = 0
+      }
+
+      let maxflow = 0
+      let mincost = 0
 
       while (this._bellmanFord()) {
         let mif = _INF
@@ -93,12 +98,12 @@ export class Mcmf implements IMcmf {
           _edges[x ^ 1].flow -= mif
           o = _edges[x].from
         }
-        _maxflow += mif
-        _mincost += mif * _dist[_sink]
+        maxflow += mif
+        mincost += mif * _dist[_sink]
       }
 
-      this._maxflow = _maxflow
-      this._mincost = _mincost
+      this._maxflow = maxflow
+      this._mincost = mincost
       this._resolvedTimestamp = this._modifiedTimestamp
     }
     return { mincost: this._mincost, maxflow: this._maxflow }
