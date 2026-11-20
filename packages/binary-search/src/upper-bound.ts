@@ -4,15 +4,15 @@ import type { IBinarySearchCheck, IBinarySearchCheckBigint } from './types'
 /**
  * Find the index of first element which greater than the target element.
  *
- * @param lft   (close) non-negative integer in the range of [-2^31, 2^31)
- * @param rht   (open) non-negative integer in the range of [-2^31, 2^31)
+ * @param lft   Inclusive lower bound (signed 32-bit integer).
+ * @param rht   Exclusive upper bound (signed 32-bit integer).
  * @param check
  * @returns
  */
 export function upperBound(lft: number, rht: number, check: IBinarySearchCheck): number {
   let i = lft
   for (let j = rht; i < j; ) {
-    const mid = (i + j) >> 1
+    const mid = i + Math.floor((j - i) / 2)
     if (check(mid) <= 0) i = mid + 1
     else j = mid
   }
