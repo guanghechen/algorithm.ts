@@ -39,7 +39,7 @@ export class Isap implements IIsap {
 
     // Resize arrays.
     this._cur.length = n
-    this._cnt.length = n
+    this._cnt.length = n + 1
     this._dist.length = n
     this._path.length = n
     this._G.length = n
@@ -67,12 +67,10 @@ export class Isap implements IIsap {
 
       // Initialize.
       _cur.fill(0, 0, _N)
-      _cnt.fill(0, 0, _N)
+      _cnt.fill(0, 0, _N + 1)
 
       this._bfs()
-      for (let o = 0; o < _N; ++o) {
-        if (_dist[o] < _N) _cnt[_dist[o]] += 1
-      }
+      for (const distance of _dist) _cnt[distance] += 1
 
       for (let o = _source; _dist[o] < _N; ) {
         if (o === _sink) {
@@ -152,17 +150,17 @@ export class Isap implements IIsap {
     const { _N, _sink, _G, _edges, _Q, _dist } = this
 
     // Initialize the dist array.
-    _dist.fill(-1, 0, _N)
+    _dist.fill(_N, 0, _N)
 
     _Q.enqueue(_sink)
     _dist[_sink] = 0
     while (_Q.size > 0) {
-      const o = _Q.dequeue()!
-      for (const i of _G[o]) {
-        const e = _edges[i]
-        if (_dist[e.to] === -1 && e.cap === 0) {
-          _dist[e.to] = _dist[o] + 1
-          _Q.enqueue(e.to)
+      const node = _Q.dequeue()!
+      for (const edgeId of _G[node]) {
+        const incoming = _edges[edgeId ^ 1]
+        if (_dist[incoming.from] === _N && incoming.cap > incoming.flow) {
+          _dist[incoming.from] = _dist[node] + 1
+          _Q.enqueue(incoming.from)
         }
       }
     }
