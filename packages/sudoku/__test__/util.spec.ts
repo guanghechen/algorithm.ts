@@ -129,6 +129,34 @@ describe('createMatrixCoordinateMap', () => {
 })
 
 describe('verifySolution', () => {
+  describe('4x4 board', () => {
+    const size = new SudokuSize(2)
+    const solution = [0, 1, 2, 3, 2, 3, 0, 1, 1, 0, 3, 2, 3, 2, 1, 0]
+
+    it('accepts a complete zero-based solution', () => {
+      expect(verifySolution(solution, size)).toBe(true)
+    })
+
+    it.each([4, -2, 0.5, NaN, Infinity])('rejects the invalid cell value %s', value => {
+      for (let index = 0; index < solution.length; ++index) {
+        const board = solution.slice()
+        board[index] = value
+        expect(verifySolution(board, size)).toBe(false)
+      }
+    })
+
+    it('rejects a missing or extra cell', () => {
+      expect(verifySolution(solution.slice(0, -1), size)).toBe(false)
+      expect(verifySolution([...solution, 0], size)).toBe(false)
+    })
+
+    it('rejects a sparse board even when its length is correct', () => {
+      const board = solution.slice(0, -1)
+      board.length = size.BOARD
+      expect(verifySolution(board, size)).toBe(false)
+    })
+  })
+
   it('3x3', () => {
     const size = new SudokuSize(3)
     // biome-ignore format: Preserve the Sudoku grid layout.

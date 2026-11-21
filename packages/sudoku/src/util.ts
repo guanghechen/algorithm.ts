@@ -77,9 +77,7 @@ export function verifySolution(
   size: Readonly<ISudokuSize>,
 ): boolean {
   const { BASE_1, BASE_3, MATRIX, BOARD } = size
-  for (let i = 0; i < BOARD; ++i) {
-    if (solution[i] === -1) return false
-  }
+  if (solution.length !== BOARD) return false
 
   const visited: number[] = new Array(MATRIX).fill(0)
   let visitedFlag = 1
@@ -88,6 +86,7 @@ export function verifySolution(
   for (let r0 = 0; r0 < BOARD; r0 += MATRIX, ++visitedFlag) {
     for (let i = r0, I = r0 + MATRIX; i < I; ++i) {
       const w = solution[i]
+      if (!Number.isInteger(w) || w < 0 || w >= MATRIX) return false
       if (visited[w] === visitedFlag) return false
       visited[w] = visitedFlag
     }
