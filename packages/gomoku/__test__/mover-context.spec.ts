@@ -6,7 +6,7 @@ const { full: fullDirectionTypes, rightHalf: halfDirectionTypes } = GomokuDirect
 
 class TesterHelper extends GomokuMoverContext {
   public idxIfValid(r: number, c: number): number {
-    return super.isValidPos(r, c) ? r * this.MAX_ROW + c : -1
+    return super.isValidPos(r, c) ? r * this.MAX_COL + c : -1
   }
 
   public override forward(posId: number, playerId: number): void {
@@ -43,6 +43,49 @@ class TesterHelper extends GomokuMoverContext {
     return counters
   }
 }
+
+describe.each([
+  { rows: 5, columns: 6 },
+  { rows: 6, columns: 5 },
+  { rows: 1, columns: 6 },
+  { rows: 6, columns: 1 },
+])('$rows × $columns geometry', ({ rows, columns }) => {
+  it('maps every cell and clips all eight directions at the board edges', () => {
+    const context = new GomokuMoverContext({
+      MAX_ROW: rows,
+      MAX_COL: columns,
+      MAX_ADJACENT: 5,
+      MAX_DISTANCE_OF_NEIGHBOR: 2,
+    })
+    const ascending = (first: number, second: number): number => first - second
+    for (let row = 0; row < rows; ++row) {
+      for (let column = 0; column < columns; ++column) {
+        const posId = row * columns + column
+        expect(context.idx(row, column)).toBe(posId)
+        expect(context.revIdx(posId)).toEqual([row, column])
+
+        const neighbors: number[] = []
+        for (const direction of fullDirectionTypes) {
+          const [rowDelta, columnDelta] = GomokuDirections[direction]
+          const ray: number[] = []
+          for (let step = 1; ; ++step) {
+            const nextRow = row + step * rowDelta
+            const nextColumn = column + step * columnDelta
+            if (nextRow < 0 || nextRow >= rows || nextColumn < 0 || nextColumn >= columns) break
+            ray.push(nextRow * columns + nextColumn)
+          }
+          expect(context.maxMovableSteps(posId, direction)).toBe(ray.length)
+          expect(context.safeMoveOneStep(posId, direction)).toBe(ray[0] ?? -1)
+          expect(context.safeMove(posId, direction, ray.length + 1)).toBe(-1)
+          neighbors.push(...ray.slice(0, 2))
+        }
+        expect(Array.from(context.accessibleNeighbors(posId)).sort(ascending)).toEqual(
+          neighbors.sort(ascending),
+        )
+      }
+    }
+  })
+})
 
 describe('15x15', () => {
   const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
@@ -115,7 +158,7 @@ describe('15x15', () => {
   it('idx', () => {
     for (let r = 0; r < tester.MAX_ROW; ++r) {
       for (let c = 0; c < tester.MAX_COL; ++c) {
-        const id: number = r * tester.MAX_ROW + c
+        const id: number = r * tester.MAX_COL + c
         const message = `[r, c]: ${[r, c].join(', ')}`
         expect([message, tester.idx(r, c)]).toEqual([message, id])
       }
@@ -125,7 +168,7 @@ describe('15x15', () => {
   it('revIdx', () => {
     for (let r = 0; r < tester.MAX_ROW; ++r) {
       for (let c = 0; c < tester.MAX_COL; ++c) {
-        const id: number = r * tester.MAX_ROW + c
+        const id: number = r * tester.MAX_COL + c
         const message = `[id]: ${[id].join(', ')}`
         expect([message, tester.revIdx(id)]).toEqual([message, [r, c]])
       }

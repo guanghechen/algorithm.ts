@@ -50,7 +50,7 @@ export class GomokuMoverContext implements IGomokuMoverContext {
     this.MAX_DISTANCE_OF_NEIGHBOR = _MAX_DISTANCE_OF_NEIGHBOR
     this.TOTAL_PLAYER = _TOTAL_PLAYER
     this.TOTAL_POS = _TOTAL_POS
-    this.MIDDLE_POS = _TOTAL_POS >> 1
+    this.MIDDLE_POS = this.idx(Math.floor(_MAX_ROW / 2), Math.floor(_MAX_COL / 2))
     this.board = new Array(_TOTAL_POS).fill(-1)
 
     const _idxMap: IIdxMap = new Array(_TOTAL_POS)
@@ -62,7 +62,7 @@ export class GomokuMoverContext implements IGomokuMoverContext {
     }
 
     const _gomokuDirections: IGomokuDirections = GomokuDirections.map(
-      ([dr, dc]) => dr * MAX_ROW + dc,
+      ([dr, dc]) => dr * _MAX_COL + dc,
     )
     const _maxMovableMap: number[][] = createHighDimensionArray(
       () => 0,
@@ -85,7 +85,7 @@ export class GomokuMoverContext implements IGomokuMoverContext {
         const [r, c] = _idxMap[posId]
         const r2 = r + dr
         const c2 = c + dc
-        if (r2 < 0 || r2 >= _MAX_ROW || c2 < 0 || c2 >= _MAX_ROW) {
+        if (r2 < 0 || r2 >= _MAX_ROW || c2 < 0 || c2 >= _MAX_COL) {
           _maxMovableMap[dirType][posId] = 0
           _dirStartPosMap[revDirType][posId] = posId
           _dirStartPosSet[revDirType].push(posId)
@@ -208,7 +208,7 @@ export class GomokuMoverContext implements IGomokuMoverContext {
   }
 
   public idx(r: number, c: number): number {
-    return r * this.MAX_ROW + c
+    return r * this.MAX_COL + c
   }
 
   public revIdx(posId: number): Readonly<[r: number, c: number]> {

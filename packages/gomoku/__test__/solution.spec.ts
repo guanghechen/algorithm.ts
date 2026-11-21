@@ -21,6 +21,42 @@ describe('construction', () => {
   })
 })
 
+describe('board geometry', () => {
+  it.each([
+    { rows: 5, columns: 6, center: [2, 3] },
+    { rows: 6, columns: 5, center: [3, 2] },
+    { rows: 6, columns: 6, center: [3, 3] },
+  ])('opens at the center of an empty $rows × $columns board', ({ rows, columns, center }) => {
+    const solution = new GomokuSolution({ MAX_ROW: rows, MAX_COL: columns })
+    solution.init([])
+    expect(solution.minimaxSearch(0)).toEqual(center)
+  })
+
+  it.each([
+    { rows: 5, columns: 6, rowStep: 0, columnStep: 1 },
+    { rows: 6, columns: 5, rowStep: 1, columnStep: 0 },
+  ])('finds, plays and undoes the winning corner on a $rows × $columns board', board => {
+    const { rows, columns, rowStep, columnStep } = board
+    const solution = new GomokuSolution({ MAX_ROW: rows, MAX_COL: columns })
+    const lastRow = rows - 1
+    const lastColumn = columns - 1
+    const pieces = Array.from({ length: 4 }, (_, index) => ({
+      r: lastRow - (index + 1) * rowStep,
+      c: lastColumn - (index + 1) * columnStep,
+      p: 0,
+    }))
+    pieces.push({ r: lastRow - 5 * rowStep, c: lastColumn - 5 * columnStep, p: 1 })
+    solution.init(pieces)
+
+    expect(solution.minimaxSearch(0)).toEqual([lastRow, lastColumn])
+    solution.forward(lastRow, lastColumn, 0)
+    expect(solution.mover.isFinal()).toBe(true)
+    solution.revert(lastRow, lastColumn)
+    expect(solution.mover.isFinal()).toBe(false)
+    expect(solution.minimaxSearch(0)).toEqual([lastRow, lastColumn])
+  })
+})
+
 describe('15x15', () => {
   class Solution15x15 extends Solution {
     public constructor() {
