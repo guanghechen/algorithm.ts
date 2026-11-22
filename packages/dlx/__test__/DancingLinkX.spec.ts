@@ -1,9 +1,50 @@
+import { runInNewContext } from 'node:vm'
 import { DancingLinkX } from '../src'
 import multipleSudoku3x3 from './fixtures/sudoku9x9/multiple.json'
 import uniqueSudoku3x3 from './fixtures/sudoku9x9/unique.json'
 import { solveSudoku } from './sudoku9x9'
 
 describe('dlx', () => {
+  it('returns the same unique cover on consecutive solves', () => {
+    const dlx = new DancingLinkX({ MAX_N: 8 })
+    dlx.init(1)
+    dlx.addRow(7, [1])
+
+    expect(dlx.solve()).toEqual([7])
+    expect(dlx.solve()).toEqual([7])
+  })
+
+  it('restores the matrix after failed branches and after finding a cover', () => {
+    const dlx = new DancingLinkX({ MAX_N: 16 })
+    dlx.init(3)
+    dlx.addRow(10, [1, 2])
+    dlx.addRow(20, [1, 3])
+    dlx.addRow(30, [2, 3])
+    expect(dlx.solve()).toBeNull()
+
+    dlx.addRow(40, [2])
+    expect(dlx.solve()).toEqual([20, 40])
+    expect(dlx.solve()).toEqual([20, 40])
+
+    dlx.addRow(50, [3])
+    expect(dlx.solve()).toEqual([10, 50])
+  })
+
+  it.each([
+    { columnCount: 0, rows: [], expected: [] },
+    { columnCount: 1, rows: [], expected: null },
+    { columnCount: 3, rows: [[1, 2], [3]], expected: [1, 2] },
+  ])('ignores empty rows with $columnCount columns', ({ columnCount, rows, expected }) => {
+    const dlx = new DancingLinkX({ MAX_N: 16 })
+    dlx.init(columnCount)
+    dlx.addRow(100, [])
+    for (const [index, columns] of rows.entries()) {
+      dlx.addRow(index + 1, columns)
+      dlx.addRow(101 + index, [])
+    }
+    expect(runInNewContext('dlx.solve()', { dlx }, { timeout: 1000 })).toEqual(expected)
+  })
+
   describe('sudoku9x9', () => {
     it('unique solution', () => {
       const solution: number[][] = new Array(9)

@@ -72,6 +72,9 @@ If you are curious about this algorithm, you can visit [here][dlx] for more deta
 
 ## Usage
 
+`addRow(rowNo, [])` is a no-op: an empty row covers no columns. `solve()` leaves the matrix
+unchanged, so you can call it again or add more rows without calling `init()`.
+
 - Use dlx to solve a 9x9 sudoku problem:
 
   ```typescript

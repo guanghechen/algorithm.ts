@@ -78,6 +78,8 @@ export class DancingLinkX implements IDancingLinkX {
   }
 
   public addRow(r: number, columns: ReadonlyArray<number>): void {
+    if (columns.length === 0) return
+
     const { _count, _row, _col, _L, _R, _U, _D } = this
     let { _sz } = this
     const first = _sz
@@ -147,21 +149,23 @@ export class DancingLinkX implements IDancingLinkX {
 
     // Remove this column.
     this._removeColumn(c)
+    let found = false
     for (let i = _D[c]; i !== c; i = _D[i]) {
       // biome-ignore lint/style/noParameterAssign: This algorithm updates its working state in place.
       selectedRowNos[dep] = _row[i]
       for (let j = _R[i]; j !== i; j = _R[j]) this._removeColumn(_col[j])
 
       // Recursively processing.
-      if (this._algorithmX(dep + 1, selectedRowNos)) return true
+      found = this._algorithmX(dep + 1, selectedRowNos)
 
       // Backtrack.
       for (let j = _L[i]; j !== i; j = _L[j]) this._restoreColumn(_col[j])
+      if (found) break
     }
     // Backtrack.
     this._restoreColumn(c)
 
-    return false
+    return found
   }
 
   /**
