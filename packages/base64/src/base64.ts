@@ -9,7 +9,7 @@ export interface IBase64Props {
   readonly CODE_PADDING?: string
 }
 
-const SANITIZE_REGEX = /([*^$\\])/g
+const CHAR_CLASS_SPECIALS = /[\\\]^-]/g
 const DEFAULT_CODES: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 const DEFAULT_CODE_PADDING: string = '='
 
@@ -27,12 +27,9 @@ export class Base64 {
     const CODE_REFLECT: Record<string, number> = { [CODE_PADDING]: 0 }
     for (const [idx, v] of CODE_LIST.entries()) CODE_REFLECT[v] = idx
 
-    const VALIDATE_REGEX: RegExp = new RegExp(
-      `^[${CODES.replace(SANITIZE_REGEX, '\\$1')}]+${CODE_PADDING.replace(
-        SANITIZE_REGEX,
-        '\\$1',
-      )}{0,2}$`,
-    )
+    const escapedCodes = CODES.replace(CHAR_CLASS_SPECIALS, '\\$&')
+    const escapedPadding = CODE_PADDING.replace(CHAR_CLASS_SPECIALS, '\\$&')
+    const VALIDATE_REGEX = new RegExp(`^[${escapedCodes}]+[${escapedPadding}]{0,2}$`)
 
     this.CODE_LIST = CODE_LIST
     this.CODE_REFLECT = CODE_REFLECT
