@@ -52,9 +52,11 @@ export class Dijkstra<C extends number | bigint> {
     const { ZERO, Q, bestFrom, dist, done } = this
     const { INF = this.INF } = options
 
+    bestFrom.length = N
     dist.length = N
     done.length = N
 
+    bestFrom.fill(-1, 0, N)
     dist.fill(INF, 0, N)
     done.fill(false, 0, N)
 
@@ -81,6 +83,6 @@ export class Dijkstra<C extends number | bigint> {
         }
       }
     }
-    return { INF, source, bestFrom, dist }
+    return { INF, source, bestFrom: bestFrom.slice(), dist: dist.slice() }
   }
 }

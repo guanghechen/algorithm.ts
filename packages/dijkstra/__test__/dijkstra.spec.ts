@@ -21,6 +21,27 @@ describe('basic', () => {
     expect(result.dist.slice(0, graph.N)).toEqual([0, 2, 4, 4])
   })
 
+  it.each(['instance', 'function'])('isolates consecutive results through the %s', entry => {
+    const solver = new Dijkstra<number>({ ZERO: 0, INF: 100 })
+    const run = entry === 'instance' ? solver.dijkstra.bind(solver) : dijkstra
+    const first = run({
+      N: 4,
+      source: 0,
+      edges: [
+        { to: 1, cost: 2 },
+        { to: 2, cost: 3 },
+        { to: 3, cost: 4 },
+      ],
+      G: [[0], [1], [2], []],
+    })
+    const second = run({ N: 3, source: 2, edges: [], G: [[], [], []] }, { INF: 50 })
+
+    expect(second.dist).toEqual([50, 50, 0])
+    expect(second.bestFrom).toEqual([-1, -1, -1])
+    expect(first.dist).toEqual([0, 2, 5, 9])
+    expect(first.bestFrom).toEqual([-1, 0, 1, 2])
+  })
+
   it('dijkstraBigint', () => {
     const graph: IDijkstraGraph<bigint> = {
       N: 4,
@@ -35,11 +56,11 @@ describe('basic', () => {
     }
 
     const result = dijkstraBigint(graph)
-    expect(result.dist.slice(0, graph.N)).toEqual([0n, 2n, 4n, 4n])
-
-    // Call again to cover the cached singleton branch.
-    const result2 = dijkstraBigint(graph)
-    expect(result2.dist.slice(0, graph.N)).toEqual([0n, 2n, 4n, 4n])
+    const result2 = dijkstraBigint({ ...graph, source: 3 }, { INF: 99n })
+    expect(result2.dist).toEqual([99n, 99n, 99n, 0n])
+    expect(result2.bestFrom).toEqual([-1, -1, -1, -1])
+    expect(result.dist).toEqual([0n, 2n, 4n, 4n])
+    expect(result.bestFrom).toEqual([-1, 0, 1, 1])
   })
 })
 

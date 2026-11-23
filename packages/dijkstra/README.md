@@ -74,6 +74,9 @@ The following definition is quoted from Wikipedia
 
 ## Usage
 
+Each result has its own `dist` and `bestFrom` arrays. Later calls, including calls on the same
+`Dijkstra` instance, do not change them. `bestFrom` is `-1` for the source and unreachable vertices.
+
 - Simple
 
   ```typescript
