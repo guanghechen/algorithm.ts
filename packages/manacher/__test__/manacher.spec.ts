@@ -1,6 +1,7 @@
 import manacher from '../src'
 
 it('manacher', () => {
+  expect(manacher('')).toEqual([])
   const data: Array<{
     input: Parameters<typeof solution1>
     answer: ReturnType<typeof solution1>

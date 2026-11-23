@@ -25,6 +25,7 @@
  */
 export function manacher(text: string): number[] {
   const N = text.length
+  if (N === 0) return []
   const _size = (N << 1) - 1
   const radius: number[] = new Array<number>(_size).fill(0)
 
