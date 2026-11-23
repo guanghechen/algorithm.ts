@@ -19,22 +19,23 @@ export const extractAdjacencyList = (graph: DeepReadonly<IDigraph>): number[][] 
 
 /**
  * List all points on the shortest path from source to target in order.
- * @param bestFrom
+ * @param bestFrom Predecessor indexed by vertex; -1 denotes no predecessor.
  * @param source
  * @param target
- * @returns
+ * @returns The path from source to target, or an empty array if the chain does not reach source.
  */
 export const getShortestPath = (
   bestFrom: ReadonlyArray<number>,
   source: number,
   target: number,
 ): number[] => {
-  const path: number[] = [target]
-  for (let x = target, parent: number; x !== source; x = parent) {
-    parent = bestFrom[x]
-    path.push(parent)
+  const path: number[] = []
+  for (let vertex = target; path.length < bestFrom.length; vertex = bestFrom[vertex]) {
+    if (vertex === -1) break
+    path.push(vertex)
+    if (vertex === source) return path.reverse()
   }
-  return path.reverse()
+  return []
 }
 
 /**

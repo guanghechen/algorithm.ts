@@ -42,6 +42,33 @@ describe('util', () => {
     expect(getShortestPath(bestFrom, 0, 3)).toEqual([0, 1, 2, 3])
   })
 
+  describe('getShortestPath boundaries', () => {
+    it('stops at the requested source without following its predecessor', () => {
+      const bestFrom = Object.freeze([2, 1, 3, -1])
+      expect(getShortestPath(bestFrom, 2, 0)).toEqual([2, 0])
+      expect(getShortestPath(bestFrom, 3, 0)).toEqual([3, 2, 0])
+      expect(getShortestPath(bestFrom, 1, 1)).toEqual([1])
+    })
+
+    it.each([
+      { name: 'unreachable target', parents: [-1, -1], target: 1 },
+      { name: 'chain ending at another root', parents: [-1, -1, 1], target: 2 },
+      { name: 'self-loop', parents: [-1, 1], target: 1 },
+      { name: 'chain entering a cycle', parents: [-1, 2, 1, 2], target: 3 },
+    ])('returns an empty path for $name', ({ parents, target }) => {
+      let reads = 0
+      const bestFrom = new Proxy(parents, {
+        get(table, key, receiver) {
+          if (key !== 'length' && ++reads > table.length) {
+            throw new Error('Too many predecessor reads')
+          }
+          return Reflect.get(table, key, receiver)
+        },
+      })
+      expect(getShortestPath(bestFrom, 0, target)).toEqual([])
+    })
+  })
+
   it('buildEdgeMap', () => {
     const G: number[][] = buildEdgeMap(graph.N, graph.edges)
     expect(G).toEqual(graph.G)

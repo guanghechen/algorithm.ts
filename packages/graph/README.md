@@ -99,15 +99,17 @@ Types and utils from solving graph problems.
 
 - `getShortestPath`
 
-  ```typescript {17}
+  The caller must supply valid vertex indices for `source`, `target`, and each predecessor other
+  than `-1` (no predecessor). Returns the path including both endpoints, or `[]` if the chain
+  does not reach `source`.
+
+  ```typescript
   import { getShortestPath } from '@algorithm.ts/graph'
 
-  /**
-   * @param bestFrom  Record the shortest path parent source point to the specified point.
-   * @param source    The source node on the shortest path.
-   * @param target    The target node on the shortest path.
-   */
-  getShortestPath(bestFrom: number[], source: number, target: number): number[] // nodes
+  const bestFrom = [-1, 0, 1, -1]
+  getShortestPath(bestFrom, 0, 2) // [0, 1, 2]
+  getShortestPath(bestFrom, 0, 0) // [0]
+  getShortestPath(bestFrom, 0, 3) // []
   ```
 
 ## Related
