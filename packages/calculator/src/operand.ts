@@ -18,7 +18,7 @@ export const integerOperand: IOperand<number> = {
     for (; i < end; ++i) {
       const c: number = expression.charCodeAt(i)!
       if (c < CODEPOINT_DIGIT_0 || c > CODEPOINT_DIGIT_9) break
-      value = value * 10 + c - CODEPOINT_DIGIT_0
+      value = value * 10 + (c - CODEPOINT_DIGIT_0)
     }
     return [i, value]
   },

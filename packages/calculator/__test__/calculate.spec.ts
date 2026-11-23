@@ -101,6 +101,10 @@ describe('calculate', () => {
 
 describe('integer calculate', () => {
   const data = [
+    { input: '9007199254740991', answer: Number.MAX_SAFE_INTEGER },
+    { input: '-9007199254740991', answer: Number.MIN_SAFE_INTEGER },
+    { input: '0009007199254740989', answer: 9007199254740989 },
+    { input: '9007199254740991 - 9007199254740990', answer: 1 },
     {
       input: '-2+1',
       answer: -1,
