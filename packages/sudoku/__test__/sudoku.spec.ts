@@ -34,6 +34,7 @@ describe('9x9', () => {
       const puzzle: Readonly<ISudokuBoardData> = kase.puzzle.flat()
       const answer: Readonly<ISudokuBoardData> = kase.solution.flat()
       const solution = createSudokuBoardData(size)
+      expect(solver.solve(puzzle)).toBe(true)
       expect(solver.solve(puzzle, solution)).toEqual(true)
       expect(verifySolution(solution, size)).toEqual(true)
       expect(solution).toEqual(answer)

@@ -65,7 +65,10 @@ export class SudokuSolver {
    * @returns Whether there is a solution
    * @public
    */
-  public solve(puzzle: Readonly<ISudokuBoardData>, solution: ISudokuBoardData | null): boolean {
+  public solve(
+    puzzle: Readonly<ISudokuBoardData>,
+    solution: ISudokuBoardData | null = null,
+  ): boolean {
     const { size, DL_TOTAL_COLUMNS: SUDOKU_NODES, constraints, matCodeMap, dlx } = this
     const { MATRIX, BOARD } = size
     const encode = (constraint: number, code: number): number => constraint * BOARD + code + 1
