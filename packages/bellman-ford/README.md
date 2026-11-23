@@ -78,6 +78,10 @@ The following definition is quoted from Wikipedia
 
 ## Usage
 
+Each result with `hasNegativeCycle: false` has its own `dist` and `bestFrom` arrays. Later calls,
+including calls on the same `BellmanFord` instance, do not change them. `bestFrom` is `-1` for the
+source and unreachable vertices.
+
 - Simple
 
   ```typescript
@@ -102,7 +106,7 @@ The following definition is quoted from Wikipedia
    *   hasNegativeCycle: false, // there is no negative-cycle.
    *   INF: 4503599627370494,
    *   source: 0,
-   *   bestFrom: ,
+   *   bestFrom: [-1, 0, 1, 1],
    *   dist: [0, 2, 4, 4]
    * }
    *

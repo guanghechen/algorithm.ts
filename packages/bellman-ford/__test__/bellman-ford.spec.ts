@@ -40,6 +40,31 @@ describe('basic', () => {
       }
       expect(bellmanFord(graph)).toEqual({ hasNegativeCycle: true })
     })
+
+    it.each(['instance', 'function'])('isolates consecutive results through the %s', entry => {
+      const solver = new BellmanFord<number>({ ZERO: 0, INF: 100 })
+      const run = entry === 'instance' ? solver.bellmanFord.bind(solver) : bellmanFord
+      const first = run({
+        N: 3,
+        source: 0,
+        edges: [
+          { to: 1, cost: -2 },
+          { to: 2, cost: 5 },
+        ],
+        G: [[0], [1], []],
+      })
+      const cycle = run({ N: 2, source: 1, edges: [{ to: 1, cost: -1 }], G: [[], [0]] })
+      expect(cycle).toEqual({ hasNegativeCycle: true })
+      assert(!first.hasNegativeCycle)
+      expect(first.dist).toEqual([0, -2, 3])
+      const next = run({ N: 2, source: 1, edges: [], G: [[], []] }, { INF: 50 })
+
+      assert(!next.hasNegativeCycle)
+      expect(next.dist).toEqual([50, 0])
+      expect(next.bestFrom).toEqual([-1, -1])
+      expect(first.dist).toEqual([0, -2, 3])
+      expect(first.bestFrom).toEqual([-1, 0, 1])
+    })
   })
 
   describe('bellmanFordBigint', () => {
@@ -59,8 +84,12 @@ describe('basic', () => {
       const result = bellmanFordBigint(graph)
       expect(result.hasNegativeCycle).toEqual(false)
 
-      assert(result.hasNegativeCycle === false)
-      expect(result.dist.slice(0, graph.N)).toEqual([0n, 2n, 4n, 4n])
+      const next = bellmanFordBigint({ ...graph, source: 3 }, { INF: 99n })
+      assert(!next.hasNegativeCycle && !result.hasNegativeCycle)
+      expect(next.dist).toEqual([99n, 99n, 99n, 0n])
+      expect(next.bestFrom).toEqual([-1, -1, -1, -1])
+      expect(result.dist).toEqual([0n, 2n, 4n, 4n])
+      expect(result.bestFrom).toEqual([-1, 0, 1, 1])
     })
 
     it('negative cycle', () => {

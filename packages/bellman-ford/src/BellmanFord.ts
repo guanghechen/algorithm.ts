@@ -81,6 +81,6 @@ export class BellmanFord<C extends number | bigint> {
         }
       }
     }
-    return { hasNegativeCycle: false, INF, source, bestFrom, dist }
+    return { hasNegativeCycle: false, INF, source, bestFrom: bestFrom.slice(), dist: dist.slice() }
   }
 }
