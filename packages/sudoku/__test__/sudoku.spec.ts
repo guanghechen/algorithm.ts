@@ -24,6 +24,10 @@ describe('SudokuSize', () => {
   })
 })
 
+it('constructs a solver for a 64x64 board', () => {
+  expect(new SudokuSolver({ childMatrixWidth: 8 }).size.MATRIX).toBe(64)
+})
+
 describe('9x9', () => {
   const size = new SudokuSize(3)
   const solver = new SudokuSolver({ childMatrixWidth: size.MATRIX_RANK })

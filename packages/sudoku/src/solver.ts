@@ -40,7 +40,7 @@ export class SudokuSolver {
     const size = new SudokuSize(childMatrixWidth)
     const DL_TOTAL_COLUMNS = size.BOARD * 4
     const DL_MAX_ROWS = size.BOARD * size.MATRIX
-    const DL_MAX_NODES = DL_TOTAL_COLUMNS * DL_MAX_ROWS + size.MATRIX + 1
+    const DL_MAX_NODES = 1 + DL_TOTAL_COLUMNS + DL_MAX_ROWS * this.constraints.length
     const dlx = new DancingLinkX({ MAX_N: DL_MAX_NODES })
 
     this.size = size
