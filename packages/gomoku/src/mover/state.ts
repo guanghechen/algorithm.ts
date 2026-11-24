@@ -277,7 +277,7 @@ export class GomokuMoverState implements IGomokuMoverState {
   }
 
   public isDraw(): boolean {
-    return this.context.placedCount === this.context.TOTAL_POS
+    return this.context.placedCount === this.context.TOTAL_POS && !this.isWin(0) && !this.isWin(1)
   }
 
   public isFinal(): boolean {

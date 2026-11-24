@@ -241,6 +241,33 @@ class TestHelper extends GomokuMoverState {
   }
 }
 
+it('draws only when the board is full without five in a row', () => {
+  const tester = new TestHelper(3, 5)
+  tester.init([])
+  const lastPosId = tester.context.TOTAL_POS - 1
+  for (let posId = 0; posId < lastPosId; ++posId) tester.forward(posId, posId % 2)
+  expect(tester.context.placedCount).toBe(tester.context.TOTAL_POS - 1)
+  expect(tester.isDraw()).toBe(false)
+  tester.forward(lastPosId, 0)
+  expect(tester.context.placedCount).toBe(tester.context.TOTAL_POS)
+  expect(tester.isDraw()).toBe(true)
+})
+
+it.each([
+  { rows: ['11011', '10101', '00000'], winner: 0 },
+  { rows: ['00100', '01010', '10001', '11111'], winner: 1 },
+])('player $winner wins instead of drawing on the last move', ({ rows, winner }) => {
+  const tester = new TestHelper(rows.length, rows[0].length)
+  tester.init([])
+  for (const [posId, cell] of [...rows.join('')].entries()) {
+    expect(tester.isWin(winner)).toBe(false)
+    tester.forward(posId, Number(cell))
+  }
+  expect(tester.isWin(winner)).toBe(true)
+  expect(tester.isWin(winner ^ 1)).toBe(false)
+  expect(tester.isDraw()).toBe(false)
+})
+
 describe('15x15', () => {
   const getTester = (): TestHelper => new TestHelper(15, 15)
   const filepaths = locatePieceDataFilepaths(PieceDataDirName.d15x15)
