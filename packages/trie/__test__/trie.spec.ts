@@ -55,6 +55,16 @@ describe('Trie', () => {
       mergeNodeValue: (x, y) => x + y,
     })
 
+    it('iterates the empty key before its descendants', () => {
+      trie.init()
+      trie.set('', 0)
+      expect(Array.from(trie)).toEqual([0])
+      trie.set('a', 7)
+      expect(Array.from(trie)).toEqual([0, 7])
+      trie.delete('')
+      expect(Array.from(trie)).toEqual([7])
+    })
+
     it('set_advance', () => {
       trie.init()
 

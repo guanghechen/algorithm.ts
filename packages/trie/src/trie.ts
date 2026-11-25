@@ -41,6 +41,7 @@ export class Trie<E, V extends ITrieValue> implements ITrie<E, V> {
     const vStack: number[] = [0]
     const iStack: number[] = [0]
     const { _SIGMA_SIZE, _ch, _values } = this
+    if (_values[0] !== undefined) yield _values[0]
 
     for (let h = 0; h >= 0; ) {
       const o = vStack[h]
