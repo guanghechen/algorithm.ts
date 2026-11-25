@@ -405,6 +405,20 @@ describe('CircularQueue', () => {
     expect(Array.from(Q)).toEqual([])
   })
 
+  it('can resize after breaking on the last consumed element', () => {
+    Q.resize(1)
+    Q.enqueue(1)
+    for (const value of Q.consuming()) {
+      expect(value).toBe(1)
+      break
+    }
+    Q.resize(2)
+    Q.enqueue(2)
+    expect(Q.size).toBe(1)
+    expect(Q.front()).toBe(2)
+    expect(Array.from(Q)).toEqual([2])
+  })
+
   it('dequeue', () => {
     expect(Q.size).toEqual(0)
     expect(Array.from(Q)).toEqual([])

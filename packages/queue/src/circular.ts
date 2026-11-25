@@ -169,13 +169,14 @@ export class CircularQueue<T = unknown> implements ICircularQueue<T> {
     while (this._size > 0) {
       const target: T = this._elements[this._start]
       this._size -= 1
-      this._start = this._start + 1 === this._capacity ? 0 : this._start + 1
+      if (this._size === 0) {
+        this._start = 0
+        this._end = -1
+      } else {
+        this._start = this._start + 1 === this._capacity ? 0 : this._start + 1
+      }
       yield target
     }
-
-    this._size = 0
-    this._start = 0
-    this._end = -1
   }
 
   public dequeue(newElement?: T): T | undefined {
