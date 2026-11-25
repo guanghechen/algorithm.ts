@@ -28,9 +28,10 @@ export class GomokuMover implements IGomokuMover {
   }
 
   public init(pieces: Iterable<IGomokuPiece>): void {
-    this.context.init(pieces)
-    this.counter.init(pieces)
-    this.state.init(pieces)
+    const pieceList: readonly IGomokuPiece[] = Array.isArray(pieces) ? pieces : Array.from(pieces)
+    this.context.init(pieceList)
+    this.counter.init(pieceList)
+    this.state.init(pieceList)
   }
 
   public forward(posId: number, playerId: number): void {

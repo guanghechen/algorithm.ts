@@ -1,4 +1,4 @@
-import type { IGomokuMoverContext, IGomokuSolutionProps } from '../src'
+import type { IGomokuCandidateState, IGomokuMoverContext, IGomokuSolutionProps } from '../src'
 import { GomokuSolution } from '../src'
 
 class Solution extends GomokuSolution {
@@ -18,6 +18,19 @@ describe('construction', () => {
     expect(solution.moverContext.MAX_ADJACENT).toEqual(5)
     expect(solution.moverContext.TOTAL_POS).toEqual(15 * 15)
     expect(solution.moverContext.MAX_DISTANCE_OF_NEIGHBOR).toEqual(2)
+  })
+
+  it('initializes the same candidates from an array and its iterator', () => {
+    const pieces = [{ r: 2, c: 2, p: 0 }]
+    const [fromArray, fromIterator] = [pieces, pieces.values()].map(input => {
+      const solution = new GomokuSolution({ MAX_ROW: 5, MAX_COL: 5 })
+      solution.init(input)
+      const candidates: IGomokuCandidateState[] = []
+      solution.mover.expand(1, candidates, 1.5)
+      return new Set(candidates.map(({ posId }) => posId))
+    })
+    expect(fromArray.size).toBeGreaterThan(0)
+    expect(fromIterator).toEqual(fromArray)
   })
 })
 
